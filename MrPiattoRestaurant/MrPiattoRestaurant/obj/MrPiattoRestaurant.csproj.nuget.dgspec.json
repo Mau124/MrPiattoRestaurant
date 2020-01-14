@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Andres\\Desktop\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant.csproj": {}
+    "C:\\Users\\Andres\\Desktop\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Andres\\Desktop\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant.csproj": {
+    "C:\\Users\\Andres\\Desktop\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Andres\\Desktop\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant.csproj",
+        "projectUniqueName": "C:\\Users\\Andres\\Desktop\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant.csproj",
         "projectName": "MrPiattoRestaurant",
-        "projectPath": "C:\\Users\\Andres\\Desktop\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant.csproj",
+        "projectPath": "C:\\Users\\Andres\\Desktop\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant.csproj",
         "packagesPath": "C:\\Users\\Andres\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Andres\\Desktop\\MrPiattoRestaurant\\MrPiattoRestaurant\\obj\\",
+        "outputPath": "C:\\Users\\Andres\\Desktop\\MrPiattoRestaurant\\MrPiattoRestaurant\\MrPiattoRestaurant\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
