@@ -55,12 +55,13 @@ namespace MrPiattoRestaurant
             return secondY;
         }
 
-        public void AddCoordinates(int x, int y)
+        public void SetCoordinates(float x1, float y1, float x2, float y2)
         {
-            firstX += x;
-            secondX += x;
-            firstY += y;
-            secondY += y;
+            icon.SetBounds((int)x1, (int)y1, (int)x2, (int)y2);
+            firstX = (int)x1;
+            firstY = (int)y1;
+            secondX = (int)x2;
+            secondY = (int)y2;
         }
 
     }

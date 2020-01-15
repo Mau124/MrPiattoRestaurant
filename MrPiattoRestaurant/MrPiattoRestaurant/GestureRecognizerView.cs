@@ -22,11 +22,13 @@ namespace MrPiattoRestaurant
 
         //If it is valid to move a table
         public bool moveValid = false;
+        public int iterator = 0;
 
         public float DifferentX = 0, DifferentY = 0, AbsolutTouchX = 0, AbsolutTouchY = 0;
 
         private static readonly int InvalidPointerId = -1;
 
+        private Drawable border, delete, options;
         private readonly List<Table> tables = new List<Table>();
         private readonly ScaleGestureDetector _scaleDetector;
 
@@ -39,6 +41,10 @@ namespace MrPiattoRestaurant
         public GestureRecognizerView(Context context, string name) :
             base(context, null, 0)
         {
+            border = context.Resources.GetDrawable(Resource.Drawable.border);
+            delete = context.Resources.GetDrawable(Resource.Drawable.border);
+            options = context.Resources.GetDrawable(Resource.Drawable.border);
+
             this.name = name;
             moveValid = false;
 
@@ -61,10 +67,9 @@ namespace MrPiattoRestaurant
                 case MotionEventActions.Down:
                     _lastTouchX = ev.GetX();
                     _lastTouchY = ev.GetY();
-
+                    
                     DifferentX = _posX * (-1);
                     DifferentY = _posY * (-1);
-
 
                     AbsolutTouchX = DifferentX + _lastTouchX;
                     AbsolutTouchY = DifferentY + _lastTouchY;
@@ -82,22 +87,28 @@ namespace MrPiattoRestaurant
                         if (isTable(tables[i], (int)AbsolutTouchX, (int)AbsolutTouchY))
                         {
                             tablePressed = true;
+                            iterator = i;
                         }
                     }
 
                     if (tablePressed)
                     {
+                        border.SetBounds(tables[iterator].getFirstX() - 4, tables[iterator].getFistY() - 4, tables[iterator].getSecondX() + 5, tables[iterator].getSecondY() + 5);
+                        delete.SetBounds(tables[iterator].getSecondX() + 5, tables[iterator].getFistY() - 4, tables[iterator].getSecondX() + 50, tables[iterator].getFistY() + 40);
+                        options.SetBounds(tables[iterator].getSecondX() + 5, tables[iterator].getFistY() + 50, tables[iterator].getSecondX() + 50, tables[iterator].getFistY() + 90);
+
                         Toast.MakeText(Application.Context, "Se presiono una mesa", ToastLength.Short).Show();
                         moveValid = true;
+                        Invalidate();
                     }
                     else
                     {
                         Toast.MakeText(Application.Context, "No se presiono una mesa. Sino el mapa", ToastLength.Short).Show();
                         moveValid = false;
+                        Invalidate();
                     }
 
                     _activePointerId = ev.GetPointerId(0);
-                    Invalidate();
                     break;
 
                 case MotionEventActions.Move:
@@ -106,16 +117,36 @@ namespace MrPiattoRestaurant
                     float y = ev.GetY(pointerIndex);
                     if (!_scaleDetector.IsInProgress)
                     {
-                        //Only move the ScaleGestureDetector isn't already processing a gesture
                         float deltaX = x - _lastTouchX;
                         float deltaY = y - _lastTouchY;
-                        _posX += deltaX;
-                        _posY += deltaY;
+                        //Only move the ScaleGestureDetector isn't already processing a gesture
+                        if (!moveValid)
+                        {
+                            _posX += deltaX;
+                            _posY += deltaY;
+                        }
                         Invalidate();
                     }
 
                     _lastTouchX = x;
                     _lastTouchY = y;
+
+                    DifferentX = _posX * (-1);
+                    DifferentY = _posY * (-1);
+
+                    AbsolutTouchX = DifferentX + _lastTouchX;
+                    AbsolutTouchY = DifferentY + _lastTouchY;
+
+                    AbsolutTouchX *= (1 / _scaleFactor);
+                    AbsolutTouchY *= (1 / _scaleFactor);
+
+                    if (moveValid)
+                    {
+                        tables[iterator].SetCoordinates(AbsolutTouchX - 110, AbsolutTouchY - 76, AbsolutTouchX + 110, AbsolutTouchY + 76);
+                        border.SetBounds((int)AbsolutTouchX - 110, (int)AbsolutTouchY - 76, (int)AbsolutTouchX + 110, (int)AbsolutTouchY + 76);
+                        Toast.MakeText(Application.Context, "X: " + tables[iterator].getFirstX() + " Y: " + tables[iterator].getFistY() + " Border x,y = " + (AbsolutTouchX - 110) + "," + (AbsolutTouchY - 76), ToastLength.Short).Show();
+                        Invalidate();
+                    }
 
                     break;
 
@@ -157,9 +188,14 @@ namespace MrPiattoRestaurant
         {
             base.OnDraw(canvas);
             canvas.Save();
-            canvas.Translate(_posX, _posY);
             canvas.Scale(_scaleFactor, _scaleFactor);
-            
+            canvas.Translate(_posX, _posY);
+            if (moveValid)
+            {
+                border.Draw(canvas);
+                delete.Draw(canvas);
+                options.Draw(canvas);
+            }
             foreach (Table t in tables)
             {
                 t.getIcon().Draw(canvas);

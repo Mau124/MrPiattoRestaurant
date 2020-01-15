@@ -51,19 +51,47 @@ namespace MrPiattoRestaurant
         {
             View floor = new GestureRecognizerView(this, "Nuevo Piso");
             floors.Add(floor);
-            floorsNames.Add("Nuevo Piso");
 
-            //We clean the view and add the new floor
-            container.RemoveAllViews();
-            container.AddView(floors[floors.Count - 1]);
+            //We create the dialog window
+            View view = LayoutInflater.Inflate(Resource.Layout.AddFloor, null);
+            Android.App.AlertDialog dialog = new Android.App.AlertDialog.Builder(this).Create();
+            dialog.SetView(view);
+            dialog.SetCanceledOnTouchOutside(true);
 
-            //Update Spinner and select last floor
-            var adapter = new ArrayAdapter<string>(this,
-               Android.Resource.Layout.SimpleSpinnerItem, floorsNames);
-            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            floorName.Adapter = adapter;
+            EditText name;
+            Button cancel, accept;
 
-            floorName.SetSelection(floorsNames.Count - 1);
+            name = view.FindViewById<EditText>(Resource.Id.idFloor);
+            cancel = view.FindViewById<Button>(Resource.Id.idCancel);
+            accept = view.FindViewById<Button>(Resource.Id.idAccept);
+
+            cancel.Click += delegate
+            {
+                dialog.Dismiss();
+            };
+
+            accept.Click += delegate
+            {
+                floorsNames.Add(name.Text);
+
+
+                //Update Spinner and select last floor
+                var adapter = new ArrayAdapter<string>(this,
+                   Android.Resource.Layout.SimpleSpinnerItem, floorsNames);
+                adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+                floorName.Adapter = adapter;
+
+
+                //We clean the view and add the new floor
+                container.RemoveAllViews();
+                container.AddView(floors[floors.Count - 1]);
+
+                floorName.SetSelection(floorsNames.Count - 1);
+
+                dialog.Dismiss();
+            };
+
+            dialog.Show();
         }
 
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs ev)
