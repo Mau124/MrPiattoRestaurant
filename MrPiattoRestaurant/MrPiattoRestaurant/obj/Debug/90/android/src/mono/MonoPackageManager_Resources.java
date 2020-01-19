@@ -15,6 +15,8 @@ public class MonoPackageManager_Resources {
 		"Xamarin.Android.Support.AsyncLayoutInflater.dll",
 		"Xamarin.Android.Support.Collections.dll",
 		"Xamarin.Android.Support.Compat.dll",
+		"Xamarin.Android.Support.Constraint.Layout.dll",
+		"Xamarin.Android.Support.Constraint.Layout.Solver.dll",
 		"Xamarin.Android.Support.CoordinaterLayout.dll",
 		"Xamarin.Android.Support.Core.UI.dll",
 		"Xamarin.Android.Support.Core.Utils.dll",

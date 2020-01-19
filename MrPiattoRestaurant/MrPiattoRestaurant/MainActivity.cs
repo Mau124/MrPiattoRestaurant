@@ -6,6 +6,8 @@ using Android.Widget;
 using Android.Views;
 using Android.Content;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace MrPiattoRestaurant
 {
@@ -13,10 +15,12 @@ namespace MrPiattoRestaurant
     public class MainActivity : AppCompatActivity
     {
         public RelativeLayout container;
+        public LinearLayout options;
         public Button newFloor;
         public Spinner floorName;
-        public List<View> floors = new List<View>();
+        public List<GestureRecognizerView> floors = new List<GestureRecognizerView>();
         public List<string> floorsNames = new List<string>();
+        public View v;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -27,12 +31,14 @@ namespace MrPiattoRestaurant
             container = FindViewById<RelativeLayout>(Resource.Id.container);
             newFloor = FindViewById<Button>(Resource.Id.newFloor);
             floorName = FindViewById<Spinner>(Resource.Id.floorName);
+            options = FindViewById<LinearLayout>(Resource.Id.idOptions);
 
             //We create the first floor and add it to the list of floors
-            View floor = new GestureRecognizerView(this, "Piso 1");
+            GestureRecognizerView floor = new GestureRecognizerView(this, "Piso 1");
             floors.Add(floor);
             floorsNames.Add("Piso 1");
 
+            floor.TablePressed += OnTablePressed;
             //We pass the floor to the container
             container.AddView(floors[0]);
 
@@ -47,9 +53,28 @@ namespace MrPiattoRestaurant
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             floorName.Adapter = adapter;
         }
+
+        public void OnTablePressed(object source, TablePressedEventArgs args)
+        {
+            LayoutInflater inflater = LayoutInflater.From(this);
+            v = inflater.Inflate(Resource.Layout.table_properties, options, true);
+
+            TextView x = v.FindViewById<TextView>(Resource.Id.idTableName);
+
+            x.Text = "Mesa " + args.tableIterator;
+
+            Table t = floors[args.floorIterator].getTableProperties(args.tableIterator);
+            Toast.MakeText(Application.Context, "Se presiono la mesa; X: " + t.getFirstX() + " Y: " + t.getFistY(), ToastLength.Short).Show();
+        }
+
+        public void PressedButton()
+        {
+            options.RemoveViewAt(0);
+            Toast.MakeText(this, "Funciona", ToastLength.Long).Show();
+        }
         public void addFloor()
         {
-            View floor = new GestureRecognizerView(this, "Nuevo Piso");
+            GestureRecognizerView floor = new GestureRecognizerView(this, "Nuevo Piso");
             floors.Add(floor);
 
             //We create the dialog window

@@ -22,20 +22,32 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+           <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cancelar"
             android:id="@+id/idCancel"/>
 
+        </LinearLayout>
+
+
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Agregar"
-            android:id="@+id/idAccept"/>
+            android:id="@+id/idAccept"
+            android:layout_weight="1"/>
+
+        
 
     </LinearLayout>
 </LinearLayout>

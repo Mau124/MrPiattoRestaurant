@@ -17,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="vertical" 
-            android:background="@color/colorPrincipal">
+            android:background="@drawable/containers_design">
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" 
-            android:background="@color/colorPrincipal">
+            android:background="@drawable/containers_design">
 
 
         </LinearLayout>
@@ -40,7 +40,8 @@
         <LinearLayout
             android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:background="#ffff">
+            android:background="@drawable/containers_design"
+            android:id="@+id/idOptions">
 
         </LinearLayout>
 
@@ -52,18 +53,9 @@
 
             <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="530dp"
-            android:id="@+id/container"
-            android:background="@color/colorPlanne"
-            >
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/colorPlanne">
+            android:background="@drawable/containers_design">
 
             <Spinner
                 android:layout_width="wrap_content"
@@ -71,18 +63,26 @@
                 android:textColor="#ffff"
                 android:prompt="@string/select_floor"
                 android:id="@+id/floorName"
-                android:layout_toLeftOf="@+id/newFloor"
-                android:layout_alignParentBottom="true"/>
+                android:layout_toLeftOf="@+id/newFloor"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add"
                 android:id="@+id/newFloor"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentRight="true"/>
 
         </RelativeLayout>
+
+            <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/container"
+            android:background="#F6F7FB"
+            >
+
+        </RelativeLayout>
+
 
         </LinearLayout>
 

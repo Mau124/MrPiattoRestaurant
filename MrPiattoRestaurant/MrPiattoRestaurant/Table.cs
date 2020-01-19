@@ -16,23 +16,46 @@ namespace MrPiattoRestaurant
 {
     public class Table
     {
-        private int firstX, firstY, secondX, secondY;
-        private Drawable icon;
+        private const int width = 235;
+        private const int height = 235;
+        private string tableName { get; set; }
 
-        public Table(Drawable icon, int firstX, int firstY, int secondX, int secondY)
+        private Drawable image;
+        private Drawable border;
+
+        public bool borderOn { get; set; }
+        //Blocked List
+        //Reservation List
+        //Width and heigh
+        //Drawable borde rojo
+        //Url for the image
+
+        private int firstX, firstY, secondX, secondY;
+
+        public Table(Drawable image, Drawable border, int firstX, int firstY)
         {
+            this.image = image;
+            this.border = border;
             this.firstX = firstX;
             this.firstY = firstY;
-            this.secondX = secondX;
-            this.secondY = secondY;
-            this.icon = icon;
 
-            icon.SetBounds(firstX, firstY, secondX, secondY);
+            secondX = firstX + width;
+            secondY = firstY + height;
+
+            borderOn = false;
+
+            image.SetBounds(firstX, firstY, secondX, secondY);
+            border.SetBounds(firstX - 5, firstY - 5, secondX + 5, secondY + 5);
         }
-
+        public void DrawTable(Canvas canvas)
+        {
+            image.Draw(canvas);
+            if (borderOn)
+                border.Draw(canvas);
+        }
         public Drawable getIcon()
         {
-            return icon;
+            return image;
         }
 
         public int getFirstX()
@@ -55,13 +78,14 @@ namespace MrPiattoRestaurant
             return secondY;
         }
 
-        public void SetCoordinates(float x1, float y1, float x2, float y2)
+        public void SetCoordinates(float x1, float y1)
         {
-            icon.SetBounds((int)x1, (int)y1, (int)x2, (int)y2);
             firstX = (int)x1;
             firstY = (int)y1;
-            secondX = (int)x2;
-            secondY = (int)y2;
+            secondX = (int)x1 + width;
+            secondY = (int)y1 + height;
+            image.SetBounds(firstX, firstY, secondX, secondY);
+            border.SetBounds(firstX - 5, firstY - 5, secondX + 5, secondY + 5);
         }
 
     }

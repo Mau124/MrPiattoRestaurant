@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:padding="10dp"
+        android:id="@+id/idTitle"
+        android:background="@drawable/containers_design">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Propiedades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textColor="#000000"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:id="@+id/idCancel"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/close"
+            android:layout_marginTop="10dp"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/idTitle"
+        android:id="@+id/idGeneral"
+        android:background="@drawable/subtitles_design"
+        android:padding="10dp">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="General"
+                android:id="@+id/idTitleGeneral"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre: "
+            app:layout_constraintTop_toBottomOf="@+id/idTitleGeneral"
+            android:id="@+id/idTableName"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" 
+                app:layout_constraintLeft_toRightOf="@+id/idTableName"
+                app:layout_constraintTop_toTopOf="@+id/idTableName"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Asientos: " 
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/idTableName"
+                android:id="@+id/idSeats"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5" 
+                app:layout_constraintLeft_toRightOf="@+id/idSeats"
+                app:layout_constraintTop_toTopOf="@+id/idSeats"/>
+
+        
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estado " 
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/idSeats"
+                android:id="@+id/idState"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idGeneral"
+        android:id="@+id/idDesign"
+        android:background="@drawable/subtitles_design"
+        android:padding="10dp">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Diseño "/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idDesign"
+        android:id="@+id/idBlocks"
+        android:background="@drawable/subtitles_design"
+        android:padding="10dp">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bloqueos mesa "/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idBlocks"
+        android:id="@+id/idReservations"
+        android:background="@drawable/subtitles_design"
+        android:padding="10dp">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reservaciones "/>
+
+        </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar Cambios"
+        app:layout_constraintBottom_toTopOf="@+id/idDeleteTable"
+        android:background="@drawable/save_buttons"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eliminar Mesa"
+        android:id="@+id/idDeleteTable"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/delete_buttons"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textAllCaps="false"/>
+
+</android.support.constraint.ConstraintLayout>
