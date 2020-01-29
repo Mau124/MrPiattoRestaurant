@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System;
 
 using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.Graphics;
@@ -17,21 +13,28 @@ namespace MrPiattoRestaurant
 {
     public class GestureRecognizerView : View
     {
+        public const float screenSizeX = 978;
+        public const float screenSizeY = 526;
+
         float n1, n2;
         //Floors name
         public string name;
 
         //If it is valid to move a table
         public bool moveValid = false;
-        public int iterator = 0;
+
+        // Indexes for floor and table
+        public int tableIndex = new int();
+        public int floorIndex = new int();
 
         TablePressedEventArgs args =  new TablePressedEventArgs();
 
         public float DifferentX = 0, DifferentY = 0, AbsolutTouchX = 0, AbsolutTouchY = 0;
+        public float centerX = screenSizeX / 2, centerY = screenSizeY / 2;
 
         private static readonly int InvalidPointerId = -1;
 
-        private readonly List<Table> tables = new List<Table>();
+        private List<Table> tables = new List<Table>();
         private readonly ScaleGestureDetector _scaleDetector;
 
         private int _activePointerId = InvalidPointerId;
@@ -48,7 +51,7 @@ namespace MrPiattoRestaurant
         public event TablePressedEventHandler TablePressed;
 
         //Raise the event
-        protected virtual void OnTablePressed()
+        protected virtual void OnTablePressed()      
         {
             if (TablePressed != null)
             {
@@ -61,17 +64,24 @@ namespace MrPiattoRestaurant
             return tables[iterator];
         }
 
-        public GestureRecognizerView(Context context, string name) :
+        public void DeleteTable(int iterator)
+        {
+            tables.RemoveAt(iterator);
+            tableIndex = 0;
+        }
+
+        public GestureRecognizerView(Context context, string name, int floorIndex) :
             base(context, null, 0)
         {
 
             this.name = name;
+            this.floorIndex = floorIndex;
             moveValid = false;
 
-            tables.Add(new Table(context.Resources.GetDrawable(Resource.Drawable.Table1), context.Resources.GetDrawable(Resource.Drawable.border), 30, 30));
-            tables.Add(new Table(context.Resources.GetDrawable(Resource.Drawable.Table1), context.Resources.GetDrawable(Resource.Drawable.border), 30, 300));
-            tables.Add(new Table(context.Resources.GetDrawable(Resource.Drawable.Table1), context.Resources.GetDrawable(Resource.Drawable.border), 315, 30));
-            tables.Add(new Table(context.Resources.GetDrawable(Resource.Drawable.Table1), context.Resources.GetDrawable(Resource.Drawable.border), 600, 30));
+            tables.Add(new Table(context.Resources.GetDrawable(Resource.Drawable.Table1), context.Resources.GetDrawable(Resource.Drawable.border), 30, 30, false));
+            tables.Add(new Table(context.Resources.GetDrawable(Resource.Drawable.Table1), context.Resources.GetDrawable(Resource.Drawable.border), 30, 300, false));
+            tables.Add(new Table(context.Resources.GetDrawable(Resource.Drawable.Table1), context.Resources.GetDrawable(Resource.Drawable.border), 315, 30, false));
+            tables.Add(new Table(context.Resources.GetDrawable(Resource.Drawable.Table1), context.Resources.GetDrawable(Resource.Drawable.border), 600, 30, false));
             
             _scaleDetector = new ScaleGestureDetector(context, new MyScaleListener(this));
         }
@@ -97,10 +107,10 @@ namespace MrPiattoRestaurant
                     AbsolutTouchX *= (1 / _scaleFactor);
                     AbsolutTouchY *= (1 / _scaleFactor);
 
-                    tables[iterator].borderOn = false;
+                    tables[tableIndex].borderOn = false;
                     //Toast.MakeText(Application.Context, "X: " + _lastTouchX + " Y: " + _lastTouchY, ToastLength.Short).Show();
 
-                    Toast.MakeText(Application.Context, "Factor: " + _scaleFactor + " X: " + AbsolutTouchX + " Y: " + AbsolutTouchY, ToastLength.Short).Show();
+                    Toast.MakeText(Application.Context, "X: " + centerX + "Y: " + centerY, ToastLength.Short).Show();
 
                     //We check if we pressed a table
                     bool tablePressed = false;
@@ -109,30 +119,28 @@ namespace MrPiattoRestaurant
                         if (isTable(tables[i], (int)AbsolutTouchX, (int)AbsolutTouchY))
                         {
                             tablePressed = true;
-                            iterator = i;
+                            tableIndex = i;
                         }
                     }
 
                     if (tablePressed)
                     {
-                        args.floorIterator = 0;
-                        args.tableIterator = iterator;
+                        args.floorIterator = floorIndex;
+                        args.tableIterator = tableIndex;
                         OnTablePressed();
                         moveValid = true;
 
-                        tables[iterator].borderOn = true;
+                        tables[tableIndex].borderOn = true;
 
-                        n1 = AbsolutTouchX - tables[iterator].getFirstX();
-                        n2 = AbsolutTouchY - tables[iterator].getFistY();
-
-                        Invalidate();
+                        n1 = AbsolutTouchX - tables[tableIndex].getFirstX();
+                        n2 = AbsolutTouchY - tables[tableIndex].getFistY();
                     }
                     else
                     { 
                         moveValid = false;
-                        Invalidate();
                     }
 
+                    Invalidate();
                     _activePointerId = ev.GetPointerId(0);
                     break;
 
@@ -163,12 +171,18 @@ namespace MrPiattoRestaurant
                     AbsolutTouchX = DifferentX + _lastTouchX;
                     AbsolutTouchY = DifferentY + _lastTouchY;
 
+                    centerX = (AbsolutTouchX - _lastTouchX) + (screenSizeX / 2);
+                    centerY = (AbsolutTouchY - _lastTouchY) + (screenSizeY / 2);
+
                     AbsolutTouchX *= (1 / _scaleFactor);
                     AbsolutTouchY *= (1 / _scaleFactor);
 
+                    centerX *= (1 / _scaleFactor);
+                    centerY *= (1 / _scaleFactor);
+
                     if (moveValid)
                     {
-                        tables[iterator].SetCoordinates(AbsolutTouchX - n1, AbsolutTouchY - n2);
+                        tables[tableIndex].SetCoordinates(AbsolutTouchX - n1, AbsolutTouchY - n2);
                         Invalidate();
                     }
 
@@ -208,6 +222,18 @@ namespace MrPiattoRestaurant
             return false;
         }
 
+        public void Draw()
+        {
+            Invalidate();
+        }
+
+        public void AddTable(Drawable table, Context context)
+        {
+            tables.ElementAt(tableIndex).borderOn = false;
+            tables.Add(new Table(table, context.Resources.GetDrawable(Resource.Drawable.border), (int)centerX, (int)centerY, true));
+            Invalidate();
+        }
+
         protected override void OnDraw(Canvas canvas)
         {
             base.OnDraw(canvas);
@@ -218,7 +244,8 @@ namespace MrPiattoRestaurant
             {
                 t.DrawTable(canvas);
             }
-            tables[iterator].DrawTable(canvas);
+            if (tables.Count() > 0) 
+                tables[tableIndex].DrawTable(canvas);
             canvas.Restore();
         }
 

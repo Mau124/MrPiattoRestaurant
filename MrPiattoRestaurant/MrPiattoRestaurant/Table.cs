@@ -16,8 +16,8 @@ namespace MrPiattoRestaurant
 {
     public class Table
     {
-        private const int width = 235;
-        private const int height = 235;
+        private const int width = 100;
+        private const int height = 100;
         private string tableName { get; set; }
 
         private Drawable image;
@@ -32,20 +32,21 @@ namespace MrPiattoRestaurant
 
         private int firstX, firstY, secondX, secondY;
 
-        public Table(Drawable image, Drawable border, int firstX, int firstY)
+        public Table(Drawable image, Drawable border, int firstX, int firstY, bool borderOn)
         {
             this.image = image;
             this.border = border;
-            this.firstX = firstX;
-            this.firstY = firstY;
+            this.firstX = firstX - (width / 2);
+            this.firstY = firstY - (height / 2);
+            this.borderOn = borderOn;
 
-            secondX = firstX + width;
-            secondY = firstY + height;
+            secondX = this.firstX + width;
+            secondY = this.firstY + height;
 
             borderOn = false;
 
-            image.SetBounds(firstX, firstY, secondX, secondY);
-            border.SetBounds(firstX - 5, firstY - 5, secondX + 5, secondY + 5);
+            image.SetBounds(this.firstX, this.firstY, secondX, secondY);
+            border.SetBounds(this.firstX - 5, this.firstY - 5, secondX + 5, secondY + 5);
         }
         public void DrawTable(Canvas canvas)
         {
@@ -53,11 +54,6 @@ namespace MrPiattoRestaurant
             if (borderOn)
                 border.Draw(canvas);
         }
-        public Drawable getIcon()
-        {
-            return image;
-        }
-
         public int getFirstX()
         {
             return firstX;

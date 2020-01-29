@@ -1,53 +1,79 @@
-﻿<LinearLayout
+﻿<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="Agregar Piso"
-        android:textSize="30dp"/>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:padding="10dp"
+        android:id="@+id/idTitle"
+        android:background="@drawable/containers_design">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar Piso"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textColor="#000000"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:id="@+id/idCancel"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/close"
+            android:layout_marginTop="10dp"/>
+
+        </android.support.constraint.ConstraintLayout>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/idTitle"
         android:hint="Nombre del piso"
-        android:id="@+id/idFloor"/>
+        android:id="@+id/idFloorName"/>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/containers_design"
+        android:paddingTop="10dp">
 
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar"
+        app:layout_constraintBottom_toTopOf="@+id/idDeleteButton"
+        android:background="@drawable/save_buttons"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textAllCaps="false"
+        android:id="@+id/idAddButton"/>
 
-           <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cancelar"
-            android:id="@+id/idCancel"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancelar"
+        android:id="@+id/idDeleteButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/delete_buttons"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textAllCaps="false"/>
 
-        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Agregar"
-            android:id="@+id/idAccept"
-            android:layout_weight="1"/>
-
-        
-
-    </LinearLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

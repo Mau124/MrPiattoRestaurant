@@ -51,11 +51,11 @@
             android:background="@color/colorPlanne"
             android:orientation="vertical">
 
-            <RelativeLayout
+          <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/containers_design">
+            android:background="@drawable/containers_design"
+            android:padding="5dp">
 
             <Spinner
                 android:layout_width="wrap_content"
@@ -63,16 +63,30 @@
                 android:textColor="#ffff"
                 android:prompt="@string/select_floor"
                 android:id="@+id/floorName"
-                android:layout_toLeftOf="@+id/newFloor"/>
+                app:layout_constraintRight_toLeftOf="@+id/newFloor"/>
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add"
+                android:layout_height="40dp"
+                android:text="Agregar Piso"
                 android:id="@+id/newFloor"
-                android:layout_alignParentRight="true"/>
+                app:layout_constraintRight_toLeftOf="@+id/idModify"
+                android:background="@drawable/delete_buttons"
+                android:textColor="#ffffff"
+                android:textAllCaps="false"
+                android:layout_marginRight="5dp"/>
 
-        </RelativeLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Modificar"
+                app:layout_constraintRight_toRightOf="parent"
+                android:background="@drawable/delete_buttons"
+                android:id="@+id/idModify"
+                android:textColor="#ffffff"
+                android:textAllCaps="false"/>
+
+        </android.support.constraint.ConstraintLayout>
 
             <RelativeLayout
             android:layout_width="match_parent"
