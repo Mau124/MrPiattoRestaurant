@@ -77,11 +77,6 @@ namespace MrPiattoRestaurant
             this.name = name;
             this.floorIndex = floorIndex;
             moveValid = false;
-
-            tables.Add(new Table(context.Resources.GetDrawable(Resource.Drawable.Table1), context.Resources.GetDrawable(Resource.Drawable.border), 30, 30, false));
-            tables.Add(new Table(context.Resources.GetDrawable(Resource.Drawable.Table1), context.Resources.GetDrawable(Resource.Drawable.border), 30, 300, false));
-            tables.Add(new Table(context.Resources.GetDrawable(Resource.Drawable.Table1), context.Resources.GetDrawable(Resource.Drawable.border), 315, 30, false));
-            tables.Add(new Table(context.Resources.GetDrawable(Resource.Drawable.Table1), context.Resources.GetDrawable(Resource.Drawable.border), 600, 30, false));
             
             _scaleDetector = new ScaleGestureDetector(context, new MyScaleListener(this));
         }
@@ -229,8 +224,12 @@ namespace MrPiattoRestaurant
 
         public void AddTable(Drawable table, Context context)
         {
-            tables.ElementAt(tableIndex).borderOn = false;
+            if (tables.Count() > 0)
+                tables.ElementAt(tableIndex).borderOn = false;
             tables.Add(new Table(table, context.Resources.GetDrawable(Resource.Drawable.border), (int)centerX, (int)centerY, true));
+            args.floorIterator = floorIndex;
+            args.tableIterator = tables.Count() - 1;
+            OnTablePressed();
             Invalidate();
         }
 

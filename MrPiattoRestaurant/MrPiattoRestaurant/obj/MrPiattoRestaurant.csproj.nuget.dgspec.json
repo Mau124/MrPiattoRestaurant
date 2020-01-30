@@ -38,6 +38,10 @@
       "frameworks": {
         "monoandroid90": {
           "dependencies": {
+            "Xamarin.Android.Support.Annotations": {
+              "target": "Package",
+              "version": "[28.0.0.1, )"
+            },
             "Xamarin.Android.Support.Constraint.Layout": {
               "target": "Package",
               "version": "[1.1.2, )"
@@ -51,6 +55,10 @@
               "version": "[28.0.0.1, )"
             },
             "Xamarin.Android.Support.Design": {
+              "target": "Package",
+              "version": "[28.0.0.1, )"
+            },
+            "Xamarin.Android.Support.v7.RecyclerView": {
               "target": "Package",
               "version": "[28.0.0.1, )"
             },

@@ -8,6 +8,8 @@ using Android.Content;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Android.Support.V7.Widget;
+using MrPiattoRestaurant.adapters;
 
 namespace MrPiattoRestaurant
 {
@@ -50,7 +52,7 @@ namespace MrPiattoRestaurant
 
             modifyFloor.Click += delegate
             {
-                floors.ElementAt(floorIndex).AddTable(this.Resources.GetDrawable(Resource.Drawable.Table1), this);
+                catalogueTable();
             };
 
             //Create events for the spinner
@@ -121,12 +123,34 @@ namespace MrPiattoRestaurant
                 adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
                 floorName.Adapter = adapter;
                 floorName.SetSelection(floorsNames.Count() - 1);
+
+                catalogueTable();
             };
 
             //We create the dialog window
-
         }
 
+        public void catalogueTable()
+        {
+            RecyclerView mRecyclerView;
+            SectionedExpandableGridHelper mSectionedExpandableHelper;
+
+            options.RemoveAllViews();
+
+            LayoutInflater inflater = LayoutInflater.From(this);
+            View catalogueTables = inflater.Inflate(Resource.Layout.layout_catalogue, options, true);
+
+            mRecyclerView = catalogueTables.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
+            mSectionedExpandableHelper = new SectionedExpandableGridHelper(this, mRecyclerView, 3);
+
+            mSectionedExpandableHelper.ItemPressed += OnItemPressed;
+        }
+
+        public void OnItemPressed(object source, int idTable)
+        {
+            floors.ElementAt(floorIndex).AddTable(this.Resources.GetDrawable(idTable), this);
+            Toast.MakeText(this, "Posicion: " + idTable , ToastLength.Long).Show();
+        }
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs ev)
         {
             Spinner spinner = (Spinner)sender;

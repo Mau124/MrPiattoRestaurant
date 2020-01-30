@@ -35,75 +35,7 @@
 
         </android.support.constraint.ConstraintLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/idTitle"
-        android:id="@+id/idSquareTables"
-        android:fillViewport="false">
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/idCirculares"
-                android:background="@drawable/subtitles_design"
-                android:orientation="vertical"
-                android:paddingBottom="10dp">
-            
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mesas cuadradas "
-                   android:layout_margin="10dp"/>
-
-                <GridView 
-                    android:id="@+id/idTablesGrid"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:columnWidth="90dp"
-                    android:numColumns="auto_fit"
-                    android:verticalSpacing="10dp"
-                    android:horizontalSpacing="10dp"
-                    android:stretchMode="columnWidth"
-                    android:gravity="center"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/idDesign"
-                android:background="@drawable/subtitles_design"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/idCirculares">
-            
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mesas circulares "
-                    android:layout_margin="10dp"/>
-
-                <GridView 
-                    android:id="@+id/idCircleTablesGrid"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:columnWidth="90dp"
-                    android:numColumns="4"
-                    android:verticalSpacing="10dp"
-                    android:horizontalSpacing="10dp"
-                    android:stretchMode="columnWidth"
-                    android:gravity="center"/>
-
-            </LinearLayout>
-
-        </android.support.constraint.ConstraintLayout>
-    
-
-    </ScrollView>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
