@@ -3,6 +3,7 @@ adaptive-icon;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\activity_main.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\addfloor.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_catalogue.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_main_container.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\modify_floor.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\table_properties.xml
 android.support.v7.widget.CardView;obj\Debug\90\res\layout\layout_section.xml
@@ -12,6 +13,7 @@ background;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
 Button;obj\Debug\90\res\layout\activity_main.xml
 Button;obj\Debug\90\res\layout\addfloor.xml
 Button;obj\Debug\90\res\layout\layout_catalogue.xml
+Button;obj\Debug\90\res\layout\layout_main_container.xml
 Button;obj\Debug\90\res\layout\modify_floor.xml
 Button;obj\Debug\90\res\layout\table_properties.xml
 cache-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\37\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
@@ -26,6 +28,7 @@ external-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPi
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
 GridView;obj\Debug\90\res\layout\modify_floor.xml
+ImageButton;obj\Debug\90\res\layout\layout_main_container.xml
 ImageView;obj\Debug\90\res\layout\addfloor.xml
 ImageView;obj\Debug\90\res\layout\layout_catalogue.xml
 ImageView;obj\Debug\90\res\layout\layout_item.xml
@@ -36,9 +39,11 @@ item;obj\Debug\90\res\drawable\theme_color.xml
 item;obj\Debug\90\res\values\styles.xml
 LinearLayout;obj\Debug\90\res\layout\activity_main.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item.xml
+LinearLayout;obj\Debug\90\res\layout\layout_main_container.xml
 LinearLayout;obj\Debug\90\res\layout\layout_section.xml
 LinearLayout;obj\Debug\90\res\layout\modify_floor.xml
 LinearLayout;obj\Debug\90\res\layout\table_properties.xml
+padding;obj\Debug\90\res\drawable\subtitles_design.xml
 paths;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\37\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 RelativeLayout;obj\Debug\90\res\layout\activity_main.xml
 RelativeLayout;obj\Debug\90\res\layout\layout_catalogue.xml
@@ -51,15 +56,18 @@ ScrollView;obj\Debug\90\res\layout\modify_floor.xml
 selector;obj\Debug\90\res\drawable\theme_color.xml
 shape;obj\Debug\90\res\drawable\containers_design.xml
 shape;obj\Debug\90\res\drawable\delete_buttons.xml
+shape;obj\Debug\90\res\drawable\main_sections.xml
 shape;obj\Debug\90\res\drawable\save_buttons.xml
 shape;obj\Debug\90\res\drawable\subtitles_design.xml
 shape;obj\Debug\90\res\drawable\theme_color.xml
 size;obj\Debug\90\res\drawable\containers_design.xml
 size;obj\Debug\90\res\drawable\delete_buttons.xml
+size;obj\Debug\90\res\drawable\main_sections.xml
 size;obj\Debug\90\res\drawable\save_buttons.xml
 size;obj\Debug\90\res\drawable\subtitles_design.xml
 solid;obj\Debug\90\res\drawable\containers_design.xml
 solid;obj\Debug\90\res\drawable\delete_buttons.xml
+solid;obj\Debug\90\res\drawable\main_sections.xml
 solid;obj\Debug\90\res\drawable\save_buttons.xml
 solid;obj\Debug\90\res\drawable\subtitles_design.xml
 solid;obj\Debug\90\res\drawable\theme_color.xml
@@ -73,6 +81,7 @@ style;obj\Debug\90\res\values\styles.xml
 TextView;obj\Debug\90\res\layout\addfloor.xml
 TextView;obj\Debug\90\res\layout\layout_catalogue.xml
 TextView;obj\Debug\90\res\layout\layout_item.xml
+TextView;obj\Debug\90\res\layout\layout_main_container.xml
 TextView;obj\Debug\90\res\layout\layout_section.xml
 TextView;obj\Debug\90\res\layout\modify_floor.xml
 TextView;obj\Debug\90\res\layout\table_properties.xml

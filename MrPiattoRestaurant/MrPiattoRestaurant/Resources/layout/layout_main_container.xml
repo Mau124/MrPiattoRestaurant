@@ -1,0 +1,60 @@
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.9"
+        android:id="@+id/idContainer"
+        android:background="@drawable/subtitles_design">
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ImageButton
+        android:src="@drawable/food"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.25"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/idActual"
+        android:background="@drawable/main_sections"/>
+
+    <ImageButton
+        android:src="@drawable/book"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.25"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toRightOf="@+id/idActual"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/idFuture"
+        android:background="@drawable/main_sections"/>
+
+    <ImageButton
+        android:src="@drawable/hourglass"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.25"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toRightOf="@+id/idFuture"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/idWait"
+        android:background="@drawable/main_sections"/>
+
+    <ImageButton
+        android:src="@drawable/notification"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.25"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toRightOf="@+id/idWait"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/idNotifications"
+        android:background="@drawable/main_sections"/>
+
+</android.support.constraint.ConstraintLayout>

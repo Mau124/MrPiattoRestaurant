@@ -55,6 +55,11 @@ namespace MrPiattoRestaurant
                 catalogueTable();
             };
 
+            options.RemoveAllViews();
+
+            LayoutInflater inflater = LayoutInflater.From(this);
+            View tablePropertiesView = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
+
             //Create events for the spinner
             floorName.ItemSelected += new System.EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
 
@@ -140,16 +145,27 @@ namespace MrPiattoRestaurant
             LayoutInflater inflater = LayoutInflater.From(this);
             View catalogueTables = inflater.Inflate(Resource.Layout.layout_catalogue, options, true);
 
+            ImageView cancel = catalogueTables.FindViewById<ImageView>(Resource.Id.idCancel);
+
             mRecyclerView = catalogueTables.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
             mSectionedExpandableHelper = new SectionedExpandableGridHelper(this, mRecyclerView, 3);
 
             mSectionedExpandableHelper.ItemPressed += OnItemPressed;
+            cancel.Click += delegate { OnCancel(catalogueTables); };
         }
 
         public void OnItemPressed(object source, int idTable)
         {
             floors.ElementAt(floorIndex).AddTable(this.Resources.GetDrawable(idTable), this);
             Toast.MakeText(this, "Posicion: " + idTable , ToastLength.Long).Show();
+        }
+
+        public void OnCancel(View view)
+        {
+            options.RemoveAllViews();
+            LayoutInflater inflater = LayoutInflater.From(this);
+            View tablePropertiesView = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
+            Toast.MakeText(this, "Se presiono ", ToastLength.Long).Show();
         }
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs ev)
         {
