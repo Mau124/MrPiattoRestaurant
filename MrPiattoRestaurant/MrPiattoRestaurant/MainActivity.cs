@@ -1,15 +1,20 @@
-﻿using Android.App;
+﻿using System.Collections.Generic;
+using System;
+using System.Linq;
+
+using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Runtime;
 using Android.Widget;
 using Android.Views;
 using Android.Content;
-using System.Collections.Generic;
-using System;
-using System.Linq;
 using Android.Support.V7.Widget;
+
 using MrPiattoRestaurant.adapters;
+using MrPiattoRestaurant.Fragments.Reservations;
+using MrPiattoRestaurant.Pickers;
+using MrPiattoRestaurant.InteractiveViews;
 
 namespace MrPiattoRestaurant
 {
@@ -23,6 +28,10 @@ namespace MrPiattoRestaurant
         public List<GestureRecognizerView> floors = new List<GestureRecognizerView>();
         public List<string> floorsNames = new List<string>();
         public View v;
+        public TextView date, hour;
+        public Android.Support.Constraints.ConstraintLayout timeLine;
+
+        public ActualFragment actualFragment = new ActualFragment();
 
         public int floorIndex = new int();
         protected override void OnCreate(Bundle savedInstanceState)
@@ -37,6 +46,10 @@ namespace MrPiattoRestaurant
             modifyFloor = FindViewById<Button>(Resource.Id.idModify);
             floorName = FindViewById<Spinner>(Resource.Id.floorName);
             options = FindViewById<LinearLayout>(Resource.Id.idOptions);
+            timeLine = FindViewById <Android.Support.Constraints.ConstraintLayout>(Resource.Id.idTimeLine);
+
+            date = FindViewById<TextView>(Resource.Id.idDate);
+            hour = FindViewById<TextView>(Resource.Id.idHour);
 
             //We create the first floor and add it to the list of floors
             GestureRecognizerView floor = new GestureRecognizerView(this, "Piso 1", 0);
@@ -46,6 +59,9 @@ namespace MrPiattoRestaurant
             floor.TablePressed += OnTablePressed;
             //We pass the floor to the container
             container.AddView(floors.ElementAt(floorIndex));
+
+            TimeLineView timeLineView = new TimeLineView(this);
+            timeLine.AddView(timeLineView);
 
             //Event to create another floor
             newFloor.Click += delegate { addFloor(); };
@@ -60,6 +76,8 @@ namespace MrPiattoRestaurant
             LayoutInflater inflater = LayoutInflater.From(this);
             View tablePropertiesView = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
 
+            FragmentManager.BeginTransaction().Add(Resource.Id.idContainer, actualFragment).Commit();
+
             //Create events for the spinner
             floorName.ItemSelected += new System.EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
 
@@ -67,6 +85,9 @@ namespace MrPiattoRestaurant
                 Android.Resource.Layout.SimpleSpinnerItem, floorsNames);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             floorName.Adapter = adapter;
+
+            date.Click += DateSelect_OnClick;
+            hour.Click += HourSelect_OnClick;
         }
 
         public void OnTablePressed(object source, TablePressedEventArgs args)
@@ -165,6 +186,14 @@ namespace MrPiattoRestaurant
             options.RemoveAllViews();
             LayoutInflater inflater = LayoutInflater.From(this);
             View tablePropertiesView = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
+
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+
+            ActualFragment auxFragment = new ActualFragment(actualFragment.actualList);
+            transaction.Replace(Resource.Id.idContainer, auxFragment);
+            transaction.AddToBackStack(null);
+            transaction.Commit();
+
             Toast.MakeText(this, "Se presiono ", ToastLength.Long).Show();
         }
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs ev)
@@ -179,6 +208,24 @@ namespace MrPiattoRestaurant
 
             
             Toast.MakeText(this, nFloor.ToString(), ToastLength.Long).Show();
+        }
+
+        public void DateSelect_OnClick(object sender, EventArgs args)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                date.Text = time.ToLongDateString();
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        public void HourSelect_OnClick(object sender, EventArgs args)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                hour.Text = time.ToShortTimeString();
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
