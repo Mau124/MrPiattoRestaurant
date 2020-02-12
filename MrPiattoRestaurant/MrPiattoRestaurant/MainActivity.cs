@@ -24,6 +24,7 @@ namespace MrPiattoRestaurant
         public RelativeLayout container;
         public LinearLayout options;
         public Button newFloor, modifyFloor;
+        public ImageButton dashboard;
         public Spinner floorName;
         public List<GestureRecognizerView> floors = new List<GestureRecognizerView>();
         public List<string> floorsNames = new List<string>();
@@ -32,6 +33,8 @@ namespace MrPiattoRestaurant
         public Android.Support.Constraints.ConstraintLayout timeLine;
 
         public ActualFragment actualFragment = new ActualFragment();
+        public FutureFragment futureFragment = new FutureFragment();
+        public WaitFragment waitFragment = new WaitFragment();
 
         public int floorIndex = new int();
         protected override void OnCreate(Bundle savedInstanceState)
@@ -47,6 +50,7 @@ namespace MrPiattoRestaurant
             floorName = FindViewById<Spinner>(Resource.Id.floorName);
             options = FindViewById<LinearLayout>(Resource.Id.idOptions);
             timeLine = FindViewById <Android.Support.Constraints.ConstraintLayout>(Resource.Id.idTimeLine);
+            dashboard = FindViewById<ImageButton>(Resource.Id.idDashboard);
 
             date = FindViewById<TextView>(Resource.Id.idDate);
             hour = FindViewById<TextView>(Resource.Id.idHour);
@@ -74,7 +78,13 @@ namespace MrPiattoRestaurant
             options.RemoveAllViews();
 
             LayoutInflater inflater = LayoutInflater.From(this);
-            View tablePropertiesView = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
+            View mainContainer = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
+
+            ImageButton actual, future, wait;
+
+            actual = mainContainer.FindViewById<ImageButton>(Resource.Id.idActual);
+            future = mainContainer.FindViewById<ImageButton>(Resource.Id.idFuture);
+            wait = mainContainer.FindViewById<ImageButton>(Resource.Id.idWait);
 
             FragmentManager.BeginTransaction().Add(Resource.Id.idContainer, actualFragment).Commit();
 
@@ -88,6 +98,12 @@ namespace MrPiattoRestaurant
 
             date.Click += DateSelect_OnClick;
             hour.Click += HourSelect_OnClick;
+
+            dashboard.Click += OpenDashboard;
+
+            actual.Click += OpenActualFragment;
+            future.Click += OpenFutureFragment;
+            wait.Click += OpenWaitFragment;
         }
 
         public void OnTablePressed(object source, TablePressedEventArgs args)
@@ -226,6 +242,27 @@ namespace MrPiattoRestaurant
                 hour.Text = time.ToShortTimeString();
             });
             frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        public void OpenDashboard(object sender, EventArgs args)
+        {
+            Intent dashboard = new Intent(this, typeof(DashboardActivity));
+            StartActivity(dashboard);
+        }
+
+        public void OpenActualFragment(object sender, EventArgs args)
+        {
+            FragmentManager.BeginTransaction().Replace(Resource.Id.idContainer, actualFragment).AddToBackStack(null).Commit();
+        }
+
+        public void OpenFutureFragment(object sender, EventArgs args)
+        {
+            FragmentManager.BeginTransaction().Add(Resource.Id.idContainer, futureFragment).AddToBackStack(null).Commit();
+        }
+
+        public void OpenWaitFragment(object sender, EventArgs args)
+        {
+            FragmentManager.BeginTransaction().Replace(Resource.Id.idContainer, waitFragment).AddToBackStack(null).Commit();
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

@@ -35,10 +35,12 @@
 
         </android.support.constraint.ConstraintLayout>
 
+    <!--El anterior porcentage era .7 para el contender debajo de este comentario -->
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent=".7"
+        app:layout_constraintHeight_percent=".9"
         app:layout_constraintTop_toBottomOf="@+id/idTitle">
 
       <android.support.v7.widget.RecyclerView
@@ -48,7 +50,7 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.constraint.ConstraintLayout
+<!--    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -82,6 +84,6 @@
         android:layout_marginRight="10dp"
         android:textAllCaps="false"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>-->
 
 </android.support.constraint.ConstraintLayout>

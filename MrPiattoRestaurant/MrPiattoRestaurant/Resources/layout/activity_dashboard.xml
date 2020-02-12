@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.2"
+        android:layout_height="match_parent"
+        android:id="@+id/idOptions"
+        android:background="@drawable/subtitles_design"
+        android:paddingLeft="56dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MrPiatto"
+            android:textSize="50dp"
+            android:id="@+id/idTitle"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="About me"
+            android:id="@+id/idAboutMe"
+            app:layout_constraintTop_toBottomOf="@id/idTitle"
+            android:drawableLeft="@drawable/userdashboard"
+            android:background="@drawable/main_sections"
+        style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        android:fontFamily="sans-serif"
+        android:padding="10dp"/>
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Estadísticas"
+            android:id="@+id/idStatistics"
+            app:layout_constraintTop_toBottomOf="@+id/idAboutMe"
+            android:drawableLeft="@drawable/report"
+        android:background="@drawable/main_sections"
+        style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        android:fontFamily="sans-serif"
+        android:padding="10dp"/>
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Políticas"
+            android:id="@+id/idPolitics"
+            app:layout_constraintTop_toBottomOf="@+id/idStatistics"
+            android:drawableLeft="@drawable/elections"
+        android:background="@drawable/main_sections"
+        style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        android:fontFamily="sans-serif"
+        android:padding="10dp"/>
+
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="Promociones"
+            android:id="@+id/idPromotions"
+            app:layout_constraintTop_toBottomOf="@+id/idPolitics"
+            android:drawableLeft="@drawable/bullhorn"
+        android:background="@drawable/main_sections"
+        style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        android:fontFamily="sans-serif"
+        android:padding="10dp"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="match_parent"
+        android:id="@+id/idContainer"
+        app:layout_constraintLeft_toRightOf="@id/idOptions">
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

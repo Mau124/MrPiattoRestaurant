@@ -61,8 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="adapters\actualListAdapters\ActualListAdapter.cs" />
+    <Compile Include="adapters\futureListAdapters\FutureListAdapter.cs" />
     <Compile Include="adapters\SectionedExpandableGridAdapter.cs" />
     <Compile Include="adapters\SectionedExpandableGridHelper.cs" />
+    <Compile Include="adapters\waitListAdapters\WaitListAdapter.cs" />
+    <Compile Include="DashboardActivity.cs" />
     <Compile Include="Fragments\Reservations\ActualFragment.cs" />
     <Compile Include="Fragments\Reservations\FutureFragment.cs" />
     <Compile Include="Fragments\Reservations\WaitFragment.cs" />
@@ -273,6 +276,37 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\line3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_dashboard.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\userdashboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\elections.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bullhorn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\item_waitList.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\waitListMenu.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\item_futureList.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\futureListMenu.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
