@@ -336,7 +336,6 @@ C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md54c8dcd0b77330a5fe85dc11c98db78f3\DatePickerFragment.java
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md54c8dcd0b77330a5fe85dc11c98db78f3\TimePickerFragment.java
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\menu\actuallistmenu.xml
-C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\MrPiattoRestaurant.csprojAssemblyReference.cache
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\line.png
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md5d35b86d3d0d77ba19a896b42700d31cf\TimeLineView.java
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\line2.png
@@ -355,3 +354,7 @@ C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md5b0e137c4702d4f96a645dd70310c6f5e\FutureListAdapter.java
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md5b0e137c4702d4f96a645dd70310c6f5e\FutureListAdapter_FutureListViewHolder.java
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\menu\futurelistmenu.xml
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\MrPiattoRestaurant.csprojAssemblyReference.cache
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\layout\add_waitlist.xml
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\layout\modify_waitlist.xml

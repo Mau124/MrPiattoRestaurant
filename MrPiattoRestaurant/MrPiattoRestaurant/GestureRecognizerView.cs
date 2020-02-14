@@ -105,7 +105,7 @@ namespace MrPiattoRestaurant
                     tables[tableIndex].borderOn = false;
                     //Toast.MakeText(Application.Context, "X: " + _lastTouchX + " Y: " + _lastTouchY, ToastLength.Short).Show();
 
-                    Toast.MakeText(Application.Context, "X: " + centerX + "Y: " + centerY, ToastLength.Short).Show();
+                    Toast.MakeText(Application.Context, "X: " + AbsolutTouchX + "Y: " + AbsolutTouchY, ToastLength.Short).Show();
 
                     //We check if we pressed a table
                     bool tablePressed = false;
@@ -140,6 +140,7 @@ namespace MrPiattoRestaurant
                     break;
 
                 case MotionEventActions.Move:
+                    Toast.MakeText(Application.Context, "Se esta moviendo", ToastLength.Long).Show();
                     pointerIndex = ev.FindPointerIndex(_activePointerId);
                     float x = ev.GetX(pointerIndex);
                     float y = ev.GetY(pointerIndex);
@@ -203,6 +204,10 @@ namespace MrPiattoRestaurant
                         _activePointerId = ev.GetPointerId(newPointerIndex);
                     }
                     break;
+
+                case MotionEventActions.HoverMove:
+                    Toast.MakeText(Application.Context, "Entro a la vista", ToastLength.Long).Show();
+                    break;
             }
             return true;
         }
@@ -215,6 +220,28 @@ namespace MrPiattoRestaurant
                 return true;
             }
             return false;
+        }
+
+        public bool IsOnTable(float x, float y)
+        {
+            DifferentX = (_posX * (-1)) * (_scaleFactor);
+            DifferentY = (_posY * (-1)) * (_scaleFactor);
+
+            AbsolutTouchX = DifferentX + x;
+            AbsolutTouchY = DifferentY + y;
+
+            AbsolutTouchX *= (1 / _scaleFactor);
+            AbsolutTouchY *= (1 / _scaleFactor);
+
+            bool tablePressed = false;
+            for (int i = 0; i < tables.Count() && !tablePressed; i++)
+            {
+                if (isTable(tables[i], (int) AbsolutTouchX, (int) AbsolutTouchY))
+                {
+                    tablePressed = true;
+                }
+            }
+            return tablePressed;
         }
 
         public void Draw()

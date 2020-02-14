@@ -21,6 +21,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
     {
         Button newWait;
         RecyclerView mRecyclerView;
+        Context context;
 
         //RecyclerView elements
         public RecyclerView.LayoutManager mLayoutManager;
@@ -28,14 +29,41 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
         public List<WaitList> waitList = new List<WaitList>();
 
+        //We define a delegate for our tablepressed event
+        public delegate void AddClientEventHandler(object source, EventArgs args);
+
+        //We define an event based on the tablepressed delegate
+        public event AddClientEventHandler AddClient;
+
+        public delegate void ModifyingEventHandler(object source, int position, WaitList element);
+
+        //We define an event based on the tablepressed delegate
+        public event ModifyingEventHandler ModifyingClient;
+        //Raise the event
+        protected virtual void OnAddClient()
+        {
+            if (AddClient != null)
+            {
+                AddClient(this, EventArgs.Empty);
+            }
+        }
+
+        protected virtual void OnModifyingClient(int position, WaitList element)
+        {
+            if (ModifyingClient != null)
+            {
+                ModifyingClient(this, position, element);
+            }
+        }
         public WaitFragment (List<WaitList> waitList)
         {
             this.waitList = waitList;
         }
 
-        public WaitFragment()
+        public WaitFragment(Context context)
         {
             waitList = new List<WaitList>();
+            this.context = context;
         }
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -54,23 +82,41 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             mRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
 
             mLayoutManager = new LinearLayoutManager(Application.Context);
-            mAdapter = new WaitListAdapter(waitList);
+            mAdapter = new WaitListAdapter(waitList, context);
 
             mRecyclerView.SetLayoutManager(mLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
 
-            newWait.Click += delegate { OnAddWait(); };
+            newWait.Click += OnAddWait;
+
+            mAdapter.ItemClick += OnItemClick;
+            mAdapter.ModifyClient += OnModifyClient;
 
             return view;
         }
-
-        public void OnAddWait()
+        void OnItemClick(object sender, int position)
         {
-            WaitList element = new WaitList("Mauricio Andres Flores Perez", 5);
-            waitList.Add(element);
-            mAdapter = new WaitListAdapter(waitList);
-            mRecyclerView.SetAdapter(mAdapter);
+            // Display a toast that briefly shows the enumeration of the selected photo:
+            Toast.MakeText(Application.Context, "Se ha presionado un elemento", ToastLength.Long).Show();
+        }
+        public void OnAddWait(object sender, EventArgs args)
+        {
+            OnAddClient();
             Toast.MakeText(Application.Context, "Se presiono el boton desde wait", ToastLength.Long).Show();
+        }
+
+        public void AddToList(string name, int seats)
+        {
+            WaitList client = new WaitList(name, seats);
+            waitList.Add(client);
+            mAdapter = new WaitListAdapter(waitList, context);
+            mRecyclerView.SetAdapter(mAdapter);
+        }
+
+        public void OnModifyClient(object sender, int position, WaitList element)
+        {
+            Toast.MakeText(Application.Context, "Si sirve el evento", ToastLength.Long).Show();
+            OnModifyingClient(position, element);
         }
     }
 }

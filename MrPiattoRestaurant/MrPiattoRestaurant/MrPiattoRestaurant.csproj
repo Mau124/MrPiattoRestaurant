@@ -308,6 +308,21 @@
   <ItemGroup>
     <AndroidResource Include="Resources\menu\futureListMenu.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\dialog_confirm_assigntable_fromWait.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\add_waitList.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\modify_waitList.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
     Other similar extension points exist, see Microsoft.Common.targets.

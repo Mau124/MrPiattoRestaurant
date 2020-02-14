@@ -24,6 +24,13 @@ public class WaitFragment
 			mono.android.TypeManager.Activate ("MrPiattoRestaurant.Fragments.Reservations.WaitFragment, MrPiattoRestaurant", "", this, new java.lang.Object[] {  });
 	}
 
+	public WaitFragment (android.content.Context p0)
+	{
+		super ();
+		if (getClass () == WaitFragment.class)
+			mono.android.TypeManager.Activate ("MrPiattoRestaurant.Fragments.Reservations.WaitFragment, MrPiattoRestaurant", "Android.Content.Context, Mono.Android", this, new java.lang.Object[] { p0 });
+	}
+
 
 	public void onCreate (android.os.Bundle p0)
 	{

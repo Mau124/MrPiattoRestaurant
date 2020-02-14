@@ -15,6 +15,7 @@ using MrPiattoRestaurant.adapters;
 using MrPiattoRestaurant.Fragments.Reservations;
 using MrPiattoRestaurant.Pickers;
 using MrPiattoRestaurant.InteractiveViews;
+using MrPiattoRestaurant.Models.Reservations;
 
 namespace MrPiattoRestaurant
 {
@@ -34,11 +35,16 @@ namespace MrPiattoRestaurant
 
         public ActualFragment actualFragment = new ActualFragment();
         public FutureFragment futureFragment = new FutureFragment();
-        public WaitFragment waitFragment = new WaitFragment();
+        public WaitFragment waitFragment = new WaitFragment(Application.Context);
 
         public int floorIndex = new int();
+
+        LayoutInflater inflater;
+        View mainContainer;
+        ImageButton actual, future, wait;
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            waitFragment = new WaitFragment(this);
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // Set our view from the "main" layout resource
@@ -77,10 +83,8 @@ namespace MrPiattoRestaurant
 
             options.RemoveAllViews();
 
-            LayoutInflater inflater = LayoutInflater.From(this);
-            View mainContainer = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
-
-            ImageButton actual, future, wait;
+            inflater = LayoutInflater.From(this);
+            mainContainer = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
 
             actual = mainContainer.FindViewById<ImageButton>(Resource.Id.idActual);
             future = mainContainer.FindViewById<ImageButton>(Resource.Id.idFuture);
@@ -104,6 +108,11 @@ namespace MrPiattoRestaurant
             actual.Click += OpenActualFragment;
             future.Click += OpenFutureFragment;
             wait.Click += OpenWaitFragment;
+
+            waitFragment.AddClient += AddWaitClient;
+            waitFragment.ModifyingClient += ModifyWaitClient;
+
+            floor.Drag += OnDrag;
         }
 
         public void OnTablePressed(object source, TablePressedEventArgs args)
@@ -200,8 +209,13 @@ namespace MrPiattoRestaurant
         public void OnCancel(View view)
         {
             options.RemoveAllViews();
-            LayoutInflater inflater = LayoutInflater.From(this);
-            View tablePropertiesView = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
+
+            inflater = LayoutInflater.From(this);
+            mainContainer = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
+
+            actual = mainContainer.FindViewById<ImageButton>(Resource.Id.idActual);
+            future = mainContainer.FindViewById<ImageButton>(Resource.Id.idFuture);
+            wait = mainContainer.FindViewById<ImageButton>(Resource.Id.idWait);
 
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
 
@@ -211,6 +225,10 @@ namespace MrPiattoRestaurant
             transaction.Commit();
 
             Toast.MakeText(this, "Se presiono ", ToastLength.Long).Show();
+
+            actual.Click += OpenActualFragment;
+            future.Click += OpenFutureFragment;
+            wait.Click += OpenWaitFragment;
         }
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs ev)
         {
@@ -252,17 +270,131 @@ namespace MrPiattoRestaurant
 
         public void OpenActualFragment(object sender, EventArgs args)
         {
+            Toast.MakeText(this, "Se presiono recycler para actuales", ToastLength.Long).Show();
             FragmentManager.BeginTransaction().Replace(Resource.Id.idContainer, actualFragment).AddToBackStack(null).Commit();
         }
 
         public void OpenFutureFragment(object sender, EventArgs args)
         {
+            Toast.MakeText(this, "Se presiono recycler para las futuras", ToastLength.Long).Show();
             FragmentManager.BeginTransaction().Add(Resource.Id.idContainer, futureFragment).AddToBackStack(null).Commit();
         }
 
         public void OpenWaitFragment(object sender, EventArgs args)
         {
+            Toast.MakeText(this, "Se presiono recycler para la lista de espera", ToastLength.Long).Show();
             FragmentManager.BeginTransaction().Replace(Resource.Id.idContainer, waitFragment).AddToBackStack(null).Commit();
+        }
+
+        public void AddWaitClient(object sender, EventArgs args)
+        {
+            View content = LayoutInflater.Inflate(Resource.Layout.add_waitList, null);
+            Button add, cancel;
+            EditText nameClient, numSeats;
+
+            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(this).Create();
+            alertDialog.SetCancelable(true);
+            alertDialog.SetView(content);
+            alertDialog.Show();
+
+            add = content.FindViewById<Button>(Resource.Id.idAdd);
+            cancel = content.FindViewById<Button>(Resource.Id.idCancel);
+
+            nameClient = content.FindViewById<EditText>(Resource.Id.idName);
+            numSeats = content.FindViewById<EditText>(Resource.Id.idSeats);
+
+            add.Click += (s, a) => {
+                string name;
+                int seats;
+
+                name = nameClient.Text;
+                seats = Int32.Parse(numSeats.Text);
+
+                waitFragment.AddToList(name, seats);
+                alertDialog.Dismiss();
+            };
+        }
+
+        public void ModifyWaitClient(object source, int position, WaitList element)
+        {
+            View content = LayoutInflater.Inflate(Resource.Layout.modify_waitList, null);
+            Button add, cancel;
+            EditText nameClient, numSeats;
+
+            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(this).Create();
+            alertDialog.SetCancelable(true);
+            alertDialog.SetView(content);
+            alertDialog.Show();
+
+            add = content.FindViewById<Button>(Resource.Id.idAdd);
+            cancel = content.FindViewById<Button>(Resource.Id.idCancel);
+
+            nameClient = content.FindViewById<EditText>(Resource.Id.idName);
+            numSeats = content.FindViewById<EditText>(Resource.Id.idSeats);
+
+            nameClient.Hint = element.personName;
+            numSeats.Hint = element.numSeats.ToString();
+
+            add.Click += (s, a) => {
+                string name;
+                int seats;
+
+                name = nameClient.Text;
+                seats = Int32.Parse(numSeats.Text);
+
+                alertDialog.Dismiss();
+            };
+        }
+
+        void OnDrag(object sender, View.DragEventArgs e)
+        {
+            // React on different dragging events
+            var evt = e.Event;
+            switch (evt.Action)
+            {
+                case DragAction.Ended:
+                case DragAction.Started:
+                    e.Handled = true;
+                    break;
+
+                // Dragged element enters the drop zone
+                case DragAction.Entered:
+                    Toast.MakeText(Application.Context, "Drop it like it's hot!", ToastLength.Short).Show();
+                    break;
+
+                // Dragged element exits the drop zone
+                case DragAction.Exited:
+                    Toast.MakeText(Application.Context, "Drop something here!", ToastLength.Short).Show();
+                    break;
+
+                // Dragged element has been dropped at the drop zone
+                case DragAction.Drop:
+                    float x = evt.GetX();
+                    float y = evt.GetY();
+
+                    // You can check if element may be dropped here
+                    // If not do not set e.Handled to true
+                    e.Handled = true;
+                    if (floors.ElementAt(floorIndex).IsOnTable(x, y))
+                    {
+                        //Create alertdialog
+                        View content = LayoutInflater.Inflate(Resource.Layout.dialog_confirm_assigntable_fromWait, null);
+
+                        Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(this).Create();
+                        alertDialog.SetCancelable(true);
+                        alertDialog.SetView(content);
+                        alertDialog.Show();
+
+                        Toast.MakeText(Application.Context, "Esta sobre una mesa", ToastLength.Short).Show();
+                    } 
+                    else
+                    {
+                        Toast.MakeText(Application.Context, "No esta sobre una mesa", ToastLength.Short).Show();
+                    }
+                    // Try to get clip data
+                    //Toast.MakeText(Application.Context, "Coordenadas; x: " + x + " y: " + y, ToastLength.Short).Show();
+                    break;
+            }
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
