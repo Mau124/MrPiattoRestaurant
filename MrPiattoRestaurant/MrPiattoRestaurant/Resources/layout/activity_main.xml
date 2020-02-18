@@ -59,7 +59,7 @@
             android:id="@+id/idTimeLine">
 
             <View
-                android:layout_width="2dp"
+                android:layout_width="2px"
                 android:layout_height="match_parent"
                 android:background="#AC2516"
                 app:layout_constraintRight_toRightOf="parent"

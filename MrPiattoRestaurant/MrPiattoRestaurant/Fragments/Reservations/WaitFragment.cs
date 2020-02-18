@@ -34,25 +34,12 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
         //We define an event based on the tablepressed delegate
         public event AddClientEventHandler AddClient;
-
-        public delegate void ModifyingEventHandler(object source, int position, WaitList element);
-
-        //We define an event based on the tablepressed delegate
-        public event ModifyingEventHandler ModifyingClient;
         //Raise the event
         protected virtual void OnAddClient()
         {
             if (AddClient != null)
             {
                 AddClient(this, EventArgs.Empty);
-            }
-        }
-
-        protected virtual void OnModifyingClient(int position, WaitList element)
-        {
-            if (ModifyingClient != null)
-            {
-                ModifyingClient(this, position, element);
             }
         }
         public WaitFragment (List<WaitList> waitList)
@@ -90,7 +77,6 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             newWait.Click += OnAddWait;
 
             mAdapter.ItemClick += OnItemClick;
-            mAdapter.ModifyClient += OnModifyClient;
 
             return view;
         }
@@ -111,12 +97,6 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             waitList.Add(client);
             mAdapter = new WaitListAdapter(waitList, context);
             mRecyclerView.SetAdapter(mAdapter);
-        }
-
-        public void OnModifyClient(object sender, int position, WaitList element)
-        {
-            Toast.MakeText(Application.Context, "Si sirve el evento", ToastLength.Long).Show();
-            OnModifyingClient(position, element);
         }
     }
 }

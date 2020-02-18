@@ -9,6 +9,8 @@ using Android.Widget;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 
+using MrPiattoRestaurant.Models;
+
 namespace MrPiattoRestaurant
 {
     public class GestureRecognizerView : View
@@ -34,7 +36,7 @@ namespace MrPiattoRestaurant
 
         private static readonly int InvalidPointerId = -1;
 
-        private List<Table> tables = new List<Table>();
+        public List<Table> tables = new List<Table>();
         private readonly ScaleGestureDetector _scaleDetector;
 
         private int _activePointerId = InvalidPointerId;
@@ -127,8 +129,8 @@ namespace MrPiattoRestaurant
 
                         tables[tableIndex].borderOn = true;
 
-                        n1 = AbsolutTouchX - tables[tableIndex].getFirstX();
-                        n2 = AbsolutTouchY - tables[tableIndex].getFistY();
+                        n1 = AbsolutTouchX - tables[tableIndex].firstX;
+                        n2 = AbsolutTouchY - tables[tableIndex].firstY;
                     }
                     else
                     { 
@@ -214,16 +216,18 @@ namespace MrPiattoRestaurant
         //Return true if the event presses a table
         public bool isTable(Table t, int x, int y)
         {
-            if ((x >= t.getFirstX() && x <= t.getSecondX()) &&
-                (y >= t.getFistY() && y <= t.getSecondY()))
+            if ((x >= t.firstX && x <= t.secondX) &&
+                (y >= t.firstY && y <= t.secondY))
             {
                 return true;
             }
             return false;
         }
 
-        public bool IsOnTable(float x, float y)
+        public int IsOnTable(float x, float y)
         {
+            int table = 0;
+
             DifferentX = (_posX * (-1)) * (_scaleFactor);
             DifferentY = (_posY * (-1)) * (_scaleFactor);
 
@@ -239,9 +243,16 @@ namespace MrPiattoRestaurant
                 if (isTable(tables[i], (int) AbsolutTouchX, (int) AbsolutTouchY))
                 {
                     tablePressed = true;
+                    table = i;
                 }
             }
-            return tablePressed;
+            if (tablePressed)
+            {
+                return table;
+            } else
+            {
+                return -1;
+            }
         }
 
         public void Draw()
@@ -249,15 +260,20 @@ namespace MrPiattoRestaurant
             Invalidate();
         }
 
-        public void AddTable(Drawable table, Context context)
+        public void AddTable(Drawable table, Context context, string tableType)
         {
             if (tables.Count() > 0)
                 tables.ElementAt(tableIndex).borderOn = false;
-            tables.Add(new Table(table, context.Resources.GetDrawable(Resource.Drawable.border), (int)centerX, (int)centerY, true));
+            tables.Add(new Table(table, context.Resources.GetDrawable(Resource.Drawable.border), (int)centerX, (int)centerY, true, tableType, context));
             args.floorIterator = floorIndex;
             args.tableIterator = tables.Count() - 1;
             OnTablePressed();
             Invalidate();
+        }
+
+        public void setActualClientOnTable(Client actualClient, int tableIterator)
+        {
+            tables.ElementAt(tableIterator).setActualClient(actualClient);
         }
 
         protected override void OnDraw(Canvas canvas)

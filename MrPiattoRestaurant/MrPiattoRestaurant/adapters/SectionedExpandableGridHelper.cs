@@ -23,20 +23,20 @@ namespace MrPiattoRestaurant.adapters
         public RecyclerView mRecyclerView;
         public SectionedExpandableGridAdapter mSectionedExpandableGridAdapter;
 
-        public delegate void ItemPressedEventHandler(object source, int idTable);
+        public delegate void ItemPressedEventHandler(object source, string tableDrawable);
         public event ItemPressedEventHandler ItemPressed;
 
-        protected virtual void OnItemPressed(int idTable)
+        protected virtual void OnItemPressed(string tableDrawable)
         {
             if (ItemPressed != null)
             {
-                ItemPressed(this, idTable);
+                ItemPressed(this, tableDrawable);
             }
         }
         public SectionedExpandableGridHelper(Context context, RecyclerView recyclerView, int gridSpanCount)
         {
             Item c = new Item("Texto");
-            Item i = new Item("Texto", Resource.Drawable.table);
+            Item i = new Item("Texto", Resource.Drawable.table, "table");
 
             actualItems.Add(c);
             actualItems.Add(i);
@@ -44,37 +44,37 @@ namespace MrPiattoRestaurant.adapters
             c = new Item("Mesas cuadradas");
             actualItems.Add(c);
 
-            i = new Item("Mesa 1", Resource.Drawable.c1);
+            i = new Item("Mesa 1", Resource.Drawable.c1, "c1");
             actualItems.Add(i);
 
-            i = new Item("Mesa 2", Resource.Drawable.c2);
+            i = new Item("Mesa 2", Resource.Drawable.c2, "c2");
             actualItems.Add(i);
 
-            i = new Item("Mesa 3", Resource.Drawable.c3);
+            i = new Item("Mesa 3", Resource.Drawable.c3, "c3");
             actualItems.Add(i);
 
-            i = new Item("Mesa 4", Resource.Drawable.c4);
+            i = new Item("Mesa 4", Resource.Drawable.c4, "c4");
             actualItems.Add(i);
 
-            i = new Item("Mesa 5", Resource.Drawable.c5);
+            i = new Item("Mesa 5", Resource.Drawable.c5, "c5");
             actualItems.Add(i);
 
             c = new Item("Mesas circulares");
             actualItems.Add(c);
 
-            i = new Item("Mesa 1", Resource.Drawable.c1);
+            i = new Item("Mesa 1", Resource.Drawable.c1, "c1");
             actualItems.Add(i);
 
-            i = new Item("Mesa 2", Resource.Drawable.c2);
+            i = new Item("Mesa 2", Resource.Drawable.c2, "c2");
             actualItems.Add(i);
 
-            i = new Item("Mesa 3", Resource.Drawable.c3);
+            i = new Item("Mesa 3", Resource.Drawable.c3, "c3");
             actualItems.Add(i);
 
-            i = new Item("Mesa 4", Resource.Drawable.c4);
+            i = new Item("Mesa 4", Resource.Drawable.c4, "c4");
             actualItems.Add(i);
 
-            i = new Item("Mesa 5", Resource.Drawable.c5);
+            i = new Item("Mesa 5", Resource.Drawable.c5, "c5");
             actualItems.Add(i);
 
             adapterItems = new List<Item>(actualItems);
@@ -127,7 +127,7 @@ namespace MrPiattoRestaurant.adapters
             } 
             else
             {
-                OnItemPressed(adapterItems.ElementAt(position).tableID);
+                OnItemPressed(adapterItems.ElementAt(position).tableDrawable);
             }
         }
     }

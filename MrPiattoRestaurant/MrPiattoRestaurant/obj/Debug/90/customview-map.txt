@@ -27,6 +27,7 @@ Button;obj\Debug\90\res\layout\activity_main.xml
 Button;obj\Debug\90\res\layout\add_waitlist.xml
 Button;obj\Debug\90\res\layout\addfloor.xml
 Button;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
+Button;obj\Debug\90\res\layout\item_waitlist.xml
 Button;obj\Debug\90\res\layout\modify_waitlist.xml
 Button;obj\Debug\90\res\layout\recycler_actuallist.xml
 Button;obj\Debug\90\res\layout\recycler_futurelist.xml

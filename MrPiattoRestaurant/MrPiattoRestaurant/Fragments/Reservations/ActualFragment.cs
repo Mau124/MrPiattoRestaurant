@@ -26,15 +26,17 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         public RecyclerView.LayoutManager mLayoutManager;
         public ActualListAdapter mAdapter;
 
-        public List<ActualList> actualList = new List<ActualList>();
+        public List<Table> ocupiedTables = new List<Table>();
 
-        public ActualFragment(List<ActualList> actualList)
+        public Context context;
+
+        public ActualFragment(Context context)
         {
-            this.actualList = actualList;
+            this.context = context;
         }
         public ActualFragment()
         {
-            actualList = new List<ActualList>();
+            ocupiedTables = new List<Table>();
         }
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -52,22 +54,19 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             mRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
 
             mLayoutManager = new LinearLayoutManager(Application.Context);
-            mAdapter = new ActualListAdapter(actualList);
+            mAdapter = new ActualListAdapter(context, ocupiedTables);
             mAdapter.HasStableIds = true;
 
             mRecyclerView.SetLayoutManager(mLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
 
-            newGuest.Click += delegate { OnAddGuest(); };
-
             return view;
         }
 
-        public void OnAddGuest()
+        public void Update(Table table)
         {
-            ActualList element = new ActualList("Mauricio Andres Flores Perez", "Mesa 2", 3);
-            actualList.Add(element);
-            mAdapter = new ActualListAdapter(actualList);
+            ocupiedTables.Add(table);
+            mAdapter = new ActualListAdapter(context, ocupiedTables);
             mRecyclerView.SetAdapter(mAdapter);
             Toast.MakeText(Application.Context, "Se presiono el boton desde actual", ToastLength.Long).Show();
         }

@@ -16,6 +16,7 @@ using MrPiattoRestaurant.Fragments.Reservations;
 using MrPiattoRestaurant.Pickers;
 using MrPiattoRestaurant.InteractiveViews;
 using MrPiattoRestaurant.Models.Reservations;
+using MrPiattoRestaurant.Models;
 
 namespace MrPiattoRestaurant
 {
@@ -42,6 +43,8 @@ namespace MrPiattoRestaurant
         LayoutInflater inflater;
         View mainContainer;
         ImageButton actual, future, wait;
+
+        TimeLineView timeLineView;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             waitFragment = new WaitFragment(this);
@@ -70,7 +73,7 @@ namespace MrPiattoRestaurant
             //We pass the floor to the container
             container.AddView(floors.ElementAt(floorIndex));
 
-            TimeLineView timeLineView = new TimeLineView(this);
+            timeLineView = new TimeLineView(this);
             timeLine.AddView(timeLineView);
 
             //Event to create another floor
@@ -110,9 +113,10 @@ namespace MrPiattoRestaurant
             wait.Click += OpenWaitFragment;
 
             waitFragment.AddClient += AddWaitClient;
-            waitFragment.ModifyingClient += ModifyWaitClient;
 
             floor.Drag += OnDrag;
+
+            timeLineView.TimeLinePressed += UpdateTime;
         }
 
         public void OnTablePressed(object source, TablePressedEventArgs args)
@@ -164,6 +168,7 @@ namespace MrPiattoRestaurant
                 string s = afloorName.Text;
                 GestureRecognizerView auxFloor = new GestureRecognizerView(this, s, floors.Count());
                 auxFloor.TablePressed += OnTablePressed;
+                auxFloor.Drag += OnDrag;
                 floors.Add(auxFloor);
                 floorsNames.Add(s);
                 container.RemoveAllViews();
@@ -200,10 +205,10 @@ namespace MrPiattoRestaurant
             cancel.Click += delegate { OnCancel(catalogueTables); };
         }
 
-        public void OnItemPressed(object source, int idTable)
+        public void OnItemPressed(object source, string tableDrawable)
         {
-            floors.ElementAt(floorIndex).AddTable(this.Resources.GetDrawable(idTable), this);
-            Toast.MakeText(this, "Posicion: " + idTable , ToastLength.Long).Show();
+            floors.ElementAt(floorIndex).AddTable(this.Resources.GetDrawable(this.Resources.GetIdentifier(tableDrawable, "drawable", this.PackageName)), this, tableDrawable);
+            Toast.MakeText(this, "Posicion: " , ToastLength.Long).Show();
         }
 
         public void OnCancel(View view)
@@ -219,7 +224,7 @@ namespace MrPiattoRestaurant
 
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
 
-            ActualFragment auxFragment = new ActualFragment(actualFragment.actualList);
+            ActualFragment auxFragment = new ActualFragment(this);
             transaction.Replace(Resource.Id.idContainer, auxFragment);
             transaction.AddToBackStack(null);
             transaction.Commit();
@@ -257,6 +262,8 @@ namespace MrPiattoRestaurant
         {
             TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
             {
+                timeLineView.setTime(time.Hour, time.Minute);
+
                 hour.Text = time.ToShortTimeString();
             });
             frag.Show(FragmentManager, TimePickerFragment.TAG);
@@ -315,37 +322,6 @@ namespace MrPiattoRestaurant
             };
         }
 
-        public void ModifyWaitClient(object source, int position, WaitList element)
-        {
-            View content = LayoutInflater.Inflate(Resource.Layout.modify_waitList, null);
-            Button add, cancel;
-            EditText nameClient, numSeats;
-
-            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(this).Create();
-            alertDialog.SetCancelable(true);
-            alertDialog.SetView(content);
-            alertDialog.Show();
-
-            add = content.FindViewById<Button>(Resource.Id.idAdd);
-            cancel = content.FindViewById<Button>(Resource.Id.idCancel);
-
-            nameClient = content.FindViewById<EditText>(Resource.Id.idName);
-            numSeats = content.FindViewById<EditText>(Resource.Id.idSeats);
-
-            nameClient.Hint = element.personName;
-            numSeats.Hint = element.numSeats.ToString();
-
-            add.Click += (s, a) => {
-                string name;
-                int seats;
-
-                name = nameClient.Text;
-                seats = Int32.Parse(numSeats.Text);
-
-                alertDialog.Dismiss();
-            };
-        }
-
         void OnDrag(object sender, View.DragEventArgs e)
         {
             // React on different dragging events
@@ -375,17 +351,36 @@ namespace MrPiattoRestaurant
                     // You can check if element may be dropped here
                     // If not do not set e.Handled to true
                     e.Handled = true;
-                    if (floors.ElementAt(floorIndex).IsOnTable(x, y))
+                    int table = floors.ElementAt(floorIndex).IsOnTable(x, y);
+                    if (table != -1)
                     {
+                        floors.ElementAt(floorIndex).tables.ElementAt(table).setOcupied();
+                        floors.ElementAt(floorIndex).Draw();
+                        
+
+                        int pos = waitFragment.mAdapter.itemDragged;
                         //Create alertdialog
                         View content = LayoutInflater.Inflate(Resource.Layout.dialog_confirm_assigntable_fromWait, null);
+
+                        TextView name, seats;
+
+                        name = content.FindViewById<TextView>(Resource.Id.idName);
+                        seats = content.FindViewById<TextView>(Resource.Id.idSeats);
+
+                        name.Text = waitFragment.waitList.ElementAt(pos).personName;
+                        seats.Text = waitFragment.waitList.ElementAt(pos).numSeats.ToString();
+
+                        Client client = new Client(name.Text, 0, DateTime.Now);
+                        floors.ElementAt(floorIndex).setActualClientOnTable(client, table);
+                        actualFragment.Update(floors.ElementAt(floorIndex).tables.ElementAt(table));
 
                         Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(this).Create();
                         alertDialog.SetCancelable(true);
                         alertDialog.SetView(content);
                         alertDialog.Show();
+                        
 
-                        Toast.MakeText(Application.Context, "Esta sobre una mesa", ToastLength.Short).Show();
+                        Toast.MakeText(Application.Context, "Posicion " + pos, ToastLength.Short).Show();
                     } 
                     else
                     {
@@ -395,6 +390,11 @@ namespace MrPiattoRestaurant
                     //Toast.MakeText(Application.Context, "Coordenadas; x: " + x + " y: " + y, ToastLength.Short).Show();
                     break;
             }
+        }
+
+        public void UpdateTime(int hours, int minutes)
+        {
+            hour.Text = hours.ToString("00") + ":" + minutes.ToString("00");
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

@@ -16,18 +16,49 @@ namespace MrPiattoRestaurant.InteractiveViews
 {
     public class TimeLineView : View
     {
+        private const int SPACE_BETWEEN_LINES = 20;
+        private const int START_HOUR = 7;
+
         private static readonly int InvalidPointerId = -1;
         private readonly Drawable _icon;
         private int _activePointerId = InvalidPointerId;
         private float _lastTouchX;
-        private float _lastTouchY;
-        private float _posX;
-        private float _posY;
+        private int _posX;
+        private int center;
+        private int lines;
+        private int totalMinutes;
+
+        private int hours, minutes;
+
+        private Context context;
+
+        //We define a delegate for our tablepressed event
+        public delegate void TimeLinePressedEventHandler(int hours, int minutes);
+
+        //We define an event based on the tablepressed delegate
+        public event TimeLinePressedEventHandler TimeLinePressed;
+
+        //Raise the event
+        protected virtual void OnTimeLinePressed(int hours, int minutes)
+        {
+            if (TimeLinePressed != null)
+            {
+                TimeLinePressed(hours, minutes);
+            }
+        }
 
         public TimeLineView (Context context) : base(context, null, 0)
         {
-            _icon = context.Resources.GetDrawable(Resource.Drawable.line3);
-            _icon.SetBounds(0, 0, _icon.IntrinsicWidth, _icon.IntrinsicHeight);
+            this.context = context;
+            center = (Resources.DisplayMetrics.WidthPixels / 2) - 1;
+            lines = 0;
+            totalMinutes = 0;
+
+            hours = 0;
+            minutes = 0;
+
+            _icon = context.Resources.GetDrawable(Resource.Drawable.line12);
+            _icon.SetBounds(center, 0, _icon.IntrinsicWidth + center, _icon.IntrinsicHeight);
         }
 
         public override bool OnTouchEvent(MotionEvent ev)
@@ -39,25 +70,42 @@ namespace MrPiattoRestaurant.InteractiveViews
             {
                 case MotionEventActions.Down:
                     _lastTouchX = ev.GetX();
-                    _lastTouchY = ev.GetY();
                     _activePointerId = ev.GetPointerId(0);
                     break;
 
                 case MotionEventActions.Move:
                     pointerIndex = ev.FindPointerIndex(_activePointerId);
                     float x = ev.GetX(pointerIndex);
-                    float y = ev.GetY(pointerIndex);
-                        
-                   // Only move the ScaleGestureDetector isn't already processing a gesture.
-                   float deltaX = x - _lastTouchX;
-                   float deltaY = y - _lastTouchY;
-                   _posX += deltaX;
-                   _posY += deltaY;
-                   Invalidate();
-           
+
+                    // Only move the ScaleGestureDetector isn't already processing a gesture.
+                    float deltaX = x - _lastTouchX;
+                    _posX += (int)deltaX;
+
+                    lines = _posX;
+                    totalMinutes = ((-1) * lines);
+
+                    int auxHours, auxMinutes;
+
+                    auxHours = totalMinutes / 60;
+                    auxMinutes = totalMinutes % 60;
+
+                    hours = (7 + auxHours) % 24;
+                    minutes = auxMinutes;
+
+                    OnTimeLinePressed(hours, minutes);
+
+                    Toast.MakeText(context, "TotalMinutes: " + lines, ToastLength.Long).Show();
+
+                    if (_posX <= 0 && _posX >= (_icon.IntrinsicWidth * (-1)))
+                    {
+                        Invalidate();
+                    } 
+                    else
+                    {
+                        _posX -= (int)deltaX;
+                    }
 
                     _lastTouchX = x;
-                    _lastTouchY = y;
                     break;
 
                 case MotionEventActions.Up:
@@ -79,7 +127,6 @@ namespace MrPiattoRestaurant.InteractiveViews
                         // action pointer and adjust accordingly
                         int newPointerIndex = pointerIndex == 0 ? 1 : 0;
                         _lastTouchX = ev.GetX(newPointerIndex);
-                        _lastTouchY = ev.GetY(newPointerIndex);
                         _activePointerId = ev.GetPointerId(newPointerIndex);
                     }
                     break;
@@ -94,6 +141,19 @@ namespace MrPiattoRestaurant.InteractiveViews
             canvas.Translate(_posX, 0);
             _icon.Draw(canvas);
             canvas.Restore();
+        }
+
+        public void setTime(int hour, int minute)
+        {
+            int absolutHours = Math.Abs(START_HOUR - hour);
+
+            int totalMinutes = absolutHours * 60;
+            totalMinutes += minute;
+
+            _posX = ((-1)*(totalMinutes));
+            Toast.MakeText(context, "TotalMinutes: " + totalMinutes, ToastLength.Long).Show();
+            Invalidate();
+
         }
     }
 }

@@ -24,6 +24,13 @@ public class ActualFragment
 			mono.android.TypeManager.Activate ("MrPiattoRestaurant.Fragments.Reservations.ActualFragment, MrPiattoRestaurant", "", this, new java.lang.Object[] {  });
 	}
 
+	public ActualFragment (android.content.Context p0)
+	{
+		super ();
+		if (getClass () == ActualFragment.class)
+			mono.android.TypeManager.Activate ("MrPiattoRestaurant.Fragments.Reservations.ActualFragment, MrPiattoRestaurant", "Android.Content.Context, Mono.Android", this, new java.lang.Object[] { p0 });
+	}
+
 
 	public void onCreate (android.os.Bundle p0)
 	{

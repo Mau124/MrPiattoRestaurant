@@ -17,10 +17,12 @@ namespace MrPiattoRestaurant.adapters.actualListAdapters
 {
     public class ActualListAdapter : RecyclerView.Adapter
     {
-        public List<ActualList> actualList;
-        public ActualListAdapter(List<ActualList> actualList)
+        public List<Table> ocupiedTables;
+        public Context context;
+        public ActualListAdapter(Context context, List<Table> ocupiedTables)
         {
-            this.actualList = actualList;
+            this.context = context;
+            this.ocupiedTables = ocupiedTables;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder (ViewGroup parent, int viewType)
@@ -33,9 +35,9 @@ namespace MrPiattoRestaurant.adapters.actualListAdapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             ActualListViewHolder vh = holder as ActualListViewHolder;
-            vh.personName.Text = actualList.ElementAt(position).personName;
-            vh.tableName.Text = actualList.ElementAt(position).tableName;
-            vh.timeUsed.Text = actualList.ElementAt(position).timeUsed.ToString();
+            vh.personName.Text = ocupiedTables.ElementAt(position).actualClient.name;
+            vh.tableName.Text = ocupiedTables.ElementAt(position).tableName;
+            vh.timeUsed.Text = ocupiedTables.ElementAt(position).actualClient.timeUsed.ToString();
 
             vh.menu.Click += (s, arg) =>
             {
@@ -61,7 +63,7 @@ namespace MrPiattoRestaurant.adapters.actualListAdapters
 
         public override int ItemCount
         {
-            get { return actualList.Count(); }
+            get { return ocupiedTables.Count(); }
         }
 
         public override long GetItemId(int position)
