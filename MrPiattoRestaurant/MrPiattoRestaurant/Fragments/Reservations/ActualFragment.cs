@@ -11,15 +11,16 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
+using Android.Support.V4.App;
 
 using MrPiattoRestaurant.adapters.actualListAdapters;
 using MrPiattoRestaurant.Models.Reservations;
 
 namespace MrPiattoRestaurant.Fragments.Reservations
 {
-    public class ActualFragment : Fragment
+    public class ActualFragment : Android.Support.V4.App.Fragment
     {
-        Button newGuest;
+        Button newClient;
         RecyclerView mRecyclerView;
 
         //RecyclerView elements
@@ -34,10 +35,6 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         {
             this.context = context;
         }
-        public ActualFragment()
-        {
-            ocupiedTables = new List<Table>();
-        }
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -50,12 +47,11 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.recycler_actualList, container, false);
 
-            newGuest = view.FindViewById<Button>(Resource.Id.idButton);
+            newClient = view.FindViewById<Button>(Resource.Id.idButton);
             mRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
 
             mLayoutManager = new LinearLayoutManager(Application.Context);
             mAdapter = new ActualListAdapter(context, ocupiedTables);
-            mAdapter.HasStableIds = true;
 
             mRecyclerView.SetLayoutManager(mLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
@@ -63,12 +59,11 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             return view;
         }
 
-        public void Update(Table table)
+        public void Update(List<Table> ocupiedTables)
         {
-            ocupiedTables.Add(table);
+            this.ocupiedTables = ocupiedTables;
             mAdapter = new ActualListAdapter(context, ocupiedTables);
             mRecyclerView.SetAdapter(mAdapter);
-            Toast.MakeText(Application.Context, "Se presiono el boton desde actual", ToastLength.Long).Show();
         }
     }
 }

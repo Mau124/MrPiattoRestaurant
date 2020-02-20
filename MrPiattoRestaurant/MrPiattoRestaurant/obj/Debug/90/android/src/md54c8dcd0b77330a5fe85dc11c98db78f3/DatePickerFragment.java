@@ -2,7 +2,7 @@ package md54c8dcd0b77330a5fe85dc11c98db78f3;
 
 
 public class DatePickerFragment
-	extends android.app.DialogFragment
+	extends android.support.v4.app.DialogFragment
 	implements
 		mono.android.IGCUserPeer,
 		android.app.DatePickerDialog.OnDateSetListener

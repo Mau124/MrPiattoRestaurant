@@ -11,13 +11,14 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
+using Android.Support.V4.App;
 
 using MrPiattoRestaurant.adapters.waitListAdapters;
 using MrPiattoRestaurant.Models.Reservations;
 
 namespace MrPiattoRestaurant.Fragments.Reservations
 {
-    public class WaitFragment : Fragment
+    public class WaitFragment : Android.Support.V4.App.Fragment
     {
         Button newWait;
         RecyclerView mRecyclerView;

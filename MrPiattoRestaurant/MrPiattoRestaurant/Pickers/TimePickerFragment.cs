@@ -10,10 +10,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Text.Format;
+using Android.Support.V4.App;
 
 namespace MrPiattoRestaurant.Pickers
 {
-    public class TimePickerFragment : DialogFragment, TimePickerDialog.IOnTimeSetListener
+    public class TimePickerFragment : Android.Support.V4.App.DialogFragment, TimePickerDialog.IOnTimeSetListener
     {
         public static readonly string TAG = "MyTimePickerFragment";
         Action<DateTime> timeSelectedHandler = delegate { };

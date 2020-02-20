@@ -37,6 +37,8 @@ namespace MrPiattoRestaurant
         private static readonly int InvalidPointerId = -1;
 
         public List<Table> tables = new List<Table>();
+        public List<Table> ocupiedTables = new List<Table>();
+
         private readonly ScaleGestureDetector _scaleDetector;
 
         private int _activePointerId = InvalidPointerId;
@@ -75,7 +77,6 @@ namespace MrPiattoRestaurant
         public GestureRecognizerView(Context context, string name, int floorIndex) :
             base(context, null, 0)
         {
-
             this.name = name;
             this.floorIndex = floorIndex;
             moveValid = false;
@@ -105,9 +106,6 @@ namespace MrPiattoRestaurant
                     AbsolutTouchY *= (1 / _scaleFactor);
 
                     tables[tableIndex].borderOn = false;
-                    //Toast.MakeText(Application.Context, "X: " + _lastTouchX + " Y: " + _lastTouchY, ToastLength.Short).Show();
-
-                    Toast.MakeText(Application.Context, "X: " + AbsolutTouchX + "Y: " + AbsolutTouchY, ToastLength.Short).Show();
 
                     //We check if we pressed a table
                     bool tablePressed = false;
@@ -142,7 +140,6 @@ namespace MrPiattoRestaurant
                     break;
 
                 case MotionEventActions.Move:
-                    Toast.MakeText(Application.Context, "Se esta moviendo", ToastLength.Long).Show();
                     pointerIndex = ev.FindPointerIndex(_activePointerId);
                     float x = ev.GetX(pointerIndex);
                     float y = ev.GetY(pointerIndex);
@@ -206,10 +203,6 @@ namespace MrPiattoRestaurant
                         _activePointerId = ev.GetPointerId(newPointerIndex);
                     }
                     break;
-
-                case MotionEventActions.HoverMove:
-                    Toast.MakeText(Application.Context, "Entro a la vista", ToastLength.Long).Show();
-                    break;
             }
             return true;
         }
@@ -249,7 +242,8 @@ namespace MrPiattoRestaurant
             if (tablePressed)
             {
                 return table;
-            } else
+            } 
+            else
             {
                 return -1;
             }
@@ -274,6 +268,7 @@ namespace MrPiattoRestaurant
         public void setActualClientOnTable(Client actualClient, int tableIterator)
         {
             tables.ElementAt(tableIterator).setActualClient(actualClient);
+            ocupiedTables.Add(tables.ElementAt(tableIterator));
         }
 
         protected override void OnDraw(Canvas canvas)

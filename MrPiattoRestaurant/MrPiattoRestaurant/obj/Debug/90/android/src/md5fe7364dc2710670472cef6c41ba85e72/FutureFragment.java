@@ -2,7 +2,7 @@ package md5fe7364dc2710670472cef6c41ba85e72;
 
 
 public class FutureFragment
-	extends android.app.Fragment
+	extends android.support.v4.app.Fragment
 	implements
 		mono.android.IGCUserPeer
 {

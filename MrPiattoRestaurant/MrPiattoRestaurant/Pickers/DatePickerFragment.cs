@@ -9,10 +9,11 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Support.V4.App;
 
 namespace MrPiattoRestaurant.Pickers
 {
-    public class DatePickerFragment : DialogFragment, DatePickerDialog.IOnDateSetListener 
+    public class DatePickerFragment : Android.Support.V4.App.DialogFragment, DatePickerDialog.IOnDateSetListener 
     {
         public static readonly string TAG = "X: " + typeof(DatePickerFragment).Name.ToUpper();
 

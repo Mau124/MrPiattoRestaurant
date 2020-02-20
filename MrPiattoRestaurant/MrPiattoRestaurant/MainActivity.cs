@@ -10,6 +10,7 @@ using Android.Widget;
 using Android.Views;
 using Android.Content;
 using Android.Support.V7.Widget;
+using Android.Support.V4.App;
 
 using MrPiattoRestaurant.adapters;
 using MrPiattoRestaurant.Fragments.Reservations;
@@ -34,7 +35,7 @@ namespace MrPiattoRestaurant
         public TextView date, hour;
         public Android.Support.Constraints.ConstraintLayout timeLine;
 
-        public ActualFragment actualFragment = new ActualFragment();
+        public ActualFragment actualFragment;
         public FutureFragment futureFragment = new FutureFragment();
         public WaitFragment waitFragment = new WaitFragment(Application.Context);
 
@@ -42,7 +43,6 @@ namespace MrPiattoRestaurant
 
         LayoutInflater inflater;
         View mainContainer;
-        ImageButton actual, future, wait;
 
         TimeLineView timeLineView;
         protected override void OnCreate(Bundle savedInstanceState)
@@ -63,6 +63,8 @@ namespace MrPiattoRestaurant
 
             date = FindViewById<TextView>(Resource.Id.idDate);
             hour = FindViewById<TextView>(Resource.Id.idHour);
+
+            actualFragment = new ActualFragment(this);
 
             //We create the first floor and add it to the list of floors
             GestureRecognizerView floor = new GestureRecognizerView(this, "Piso 1", 0);
@@ -89,11 +91,7 @@ namespace MrPiattoRestaurant
             inflater = LayoutInflater.From(this);
             mainContainer = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
 
-            actual = mainContainer.FindViewById<ImageButton>(Resource.Id.idActual);
-            future = mainContainer.FindViewById<ImageButton>(Resource.Id.idFuture);
-            wait = mainContainer.FindViewById<ImageButton>(Resource.Id.idWait);
-
-            FragmentManager.BeginTransaction().Add(Resource.Id.idContainer, actualFragment).Commit();
+            SupportFragmentManager.BeginTransaction().Add(Resource.Id.idContainer, actualFragment).Commit();
 
             //Create events for the spinner
             floorName.ItemSelected += new System.EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
@@ -107,10 +105,6 @@ namespace MrPiattoRestaurant
             hour.Click += HourSelect_OnClick;
 
             dashboard.Click += OpenDashboard;
-
-            actual.Click += OpenActualFragment;
-            future.Click += OpenFutureFragment;
-            wait.Click += OpenWaitFragment;
 
             waitFragment.AddClient += AddWaitClient;
 
@@ -218,11 +212,7 @@ namespace MrPiattoRestaurant
             inflater = LayoutInflater.From(this);
             mainContainer = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
 
-            actual = mainContainer.FindViewById<ImageButton>(Resource.Id.idActual);
-            future = mainContainer.FindViewById<ImageButton>(Resource.Id.idFuture);
-            wait = mainContainer.FindViewById<ImageButton>(Resource.Id.idWait);
-
-            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            Android.Support.V4.App.FragmentTransaction transaction = SupportFragmentManager.BeginTransaction();
 
             ActualFragment auxFragment = new ActualFragment(this);
             transaction.Replace(Resource.Id.idContainer, auxFragment);
@@ -231,9 +221,6 @@ namespace MrPiattoRestaurant
 
             Toast.MakeText(this, "Se presiono ", ToastLength.Long).Show();
 
-            actual.Click += OpenActualFragment;
-            future.Click += OpenFutureFragment;
-            wait.Click += OpenWaitFragment;
         }
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs ev)
         {
@@ -255,7 +242,7 @@ namespace MrPiattoRestaurant
             {
                 date.Text = time.ToLongDateString();
             });
-            frag.Show(FragmentManager, DatePickerFragment.TAG);
+            frag.Show(SupportFragmentManager, DatePickerFragment.TAG);
         }
 
         public void HourSelect_OnClick(object sender, EventArgs args)
@@ -266,7 +253,7 @@ namespace MrPiattoRestaurant
 
                 hour.Text = time.ToShortTimeString();
             });
-            frag.Show(FragmentManager, TimePickerFragment.TAG);
+            frag.Show(SupportFragmentManager, TimePickerFragment.TAG);
         }
 
         public void OpenDashboard(object sender, EventArgs args)
@@ -278,19 +265,19 @@ namespace MrPiattoRestaurant
         public void OpenActualFragment(object sender, EventArgs args)
         {
             Toast.MakeText(this, "Se presiono recycler para actuales", ToastLength.Long).Show();
-            FragmentManager.BeginTransaction().Replace(Resource.Id.idContainer, actualFragment).AddToBackStack(null).Commit();
+            SupportFragmentManager.BeginTransaction().Replace(Resource.Id.idContainer, actualFragment).AddToBackStack(null).Commit();
         }
 
         public void OpenFutureFragment(object sender, EventArgs args)
         {
             Toast.MakeText(this, "Se presiono recycler para las futuras", ToastLength.Long).Show();
-            FragmentManager.BeginTransaction().Add(Resource.Id.idContainer, futureFragment).AddToBackStack(null).Commit();
+            SupportFragmentManager.BeginTransaction().Add(Resource.Id.idContainer, futureFragment).AddToBackStack(null).Commit();
         }
 
         public void OpenWaitFragment(object sender, EventArgs args)
         {
             Toast.MakeText(this, "Se presiono recycler para la lista de espera", ToastLength.Long).Show();
-            FragmentManager.BeginTransaction().Replace(Resource.Id.idContainer, waitFragment).AddToBackStack(null).Commit();
+            SupportFragmentManager.BeginTransaction().Replace(Resource.Id.idContainer, waitFragment).AddToBackStack(null).Commit();
         }
 
         public void AddWaitClient(object sender, EventArgs args)
@@ -372,7 +359,7 @@ namespace MrPiattoRestaurant
 
                         Client client = new Client(name.Text, 0, DateTime.Now);
                         floors.ElementAt(floorIndex).setActualClientOnTable(client, table);
-                        actualFragment.Update(floors.ElementAt(floorIndex).tables.ElementAt(table));
+                        actualFragment.Update(floors.ElementAt(floorIndex).ocupiedTables);
 
                         Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(this).Create();
                         alertDialog.SetCancelable(true);

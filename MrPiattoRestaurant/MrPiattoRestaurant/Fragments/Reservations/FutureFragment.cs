@@ -11,13 +11,14 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
+using Android.Support.V4.App;
 
 using MrPiattoRestaurant.adapters.futureListAdapters;
 using MrPiattoRestaurant.Models.Reservations;
 
 namespace MrPiattoRestaurant.Fragments.Reservations
 {
-    public class FutureFragment : Fragment
+    public class FutureFragment : Android.Support.V4.App.Fragment
     {
         Button newReservation;
         RecyclerView mRecyclerView;
