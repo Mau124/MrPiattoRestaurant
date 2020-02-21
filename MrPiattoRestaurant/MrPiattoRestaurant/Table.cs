@@ -20,16 +20,18 @@ namespace MrPiattoRestaurant
     {
         private const int width = 100;
         private const int height = 100;
+        private const int textSize = 20;
         public string tableName { get; set; }
         public string tableDrawable { get; set; }
+        public int seats { get; set; }
 
         private Drawable image;
         private Drawable border;
+        private Paint paint;
 
         public Context context;
 
         public Client actualClient { get; set; }
-
         public bool borderOn { get; set; }
         public bool isOcupied { get; set; }
         //Blocked List
@@ -43,20 +45,26 @@ namespace MrPiattoRestaurant
         public int secondX { get; set; }
         public int secondY { get; set; }
 
-        public Table(Drawable image, Drawable border, int firstX, int firstY, bool borderOn, string tableDrawable, Context context)
+        public Table(Context context, string tableDrawable, int firstX, int firstY, bool borderOn)
         {
-            this.image = image;
-            this.border = border;
+            paint = new Paint();
+            paint.Color = Color.ParseColor("#B0ADE8");
+            paint.SetStyle(Paint.Style.Fill);
+            paint.TextSize = textSize;
+            paint.TextAlign = Paint.Align.Center;
+            paint.SetTypeface(Typeface.SansSerif);
+
+            this.context = context;
+            this.tableDrawable = tableDrawable;
             this.firstX = firstX - (width / 2);
             this.firstY = firstY - (height / 2);
             this.borderOn = borderOn;
-            this.tableDrawable = tableDrawable;
-            this.context = context;
 
             secondX = this.firstX + width;
             secondY = this.firstY + height;
 
-            borderOn = false;
+            image = context.Resources.GetDrawable(context.Resources.GetIdentifier(tableDrawable, "drawable", context.PackageName));
+            border = context.Resources.GetDrawable(Resource.Drawable.border);
 
             image.SetBounds(this.firstX, this.firstY, secondX, secondY);
             border.SetBounds(this.firstX - 5, this.firstY - 5, secondX + 5, secondY + 5);
@@ -66,13 +74,14 @@ namespace MrPiattoRestaurant
 
         public void setOcupied()
         {
-            tableDrawable += "ocupied";
-            image = context.Resources.GetDrawable(context.Resources.GetIdentifier(tableDrawable, "drawable", context.PackageName));
+            string auxDrawable = tableDrawable + "ocupied";
+            image = context.Resources.GetDrawable(context.Resources.GetIdentifier(auxDrawable, "drawable", context.PackageName));
             image.SetBounds(this.firstX, this.firstY, secondX, secondY);
         }
         public void DrawTable(Canvas canvas)
         {
             image.Draw(canvas);
+            canvas.DrawText("Mesa 1", firstX + (width / 2), firstY + (height / 2) + (textSize / 2), paint);
             if (borderOn)
                 border.Draw(canvas);
         }

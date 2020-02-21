@@ -117,5 +117,7 @@ TextView;obj\Debug\90\res\layout\layout_item.xml
 TextView;obj\Debug\90\res\layout\layout_section.xml
 TextView;obj\Debug\90\res\layout\modify_floor.xml
 TextView;obj\Debug\90\res\layout\modify_waitlist.xml
+TextView;obj\Debug\90\res\layout\recycler_actuallist.xml
+TextView;obj\Debug\90\res\layout\recycler_waitlist.xml
 TextView;obj\Debug\90\res\layout\table_properties.xml
 View;obj\Debug\90\res\layout\activity_main.xml

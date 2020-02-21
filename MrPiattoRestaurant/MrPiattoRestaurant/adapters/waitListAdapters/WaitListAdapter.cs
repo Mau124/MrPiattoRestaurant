@@ -23,7 +23,7 @@ namespace MrPiattoRestaurant.adapters.waitListAdapters
         public int itemDragged { get; set; }
         // Event handler for item clicks
         public event EventHandler<int> ItemClick;
-        public WaitListAdapter(List<WaitList> waitList, Context context)
+        public WaitListAdapter(Context context, List<WaitList> waitList)
         {
             this.waitList = waitList;
             this.context = context;
@@ -50,32 +50,6 @@ namespace MrPiattoRestaurant.adapters.waitListAdapters
             };
 
             vh.menu.Click += delegate { OnMenuClick(position, vh);  };
-            //vh.menu.Click += delegate
-            //{
-            //    Android.Support.V7.Widget.PopupMenu menu = new Android.Support.V7.Widget.PopupMenu(context, vh.menu);
-            //    menu.Inflate(Resource.Menu.waitListMenu);
-
-            //    menu.MenuItemClick += (s1, arg1) =>
-            //    {
-            //        switch (arg1.Item.ItemId)
-            //        {
-            //            case Resource.Id.item1:
-            //                Toast.MakeText(Application.Context, "Posicion: " + position + " Opcion 1", ToastLength.Short).Show();
-            //                break;
-            //            case Resource.Id.item2:
-            //                ModifyClient(position);
-            //                Toast.MakeText(Application.Context, "Position: " + position + " Opcion 2", ToastLength.Short).Show();
-            //                break;
-            //            case Resource.Id.item3:
-            //                waitList.RemoveAt(position);
-            //                NotifyDataSetChanged();
-            //                Toast.MakeText(Application.Context, "Position: " + position + " Opcion 3", ToastLength.Short).Show();
-            //                break;
-            //        }
-            //    };
-
-            //    menu.Show();
-            //};
         }
 
         public void OnMenuClick(int position, WaitListViewHolder vh)

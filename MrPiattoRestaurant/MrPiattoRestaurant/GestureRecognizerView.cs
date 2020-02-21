@@ -254,11 +254,11 @@ namespace MrPiattoRestaurant
             Invalidate();
         }
 
-        public void AddTable(Drawable table, Context context, string tableType)
+        public void AddTable(Context context, string tableDrawable)
         {
             if (tables.Count() > 0)
                 tables.ElementAt(tableIndex).borderOn = false;
-            tables.Add(new Table(table, context.Resources.GetDrawable(Resource.Drawable.border), (int)centerX, (int)centerY, true, tableType, context));
+            tables.Add(new Table(context, tableDrawable, (int)centerX, (int)centerY, true));
             args.floorIterator = floorIndex;
             args.tableIterator = tables.Count() - 1;
             OnTablePressed();

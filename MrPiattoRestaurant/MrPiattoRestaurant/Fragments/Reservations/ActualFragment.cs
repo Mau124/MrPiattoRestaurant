@@ -22,6 +22,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
     {
         Button newClient;
         RecyclerView mRecyclerView;
+        TextView message;
 
         //RecyclerView elements
         public RecyclerView.LayoutManager mLayoutManager;
@@ -31,9 +32,14 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
         public Context context;
 
-        public ActualFragment(Context context)
+        public ActualFragment()
+        {
+            //Default Constructor
+        }
+        public ActualFragment(Context context, List<Table> ocupiedTables)
         {
             this.context = context;
+            this.ocupiedTables = ocupiedTables;
         }
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -49,12 +55,24 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
             newClient = view.FindViewById<Button>(Resource.Id.idButton);
             mRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
+            message = view.FindViewById<TextView>(Resource.Id.idMessage);
 
             mLayoutManager = new LinearLayoutManager(Application.Context);
             mAdapter = new ActualListAdapter(context, ocupiedTables);
 
             mRecyclerView.SetLayoutManager(mLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
+
+            if (ocupiedTables.Any())
+            {
+                mRecyclerView.Visibility = ViewStates.Visible;
+                message.Visibility = ViewStates.Gone;
+            } 
+            else
+            {
+                mRecyclerView.Visibility = ViewStates.Gone;
+                message.Visibility = ViewStates.Visible;
+            }
 
             return view;
         }

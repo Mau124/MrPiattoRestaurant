@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Content;
 using Android.Support.V7.Widget;
 using Android.Support.V4.App;
+using Android.Support.Design.Widget;
 
 using MrPiattoRestaurant.adapters;
 using MrPiattoRestaurant.Fragments.Reservations;
@@ -35,9 +36,10 @@ namespace MrPiattoRestaurant
         public TextView date, hour;
         public Android.Support.Constraints.ConstraintLayout timeLine;
 
-        public ActualFragment actualFragment;
         public FutureFragment futureFragment = new FutureFragment();
-        public WaitFragment waitFragment = new WaitFragment(Application.Context);
+        public WaitFragment waitFragment;
+
+        public BottomNavigationView bottomNavigation;
 
         public int floorIndex = new int();
 
@@ -47,7 +49,6 @@ namespace MrPiattoRestaurant
         TimeLineView timeLineView;
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            waitFragment = new WaitFragment(this);
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // Set our view from the "main" layout resource
@@ -64,7 +65,7 @@ namespace MrPiattoRestaurant
             date = FindViewById<TextView>(Resource.Id.idDate);
             hour = FindViewById<TextView>(Resource.Id.idHour);
 
-            actualFragment = new ActualFragment(this);
+            waitFragment = new WaitFragment(this);
 
             //We create the first floor and add it to the list of floors
             GestureRecognizerView floor = new GestureRecognizerView(this, "Piso 1", 0);
@@ -91,7 +92,11 @@ namespace MrPiattoRestaurant
             inflater = LayoutInflater.From(this);
             mainContainer = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
 
-            SupportFragmentManager.BeginTransaction().Add(Resource.Id.idContainer, actualFragment).Commit();
+            bottomNavigation = FindViewById<BottomNavigationView>(Resource.Id.idBottom_navigation);
+
+            bottomNavigation.NavigationItemSelected += BottomNavigation_NavigationItemSelected;
+            LoadFragment(Resource.Id.idActualList);
+
 
             //Create events for the spinner
             floorName.ItemSelected += new System.EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
@@ -111,6 +116,32 @@ namespace MrPiattoRestaurant
             floor.Drag += OnDrag;
 
             timeLineView.TimeLinePressed += UpdateTime;
+        }
+        private void BottomNavigation_NavigationItemSelected(object sender, BottomNavigationView.NavigationItemSelectedEventArgs e)
+        {
+            LoadFragment(e.Item.ItemId);
+        }
+        public void LoadFragment(int id)
+        {
+            Android.Support.V4.App.Fragment fragment = null;
+            switch (id)
+            {
+                case Resource.Id.idActualList:
+                    fragment = new ActualFragment(this, floors.ElementAt(floorIndex).ocupiedTables);
+                    break;
+                case Resource.Id.idFutureList:
+                    fragment = futureFragment;
+                    break;
+                case Resource.Id.idWaitList:
+                    fragment = waitFragment;
+                    break;
+            }
+            if (fragment == null)
+                return;
+
+            SupportFragmentManager.BeginTransaction()
+                .Replace(Resource.Id.idContent_frame, fragment)
+                .Commit();
         }
 
         public void OnTablePressed(object source, TablePressedEventArgs args)
@@ -201,7 +232,7 @@ namespace MrPiattoRestaurant
 
         public void OnItemPressed(object source, string tableDrawable)
         {
-            floors.ElementAt(floorIndex).AddTable(this.Resources.GetDrawable(this.Resources.GetIdentifier(tableDrawable, "drawable", this.PackageName)), this, tableDrawable);
+            floors.ElementAt(floorIndex).AddTable(this, tableDrawable);
             Toast.MakeText(this, "Posicion: " , ToastLength.Long).Show();
         }
 
@@ -212,15 +243,9 @@ namespace MrPiattoRestaurant
             inflater = LayoutInflater.From(this);
             mainContainer = inflater.Inflate(Resource.Layout.layout_main_container, options, true);
 
-            Android.Support.V4.App.FragmentTransaction transaction = SupportFragmentManager.BeginTransaction();
-
-            ActualFragment auxFragment = new ActualFragment(this);
-            transaction.Replace(Resource.Id.idContainer, auxFragment);
-            transaction.AddToBackStack(null);
-            transaction.Commit();
-
-            Toast.MakeText(this, "Se presiono ", ToastLength.Long).Show();
-
+            bottomNavigation = FindViewById<BottomNavigationView>(Resource.Id.idBottom_navigation);
+            bottomNavigation.NavigationItemSelected += BottomNavigation_NavigationItemSelected;
+            LoadFragment(Resource.Id.idActualList);
         }
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs ev)
         {
@@ -260,24 +285,6 @@ namespace MrPiattoRestaurant
         {
             Intent dashboard = new Intent(this, typeof(DashboardActivity));
             StartActivity(dashboard);
-        }
-
-        public void OpenActualFragment(object sender, EventArgs args)
-        {
-            Toast.MakeText(this, "Se presiono recycler para actuales", ToastLength.Long).Show();
-            SupportFragmentManager.BeginTransaction().Replace(Resource.Id.idContainer, actualFragment).AddToBackStack(null).Commit();
-        }
-
-        public void OpenFutureFragment(object sender, EventArgs args)
-        {
-            Toast.MakeText(this, "Se presiono recycler para las futuras", ToastLength.Long).Show();
-            SupportFragmentManager.BeginTransaction().Add(Resource.Id.idContainer, futureFragment).AddToBackStack(null).Commit();
-        }
-
-        public void OpenWaitFragment(object sender, EventArgs args)
-        {
-            Toast.MakeText(this, "Se presiono recycler para la lista de espera", ToastLength.Long).Show();
-            SupportFragmentManager.BeginTransaction().Replace(Resource.Id.idContainer, waitFragment).AddToBackStack(null).Commit();
         }
 
         public void AddWaitClient(object sender, EventArgs args)
@@ -343,9 +350,9 @@ namespace MrPiattoRestaurant
                     {
                         floors.ElementAt(floorIndex).tables.ElementAt(table).setOcupied();
                         floors.ElementAt(floorIndex).Draw();
-                        
 
-                        int pos = waitFragment.mAdapter.itemDragged;
+
+                        int pos = waitFragment.getDraggedItemPosition();
                         //Create alertdialog
                         View content = LayoutInflater.Inflate(Resource.Layout.dialog_confirm_assigntable_fromWait, null);
 
@@ -359,7 +366,10 @@ namespace MrPiattoRestaurant
 
                         Client client = new Client(name.Text, 0, DateTime.Now);
                         floors.ElementAt(floorIndex).setActualClientOnTable(client, table);
-                        actualFragment.Update(floors.ElementAt(floorIndex).ocupiedTables);
+                        waitFragment.RemoveFromWaitList(pos);
+
+                        bottomNavigation.SelectedItemId = Resource.Id.idActualList;
+                        LoadFragment(Resource.Id.idActualList);
 
                         Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(this).Create();
                         alertDialog.SetCancelable(true);

@@ -43,11 +43,6 @@ namespace MrPiattoRestaurant.Fragments.Reservations
                 AddClient(this, EventArgs.Empty);
             }
         }
-        public WaitFragment (List<WaitList> waitList)
-        {
-            this.waitList = waitList;
-        }
-
         public WaitFragment(Context context)
         {
             waitList = new List<WaitList>();
@@ -70,7 +65,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             mRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
 
             mLayoutManager = new LinearLayoutManager(Application.Context);
-            mAdapter = new WaitListAdapter(waitList, context);
+            mAdapter = new WaitListAdapter(context, waitList);
 
             mRecyclerView.SetLayoutManager(mLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
@@ -96,8 +91,18 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         {
             WaitList client = new WaitList(name, seats);
             waitList.Add(client);
-            mAdapter = new WaitListAdapter(waitList, context);
+            mAdapter = new WaitListAdapter(context, waitList);
             mRecyclerView.SetAdapter(mAdapter);
+        }
+
+        public void RemoveFromWaitList(int position)
+        {
+            waitList.RemoveAt(position);
+        }
+
+        public int getDraggedItemPosition()
+        {
+            return mAdapter.itemDragged;
         }
     }
 }
