@@ -148,21 +148,35 @@ namespace MrPiattoRestaurant
         {
             options.RemoveAllViews();
 
+            int floorIterator = args.floorIterator;
+            int tableIterator = args.tableIterator;
+
+            Table table = floors[floorIterator].getTableProperties(tableIterator);
+
             LayoutInflater inflater = LayoutInflater.From(this);
             View tablePropertiesView = inflater.Inflate(Resource.Layout.table_properties, options, true);
 
-            TextView x = tablePropertiesView.FindViewById<TextView>(Resource.Id.idTableName);
+            EditText tableName;
+            TextView tableSeats;
 
+            tableName = tablePropertiesView.FindViewById<EditText>(Resource.Id.idTableName);
+            tableSeats = tablePropertiesView.FindViewById<TextView>(Resource.Id.idTableSeats);
+
+            tableName.Hint = table.tableName;
+            tableSeats.Text = table.seats.ToString();
+
+            tableName.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
+            {
+                floors.ElementAt(floorIterator).tables.ElementAt(tableIterator).tableName = e.Text.ToString();
+                floors.ElementAt(floorIterator).Draw();
+                tableSeats.Text = e.Text.ToString();
+            };
             //We identify the buttons
             Button buttonSave = tablePropertiesView.FindViewById<Button>(Resource.Id.idSaveButton);
             Button buttonDelete = tablePropertiesView.FindViewById<Button>(Resource.Id.idDeleteButton);
 
             buttonSave.Click += delegate { SaveChanges(); };
             buttonDelete.Click += delegate { DeleteTable(args.floorIterator, args.tableIterator); };
-
-            x.Text = "Mesa " + args.tableIterator;
-
-            Table t = floors[args.floorIterator].getTableProperties(args.tableIterator);
         }
 
         public void SaveChanges()
@@ -230,10 +244,9 @@ namespace MrPiattoRestaurant
             cancel.Click += delegate { OnCancel(catalogueTables); };
         }
 
-        public void OnItemPressed(object source, string tableDrawable)
+        public void OnItemPressed(string type, int seats)
         {
-            floors.ElementAt(floorIndex).AddTable(this, tableDrawable);
-            Toast.MakeText(this, "Posicion: " , ToastLength.Long).Show();
+            floors.ElementAt(floorIndex).AddTable(type, seats);
         }
 
         public void OnCancel(View view)
@@ -329,12 +342,10 @@ namespace MrPiattoRestaurant
 
                 // Dragged element enters the drop zone
                 case DragAction.Entered:
-                    Toast.MakeText(Application.Context, "Drop it like it's hot!", ToastLength.Short).Show();
                     break;
 
                 // Dragged element exits the drop zone
                 case DragAction.Exited:
-                    Toast.MakeText(Application.Context, "Drop something here!", ToastLength.Short).Show();
                     break;
 
                 // Dragged element has been dropped at the drop zone

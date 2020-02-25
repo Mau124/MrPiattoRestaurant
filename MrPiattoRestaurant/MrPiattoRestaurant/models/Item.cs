@@ -19,18 +19,23 @@ namespace MrPiattoRestaurant.models
         public string caption { get; set; }
         public bool isSection { get; set; }
         public bool isExpandable { get; set; }
+        public string type { get; set; }
+        public int seats { get; set; }
         public string tableDrawable { get; set; }
-        public Item(String sectionName)
+        public Item(string sectionName)
         {
             this.sectionName = sectionName;
             isSection = true;
             isExpandable = true;
         }
-        public Item(String caption, int tableID, String tableDrawable)
+        public Item(string caption, int tableID, string type, int seats)
         {
             this.caption = caption;
             this.tableID = tableID;
-            this.tableDrawable = tableDrawable;
+            this.type = type;
+            this.seats = seats;
+
+            tableDrawable = type + seats;
             isSection = false;
         }
     }

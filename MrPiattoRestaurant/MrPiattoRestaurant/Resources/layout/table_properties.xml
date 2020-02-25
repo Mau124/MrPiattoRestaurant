@@ -55,18 +55,19 @@
             android:layout_height="wrap_content"
             android:text="Nombre: "
             app:layout_constraintTop_toBottomOf="@+id/idTitleGeneral"
-            android:id="@+id/idTableName"
+            android:id="@+id/idName"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="" 
-                app:layout_constraintLeft_toRightOf="@+id/idTableName"
-                app:layout_constraintTop_toTopOf="@+id/idTableName"/>
+                app:layout_constraintLeft_toRightOf="@+id/idName"
+                app:layout_constraintTop_toTopOf="@+id/idName"
+                android:id="@+id/idTableName"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,7 +85,8 @@
                 android:layout_height="wrap_content"
                 android:text="5" 
                 app:layout_constraintLeft_toRightOf="@+id/idSeats"
-                app:layout_constraintTop_toTopOf="@+id/idSeats"/>
+                app:layout_constraintTop_toTopOf="@+id/idSeats"
+                android:id="@+id/idTableSeats"/>
 
         
             <TextView
@@ -92,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:text="Estado " 
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idSeats"
+                app:layout_constraintTop_toBottomOf="@+id/idTableSeats"
                 android:id="@+id/idState"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
