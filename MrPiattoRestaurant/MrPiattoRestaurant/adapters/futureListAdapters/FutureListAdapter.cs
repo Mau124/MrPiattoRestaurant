@@ -11,15 +11,19 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 
+using MrPiattoRestaurant.Models;
+
 using MrPiattoRestaurant.Models.Reservations;
 
 namespace MrPiattoRestaurant.adapters.futureListAdapters
 {
     public class FutureListAdapter : RecyclerView.Adapter
     {
-        public List<FutureList> futureList;
-        public FutureListAdapter(List<FutureList> futureList)
+        private Context context;
+        public List<Client> futureList;
+        public FutureListAdapter(Context context, List<Client> futureList)
         {
+            this.context = context;
             this.futureList = futureList;
         }
 
@@ -33,9 +37,8 @@ namespace MrPiattoRestaurant.adapters.futureListAdapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             FutureListViewHolder vh = holder as FutureListViewHolder;
-            vh.personName.Text = futureList.ElementAt(position).personName;
-            vh.tableName.Text = futureList.ElementAt(position).tableName;
-            vh.reservationCode.Text = futureList.ElementAt(position).reservationCode.ToString();
+            vh.personName.Text = futureList.ElementAt(position).name;
+            vh.tableName.Text = futureList.ElementAt(position).reservationDate.ToString();
 
             vh.menu.Click += (s, arg) =>
             {

@@ -16,12 +16,15 @@ using MrPiattoRestaurant.Models;
 
 namespace MrPiattoRestaurant
 {
+    /// <summary>
+    /// Class for a restaurant table
+    /// </summary>
     public class Table
     {
         private const int width = 100;
         private const int height = 100;
         private const int textSize = 20;
-        public string tableName { get; set; }
+        public string TableName { get; set; }
         public string tableDrawable { get; set; }
         public string type { get; set; }
         public int seats { get; set; }
@@ -31,9 +34,9 @@ namespace MrPiattoRestaurant
         private Paint paint;
 
         public Context context;
-        public Canvas canvas;
 
         public Client actualClient { get; set; }
+        public List<Client> reservations { get; set; }
         public bool borderOn { get; set; }
         public bool isOcupied { get; set; }
         //Blocked List
@@ -49,14 +52,6 @@ namespace MrPiattoRestaurant
 
         public Table(Context context, string type, int seats, int firstX, int firstY, bool borderOn)
         {
-            paint = new Paint();
-            paint.Color = Color.ParseColor("#B0ADE8");
-            paint.SetStyle(Paint.Style.Fill);
-            paint.TextSize = textSize;
-            paint.TextAlign = Paint.Align.Center;
-            paint.SetTypeface(Typeface.SansSerif);
-            paint.AntiAlias = true;
-
             this.context = context;
             this.firstX = firstX - (width / 2);
             this.firstY = firstY - (height / 2);
@@ -69,16 +64,38 @@ namespace MrPiattoRestaurant
             secondX = this.firstX + width;
             secondY = this.firstY + height;
 
+            InitializePaint();
+            InitializeImages();
+
+            isOcupied = false;
+
+            TableName = "Text";
+
+            Client client = new Client("Pedro", 5, DateTime.Now);
+            reservations = new List<Client>();
+            reservations.Add(client);
+            reservations.Add(client);
+            reservations.Add(client);
+        }
+        //Inicialization methods
+        private void InitializePaint()
+        {
+            paint = new Paint();
+            paint.Color = Color.ParseColor("#B0ADE8");
+            paint.SetStyle(Paint.Style.Fill);
+            paint.TextSize = textSize;
+            paint.TextAlign = Paint.Align.Center;
+            paint.SetTypeface(Typeface.SansSerif);
+            paint.AntiAlias = true;
+        }
+
+        private void InitializeImages()
+        {
             image = context.Resources.GetDrawable(context.Resources.GetIdentifier(tableDrawable, "drawable", context.PackageName));
             border = context.Resources.GetDrawable(Resource.Drawable.border);
 
             image.SetBounds(this.firstX, this.firstY, secondX, secondY);
             border.SetBounds(this.firstX - 5, this.firstY - 5, secondX + 5, secondY + 5);
-
-            isOcupied = false;
-
-            ////////////////////////////////////////////bORRAR
-            tableName = "Mesa";
         }
 
         public void setOcupied()
@@ -97,12 +114,12 @@ namespace MrPiattoRestaurant
 
         public void setTableName(string tableName)
         {
-            this.tableName = tableName;
+            this.TableName = tableName;
         }
         public void DrawTable(Canvas canvas)
         {
             image.Draw(canvas);
-            canvas.DrawText(tableName, firstX + (width / 2), firstY + (height / 2) + (textSize / 2), paint);
+            canvas.DrawText(TableName, firstX + (width / 2), firstY + (height / 2) + (textSize / 2), paint);
             if (borderOn)
                 border.Draw(canvas);
         }

@@ -34,9 +34,10 @@ namespace MrPiattoRestaurant.adapters.actualListAdapters
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
+            holder.IsRecyclable = false;
             ActualListViewHolder vh = holder as ActualListViewHolder;
             vh.personName.Text = ocupiedTables.ElementAt(position).actualClient.name;
-            vh.tableName.Text = ocupiedTables.ElementAt(position).tableName;
+            vh.tableName.Text = ocupiedTables.ElementAt(position).TableName;
             vh.timeUsed.Text = ocupiedTables.ElementAt(position).actualClient.timeUsed.ToString();
 
             vh.menu.Click += (s, arg) =>
@@ -49,7 +50,7 @@ namespace MrPiattoRestaurant.adapters.actualListAdapters
                     switch (arg1.Item.ItemId)
                     {
                         case Resource.Id.item1:
-                            Toast.MakeText(Application.Context, "Posicion: " + position + " Opcion 1", ToastLength.Short).Show();
+                            AnswerSurveyDialog();
                             break;
                         case Resource.Id.item2:
                             Toast.MakeText(Application.Context, "Position: " + position + " Opcion 2", ToastLength.Short).Show();
@@ -69,6 +70,17 @@ namespace MrPiattoRestaurant.adapters.actualListAdapters
         public override long GetItemId(int position)
         {
             return position;
+        }
+
+        public void AnswerSurveyDialog()
+        {
+            LayoutInflater inflater = LayoutInflater.From(Application.Context);
+            View content = inflater.Inflate(Resource.Layout.dialog_answer_survey, null);
+
+            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
+            alertDialog.SetCancelable(true);
+            alertDialog.SetView(content);
+            alertDialog.Show();
         }
         public class ActualListViewHolder : RecyclerView.ViewHolder
         {

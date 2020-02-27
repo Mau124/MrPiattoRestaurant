@@ -19,6 +19,7 @@ using MrPiattoRestaurant.Pickers;
 using MrPiattoRestaurant.InteractiveViews;
 using MrPiattoRestaurant.Models.Reservations;
 using MrPiattoRestaurant.Models;
+using MrPiattoRestaurant.Views;
 
 namespace MrPiattoRestaurant
 {
@@ -143,40 +144,15 @@ namespace MrPiattoRestaurant
                 .Replace(Resource.Id.idContent_frame, fragment)
                 .Commit();
         }
-
-        public void OnTablePressed(object source, TablePressedEventArgs args)
+        //Views
+        /*
+         Here are all the views and its methods
+        */
+        public void OnTablePressed(int floorIndex, int tableIndex)
         {
             options.RemoveAllViews();
-
-            int floorIterator = args.floorIterator;
-            int tableIterator = args.tableIterator;
-
-            Table table = floors[floorIterator].getTableProperties(tableIterator);
-
-            LayoutInflater inflater = LayoutInflater.From(this);
-            View tablePropertiesView = inflater.Inflate(Resource.Layout.table_properties, options, true);
-
-            EditText tableName;
-            TextView tableSeats;
-
-            tableName = tablePropertiesView.FindViewById<EditText>(Resource.Id.idTableName);
-            tableSeats = tablePropertiesView.FindViewById<TextView>(Resource.Id.idTableSeats);
-
-            tableName.Hint = table.tableName;
-            tableSeats.Text = table.seats.ToString();
-
-            tableName.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
-            {
-                floors.ElementAt(floorIterator).tables.ElementAt(tableIterator).tableName = e.Text.ToString();
-                floors.ElementAt(floorIterator).Draw();
-                tableSeats.Text = e.Text.ToString();
-            };
-            //We identify the buttons
-            Button buttonSave = tablePropertiesView.FindViewById<Button>(Resource.Id.idSaveButton);
-            Button buttonDelete = tablePropertiesView.FindViewById<Button>(Resource.Id.idDeleteButton);
-
-            buttonSave.Click += delegate { SaveChanges(); };
-            buttonDelete.Click += delegate { DeleteTable(args.floorIterator, args.tableIterator); };
+            TablePropertiesView tablepropertiesView = new TablePropertiesView(this, floors, floorIndex, tableIndex);
+            tablepropertiesView.CreateView(options);
         }
 
         public void SaveChanges()

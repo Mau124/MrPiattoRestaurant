@@ -31,8 +31,6 @@ namespace MrPiattoRestaurant
         public int tableIndex = new int();
         public int floorIndex = new int();
 
-        TablePressedEventArgs args =  new TablePressedEventArgs();
-
         public float DifferentX = 0, DifferentY = 0, AbsolutTouchX = 0, AbsolutTouchY = 0;
         public float centerX = screenSizeX / 2, centerY = screenSizeY / 2;
 
@@ -51,17 +49,17 @@ namespace MrPiattoRestaurant
         private float _scaleFactor = 1.0f;
 
         //We define a delegate for our tablepressed event
-        public delegate void TablePressedEventHandler(object source, TablePressedEventArgs args);
+        public delegate void TablePressedEventHandler(int floorIndex, int tableIndex);
 
         //We define an event based on the tablepressed delegate
         public event TablePressedEventHandler TablePressed;
 
         //Raise the event
-        protected virtual void OnTablePressed()      
+        protected virtual void OnTablePressed(int floorIndex, int tableIndex)      
         {
             if (TablePressed != null)
             {
-                TablePressed(this, args);
+                TablePressed(floorIndex, tableIndex);
             }
         }
 
@@ -112,9 +110,7 @@ namespace MrPiattoRestaurant
 
                     if (isOnTable() != -1)
                     {
-                        args.floorIterator = floorIndex;
-                        args.tableIterator = tableIndex;
-                        OnTablePressed();
+                        OnTablePressed(floorIndex, tableIndex);
                         moveValid = true;
                         isTablePressed = true;
 
@@ -283,9 +279,7 @@ namespace MrPiattoRestaurant
             if (tables.Count() > 0)
                 tables.ElementAt(tableIndex).borderOn = false;
             tables.Add(new Table(context, type, seats, (int)centerX, (int)centerY, true));
-            args.floorIterator = floorIndex;
-            args.tableIterator = tables.Count() - 1;
-            OnTablePressed();
+            OnTablePressed(floorIndex, tables.Count() - 1);
             Invalidate();
         }
 
@@ -344,10 +338,10 @@ namespace MrPiattoRestaurant
             imageTable1 = content.FindViewById<ImageView>(Resource.Id.idImageTable1);
             imageTable2 = content.FindViewById<ImageView>(Resource.Id.idImageTable2);
 
-            nameTable1.Text = tables.ElementAt(indexTable1).tableName;
+            nameTable1.Text = tables.ElementAt(indexTable1).TableName;
             seatsTable1.Text = tables.ElementAt(indexTable1).seats.ToString();
 
-            nameTable2.Text = tables.ElementAt(indexTable2).tableName;
+            nameTable2.Text = tables.ElementAt(indexTable2).TableName;
             seatsTable2.Text = tables.ElementAt(indexTable2).seats.ToString();
 
             imageTable1.SetImageResource(context.Resources.GetIdentifier(tables.ElementAt(indexTable1).tableDrawable, "drawable", context.PackageName));

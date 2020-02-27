@@ -1,2 +1,2 @@
-AdbTarget=-s HA10KP5S
+AdbTarget=-s emulator-5554
 AdbOptions=

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MrPiattoRestaurant</name>
+    </assembly>
+    <members>
+        <member name="T:MrPiattoRestaurant.Table">
+            <summary>
+            Class for a restaurant table
+            </summary>
+        </member>
+        <member name="T:MrPiattoRestaurant.Views.TablePropertiesView">
+            <summary>
+            Class that creates and manages a table properties view
+            </summary>
+        </member>
+        <member name="M:MrPiattoRestaurant.Views.TablePropertiesView.#ctor(Android.Content.Context,System.Collections.Generic.List{MrPiattoRestaurant.GestureRecognizerView},System.Int32,System.Int32)">
+            <summary>
+            Class that creates a tablepropertiesView
+            </summary>
+            <param name="context">Context of activity</param>
+            <param name="floors">List of floors</param>
+            <param name="floorIndex">Actual floor Index</param>
+            <param name="tableIndex">Actual table Index in that floor</param>
+        </member>
+        <member name="M:MrPiattoRestaurant.Views.TablePropertiesView.CreateView(Android.Views.ViewGroup)">
+            <summary>
+            Creates and shows the table properties View
+            </summary>
+            <param name="viewGroup">Container in which the table will be shown</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

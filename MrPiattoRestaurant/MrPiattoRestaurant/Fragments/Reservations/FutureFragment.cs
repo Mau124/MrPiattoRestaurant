@@ -15,6 +15,7 @@ using Android.Support.V4.App;
 
 using MrPiattoRestaurant.adapters.futureListAdapters;
 using MrPiattoRestaurant.Models.Reservations;
+using MrPiattoRestaurant.Models;
 
 namespace MrPiattoRestaurant.Fragments.Reservations
 {
@@ -23,19 +24,21 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         Button newReservation;
         RecyclerView mRecyclerView;
 
+        private Context context;
+
         //RecyclerView elements
         public RecyclerView.LayoutManager mLayoutManager;
         public FutureListAdapter mAdapter;
 
-        public List<FutureList> futureList = new List<FutureList>();
+        public List<Client> futureList = new List<Client>();
 
-        public FutureFragment(List<FutureList> futureList)
+        public FutureFragment(Context context, List<Client> futureList)
         {
             this.futureList = futureList;
         }
         public FutureFragment()
         {
-            futureList = new List<FutureList>();
+            futureList = new List<Client>();
         }
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -53,7 +56,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             mRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
 
             mLayoutManager = new LinearLayoutManager(Application.Context);
-            mAdapter = new FutureListAdapter(futureList);
+            mAdapter = new FutureListAdapter(context, futureList);
             mAdapter.HasStableIds = true;
 
             mRecyclerView.SetLayoutManager(mLayoutManager);
@@ -65,9 +68,9 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
         public void OnAddReservation()
         {
-            FutureList element = new FutureList("Mauricio Andres Flores Perez", "Mesa 2", 3);
+            Client element = new Client("Mauricio Andres Flores Perez", 3, DateTime.Now);
             futureList.Add(element);
-            mAdapter = new FutureListAdapter(futureList);
+            mAdapter = new FutureListAdapter(context, futureList);
             mRecyclerView.SetAdapter(mAdapter);
             Toast.MakeText(Application.Context, "Se presiono el boton desde future", ToastLength.Long).Show();
         }
