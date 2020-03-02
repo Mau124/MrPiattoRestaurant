@@ -126,6 +126,24 @@ namespace MrPiattoRestaurant
         {
             this.TableName = tableName;
         }
+
+        /// <summary>
+        /// Function that adds a new coordinate for a table
+        /// </summary>
+        /// <param name="point">Point x and y where the new table is located</param>
+        /// <param name="date">Date in wich that distribution is changed</param>
+        public void AddDistribution(Point point, DateTime date)
+        {
+            for (int i = 0; i < TableDistributions.Count; ++i)
+            {
+                if ((TableDistributions.ElementAt(i).Value.Hour == date.Hour)
+                    && (TableDistributions.ElementAt(i).Value.Minute == date.Minute))
+                {
+                    return;
+                }
+            }
+            TableDistributions.Add(point, date);
+        }
         public void DrawTable(Canvas canvas)
         {
             image.Draw(canvas);

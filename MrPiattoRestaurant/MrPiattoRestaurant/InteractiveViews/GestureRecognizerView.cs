@@ -196,6 +196,15 @@ namespace MrPiattoRestaurant
                     }
                     else
                     {
+                        Point point = new Point(tables[tableIndex].firstX, tables[tableIndex].firstY);
+                        tables.ElementAt(tableIndex).AddDistribution(point, DateTime.Now);
+
+                        //////////////////////////////////
+                        for (int i = 0; i < tables[tableIndex].TableDistributions.Count; ++i)
+                        {
+                            Console.WriteLine("Puntos = {0}, Fecha = {1}", tables[tableIndex].TableDistributions.ElementAt(i).Key, tables[tableIndex].TableDistributions.ElementAt(i).Value);
+                        }
+
                         Toast.MakeText(Application.Context, "No esta sobre una mesa: " + auxTableIndex, ToastLength.Long).Show();
                     }
                     isTablePressed = false;
@@ -218,6 +227,31 @@ namespace MrPiattoRestaurant
                     break;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Function that returns all the reservatinos for that day
+        /// </summary>
+        /// <param name="date">Day of reservations</param>
+        /// <returns>List of clients that have a reservation on that date</returns>
+        public List<Client> GetReservations(DateTime date)
+        {
+            List<Client> reservations = new List<Client>();
+
+            foreach (Table table in tables)
+            {
+                foreach (Client client in table.reservations)
+                {
+                    if ((client.reservationDate.Month == date.Month)
+                        && (client.reservationDate.Day == date.Day)
+                        && (client.reservationDate.Hour == date.Hour))
+                    {
+                        reservations.Add(client);
+                    }
+                }
+            }
+
+            return reservations;
         }
         //Return true if the event presses a table
         public bool isTable(Table t, int x, int y)
