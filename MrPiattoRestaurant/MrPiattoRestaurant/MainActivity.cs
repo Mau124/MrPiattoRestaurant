@@ -36,6 +36,7 @@ namespace MrPiattoRestaurant
         public View v;
         public TextView date, hour;
         public Android.Support.Constraints.ConstraintLayout timeLine;
+        public ImageView Return;
 
         public FutureFragment futureFragment = new FutureFragment();
         public WaitFragment waitFragment;
@@ -62,11 +63,14 @@ namespace MrPiattoRestaurant
             options = FindViewById<LinearLayout>(Resource.Id.idOptions);
             timeLine = FindViewById <Android.Support.Constraints.ConstraintLayout>(Resource.Id.idTimeLine);
             dashboard = FindViewById<ImageButton>(Resource.Id.idDashboard);
+            Return = FindViewById<ImageView>(Resource.Id.idReturn);
 
             date = FindViewById<TextView>(Resource.Id.idDate);
             hour = FindViewById<TextView>(Resource.Id.idHour);
 
             waitFragment = new WaitFragment(this);
+
+            Return.Click += ReturnActualTime;
 
             //We create the first floor and add it to the list of floors
             GestureRecognizerView floor = new GestureRecognizerView(this, "Piso 1", 0);
@@ -263,11 +267,19 @@ namespace MrPiattoRestaurant
         {
             TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
             {
-                timeLineView.setTime(time.Hour, time.Minute);
+                timeLineView.SetTime(time.Hour, time.Minute);
 
-                hour.Text = time.ToShortTimeString();
+                hour.Text = time.ToString("hh:mm tt");
             });
             frag.Show(SupportFragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void ReturnActualTime(object sender, EventArgs args)
+        {
+            int hours = DateTime.Now.Hour;
+            int minutes = DateTime.Now.Minute;
+
+            timeLineView.SetTime(hours, minutes);
         }
 
         public void OpenDashboard(object sender, EventArgs args)

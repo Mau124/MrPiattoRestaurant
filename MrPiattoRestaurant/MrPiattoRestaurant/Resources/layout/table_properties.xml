@@ -50,55 +50,84 @@
                 android:id="@+id/idTitleGeneral"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre: "
-            app:layout_constraintTop_toBottomOf="@+id/idTitleGeneral"
-            android:id="@+id/idName"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintLeft_toLeftOf="parent"/>
-
-            <EditText
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/idNameContainer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" 
-                app:layout_constraintLeft_toRightOf="@+id/idName"
-                app:layout_constraintTop_toTopOf="@+id/idName"
-                android:id="@+id/idTableName"/>
+                app:layout_constraintTop_toBottomOf="@+id/idTitleGeneral"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre: "
+                    android:id="@+id/idName"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentTop="true"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" 
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/idTableName"
+                    android:layout_alignParentTop="true"
+                    android:textSize="14dp"/>
+
+            </LinearLayout>
+      
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Asientos: " 
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idTableName"
+                app:layout_constraintTop_toBottomOf="@+id/idNameContainer"
                 android:id="@+id/idSeats"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"/>
 
-            <TextView
+            <SeekBar
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.9"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/idTableSeats"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:id="@+id/idSeekBar"/>
+
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5" 
-                app:layout_constraintLeft_toRightOf="@+id/idSeats"
-                app:layout_constraintTop_toTopOf="@+id/idSeats"
-                android:id="@+id/idTableSeats"/>
+                android:hint="5" 
+                app:layout_constraintTop_toBottomOf="@+id/idSeats"
+                app:layout_constraintLeft_toRightOf="@+id/idSeekBar"
+                app:layout_constraintRight_toRightOf="parent"
+                android:id="@+id/idTableSeats"
+                android:layout_marginTop="10dp"
+                android:textSize="14dp"
+                android:paddingTop="0dp"/>
 
         
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Estado " 
+                android:text="Actualmente ocupado " 
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/idTableSeats"
                 android:id="@+id/idState"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Finalizar Comida"
+                android:id="@+id/idOcupiedButton"
+                android:background="@drawable/second_button"
+                app:layout_constraintTop_toBottomOf="@+id/idState"
+                android:textColor="#E2B7B8"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textAllCaps="false"/>
 
         </android.support.constraint.ConstraintLayout>
 
@@ -163,19 +192,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/containers_design"
         android:paddingTop="10dp">
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Guardar Cambios"
-        app:layout_constraintBottom_toTopOf="@+id/idDeleteButton"
-        android:background="@drawable/save_buttons"
-        android:textColor="#ffffff"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textAllCaps="false"
-        android:id="@+id/idSaveButton"/>
 
     <Button
         android:layout_width="match_parent"

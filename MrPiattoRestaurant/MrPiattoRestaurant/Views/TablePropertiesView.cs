@@ -52,6 +52,7 @@ namespace MrPiattoRestaurant.Views
             EditText tableName;
             TextView tableSeats;
             RecyclerView mRecyclerView;
+            SeekBar mSeekBar;
 
             Table table = floors[floorIndex].getTableProperties(tableIndex);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.Horizontal, false);
@@ -63,6 +64,7 @@ namespace MrPiattoRestaurant.Views
             tableName = tablePropertiesView.FindViewById<EditText>(Resource.Id.idTableName);
             tableSeats = tablePropertiesView.FindViewById<TextView>(Resource.Id.idTableSeats);
             mRecyclerView = tablePropertiesView.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
+            mSeekBar = tablePropertiesView.FindViewById<SeekBar>(Resource.Id.idSeekBar);
 
             tableName.Hint = table.TableName;
             tableSeats.Text = table.seats.ToString();
@@ -70,11 +72,31 @@ namespace MrPiattoRestaurant.Views
             mRecyclerView.SetLayoutManager(mLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
 
+            mSeekBar.Min = 1;
+            mSeekBar.Max = 5;
+
             tableName.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
             {
                 floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).TableName = e.Text.ToString();
                 floors.ElementAt(floorIndex).Draw();
                 tableSeats.Text = e.Text.ToString();
+            };
+
+            mSeekBar.ProgressChanged += (object sender, SeekBar.ProgressChangedEventArgs e) =>
+            {
+                if (e.FromUser)
+                {
+                    string type = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).type;
+                    tableSeats.Text = e.Progress.ToString();
+                    try
+                    {
+                        floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).setDrawable(type, e.Progress);
+                        floors.ElementAt(floorIndex).Invalidate();
+                    } catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+                }
             };
             //We identify the buttons
             Button buttonSave = tablePropertiesView.FindViewById<Button>(Resource.Id.idSaveButton);

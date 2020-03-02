@@ -4,10 +4,39 @@
         <name>MrPiattoRestaurant</name>
     </assembly>
     <members>
+        <member name="T:MrPiattoRestaurant.InteractiveViews.TimeLineView">
+            <summary>
+            Class that performs time line view actions
+            </summary>
+        </member>
+        <member name="M:MrPiattoRestaurant.InteractiveViews.TimeLineView.#ctor(Android.Content.Context)">
+            <summary>
+            Constructor for time line view class
+            </summary>
+            <param name="context">Context of parent activity</param>
+        </member>
+        <member name="M:MrPiattoRestaurant.InteractiveViews.TimeLineView.SetTime(System.Int32,System.Int32)">
+            <summary>
+            Set the hour and minutes on the time line View
+            </summary>
+            <param name="hour">Hour to set</param>
+            <param name="minute">Minute to set</param>
+        </member>
         <member name="T:MrPiattoRestaurant.Table">
             <summary>
             Class for a restaurant table
             </summary>
+        </member>
+        <member name="M:MrPiattoRestaurant.Table.#ctor(Android.Content.Context,System.String,System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Constructor to create a table
+            </summary>
+            <param name="context">Context of the activity</param>
+            <param name="type">Table type. Can be 'c' for circle or 's' for square</param>
+            <param name="seats">Number of seats</param>
+            <param name="firstX">Position of x</param>
+            <param name="firstY">Position of y</param>
+            <param name="borderOn">If appears with a border or not</param>
         </member>
         <member name="T:MrPiattoRestaurant.Views.TablePropertiesView">
             <summary>

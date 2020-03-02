@@ -32,6 +32,12 @@
                         android:text="Hora"
                         android:id="@+id/idHour"/>
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/reply"
+                        android:id="@+id/idReturn"/>
+
                </LinearLayout>
 
                 <ImageButton

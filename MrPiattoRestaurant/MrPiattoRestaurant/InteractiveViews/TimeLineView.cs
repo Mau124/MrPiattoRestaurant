@@ -14,6 +14,9 @@ using Android.Graphics.Drawables;
 
 namespace MrPiattoRestaurant.InteractiveViews
 {
+    /// <summary>
+    /// Class that performs time line view actions
+    /// </summary>
     public class TimeLineView : View
     {
         private const int SPACE_BETWEEN_LINES = 20;
@@ -26,7 +29,6 @@ namespace MrPiattoRestaurant.InteractiveViews
         private int _posX;
         private int center;
         private int lines;
-        private int totalMinutes;
 
         private int hours, minutes;
 
@@ -47,18 +49,25 @@ namespace MrPiattoRestaurant.InteractiveViews
             }
         }
 
+        /// <summary>
+        /// Constructor for time line view class
+        /// </summary>
+        /// <param name="context">Context of parent activity</param>
         public TimeLineView (Context context) : base(context, null, 0)
         {
             this.context = context;
             center = (Resources.DisplayMetrics.WidthPixels / 2) - 1;
-            lines = 0;
-            totalMinutes = 0;
+            InitializeTimes();
 
+            _icon = context.Resources.GetDrawable(Resource.Drawable.TimeLineFinal);
+            _icon.SetBounds(center, 0, _icon.IntrinsicWidth + center, _icon.IntrinsicHeight);
+        }
+
+        private void InitializeTimes()
+        {
+            lines = 0;
             hours = 0;
             minutes = 0;
-
-            _icon = context.Resources.GetDrawable(Resource.Drawable.line12);
-            _icon.SetBounds(center, 0, _icon.IntrinsicWidth + center, _icon.IntrinsicHeight);
         }
 
         public override bool OnTouchEvent(MotionEvent ev)
@@ -81,16 +90,10 @@ namespace MrPiattoRestaurant.InteractiveViews
                     float deltaX = x - _lastTouchX;
                     _posX += (int)deltaX;
 
-                    lines = _posX;
-                    totalMinutes = ((-1) * lines);
+                    lines = Math.Abs(_posX);
 
-                    int auxHours, auxMinutes;
-
-                    auxHours = totalMinutes / 60;
-                    auxMinutes = totalMinutes % 60;
-
-                    hours = (7 + auxHours) % 24;
-                    minutes = auxMinutes;
+                    hours = lines / 60;
+                    minutes = lines % 60;
 
                     OnTimeLinePressed(hours, minutes);
 
@@ -143,15 +146,16 @@ namespace MrPiattoRestaurant.InteractiveViews
             canvas.Restore();
         }
 
-        public void setTime(int hour, int minute)
+        /// <summary>
+        /// Set the hour and minutes on the time line View
+        /// </summary>
+        /// <param name="hour">Hour to set</param>
+        /// <param name="minute">Minute to set</param>
+        public void SetTime(int hour, int minute)
         {
-            int absolutHours = Math.Abs(START_HOUR - hour);
+            int absolutMinutes = (hour * 60) + minute;
 
-            int totalMinutes = absolutHours * 60;
-            totalMinutes += minute;
-
-            _posX = ((-1)*(totalMinutes));
-            Toast.MakeText(context, "TotalMinutes: " + totalMinutes, ToastLength.Long).Show();
+            _posX = ((-1)*(absolutMinutes));
             Invalidate();
 
         }

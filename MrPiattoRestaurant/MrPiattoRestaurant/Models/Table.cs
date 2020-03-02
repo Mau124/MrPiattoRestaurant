@@ -37,19 +37,25 @@ namespace MrPiattoRestaurant
 
         public Client actualClient { get; set; }
         public List<Client> reservations { get; set; }
+        public Dictionary<Point, DateTime> TableDistributions { get; set; }
+
         public bool borderOn { get; set; }
         public bool isOcupied { get; set; }
-        //Blocked List
-        //Reservation List
-        //Width and heigh
-        //Drawable borde rojo
-        //Url for the image
 
         public int firstX { get; set; }
         public int firstY { get; set; }
         public int secondX { get; set; }
         public int secondY { get; set; }
 
+        /// <summary>
+        /// Constructor to create a table
+        /// </summary>
+        /// <param name="context">Context of the activity</param>
+        /// <param name="type">Table type. Can be 'c' for circle or 's' for square</param>
+        /// <param name="seats">Number of seats</param>
+        /// <param name="firstX">Position of x</param>
+        /// <param name="firstY">Position of y</param>
+        /// <param name="borderOn">If appears with a border or not</param>
         public Table(Context context, string type, int seats, int firstX, int firstY, bool borderOn)
         {
             this.context = context;
@@ -59,25 +65,30 @@ namespace MrPiattoRestaurant
             this.seats = seats;
             this.borderOn = borderOn;
 
-            tableDrawable = type + seats;
-
-            secondX = this.firstX + width;
-            secondY = this.firstY + height;
-
+            InitializeProperties();
             InitializePaint();
             InitializeImages();
 
-            isOcupied = false;
-
-            TableName = "Text";
-
             Client client = new Client("Pedro", 5, DateTime.Now);
-            reservations = new List<Client>();
             reservations.Add(client);
             reservations.Add(client);
             reservations.Add(client);
         }
         //Inicialization methods
+        private void InitializeProperties()
+        {
+            tableDrawable = type + seats;
+            secondX = firstX + width;
+            secondY = firstY + height;
+            isOcupied = false;
+            TableName = "Text";
+
+            reservations = new List<Client>();
+
+            Point p = new Point(firstX, firstY);
+            TableDistributions = new Dictionary<Point, DateTime>();
+            TableDistributions.Add(p, DateTime.Now);
+        }
         private void InitializePaint()
         {
             paint = new Paint();
@@ -88,7 +99,6 @@ namespace MrPiattoRestaurant
             paint.SetTypeface(Typeface.SansSerif);
             paint.AntiAlias = true;
         }
-
         private void InitializeImages()
         {
             image = context.Resources.GetDrawable(context.Resources.GetIdentifier(tableDrawable, "drawable", context.PackageName));
@@ -97,7 +107,7 @@ namespace MrPiattoRestaurant
             image.SetBounds(this.firstX, this.firstY, secondX, secondY);
             border.SetBounds(this.firstX - 5, this.firstY - 5, secondX + 5, secondY + 5);
         }
-
+        //Finish the initialization
         public void setOcupied()
         {
             string auxDrawable = tableDrawable + "ocupied";
