@@ -197,7 +197,7 @@ namespace MrPiattoRestaurant
                     else
                     {
                         Point point = new Point(tables[tableIndex].firstX, tables[tableIndex].firstY);
-                        tables.ElementAt(tableIndex).AddDistribution(point, DateTime.Now);
+                        //tables.ElementAt(tableIndex).AddDistribution(point, DateTime.Now);
 
                         //////////////////////////////////
                         for (int i = 0; i < tables[tableIndex].TableDistributions.Count; ++i)
@@ -243,8 +243,7 @@ namespace MrPiattoRestaurant
                 foreach (Client client in table.reservations)
                 {
                     if ((client.reservationDate.Month == date.Month)
-                        && (client.reservationDate.Day == date.Day)
-                        && (client.reservationDate.Hour == date.Hour))
+                        && (client.reservationDate.Day == date.Day))
                     {
                         reservations.Add(client);
                     }
@@ -340,6 +339,15 @@ namespace MrPiattoRestaurant
         {
             tables.ElementAt(tableIterator).setActualClient(actualClient);
             ocupiedTables.Add(tables.ElementAt(tableIterator));
+        }
+
+        public void updateTableDistributions(int hours, int minutes)
+        {
+            foreach (Table t in tables)
+            {
+                t.ChangeTableDistribution(hours, minutes);
+            }
+            Invalidate();
         }
 
         protected override void OnDraw(Canvas canvas)

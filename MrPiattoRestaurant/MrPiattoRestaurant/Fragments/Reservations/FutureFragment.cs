@@ -32,13 +32,14 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
         public List<Client> futureList = new List<Client>();
 
-        public FutureFragment(Context context, List<Client> futureList)
-        {
-            this.futureList = futureList;
-        }
         public FutureFragment()
         {
             futureList = new List<Client>();
+        }
+
+        public FutureFragment(Context context, List<Client> futureList)
+        {
+            this.futureList = futureList;
         }
         public override void OnCreate(Bundle savedInstanceState)
         {

@@ -135,7 +135,7 @@ namespace MrPiattoRestaurant
                     fragment = new ActualFragment(this, floors.ElementAt(floorIndex).ocupiedTables);
                     break;
                 case Resource.Id.idFutureList:
-                    fragment = futureFragment;
+                    fragment = new FutureFragment(this, floors.ElementAt(floorIndex).GetReservations(DateTime.Now));
                     break;
                 case Resource.Id.idWaitList:
                     fragment = waitFragment;
@@ -259,6 +259,22 @@ namespace MrPiattoRestaurant
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 date.Text = time.ToLongDateString();
+                //Cambiar codigo
+                ///////////
+                //////////////
+                //////////////
+                //////////////
+                /////////////////
+                //////////////
+                //////////////
+                /////////////////
+                //////////////
+                //////////////
+                Android.Support.V4.App.Fragment fragment = new FutureFragment(this, floors.ElementAt(floorIndex).GetReservations(time));
+                SupportFragmentManager.BeginTransaction()
+                .Replace(Resource.Id.idContent_frame, fragment)
+                .Commit();
+
             });
             frag.Show(SupportFragmentManager, DatePickerFragment.TAG);
         }
@@ -390,6 +406,7 @@ namespace MrPiattoRestaurant
 
         public void UpdateTime(int hours, int minutes)
         {
+            floors.ElementAt(floorIndex).updateTableDistributions(hours, minutes);
             hour.Text = hours.ToString("00") + ":" + minutes.ToString("00");
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

@@ -73,6 +73,20 @@ namespace MrPiattoRestaurant
             reservations.Add(client);
             reservations.Add(client);
             reservations.Add(client);
+
+            client = new Client("Juan", 6, DateTime.Now.AddDays(5));
+            reservations.Add(client);
+            reservations.Add(client);
+            reservations.Add(client);
+
+            Point p = new Point(this.firstX, this.firstY);
+            TableDistributions.Add(p, DateTime.Now);
+            TableDistributions.Add(new Point(this.firstX + 50, this.firstY + 50), DateTime.Now.AddHours(2));
+            TableDistributions.Add(new Point(this.firstX + 10, this.firstY + 20), DateTime.Now.AddHours(4));
+            TableDistributions.Add(new Point(10, 10), DateTime.Now.AddHours(6));
+            TableDistributions.Add(new Point(40, 40), DateTime.Now.AddHours(8));
+
+
         }
         //Inicialization methods
         private void InitializeProperties()
@@ -120,6 +134,7 @@ namespace MrPiattoRestaurant
             string auxDrawable = type + seats;
             image = context.Resources.GetDrawable(context.Resources.GetIdentifier(auxDrawable, "drawable", context.PackageName));
             image.SetBounds(this.firstX, this.firstY, secondX, secondY);
+            border.SetBounds(this.firstX - 5, this.firstY - 5, secondX + 5, secondY + 5);
         }
 
         public void setTableName(string tableName)
@@ -143,6 +158,41 @@ namespace MrPiattoRestaurant
                 }
             }
             TableDistributions.Add(point, date);
+        }
+
+        /// <summary>
+        /// Function that changes table image on the plane depending on the time sent
+        /// </summary>
+        /// <param name="hours">Hours for table</param>
+        /// <param name="minutes">Minutes for table</param>
+        public void ChangeTableDistribution(int hours, int minutes)
+        {
+            int i = 0;
+            while (i < TableDistributions.Count && Compare(hours, minutes, i))
+            {
+                i++;
+            }
+            //Assign new x and y for table
+            if (i != 0)
+            {
+                firstX = TableDistributions.ElementAt(i - 1).Key.X;
+                firstY = TableDistributions.ElementAt(i - 1).Key.Y;
+
+                secondX = firstX + width;
+                secondY = firstY + height;
+                setDrawable(type, seats);
+            }
+        }
+
+        //Return true if hours and minutes are bigger than the table distribution in that index
+        private bool Compare(int hours, int minutes, int tableIndex)
+        {
+            if (hours > TableDistributions.ElementAt(tableIndex).Value.Hour) return true;
+            if (hours == TableDistributions.ElementAt(tableIndex).Value.Hour)
+            {
+                if (minutes > TableDistributions.ElementAt(tableIndex).Value.Minute) return true;
+            }
+            return false;
         }
         public void DrawTable(Canvas canvas)
         {
