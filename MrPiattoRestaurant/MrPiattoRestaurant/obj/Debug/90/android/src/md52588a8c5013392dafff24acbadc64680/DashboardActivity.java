@@ -2,7 +2,7 @@ package md52588a8c5013392dafff24acbadc64680;
 
 
 public class DashboardActivity
-	extends android.app.Activity
+	extends android.support.v7.app.AppCompatActivity
 	implements
 		mono.android.IGCUserPeer
 {

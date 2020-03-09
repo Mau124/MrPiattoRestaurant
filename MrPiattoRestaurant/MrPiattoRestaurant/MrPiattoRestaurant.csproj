@@ -67,6 +67,7 @@
     <Compile Include="adapters\SectionedExpandableGridHelper.cs" />
     <Compile Include="adapters\waitListAdapters\WaitListAdapter.cs" />
     <Compile Include="DashboardActivity.cs" />
+    <Compile Include="Fragments\AboutMe.cs" />
     <Compile Include="Fragments\Reservations\ActualFragment.cs" />
     <Compile Include="Fragments\Reservations\FutureFragment.cs" />
     <Compile Include="Fragments\Reservations\WaitFragment.cs" />
@@ -397,6 +398,23 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\reply.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_dashboard_aboutme.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\res.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\dashboard_design.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\dashboard_selected_item.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\userdashboardselected.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
