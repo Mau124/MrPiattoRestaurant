@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,194 +7,502 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Don Perro"/>
-
-    <ImageView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.6"
-        android:layout_height="300dp"
+        app:layout_constraintWidth_percent="0.65"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        android:background="@drawable/banner"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/idData"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/idPolitics"
+        android:id="@+id/idBanner"
+        android:paddingRight="70dp"
+        android:paddingLeft="70dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buenos días,"
+            android:textColor="#FFFFFF"
+            android:textSize="40dp"
+            android:id="@+id/idGreet"
+            app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bienvenido a tu tablero"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"
+            android:id="@+id/idWelcome"
+            app:layout_constraintTop_toBottomOf="@+id/idGreet"/>
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:id="@+id/idWelcome"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/res"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    <!--<ImageView
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.5"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.4"
         android:src="@drawable/res"
         android:id="@+id/idMainImage"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="0dp"/>
+        app:layout_constraintBottom_toTopOf="@+id/idPolitics"
+        app:layout_constraintRight_toLeftOf="@+id/idData"
+        android:padding="0dp"/>-->
 
-    <ImageView
-        android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.2"
-        android:layout_height="150dp"
-        android:src="@drawable/res"
-        android:id="@+id/idImage1"
-        app:layout_constraintLeft_toRightOf="@+id/idMainImage"
-       app:layout_constraintTop_toTopOf="parent"/>
+    <LinearLayout
+          android:layout_width="0dp"
+          app:layout_constraintWidth_percent="0.3"
+          android:layout_height="match_parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          android:orientation="vertical"
+          android:id="@+id/idData"
+          android:padding="30dp"
+          android:background="#FBFBFD"
+          android:gravity="center">
 
-    <ImageView
-        android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.2"
-        android:layout_height="150dp"
-        android:src="@drawable/res"
-        android:id="@+id/idImage2"
-       app:layout_constraintLeft_toRightOf="@+id/idImage1"
-       app:layout_constraintTop_toTopOf="parent"/>
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Datos del restaurante"
+            android:textColor="#528FAB"
+            android:textSize="20dp"
+           android:layout_margin="5dp"/>
 
-    <ImageView
-        android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.2"
-        android:layout_height="150dp"
-        android:src="@drawable/res"
-        android:id="@+id/idImage3"
-       app:layout_constraintLeft_toRightOf="@+id/idMainImage"
-       app:layout_constraintTop_toBottomOf="@+id/idImage1"/>
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="50dp"
+             android:orientation="horizontal"
+             android:background="@drawable/generic"
+             android:gravity="center"
+             android:layout_margin="5dp">
 
-    <ImageView
-        android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.2"
-        android:layout_height="150dp"
-        android:src="@drawable/res"
-        android:id="@+id/idImage4"
-        app:layout_constraintLeft_toRightOf="@+id/idImage3"
-       app:layout_constraintTop_toBottomOf="@+id/idImage2"/>
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre: "
+                android:textColor="#969DA7"/>
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Restaurante de Don Perro"
+                android:textColor="#576171"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="50dp"
+             android:orientation="horizontal"
+             android:background="@drawable/generic"
+             android:gravity="center"
+             android:layout_margin="5dp">
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Correo: "
+                android:textColor="#969DA7"/>
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="donperro12@gmail.com"
+                android:textColor="#576171"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="50dp"
+             android:orientation="horizontal"
+             android:background="@drawable/generic"
+             android:gravity="center"
+             android:layout_margin="5dp">
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password: "
+                android:textColor="#969DA7"/>
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#######"
+                android:textColor="#576171"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="50dp"
+             android:orientation="horizontal"
+             android:background="@drawable/generic"
+             android:gravity="center"
+             android:layout_margin="5dp">
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora de apertura: "
+                android:textColor="#969DA7"/>
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10:00 a.m."
+                android:textColor="#576171"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="50dp"
+             android:orientation="horizontal"
+             android:background="@drawable/generic"
+             android:gravity="center"
+             android:layout_margin="5dp">
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora de cierre: "
+                android:textColor="#969DA7"/>
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11:00 p.m."
+                android:textColor="#576171"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="50dp"
+             android:orientation="horizontal"
+             android:background="@drawable/generic"
+             android:gravity="center"
+             android:layout_margin="5dp"
+             android:textColor="#969DA7">
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descripcion: "
+                android:textColor="#969DA7"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Especializados en alta cocina francesa"
+            android:textColor="#576171"
+            android:background="@drawable/generic"
+            android:padding="10dp"
+            android:layout_margin="5dp"/>
+
+       <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Modificar"
+            android:background="@drawable/dashboard_main_design"
+            android:textColor="#FFFFFF"
+            android:layout_margin="5dp"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Opciones"/>
+        android:text="Modificar"
+        android:background="@drawable/dashboard_main_design"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/idPolitics"
+        app:layout_constraintRight_toRightOf="@+id/idPolitics"
+        android:layout_margin="20dp"
+        android:elevation="5dp"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agregar"
+        android:background="@drawable/dashboard_main_design"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/idWaiters"
+        app:layout_constraintRight_toRightOf="@+id/idWaiters"
+        android:layout_margin="20dp"
+        android:elevation="5dp"
+        android:textAllCaps="false"/>
 
     <LinearLayout
           android:layout_width="0dp"
           app:layout_constraintWidth_percent="0.4"
-          android:layout_height="wrap_content"
-          app:layout_constraintTop_toBottomOf="@+id/idMainImage"
-          app:layout_constraintLeft_toLeftOf="parent"
-          app:layout_constraintRight_toLeftOf="@+id/idWaiters"
+          android:layout_height="0dp"
+          app:layout_constraintHeight_percent="0.6"
+          app:layout_constraintTop_toBottomOf="@+id/idBanner"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintLeft_toLeftOf="@+id/idBanner"
           android:orientation="vertical"
-          android:id="@+id/idData"
-          android:layout_margin="20dp"
+          android:background="@drawable/aboutme_containers"
           android:padding="20dp"
-          android:background="@drawable/dashboard_design">
-
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Datos del restaurante"/>
-
-        <LinearLayout
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nombre: "/>
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Restaurante de Don Perro"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password: "/>
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#######"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hora de apertura: "/>
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10:00 a.m."/>
-
-        </LinearLayout>
-
-        <LinearLayout
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hora de cierre: "/>
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="11:00 p.m."/>
-
-        </LinearLayout>
-
-        <LinearLayout
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Descripcion: "/>
-
-        </LinearLayout>
+          android:id="@+id/idPolitics"
+          android:elevation="1dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Especializados en alta cocina francesa"/>
+            android:text="Politicas"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:layout_marginBottom="15dp"/>
+
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginBottom="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tiempo máximo para generar reservación: "
+                android:textColor="#15142F"/>
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 semana"
+                android:textColor="#9C9CB1"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E1E2EA"
+            android:layout_marginBottom="15dp"/>
+
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginBottom="15dp">
+
+           <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tiempo mínimo para generar reservación: "
+                android:textColor="#15142F"/>
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 día"
+                android:textColor="#9C9CB1"/> 
+
+        </LinearLayout>
+           
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E1E2EA"
+            android:layout_marginBottom="15dp"/>
+
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginBottom="15dp">
+
+           <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tiempo mínimo para poder modificar reservación: "
+                android:textColor="#15142F"/>
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0s / 1d / 0h"
+                android:textColor="#9C9CB1"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E1E2EA"
+            android:layout_marginBottom="15dp"/>
+
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginBottom="15dp">
+
+           <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo de penalización impuesta: "
+                android:textColor="#15142F"/>
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desactivada"
+                android:textColor="#9C9CB1"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E1E2EA"
+            android:layout_marginBottom="15dp"/>
+            
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginBottom="15dp">
+
+           <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Generar strike sobre usuario: "
+                android:textColor="#15142F"/>
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Activado"
+                android:textColor="#9C9CB1"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E1E2EA"
+            android:layout_marginBottom="15dp"/>
+
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginBottom="10dp">
+
+           <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tiempo máximo de llegada: "
+                android:textColor="#15142F"/>
+
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15 min"
+                android:textColor="#9C9CB1"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
     <LinearLayout
           android:layout_width="0dp"
-          app:layout_constraintWidth_percent="0.4"
-          android:layout_height="wrap_content"
-          app:layout_constraintTop_toBottomOf="@+id/idMainImage"
-          app:layout_constraintLeft_toRightOf="@+id/idData"
-          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintWidth_percent="0.23"
+          android:layout_height="0dp"
+          app:layout_constraintHeight_percent="0.6"
+          app:layout_constraintTop_toBottomOf="@+id/idBanner"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintRight_toRightOf="@+id/idBanner"
           android:orientation="vertical"
-          android:background="@drawable/dashboard_design"
-          android:layout_margin="20dp"
+          android:background="@drawable/aboutme_containers"
           android:padding="20dp"
-          android:id="@+id/idWaiters">
+          android:id="@+id/idWaiters"
+          android:elevation="1dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Meseros"/>
+            android:text="Meseros"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mauricio Andres Flores Perez "
+                android:textColor="#15142F"
+                android:layout_marginBottom="15dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E1E2EA"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Juanito Perez Lopez "
+                android:textColor="#15142F"
+               android:layout_marginBottom="15dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E1E2EA"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alan Mauricio Farfan Pita "
+                android:textColor="#15142F"/>
 
     </LinearLayout>
 
