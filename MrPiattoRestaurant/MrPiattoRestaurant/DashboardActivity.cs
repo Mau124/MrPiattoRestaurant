@@ -44,7 +44,7 @@ namespace MrPiattoRestaurant
                     fragment = new AboutMe();
                     break;
                 case Resource.Id.idStatistics:
-                    fragment = new Statistics();
+                    fragment = new Statistics(this);
                     break;
                 case Resource.Id.idWaitList:
                     fragment = new Promotions();

@@ -211,12 +211,21 @@
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idTableUseInterval2"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/idSpinnerTableUse"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/idHourDiv2"
                 android:layout_margin="10dp"
                 android:background="@drawable/style_statistics_pickers"
                 android:padding="10dp"/>
+
+            <Spinner
+                android:id="@+id/idSpinnerTableUse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idHourDiv2"
+                android:background="@drawable/statistics_spinner_background"/>  
 
             <View
                 android:layout_width="match_parent"
@@ -446,7 +455,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Afluencia horas"
+                android:text="Meseros"
                 android:layout_gravity="left"
                 android:id="@+id/idWaitersTitle"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -483,12 +492,21 @@
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idWaitersInterval2"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/idSpinnerWaiters"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/idWaitersDiv"
                 android:layout_margin="10dp"
                 android:background="@drawable/style_statistics_pickers"
                 android:padding="10dp"/>
+
+            <Spinner
+                android:id="@+id/idSpinnerWaiters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idWaitersDiv"
+                android:background="@drawable/statistics_spinner_background"/>
 
             <View
                 android:layout_width="match_parent"
@@ -501,7 +519,7 @@
 
             <Microcharts.Droid.ChartView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:id="@+id/idChart4"
                 android:padding="0dp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -582,7 +600,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Promedio de uso por mesa al dia"
+                android:text="Promedio uso de mesa al dia"
                 android:layout_gravity="left"
                 android:id="@+id/idTableAverageTitle"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -619,12 +637,21 @@
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idTableAverageInterval2"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/idSpinnerTableAverage"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/idTableAverageDiv"
                 android:layout_margin="10dp"
                 android:background="@drawable/style_statistics_pickers"
                 android:padding="10dp"/>
+
+            <Spinner
+                android:id="@+id/idSpinnerTableAverage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idTableAverageDiv"
+                android:background="@drawable/statistics_spinner_background"/>
 
             <View
                 android:layout_width="match_parent"
@@ -705,7 +732,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintWidth_percent=".6"
             android:layout_height="400dp"
             android:id="@+id/idAlexa"
             app:layout_constraintTop_toBottomOf="@+id/idWaiters"

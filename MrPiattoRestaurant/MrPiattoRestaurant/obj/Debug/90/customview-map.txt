@@ -54,6 +54,7 @@ corners;obj\Debug\90\res\drawable\delete_buttons.xml
 corners;obj\Debug\90\res\drawable\generic.xml
 corners;obj\Debug\90\res\drawable\save_buttons.xml
 corners;obj\Debug\90\res\drawable\second_button.xml
+corners;obj\Debug\90\res\drawable\statistics_spinner_background.xml
 corners;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 dimen;obj\Debug\90\res\values\dimens.xml
 EditText;obj\Debug\90\res\layout\add_waitlist.xml
@@ -81,12 +82,14 @@ ImageView;obj\Debug\90\res\layout\layout_section.xml
 ImageView;obj\Debug\90\res\layout\modify_floor.xml
 ImageView;obj\Debug\90\res\layout\modify_waitlist.xml
 ImageView;obj\Debug\90\res\layout\table_properties.xml
+item;obj\Debug\90\res\drawable\statistics_spinner_background.xml
 item;obj\Debug\90\res\drawable\theme_color.xml
 item;obj\Debug\90\res\menu\actuallistmenu.xml
 item;obj\Debug\90\res\menu\bottom_navigation_main.xml
 item;obj\Debug\90\res\menu\futurelistmenu.xml
 item;obj\Debug\90\res\menu\waitlistmenu.xml
 item;obj\Debug\90\res\values\styles.xml
+layer-list;obj\Debug\90\res\drawable\statistics_spinner_background.xml
 LinearLayout;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 LinearLayout;obj\Debug\90\res\layout\activity_dashboard_promotions.xml
 LinearLayout;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
@@ -110,6 +113,7 @@ resources;obj\Debug\90\res\values\dimens.xml
 resources;obj\Debug\90\res\values\ic_launcher_background.xml
 resources;obj\Debug\90\res\values\strings.xml
 resources;obj\Debug\90\res\values\styles.xml
+rotate;obj\Debug\90\res\drawable\statistics_spinner_background.xml
 ScrollView;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 SeekBar;obj\Debug\90\res\layout\table_properties.xml
 selector;obj\Debug\90\res\drawable\theme_color.xml
@@ -124,6 +128,7 @@ shape;obj\Debug\90\res\drawable\generic.xml
 shape;obj\Debug\90\res\drawable\main_sections.xml
 shape;obj\Debug\90\res\drawable\save_buttons.xml
 shape;obj\Debug\90\res\drawable\second_button.xml
+shape;obj\Debug\90\res\drawable\statistics_spinner_background.xml
 shape;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 shape;obj\Debug\90\res\drawable\subtitles_design.xml
 shape;obj\Debug\90\res\drawable\theme_color.xml
@@ -151,9 +156,11 @@ solid;obj\Debug\90\res\drawable\generic.xml
 solid;obj\Debug\90\res\drawable\main_sections.xml
 solid;obj\Debug\90\res\drawable\save_buttons.xml
 solid;obj\Debug\90\res\drawable\second_button.xml
+solid;obj\Debug\90\res\drawable\statistics_spinner_background.xml
 solid;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 solid;obj\Debug\90\res\drawable\subtitles_design.xml
 solid;obj\Debug\90\res\drawable\theme_color.xml
+Spinner;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 Spinner;obj\Debug\90\res\layout\activity_main.xml
 string;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\0\jl\res\values\strings.xml
 string;obj\Debug\90\res\values\strings.xml
@@ -166,6 +173,7 @@ stroke;obj\Debug\90\res\drawable\delete_buttons.xml
 stroke;obj\Debug\90\res\drawable\generic.xml
 stroke;obj\Debug\90\res\drawable\save_buttons.xml
 stroke;obj\Debug\90\res\drawable\second_button.xml
+stroke;obj\Debug\90\res\drawable\statistics_spinner_background.xml
 stroke;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 stroke;obj\Debug\90\res\drawable\subtitles_design.xml
 style;obj\Debug\90\res\values\styles.xml
@@ -187,6 +195,7 @@ TextView;obj\Debug\90\res\layout\modify_floor.xml
 TextView;obj\Debug\90\res\layout\modify_waitlist.xml
 TextView;obj\Debug\90\res\layout\recycler_actuallist.xml
 TextView;obj\Debug\90\res\layout\recycler_waitlist.xml
+TextView;obj\Debug\90\res\layout\statistics_spinner_item.xml
 TextView;obj\Debug\90\res\layout\table_properties.xml
 View;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 View;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
