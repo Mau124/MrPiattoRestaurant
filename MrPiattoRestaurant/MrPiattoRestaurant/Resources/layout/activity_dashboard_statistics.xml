@@ -1,7 +1,788 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</LinearLayout>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <android.support.constraint.ConstraintLayout 
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estadisticas"
+            android:id="@+id/idTitle"
+            app:layout_constraintLeft_toLeftOf="@id/idHours"
+            android:textSize="40dp"/>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.95"
+            android:layout_height="400dp"
+            android:id="@+id/idHours"
+            app:layout_constraintTop_toBottomOf="@+id/idTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@drawable/aboutme_containers"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Afluencia horas"
+                android:layout_gravity="left"
+                android:id="@+id/idHourTitle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idHourDiv"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17/03/20"
+                android:id="@+id/idHourInterval1"
+                app:layout_constraintRight_toLeftOf="@+id/idHourLine"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idHourDiv"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/style_statistics_pickers"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/idHourLine"
+                app:layout_constraintRight_toLeftOf="@+id/idHourInterval2"
+                app:layout_constraintBottom_toBottomOf="@+id/idHourDiv"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17/03/20"
+                android:id="@+id/idHourInterval2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idHourDiv"
+                android:layout_margin="10dp"
+                android:background="@drawable/style_statistics_pickers"
+                android:padding="10dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E1E2EA"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/idHourTitle"
+                android:id="@+id/idHourDiv"
+                android:layout_marginTop="20dp"/>
+
+            <Microcharts.Droid.ChartView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/idChart1"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center_vertical"
+                android:id="@+id/idHourContainer">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                   <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hora mas visitada: "
+                        android:id="@+id/idHourMost"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18 hrs"
+                        android:textSize="15dp"
+                       android:textColor="#9CCB9A"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hora menos visitada: "
+                        android:id="@+id/idHourLess"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="13 hrs"
+                        android:textSize="15dp"
+                       android:textColor="#CC6964"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.53"
+            android:layout_height="400dp"
+            android:id="@+id/idTableUse"
+            app:layout_constraintTop_toBottomOf="@+id/idHours"
+            app:layout_constraintLeft_toLeftOf="@+id/idHours"
+            android:background="@drawable/aboutme_containers"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uso de mesas por hora"
+                android:layout_gravity="left"
+                android:id="@+id/idTableUseTitle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idHourDiv2"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17/03/20"
+                android:id="@+id/idTableUseInterval1"
+                app:layout_constraintRight_toLeftOf="@+id/idHourLine2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idHourDiv2"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/style_statistics_pickers"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/idHourLine2"
+                app:layout_constraintRight_toLeftOf="@+id/idTableUseInterval2"
+                app:layout_constraintBottom_toBottomOf="@+id/idHourDiv2"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17/03/20"
+                android:id="@+id/idTableUseInterval2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idHourDiv2"
+                android:layout_margin="10dp"
+                android:background="@drawable/style_statistics_pickers"
+                android:padding="10dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E1E2EA"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/idTableUseTitle"
+                android:id="@+id/idHourDiv2"
+                android:layout_marginTop="20dp"/>
+
+            <Microcharts.Droid.ChartView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/idChart2"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center_vertical"
+                android:id="@+id/idTableUseContainer">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                   <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hora mas visitada: "
+                        android:id="@+id/idTableUseMost"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mesa 2"
+                        android:textSize="15dp"
+                        android:textColor="#9CCB9A"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hora menos visitada: "
+                        android:id="@+id/idTableUseLess"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mesa 5"
+                        android:textSize="15dp"
+                       android:textColor="#CC6964"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.4"
+            android:layout_height="400dp"
+            android:id="@+id/idDays"
+            app:layout_constraintTop_toBottomOf="@+id/idHours"
+            app:layout_constraintRight_toRightOf="@+id/idHours"
+            android:background="@drawable/aboutme_containers"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Afluencia Dias"
+                android:layout_gravity="left"
+                android:id="@+id/idDaysTitle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idDaysDiv"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17/03/20"
+                android:id="@+id/idDaysInterval1"
+                app:layout_constraintRight_toLeftOf="@+id/idDaysLine"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idDaysDiv"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/style_statistics_pickers"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/idDaysLine"
+                app:layout_constraintRight_toLeftOf="@+id/idDaysInterval2"
+                app:layout_constraintBottom_toBottomOf="@+id/idDaysDiv"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17/03/20"
+                android:id="@+id/idDaysInterval2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idDaysDiv"
+                android:layout_margin="10dp"
+                android:background="@drawable/style_statistics_pickers"
+                android:padding="10dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E1E2EA"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/idDaysTitle"
+                android:id="@+id/idDaysDiv"
+                android:layout_marginTop="20dp"/>
+
+            <Microcharts.Droid.ChartView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/idChart3"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+           <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center_vertical"
+                android:id="@+id/idDaysContainer">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                   <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dia mas visitada: "
+                        android:id="@+id/idDaysMost"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Martes"
+                        android:textSize="15dp"
+                       android:textColor="#9CCB9A"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dia menos visitada: "
+                        android:id="@+id/idDaysLess"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Miercoles"
+                        android:textSize="15dp"
+                       android:textColor="#CC6964"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.4"
+            android:layout_height="400dp"
+            android:id="@+id/idWaiters"
+            app:layout_constraintTop_toBottomOf="@+id/idTableUse"
+            app:layout_constraintLeft_toLeftOf="@+id/idTableUse"
+            android:background="@drawable/aboutme_containers"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Afluencia horas"
+                android:layout_gravity="left"
+                android:id="@+id/idWaitersTitle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idWaitersDiv"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17/03/20"
+                android:id="@+id/idWaitersInterval1"
+                app:layout_constraintRight_toLeftOf="@+id/idWaitersLine"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idWaitersDiv"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/style_statistics_pickers"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/idWaitersLine"
+                app:layout_constraintRight_toLeftOf="@+id/idWaitersInterval2"
+                app:layout_constraintBottom_toBottomOf="@+id/idWaitersDiv"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17/03/20"
+                android:id="@+id/idWaitersInterval2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idWaitersDiv"
+                android:layout_margin="10dp"
+                android:background="@drawable/style_statistics_pickers"
+                android:padding="10dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E1E2EA"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/idWaitersTitle"
+                android:id="@+id/idWaitersDiv"
+                android:layout_marginTop="20dp"/>
+
+            <Microcharts.Droid.ChartView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/idChart4"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center_vertical"
+                android:id="@+id/idWaitersContainer">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                   <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mesero mejor puntuado: "
+                        android:id="@+id/idWaitersMost"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Juan"
+                        android:textSize="15dp"
+                       android:textColor="#9CCB9A"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mesero peor puntuado: "
+                        android:id="@+id/idWaitersLess"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Aldo"
+                        android:textSize="15dp"
+                       android:textColor="#CC6964"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.53"
+            android:layout_height="400dp"
+            android:id="@+id/idTableAverage"
+            app:layout_constraintTop_toBottomOf="@+id/idDays"
+            app:layout_constraintRight_toRightOf="@+id/idDays"
+            android:background="@drawable/aboutme_containers"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Promedio de uso por mesa al dia"
+                android:layout_gravity="left"
+                android:id="@+id/idTableAverageTitle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idTableAverageDiv"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17/03/20"
+                android:id="@+id/idTableAverageInterval1"
+                app:layout_constraintRight_toLeftOf="@+id/idTableAverageLine"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idTableAverageDiv"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/style_statistics_pickers"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/idTableAverageLine"
+                app:layout_constraintRight_toLeftOf="@+id/idTableAverageInterval2"
+                app:layout_constraintBottom_toBottomOf="@+id/idTableAverageDiv"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17/03/20"
+                android:id="@+id/idTableAverageInterval2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idTableAverageDiv"
+                android:layout_margin="10dp"
+                android:background="@drawable/style_statistics_pickers"
+                android:padding="10dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E1E2EA"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/idTableAverageTitle"
+                android:id="@+id/idTableAverageDiv"
+                android:layout_marginTop="20dp"/>
+
+            <Microcharts.Droid.ChartView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/idChart5"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center_vertical"
+                android:id="@+id/idTableAverageContainer">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                   <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mesa mas usada: "
+                        android:id="@+id/idTableAverageMost"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mesa 6"
+                        android:textSize="15dp"
+                       android:textColor="#9CCB9A"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mesa menos usada: "
+                        android:id="@+id/idTableAverageLess"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mesa 9"
+                        android:textSize="15dp"
+                       android:textColor="#CC6964"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.4"
+            android:layout_height="400dp"
+            android:id="@+id/idAlexa"
+            app:layout_constraintTop_toBottomOf="@+id/idWaiters"
+            app:layout_constraintLeft_toLeftOf="@+id/idWaiters"
+            android:background="@drawable/aboutme_containers"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alexa"
+                android:layout_gravity="left"
+                android:id="@+id/idAlexaTitle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idAlexaDiv"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17/03/20"
+                android:id="@+id/idAlexaInterval1"
+                app:layout_constraintRight_toLeftOf="@+id/idAlexaLine"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idAlexaDiv"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/style_statistics_pickers"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/idAlexaLine"
+                app:layout_constraintRight_toLeftOf="@+id/idAlexaInterval2"
+                app:layout_constraintBottom_toBottomOf="@+id/idAlexaDiv"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17/03/20"
+                android:id="@+id/idAlexaInterval2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/idAlexaDiv"
+                android:layout_margin="10dp"
+                android:background="@drawable/style_statistics_pickers"
+                android:padding="10dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E1E2EA"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/idAlexaTitle"
+                android:id="@+id/idAlexaDiv"
+                android:layout_marginTop="20dp"/>
+
+            <Microcharts.Droid.ChartView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/idChart6"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout >
+
+</android.support.v4.widget.NestedScrollView>

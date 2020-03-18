@@ -3,6 +3,10 @@ public class MonoPackageManager_Resources {
 	public static String[] Assemblies = new String[]{
 		/* We need to ensure that "MrPiattoRestaurant.dll" comes first in this list. */
 		"MrPiattoRestaurant.dll",
+		"Microcharts.dll",
+		"Microcharts.Droid.dll",
+		"SkiaSharp.dll",
+		"SkiaSharp.Views.Android.dll",
 		"Xamarin.Android.Arch.Core.Common.dll",
 		"Xamarin.Android.Arch.Core.Runtime.dll",
 		"Xamarin.Android.Arch.Lifecycle.Common.dll",

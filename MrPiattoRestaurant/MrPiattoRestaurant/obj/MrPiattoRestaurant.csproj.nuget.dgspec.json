@@ -38,6 +38,10 @@
       "frameworks": {
         "monoandroid90": {
           "dependencies": {
+            "Microcharts": {
+              "target": "Package",
+              "version": "[0.7.1, )"
+            },
             "Xamarin.Android.Support.Annotations": {
               "target": "Package",
               "version": "[28.0.0.1, )"

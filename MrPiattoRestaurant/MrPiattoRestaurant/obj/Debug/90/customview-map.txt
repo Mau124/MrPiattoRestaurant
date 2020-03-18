@@ -2,6 +2,7 @@ adaptive-icon;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 adaptive-icon;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\activity_dashboard.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\activity_main.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\add_waitlist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\addfloor.xml
@@ -19,7 +20,9 @@ android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\recycler_act
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\recycler_futurelist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\recycler_waitlist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\table_properties.xml
+android.support.design.card.MaterialCardView;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 android.support.design.widget.BottomNavigationView;obj\Debug\90\res\layout\layout_main_container.xml
+android.support.v4.widget.NestedScrollView;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\layout_catalogue.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\recycler_actuallist.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\recycler_futurelist.xml
@@ -39,7 +42,7 @@ Button;obj\Debug\90\res\layout\recycler_actuallist.xml
 Button;obj\Debug\90\res\layout\recycler_futurelist.xml
 Button;obj\Debug\90\res\layout\recycler_waitlist.xml
 Button;obj\Debug\90\res\layout\table_properties.xml
-cache-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\37\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+cache-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\40\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 color;obj\Debug\90\res\values\colors.xml
 color;obj\Debug\90\res\values\ic_launcher_background.xml
 corners;obj\Debug\90\res\drawable\aboutme_containers.xml
@@ -51,13 +54,14 @@ corners;obj\Debug\90\res\drawable\delete_buttons.xml
 corners;obj\Debug\90\res\drawable\generic.xml
 corners;obj\Debug\90\res\drawable\save_buttons.xml
 corners;obj\Debug\90\res\drawable\second_button.xml
+corners;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 dimen;obj\Debug\90\res\values\dimens.xml
 EditText;obj\Debug\90\res\layout\add_waitlist.xml
 EditText;obj\Debug\90\res\layout\addfloor.xml
 EditText;obj\Debug\90\res\layout\modify_waitlist.xml
 EditText;obj\Debug\90\res\layout\table_properties.xml
-external-cache-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\37\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
-external-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\37\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+external-cache-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\40\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+external-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\40\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
 FrameLayout;obj\Debug\90\res\layout\activity_dashboard.xml
@@ -77,7 +81,6 @@ ImageView;obj\Debug\90\res\layout\layout_section.xml
 ImageView;obj\Debug\90\res\layout\modify_floor.xml
 ImageView;obj\Debug\90\res\layout\modify_waitlist.xml
 ImageView;obj\Debug\90\res\layout\table_properties.xml
-item;obj\Debug\90\res\drawable\aboutme_containers.xml
 item;obj\Debug\90\res\drawable\theme_color.xml
 item;obj\Debug\90\res\menu\actuallistmenu.xml
 item;obj\Debug\90\res\menu\bottom_navigation_main.xml
@@ -98,14 +101,16 @@ menu;obj\Debug\90\res\menu\actuallistmenu.xml
 menu;obj\Debug\90\res\menu\bottom_navigation_main.xml
 menu;obj\Debug\90\res\menu\futurelistmenu.xml
 menu;obj\Debug\90\res\menu\waitlistmenu.xml
-padding;obj\Debug\90\res\drawable\aboutme_containers.xml
-paths;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\37\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+Microcharts.Droid.ChartView;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
+paths;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\40\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 RelativeLayout;obj\Debug\90\res\layout\activity_main.xml
+resources;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\0\jl\res\values\strings.xml
 resources;obj\Debug\90\res\values\colors.xml
 resources;obj\Debug\90\res\values\dimens.xml
 resources;obj\Debug\90\res\values\ic_launcher_background.xml
 resources;obj\Debug\90\res\values\strings.xml
 resources;obj\Debug\90\res\values\styles.xml
+ScrollView;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 SeekBar;obj\Debug\90\res\layout\table_properties.xml
 selector;obj\Debug\90\res\drawable\theme_color.xml
 shape;obj\Debug\90\res\drawable\aboutme_containers.xml
@@ -119,6 +124,7 @@ shape;obj\Debug\90\res\drawable\generic.xml
 shape;obj\Debug\90\res\drawable\main_sections.xml
 shape;obj\Debug\90\res\drawable\save_buttons.xml
 shape;obj\Debug\90\res\drawable\second_button.xml
+shape;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 shape;obj\Debug\90\res\drawable\subtitles_design.xml
 shape;obj\Debug\90\res\drawable\theme_color.xml
 size;obj\Debug\90\res\drawable\aboutme_containers.xml
@@ -132,6 +138,7 @@ size;obj\Debug\90\res\drawable\generic.xml
 size;obj\Debug\90\res\drawable\main_sections.xml
 size;obj\Debug\90\res\drawable\save_buttons.xml
 size;obj\Debug\90\res\drawable\second_button.xml
+size;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 size;obj\Debug\90\res\drawable\subtitles_design.xml
 solid;obj\Debug\90\res\drawable\aboutme_containers.xml
 solid;obj\Debug\90\res\drawable\banner.xml
@@ -144,9 +151,11 @@ solid;obj\Debug\90\res\drawable\generic.xml
 solid;obj\Debug\90\res\drawable\main_sections.xml
 solid;obj\Debug\90\res\drawable\save_buttons.xml
 solid;obj\Debug\90\res\drawable\second_button.xml
+solid;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 solid;obj\Debug\90\res\drawable\subtitles_design.xml
 solid;obj\Debug\90\res\drawable\theme_color.xml
 Spinner;obj\Debug\90\res\layout\activity_main.xml
+string;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\0\jl\res\values\strings.xml
 string;obj\Debug\90\res\values\strings.xml
 stroke;obj\Debug\90\res\drawable\aboutme_containers.xml
 stroke;obj\Debug\90\res\drawable\banner.xml
@@ -157,9 +166,11 @@ stroke;obj\Debug\90\res\drawable\delete_buttons.xml
 stroke;obj\Debug\90\res\drawable\generic.xml
 stroke;obj\Debug\90\res\drawable\save_buttons.xml
 stroke;obj\Debug\90\res\drawable\second_button.xml
+stroke;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 stroke;obj\Debug\90\res\drawable\subtitles_design.xml
 style;obj\Debug\90\res\values\styles.xml
 TextView;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
+TextView;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 TextView;obj\Debug\90\res\layout\activity_main.xml
 TextView;obj\Debug\90\res\layout\add_waitlist.xml
 TextView;obj\Debug\90\res\layout\addfloor.xml
@@ -178,4 +189,5 @@ TextView;obj\Debug\90\res\layout\recycler_actuallist.xml
 TextView;obj\Debug\90\res\layout\recycler_waitlist.xml
 TextView;obj\Debug\90\res\layout\table_properties.xml
 View;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
+View;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 View;obj\Debug\90\res\layout\activity_main.xml
