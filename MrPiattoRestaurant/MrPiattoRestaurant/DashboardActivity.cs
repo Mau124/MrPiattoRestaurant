@@ -71,7 +71,7 @@ namespace MrPiattoRestaurant
             statistics.SetBackgroundResource(0);
             statistics.SetImageResource(Resource.Drawable.report);
             photosGallery.SetBackgroundResource(0);
-            photosGallery.SetImageResource(Resource.Drawable.bullhorn);
+            photosGallery.SetImageResource(Resource.Drawable.art);
             aboutMe.SetBackgroundResource(Resource.Drawable.dashboard_selected_item);
             aboutMe.SetImageResource(Resource.Drawable.userdashboardselected);
             LoadFragment(Resource.Id.idAboutMe);
@@ -82,7 +82,7 @@ namespace MrPiattoRestaurant
             aboutMe.SetBackgroundResource(0);
             aboutMe.SetImageResource(Resource.Drawable.userdashboard);
             photosGallery.SetBackgroundResource(0);
-            photosGallery.SetImageResource(Resource.Drawable.bullhorn);
+            photosGallery.SetImageResource(Resource.Drawable.art);
             statistics.SetBackgroundResource(Resource.Drawable.dashboard_selected_item);
             statistics.SetImageResource(Resource.Drawable.reportselected);
             LoadFragment(Resource.Id.idStatistics);
@@ -95,7 +95,7 @@ namespace MrPiattoRestaurant
             statistics.SetBackgroundResource(0);
             statistics.SetImageResource(Resource.Drawable.report);
             photosGallery.SetBackgroundResource(Resource.Drawable.dashboard_selected_item);
-            photosGallery.SetImageResource(Resource.Drawable.bullhornselected);
+            photosGallery.SetImageResource(Resource.Drawable.artSelected);
             LoadFragment(Resource.Id.idPhotosGallery);
         }
     }

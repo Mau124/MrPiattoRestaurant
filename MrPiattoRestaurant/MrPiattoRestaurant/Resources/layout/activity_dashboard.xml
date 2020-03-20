@@ -43,8 +43,37 @@
             app:layout_constraintTop_toBottomOf="@+id/idStatistics"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/bullhorn"
+            android:src="@drawable/art"
             android:padding="20dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/idPromotions"
+            app:layout_constraintBottom_toTopOf="@+id/idReturn"
+            app:layout_constraintRight_toRightOf="@+id/idReturn"
+            android:src="@drawable/bullhorn"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/statistics_spinner_background"
+            android:layout_marginBottom="10dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/idReturn"
+            app:layout_constraintBottom_toBottomOf="@+id/idOptions"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/back"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/statistics_spinner_background"
+            android:layout_marginBottom="20dp"/>
 
     </android.support.constraint.ConstraintLayout>
 
