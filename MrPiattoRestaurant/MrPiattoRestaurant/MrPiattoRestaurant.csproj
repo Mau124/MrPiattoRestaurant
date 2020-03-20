@@ -63,12 +63,13 @@
   <ItemGroup>
     <Compile Include="adapters\actualListAdapters\ActualListAdapter.cs" />
     <Compile Include="adapters\futureListAdapters\FutureListAdapter.cs" />
+    <Compile Include="adapters\PhotosGalleryAdapter.cs" />
     <Compile Include="adapters\SectionedExpandableGridAdapter.cs" />
     <Compile Include="adapters\SectionedExpandableGridHelper.cs" />
     <Compile Include="adapters\waitListAdapters\WaitListAdapter.cs" />
     <Compile Include="DashboardActivity.cs" />
     <Compile Include="Fragments\AboutMe.cs" />
-    <Compile Include="Fragments\Promotions.cs" />
+    <Compile Include="Fragments\PhotosGallery.cs" />
     <Compile Include="Fragments\Reservations\ActualFragment.cs" />
     <Compile Include="Fragments\Reservations\FutureFragment.cs" />
     <Compile Include="Fragments\Reservations\WaitFragment.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ItemPhotos.cs" />
     <Compile Include="Models\Reservations\ActualList.cs" />
     <Compile Include="Models\Reservations\FutureList.cs" />
     <Compile Include="Models\Reservations\WaitList.cs" />
@@ -430,7 +432,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\activity_dashboard_promotions.xml">
+    <AndroidResource Include="Resources\layout\activity_dashboard_gallery.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -457,6 +459,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\statistics_spinner_background.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\layout_item_gallery.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
