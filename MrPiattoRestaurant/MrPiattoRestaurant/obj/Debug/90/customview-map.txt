@@ -15,6 +15,7 @@ android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_futurel
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_waitlist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_catalogue.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_main_container.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_promotions.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\modify_floor.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\modify_waitlist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\recycler_actuallist.xml
@@ -42,6 +43,7 @@ Button;obj\Debug\90\res\layout\dialog_answer_survey.xml
 Button;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 Button;obj\Debug\90\res\layout\dialog_join_tables.xml
 Button;obj\Debug\90\res\layout\layout_item_gallery.xml
+Button;obj\Debug\90\res\layout\layout_promotions.xml
 Button;obj\Debug\90\res\layout\modify_waitlist.xml
 Button;obj\Debug\90\res\layout\recycler_actuallist.xml
 Button;obj\Debug\90\res\layout\recycler_futurelist.xml
@@ -57,6 +59,7 @@ corners;obj\Debug\90\res\drawable\dashboard_main_design.xml
 corners;obj\Debug\90\res\drawable\dashboard_selected_item.xml
 corners;obj\Debug\90\res\drawable\delete_buttons.xml
 corners;obj\Debug\90\res\drawable\generic.xml
+corners;obj\Debug\90\res\drawable\promotions_container.xml
 corners;obj\Debug\90\res\drawable\save_buttons.xml
 corners;obj\Debug\90\res\drawable\second_button.xml
 corners;obj\Debug\90\res\drawable\statistics_spinner_background.xml
@@ -64,6 +67,7 @@ corners;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 dimen;obj\Debug\90\res\values\dimens.xml
 EditText;obj\Debug\90\res\layout\add_waitlist.xml
 EditText;obj\Debug\90\res\layout\addfloor.xml
+EditText;obj\Debug\90\res\layout\layout_promotions.xml
 EditText;obj\Debug\90\res\layout\modify_waitlist.xml
 EditText;obj\Debug\90\res\layout\table_properties.xml
 external-cache-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\40\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
@@ -84,6 +88,7 @@ ImageView;obj\Debug\90\res\layout\dialog_join_tables.xml
 ImageView;obj\Debug\90\res\layout\layout_catalogue.xml
 ImageView;obj\Debug\90\res\layout\layout_item.xml
 ImageView;obj\Debug\90\res\layout\layout_item_gallery.xml
+ImageView;obj\Debug\90\res\layout\layout_promotions.xml
 ImageView;obj\Debug\90\res\layout\layout_section.xml
 ImageView;obj\Debug\90\res\layout\modify_floor.xml
 ImageView;obj\Debug\90\res\layout\modify_waitlist.xml
@@ -106,6 +111,7 @@ LinearLayout;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_join_tables.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item_gallery.xml
+LinearLayout;obj\Debug\90\res\layout\layout_promotions.xml
 LinearLayout;obj\Debug\90\res\layout\layout_section.xml
 LinearLayout;obj\Debug\90\res\layout\table_properties.xml
 menu;obj\Debug\90\res\menu\actuallistmenu.xml
@@ -135,6 +141,8 @@ shape;obj\Debug\90\res\drawable\dashboard_selected_item.xml
 shape;obj\Debug\90\res\drawable\delete_buttons.xml
 shape;obj\Debug\90\res\drawable\generic.xml
 shape;obj\Debug\90\res\drawable\main_sections.xml
+shape;obj\Debug\90\res\drawable\material_button.xml
+shape;obj\Debug\90\res\drawable\promotions_container.xml
 shape;obj\Debug\90\res\drawable\save_buttons.xml
 shape;obj\Debug\90\res\drawable\second_button.xml
 shape;obj\Debug\90\res\drawable\statistics_spinner_background.xml
@@ -150,6 +158,7 @@ size;obj\Debug\90\res\drawable\dashboard_selected_item.xml
 size;obj\Debug\90\res\drawable\delete_buttons.xml
 size;obj\Debug\90\res\drawable\generic.xml
 size;obj\Debug\90\res\drawable\main_sections.xml
+size;obj\Debug\90\res\drawable\promotions_container.xml
 size;obj\Debug\90\res\drawable\save_buttons.xml
 size;obj\Debug\90\res\drawable\second_button.xml
 size;obj\Debug\90\res\drawable\style_statistics_pickers.xml
@@ -163,6 +172,8 @@ solid;obj\Debug\90\res\drawable\dashboard_selected_item.xml
 solid;obj\Debug\90\res\drawable\delete_buttons.xml
 solid;obj\Debug\90\res\drawable\generic.xml
 solid;obj\Debug\90\res\drawable\main_sections.xml
+solid;obj\Debug\90\res\drawable\material_button.xml
+solid;obj\Debug\90\res\drawable\promotions_container.xml
 solid;obj\Debug\90\res\drawable\save_buttons.xml
 solid;obj\Debug\90\res\drawable\second_button.xml
 solid;obj\Debug\90\res\drawable\statistics_spinner_background.xml
@@ -180,6 +191,7 @@ stroke;obj\Debug\90\res\drawable\dashboard_design.xml
 stroke;obj\Debug\90\res\drawable\dashboard_main_design.xml
 stroke;obj\Debug\90\res\drawable\delete_buttons.xml
 stroke;obj\Debug\90\res\drawable\generic.xml
+stroke;obj\Debug\90\res\drawable\promotions_container.xml
 stroke;obj\Debug\90\res\drawable\save_buttons.xml
 stroke;obj\Debug\90\res\drawable\second_button.xml
 stroke;obj\Debug\90\res\drawable\statistics_spinner_background.xml
@@ -201,6 +213,7 @@ TextView;obj\Debug\90\res\layout\item_waitlist.xml
 TextView;obj\Debug\90\res\layout\layout_catalogue.xml
 TextView;obj\Debug\90\res\layout\layout_item.xml
 TextView;obj\Debug\90\res\layout\layout_item_gallery.xml
+TextView;obj\Debug\90\res\layout\layout_promotions.xml
 TextView;obj\Debug\90\res\layout\layout_section.xml
 TextView;obj\Debug\90\res\layout\modify_floor.xml
 TextView;obj\Debug\90\res\layout\modify_waitlist.xml

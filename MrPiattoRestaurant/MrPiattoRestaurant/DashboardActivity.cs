@@ -8,6 +8,7 @@ using Android.OS;
 using Android.Support.V7.App;
 using Android.Runtime;
 using Android.Widget;
+using Android.Views;
 
 using MrPiattoRestaurant.Fragments;
 
@@ -17,6 +18,8 @@ namespace MrPiattoRestaurant
     public class DashboardActivity : AppCompatActivity
     {
         ImageView aboutMe, statistics, photosGallery;
+
+        ImageView promotions;
 
         Android.Support.V4.App.Fragment aboutMeFragment;
         Android.Support.V4.App.Fragment statisticsFragment;
@@ -31,9 +34,13 @@ namespace MrPiattoRestaurant
             statistics = FindViewById<ImageView>(Resource.Id.idStatistics);
             photosGallery = FindViewById<ImageView>(Resource.Id.idPhotosGallery);
 
+            promotions = FindViewById<ImageView>(Resource.Id.idPromotions);
+
             aboutMe.Click += aboutMeClick;
             statistics.Click += statisticsClick;
             photosGallery.Click += photosGalleryClick;
+
+            promotions.Click += promotionsClick;
 
             aboutMeFragment = new AboutMe();
             statisticsFragment = new Statistics(this);
@@ -97,6 +104,16 @@ namespace MrPiattoRestaurant
             photosGallery.SetBackgroundResource(Resource.Drawable.dashboard_selected_item);
             photosGallery.SetImageResource(Resource.Drawable.artSelected);
             LoadFragment(Resource.Id.idPhotosGallery);
+        }
+
+        public void promotionsClick(object sender, EventArgs args)
+        {
+            View content = LayoutInflater.Inflate(Resource.Layout.layout_promotions, null);
+
+            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(this).Create();
+            alertDialog.SetCancelable(true);
+            alertDialog.SetView(content);
+            alertDialog.Show();
         }
     }
 }
