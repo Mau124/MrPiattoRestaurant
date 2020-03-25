@@ -31,7 +31,12 @@
         </member>
         <member name="T:MrPiattoRestaurant.Table">
             <summary>
-            Class for a restaurant table
+            Clase Table
+            Esta clase provee una abstracción de una mesa de la vida real. Es por esta razón
+            que contiene todos los atributos y métodos que pudiesemos atribuir a una mesa 
+            física utilizada en un restaurante como el número de asientos, si es circular o cuadrada,
+            el cliente que esta sentado actualmente, etc. Además esta clase prove de propiedades y
+            métodos para la representación visual de la mesa dentro de un lienzo (canvas)
             </summary>
         </member>
         <member name="M:MrPiattoRestaurant.Table.#ctor(Android.Content.Context,System.String,System.Int32,System.Int32,System.Int32,System.Boolean)">

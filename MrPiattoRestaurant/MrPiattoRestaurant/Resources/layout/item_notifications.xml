@@ -1,0 +1,55 @@
+
+
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/subtitles_design"
+    android:padding="15dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/idPersonName"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+    android:text="hola"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/idtableName"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idPersonName"
+    android:text="hola"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/idDate"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idtableName"
+        android:text="Mesa 2"/>
+
+    <TextView
+        android:id="@+id/idMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="El cliente llegara en: "
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idDate"/>
+
+    <TextView
+        android:id="@+id/idTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="30 mins "
+        app:layout_constraintLeft_toRightOf="@+id/idMessage"
+        app:layout_constraintTop_toTopOf="@+id/idMessage"/>
+
+</android.support.constraint.ConstraintLayout>

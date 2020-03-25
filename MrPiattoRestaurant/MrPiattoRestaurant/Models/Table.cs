@@ -17,13 +17,18 @@ using MrPiattoRestaurant.Models;
 namespace MrPiattoRestaurant
 {
     /// <summary>
-    /// Class for a restaurant table
+    /// Clase Table
+    /// Esta clase provee una abstracción de una mesa de la vida real. Es por esta razón
+    /// que contiene todos los atributos y métodos que pudiesemos atribuir a una mesa 
+    /// física utilizada en un restaurante como el número de asientos, si es circular o cuadrada,
+    /// el cliente que esta sentado actualmente, etc. Además esta clase prove de propiedades y
+    /// métodos para la representación visual de la mesa dentro de un lienzo (canvas)
     /// </summary>
     public class Table
     {
-        private const int width = 100;
-        private const int height = 100;
-        private const int textSize = 20;
+        private int width = 100;
+        private int height = 100;
+        private int textSize = 20;
         public string TableName { get; set; }
         public string tableDrawable { get; set; }
         public string type { get; set; }

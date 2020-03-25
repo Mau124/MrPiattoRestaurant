@@ -371,14 +371,12 @@ C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\reportselected.png
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\bullhornselected.png
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\layout\activity_dashboard_statistics.xml
-C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md54e45d4791380ce08fe82082d2b086059\Promotions.java
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\dashboard_main_design.xml
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\generic.xml
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\banner.xml
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\res.png
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\assets\Mono.Android.pdb
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\aboutme_containers.xml
-C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\MrPiattoRestaurant.csprojAssemblyReference.cache
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\flata\c6b846e5249eb278c21aa5a5d132a7badfee6944.stamp
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\flata\644b444fabf6f0fbfd77a1755ab116f0175193c3.stamp
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\flata\42bf312c8abba6221010db044324138a65cd69ad.stamp
@@ -433,3 +431,11 @@ C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\layout\layout_promotions.xml
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\promotions_container.xml
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\material_button.xml
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md5a3863839c315fb02e623e2e31cd2262d\NotificationsAdapter.java
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md5a3863839c315fb02e623e2e31cd2262d\NotificationsAdapter_NotificationsListViewHolder.java
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md54e45d4791380ce08fe82082d2b086059\NotificationsFragment.java
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\layout\item_notifications.xml
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\layout\recycler_notifications.xml
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md54e45d4791380ce08fe82082d2b086059\SwipeToDeleteCallback.java
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\layout\layout_manual_reservation.xml
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\MrPiattoRestaurant.csprojAssemblyReference.cache

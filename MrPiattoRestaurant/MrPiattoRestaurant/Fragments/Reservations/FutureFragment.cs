@@ -16,6 +16,7 @@ using Android.Support.V4.App;
 using MrPiattoRestaurant.adapters.futureListAdapters;
 using MrPiattoRestaurant.Models.Reservations;
 using MrPiattoRestaurant.Models;
+using MrPiattoRestaurant.Pickers;
 
 namespace MrPiattoRestaurant.Fragments.Reservations
 {
@@ -39,6 +40,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
         public FutureFragment(Context context, List<Client> futureList)
         {
+            this.context = context;
             this.futureList = futureList;
         }
         public override void OnCreate(Bundle savedInstanceState)
@@ -74,6 +76,60 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             mAdapter = new FutureListAdapter(context, futureList);
             mRecyclerView.SetAdapter(mAdapter);
             Toast.MakeText(Application.Context, "Se presiono el boton desde future", ToastLength.Long).Show();
+
+            EditText name, tel;
+            TextView date, hour, numSeats;
+            SeekBar mSeekBar;
+
+            View content = LayoutInflater.Inflate(Resource.Layout.layout_manual_reservation, null);
+
+            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
+            alertDialog.SetCancelable(true);
+            alertDialog.SetView(content);
+            alertDialog.Show();
+
+            name = content.FindViewById<EditText>(Resource.Id.idName);
+            tel = content.FindViewById<EditText>(Resource.Id.idTel);
+            numSeats = content.FindViewById<EditText>(Resource.Id.idNumSeats);
+            date = content.FindViewById<TextView>(Resource.Id.idDate);
+            hour = content.FindViewById<TextView>(Resource.Id.idHour);
+            mSeekBar = content.FindViewById<SeekBar>(Resource.Id.idSeekBar);
+
+            mSeekBar.Min = 1;
+            mSeekBar.Max = 15;
+
+            numSeats.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
+            {
+                mSeekBar.Progress = Int32.Parse(numSeats.Text);
+            };
+
+            mSeekBar.ProgressChanged += (object senderProgresBar, SeekBar.ProgressChangedEventArgs e) =>
+            {
+                if (e.FromUser)
+                {
+                    numSeats.Hint = e.Progress.ToString();
+                    Toast.MakeText(Application.Context, "Se esta presionando el seek", ToastLength.Long).Show();
+                }
+            };
+
+            date.Click += (s, a) =>
+            {
+                Toast.MakeText(Application.Context, "Se esta presionando el seek", ToastLength.Long).Show();
+                DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+                {
+                    date.Text = time.ToLongDateString();
+                });
+                frag.Show(FragmentManager, DatePickerFragment.TAG);
+            };
+
+            hour.Click += (s, a) =>
+            {
+                TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+                {
+                    hour.Text = time.ToString("hh:mm tt");
+                });
+                frag.Show(FragmentManager, TimePickerFragment.TAG);
+            };
         }
     }
 }

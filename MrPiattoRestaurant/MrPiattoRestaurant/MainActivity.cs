@@ -15,6 +15,7 @@ using Android.Support.Design.Widget;
 
 using MrPiattoRestaurant.adapters;
 using MrPiattoRestaurant.Fragments.Reservations;
+using MrPiattoRestaurant.Fragments;
 using MrPiattoRestaurant.Pickers;
 using MrPiattoRestaurant.InteractiveViews;
 using MrPiattoRestaurant.Models.Reservations;
@@ -139,6 +140,9 @@ namespace MrPiattoRestaurant
                     break;
                 case Resource.Id.idWaitList:
                     fragment = waitFragment;
+                    break;
+                case Resource.Id.idNotifications:
+                    fragment = new NotificationsFragment(this);
                     break;
             }
             if (fragment == null)
