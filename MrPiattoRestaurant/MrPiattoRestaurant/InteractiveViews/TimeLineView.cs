@@ -66,8 +66,9 @@ namespace MrPiattoRestaurant.InteractiveViews
         private void InitializeTimes()
         {
             lines = 0;
-            hours = 0;
-            minutes = 0;
+            hours = DateTime.Now.Hour;
+            minutes = DateTime.Now.Minute;
+            SetTime(hours, minutes);
         }
 
         public override bool OnTouchEvent(MotionEvent ev)
@@ -96,8 +97,6 @@ namespace MrPiattoRestaurant.InteractiveViews
                     minutes = lines % 60;
 
                     OnTimeLinePressed(hours, minutes);
-
-                    Toast.MakeText(context, "TotalMinutes: " + lines, ToastLength.Long).Show();
 
                     if (_posX <= 0 && _posX >= (_icon.IntrinsicWidth * (-1)))
                     {
@@ -157,7 +156,16 @@ namespace MrPiattoRestaurant.InteractiveViews
 
             _posX = ((-1)*(absolutMinutes));
             Invalidate();
+        }
 
+        public int GetHour()
+        {
+            return hours;
+        }
+
+        public int GetMinutes()
+        {
+            return minutes;
         }
     }
 }

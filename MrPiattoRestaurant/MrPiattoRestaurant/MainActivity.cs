@@ -57,6 +57,8 @@ namespace MrPiattoRestaurant
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
+            timeLineView = new TimeLineView(this);
+
             container = FindViewById<RelativeLayout>(Resource.Id.container);
             newFloor = FindViewById<Button>(Resource.Id.newFloor);
             modifyFloor = FindViewById<Button>(Resource.Id.idModify);
@@ -74,7 +76,7 @@ namespace MrPiattoRestaurant
             Return.Click += ReturnActualTime;
 
             //We create the first floor and add it to the list of floors
-            GestureRecognizerView floor = new GestureRecognizerView(this, "Piso 1", 0);
+            GestureRecognizerView floor = new GestureRecognizerView(this, "Piso 1", 0, timeLineView);
             floors.Add(floor);
             floorsNames.Add("Piso 1");
 
@@ -82,7 +84,6 @@ namespace MrPiattoRestaurant
             //We pass the floor to the container
             container.AddView(floors.ElementAt(floorIndex));
 
-            timeLineView = new TimeLineView(this);
             timeLine.AddView(timeLineView);
 
             //Event to create another floor
@@ -189,7 +190,7 @@ namespace MrPiattoRestaurant
 
             addFloor.Click += delegate {
                 string s = afloorName.Text;
-                GestureRecognizerView auxFloor = new GestureRecognizerView(this, s, floors.Count());
+                GestureRecognizerView auxFloor = new GestureRecognizerView(this, s, floors.Count(), timeLineView);
                 auxFloor.TablePressed += OnTablePressed;
                 auxFloor.Drag += OnDrag;
                 floors.Add(auxFloor);

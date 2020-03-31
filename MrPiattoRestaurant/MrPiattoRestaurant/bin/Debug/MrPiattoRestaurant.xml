@@ -57,7 +57,7 @@
             <param name="point">Point x and y where the new table is located</param>
             <param name="date">Date in wich that distribution is changed</param>
         </member>
-        <member name="M:MrPiattoRestaurant.Table.ChangeTableDistribution(System.Int32,System.Int32)">
+        <member name="M:MrPiattoRestaurant.Table.ChangeTableDistribution(System.DateTime)">
             <summary>
             Function that changes table image on the plane depending on the time sent
             </summary>

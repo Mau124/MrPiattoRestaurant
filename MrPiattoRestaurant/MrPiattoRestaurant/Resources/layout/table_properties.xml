@@ -136,39 +136,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idGeneral"
-        android:id="@+id/idDesign"
-        android:background="@drawable/subtitles_design"
-        android:padding="10dp"
-        android:orientation="vertical">
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Diseño "/>
-
-        </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idDesign"
-        android:id="@+id/idBlocks"
-        android:background="@drawable/subtitles_design"
-        android:padding="10dp">
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bloqueos mesa "/>
-
-        </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idBlocks"
         android:id="@+id/idReservations"
         android:background="@drawable/subtitles_design"
         android:padding="10dp"

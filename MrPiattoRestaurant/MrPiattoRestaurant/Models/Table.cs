@@ -83,15 +83,6 @@ namespace MrPiattoRestaurant
             reservations.Add(client);
             reservations.Add(client);
             reservations.Add(client);
-
-            Point p = new Point(this.firstX, this.firstY);
-            TableDistributions.Add(p, DateTime.Now);
-            TableDistributions.Add(new Point(this.firstX + 50, this.firstY + 50), DateTime.Now.AddHours(2));
-            TableDistributions.Add(new Point(this.firstX + 10, this.firstY + 20), DateTime.Now.AddHours(4));
-            TableDistributions.Add(new Point(10, 10), DateTime.Now.AddHours(6));
-            TableDistributions.Add(new Point(40, 40), DateTime.Now.AddHours(8));
-
-
         }
         //Inicialization methods
         private void InitializeProperties()
@@ -104,9 +95,11 @@ namespace MrPiattoRestaurant
 
             reservations = new List<Client>();
 
+            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, 0);
             Point p = new Point(firstX, firstY);
+
             TableDistributions = new Dictionary<Point, DateTime>();
-            TableDistributions.Add(p, DateTime.Now);
+            TableDistributions.Add(p, date);
         }
         private void InitializePaint()
         {
@@ -154,15 +147,70 @@ namespace MrPiattoRestaurant
         /// <param name="date">Date in wich that distribution is changed</param>
         public void AddDistribution(Point point, DateTime date)
         {
-            for (int i = 0; i < TableDistributions.Count; ++i)
+            int i = 0, j = 0;
+            Point auxPoint;
+            DateTime auxDate;
+
+            if (date > TableDistributions.ElementAt(TableDistributions.Count() - 1).Value)
             {
-                if ((TableDistributions.ElementAt(i).Value.Hour == date.Hour)
-                    && (TableDistributions.ElementAt(i).Value.Minute == date.Minute))
-                {
-                    return;
-                }
+                TableDistributions.Add(point, date);
             }
-            TableDistributions.Add(point, date);
+
+            while (date > TableDistributions.ElementAt(i).Value && i < TableDistributions.Count())
+                i++;
+
+            if (TableDistributions.Count() == 0 || i == TableDistributions.Count())
+            {
+                if (TableDistributions.Count != 0)
+                    if (date != TableDistributions.ElementAt(0).Value)
+                    {
+                        TableDistributions.Add(point, date);
+                    } else
+                    {
+                        TableDistributions.Add(point, date);
+                        i++;
+                    }
+                else 
+                    TableDistributions.Add(point, date);
+                return;
+            } 
+
+            Dictionary<Point, DateTime> aux = new Dictionary<Point, DateTime>();
+
+            while (j < i)
+            {
+                auxPoint = new Point(TableDistributions.ElementAt(j).Key);
+                auxDate = new DateTime(TableDistributions.ElementAt(j).Value.Year, TableDistributions.ElementAt(j).Value.Month,
+                    TableDistributions.ElementAt(j).Value.Day, TableDistributions.ElementAt(j).Value.Hour, TableDistributions.ElementAt(j).Value.Minute, 0);
+
+                aux.Add(auxPoint, auxDate);
+                j++;
+            }
+
+            auxPoint = new Point(point);
+            auxDate = date;
+
+            if (date != TableDistributions.ElementAt(j).Value)
+            {
+                aux.Add(auxPoint, auxDate);
+            }
+            else
+            {
+                aux.Add(auxPoint, auxDate);
+                j++;
+            }
+
+            while (j < TableDistributions.Count())
+            {
+                auxPoint = new Point(TableDistributions.ElementAt(j).Key);
+                auxDate = new DateTime(TableDistributions.ElementAt(j).Value.Year, TableDistributions.ElementAt(j).Value.Month,
+                    TableDistributions.ElementAt(j).Value.Day, TableDistributions.ElementAt(j).Value.Hour, TableDistributions.ElementAt(j).Value.Minute, 0);
+
+                aux.Add(auxPoint, auxDate);
+                j++;
+            }
+
+            TableDistributions = new Dictionary<Point, DateTime>(aux);
         }
 
         /// <summary>
@@ -170,13 +218,11 @@ namespace MrPiattoRestaurant
         /// </summary>
         /// <param name="hours">Hours for table</param>
         /// <param name="minutes">Minutes for table</param>
-        public void ChangeTableDistribution(int hours, int minutes)
+        public void ChangeTableDistribution(DateTime date)
         {
             int i = 0;
-            while (i < TableDistributions.Count && Compare(hours, minutes, i))
-            {
+            while (i < TableDistributions.Count && date > TableDistributions.ElementAt(i).Value)
                 i++;
-            }
             //Assign new x and y for table
             if (i != 0)
             {
@@ -186,6 +232,7 @@ namespace MrPiattoRestaurant
                 secondX = firstX + width;
                 secondY = firstY + height;
                 setDrawable(type, seats);
+                Toast.MakeText(Application.Context, "Distribucion: " + (i - 1) + "Size: " + TableDistributions.Count(), ToastLength.Short).Show();
             }
         }
 
@@ -201,6 +248,7 @@ namespace MrPiattoRestaurant
         }
         public void DrawTable(Canvas canvas)
         {
+
             image.Draw(canvas);
             canvas.DrawText(TableName, firstX + (width / 2), firstY + (height / 2) + (textSize / 2), paint);
             if (borderOn)

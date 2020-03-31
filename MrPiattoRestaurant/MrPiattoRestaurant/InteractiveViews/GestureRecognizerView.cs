@@ -10,6 +10,7 @@ using Android.Graphics;
 using Android.Graphics.Drawables;
 
 using MrPiattoRestaurant.Models;
+using MrPiattoRestaurant.InteractiveViews;
 
 namespace MrPiattoRestaurant
 {
@@ -18,6 +19,7 @@ namespace MrPiattoRestaurant
         public const float screenSizeX = 978;
         public const float screenSizeY = 526;
         public Context context;
+        public TimeLineView timeLineView;
 
         float n1, n2;
         //Floors name
@@ -74,12 +76,13 @@ namespace MrPiattoRestaurant
             tableIndex = 0;
         }
 
-        public GestureRecognizerView(Context context, string name, int floorIndex) :
+        public GestureRecognizerView(Context context, string name, int floorIndex, TimeLineView timeLineView) :
             base(context, null, 0)
         {
             this.context = context;
             this.name = name;
             this.floorIndex = floorIndex;
+            this.timeLineView = timeLineView;
             moveValid = false;
             
             _scaleDetector = new ScaleGestureDetector(context, new MyScaleListener(this));
@@ -106,7 +109,8 @@ namespace MrPiattoRestaurant
                     AbsolutTouchX *= (1 / _scaleFactor);
                     AbsolutTouchY *= (1 / _scaleFactor);
 
-                    tables[tableIndex].borderOn = false;
+                    if (tables.Count() > 0)
+                        tables[tableIndex].borderOn = false;
 
                     if (isOnTable() != -1)
                     {
@@ -196,16 +200,29 @@ namespace MrPiattoRestaurant
                     }
                     else
                     {
-                        Point point = new Point(tables[tableIndex].firstX, tables[tableIndex].firstY);
-                        //tables.ElementAt(tableIndex).AddDistribution(point, DateTime.Now);
+                        Point point; 
 
                         //////////////////////////////////
-                        for (int i = 0; i < tables[tableIndex].TableDistributions.Count; ++i)
+                        if (tables.Count() > 0 && isTable(tables[tableIndex], tables[tableIndex].firstX, tables[tableIndex].firstY))
                         {
-                            Console.WriteLine("Puntos = {0}, Fecha = {1}", tables[tableIndex].TableDistributions.ElementAt(i).Key, tables[tableIndex].TableDistributions.ElementAt(i).Value);
-                        }
+                            int hours = timeLineView.GetHour();
+                            int minutes = timeLineView.GetMinutes();
+                            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hours, minutes, 0);
 
-                        Toast.MakeText(Application.Context, "No esta sobre una mesa: " + auxTableIndex, ToastLength.Long).Show();
+                            point = new Point(tables[tableIndex].firstX, tables[tableIndex].firstY);
+                            tables.ElementAt(tableIndex).AddDistribution(point, date);
+
+                            Toast.MakeText(Application.Context, "Size: " + tables[tableIndex].TableDistributions.Count(), ToastLength.Long).Show();
+
+                            Console.WriteLine("///////////////////////////////////////////////////////////////////////////////////////" + minutes);
+                            Console.WriteLine("Hora: " + hours + "Minutes " + minutes);
+
+                            for (int i = 0; i < tables[tableIndex].TableDistributions.Count(); ++i)
+                            {
+                                Console.WriteLine("Puntos: " + tables[tableIndex].TableDistributions.ElementAt(i).Key + " Fecha: " + tables[tableIndex].TableDistributions.ElementAt(i).Value);
+                            }
+                            Console.WriteLine("///////////////////////////////////////////////////////////////////////////////////////" + minutes);
+                        }
                     }
                     isTablePressed = false;
                     _activePointerId = InvalidPointerId;
@@ -343,11 +360,15 @@ namespace MrPiattoRestaurant
 
         public void updateTableDistributions(int hours, int minutes)
         {
+            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hours, minutes, 0);
             foreach (Table t in tables)
             {
-                t.ChangeTableDistribution(hours, minutes);
+                if (t.TableDistributions.Count() > 0)
+                {
+                    t.ChangeTableDistribution(date);
+                    Invalidate();
+                }
             }
-            Invalidate();
         }
 
         protected override void OnDraw(Canvas canvas)
