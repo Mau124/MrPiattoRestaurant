@@ -1,0 +1,85 @@
+  
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DE6068"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="500dp"
+        android:layout_height="550dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/aboutme_containers"
+        android:padding="20dp">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:id="@+id/idLogo"
+            android:src="@drawable/Elipse15"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Usuario"
+        android:id="@+id/idUser"
+        android:background="@drawable/promotions_container"
+        android:padding="15dp"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contraseña"
+        android:id="@+id/idPassword"
+        android:background="@drawable/promotions_container"
+        android:padding="15dp"
+        android:textSize="15sp"
+       android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingresar"
+            android:id="@+id/idLogin"
+            android:background="@drawable/dashboard_main_design"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            android:layout_marginRight="5dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Has olvidado tu contraseña?"
+        android:id="@+id/idMessage"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recuperar"
+        android:id="@+id/idRecover"
+        android:textColor="#DE6068"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+</LinearLayout>

@@ -24,7 +24,7 @@ using MrPiattoRestaurant.Views;
 
 namespace MrPiattoRestaurant
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
     public class MainActivity : AppCompatActivity
     {
         public RelativeLayout container;
