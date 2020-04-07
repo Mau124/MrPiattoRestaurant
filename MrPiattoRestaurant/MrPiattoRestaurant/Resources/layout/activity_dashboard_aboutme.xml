@@ -141,31 +141,6 @@
              android:background="@drawable/generic"
              android:gravity="center"
              android:layout_margin="5dp">
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password: "
-                android:textColor="#969DA7"/>
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#######"
-                android:textColor="#576171"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="50dp"
-             android:orientation="horizontal"
-             android:background="@drawable/generic"
-             android:gravity="center"
-             android:layout_margin="5dp">
-
             
             <TextView
                 android:layout_width="wrap_content"
@@ -247,14 +222,28 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Aceptar"
+        android:background="@drawable/save_buttons"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/idPolitics"
+        app:layout_constraintRight_toLeftOf="@+id/idMod"
+        android:layout_margin="20dp"
+        android:elevation="5dp"
+        android:textAllCaps="false"
+        android:id="@+id/idAccept"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Modificar"
-        android:background="@drawable/dashboard_main_design"
+        android:background="@drawable/delete_buttons"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/idPolitics"
         app:layout_constraintRight_toRightOf="@+id/idPolitics"
         android:layout_margin="20dp"
         android:elevation="5dp"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        android:id="@+id/idMod"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -288,26 +277,39 @@
             android:text="Politicas"
             android:textColor="#000000"
             android:textSize="18dp"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="5dp"/>
 
         <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:orientation="horizontal"
-             android:layout_marginBottom="15dp">
+             android:layout_marginBottom="5dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tiempo máximo para generar reservación: "
-                android:textColor="#15142F"/>
+                android:textColor="#15142F"
+                android:layout_marginRight="5dp"/>
 
             
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:text="1 semana"
-                android:textColor="#9C9CB1"/>
+                android:hint="1"
+                android:textSize="15dp"
+                android:textColor="#9C9CB1"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="#ACACAC"
+                android:id="@+id/idMaxRes"
+                android:inputType="number"/>
+
+            <Spinner
+                android:id="@+id/idSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:prompt="@string/periods_prompt"/>
 
         </LinearLayout>
 
@@ -315,54 +317,109 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#E1E2EA"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="5dp"/>
 
         <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:orientation="horizontal"
-             android:layout_marginBottom="15dp">
+             android:layout_marginBottom="5dp">
 
            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tiempo mínimo para generar reservación: "
-                android:textColor="#15142F"/>
+                android:textColor="#15142F"
+                android:layout_marginRight="8dp"/>
 
             
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:text="1 día"
-                android:textColor="#9C9CB1"/> 
+                android:hint="1"
+                android:textSize="15dp"
+                android:textColor="#9C9CB1"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="#ACACAC"
+                android:id="@+id/idMinRes"
+                android:inputType="number"/> 
+
+            <Spinner
+                android:id="@+id/idSpinner2"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:prompt="@string/periods_prompt"/>
 
         </LinearLayout>
            
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#E1E2EA"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="5dp"/>
 
         <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:orientation="horizontal"
-             android:layout_marginBottom="15dp">
+             android:layout_marginBottom="5dp">
+
+           <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tiempo máximo de llegada: "
+                android:textColor="#15142F"
+                android:layout_marginRight="95dp"/>
+
+            
+            <EditText
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:hint="15"
+                android:textSize="15dp"
+                android:textColor="#9C9CB1"
+                android:backgroundTint="#ACACAC"
+                android:layout_marginRight="5dp"
+                android:id="@+id/idMaxArrive"
+                android:inputType="number"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/idSpinner3"
+                android:prompt="@string/periods_prompt"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E1E2EA"
+            android:layout_marginBottom="5dp"/>
+
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginBottom="5dp">
 
            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tiempo mínimo para poder modificar reservación: "
-                android:textColor="#15142F"/>
+                android:textColor="#15142F"
+                android:layout_marginRight="5dp"/>
 
             
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0s / 1d / 0h"
-                android:textColor="#9C9CB1"/>
+                android:hint="0s / 1d / 0h"
+                android:textSize="15dp"
+                android:textColor="#9C9CB1"
+                android:backgroundTint="#ACACAC"
+                android:id="@+id/idMinMod"
+                android:inputType="number"/>
 
         </LinearLayout>
 
@@ -370,13 +427,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#E1E2EA"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="5dp"/>
 
         <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:orientation="horizontal"
-             android:layout_marginBottom="15dp">
+             android:layout_marginBottom="5dp">
 
            <TextView
                 android:layout_width="wrap_content"
@@ -384,12 +441,10 @@
                 android:text="Tipo de penalización impuesta: "
                 android:textColor="#15142F"/>
 
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Desactivada"
-                android:textColor="#9C9CB1"/>
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/idSwitch1"/>
 
         </LinearLayout>
 
@@ -397,13 +452,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#E1E2EA"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="5dp"/>
             
         <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:orientation="horizontal"
-             android:layout_marginBottom="15dp">
+             android:layout_marginBottom="5dp">
 
            <TextView
                 android:layout_width="wrap_content"
@@ -412,38 +467,12 @@
                 android:textColor="#15142F"/>
 
             
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Activado"
-                android:textColor="#9C9CB1"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E1E2EA"
-            android:layout_marginBottom="15dp"/>
-
-        <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal"
-             android:layout_marginBottom="10dp">
-
-           <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tiempo máximo de llegada: "
-                android:textColor="#15142F"/>
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="15 min"
-                android:textColor="#9C9CB1"/>
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/idSwitch2"
+                OnColor="Orange"
+                ThumbColor="Green"/>
 
         </LinearLayout>
 
@@ -472,37 +501,10 @@
             android:textSize="18dp"
             android:layout_marginBottom="15dp"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mauricio Andres Flores Perez "
-                android:textColor="#15142F"
-                android:layout_marginBottom="15dp"/>
-
-        <View
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E1E2EA"
-            android:layout_marginBottom="15dp"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Juanito Perez Lopez "
-                android:textColor="#15142F"
-               android:layout_marginBottom="15dp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E1E2EA"
-            android:layout_marginBottom="15dp"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Alan Mauricio Farfan Pita "
-                android:textColor="#15142F"/>
+            android:layout_height="match_parent"
+            android:id="@+id/idRecyclerView"/>
 
     </LinearLayout>
 

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">HelloSpinner</string>
+  <string name="periods_prompt">Periodo</string>
+  <string-array name="periods_array">
+    <item>Hora</item>
+    <item>Dia</item>
+    <item>Semana</item>
+    <item>Año</item>
+  </string-array>
+</resources>

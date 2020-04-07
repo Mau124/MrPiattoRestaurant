@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SelectedDevice>tablet_prueba_2</SelectedDevice>
-    <DefaultDevice>tablet_prueba_2</DefaultDevice>
+    <SelectedDevice>LENOVO TB-X505F</SelectedDevice>
+    <DefaultDevice>tablet_m-dpi_10_1_pie_9_0_api_28</DefaultDevice>
     <AndroidDesignerPreferredTheme>AppTheme</AndroidDesignerPreferredTheme>
     <AndroidDesignerPreferredDevice>10.1in WXGA %28Tablet%29</AndroidDesignerPreferredDevice>
   </PropertyGroup>

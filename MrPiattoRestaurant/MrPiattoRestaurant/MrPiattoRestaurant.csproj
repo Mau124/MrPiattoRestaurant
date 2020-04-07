@@ -71,6 +71,7 @@
     <Compile Include="adapters\PhotosGalleryAdapter.cs" />
     <Compile Include="adapters\SectionedExpandableGridAdapter.cs" />
     <Compile Include="adapters\SectionedExpandableGridHelper.cs" />
+    <Compile Include="adapters\WaitersAdapter.cs" />
     <Compile Include="adapters\waitListAdapters\WaitListAdapter.cs" />
     <Compile Include="DashboardActivity.cs" />
     <Compile Include="Fragments\AboutMe.cs" />
@@ -517,6 +518,22 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Elipse15.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\politics_edit.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\periods.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\spinner_item_politics.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\layout_item_waiter.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

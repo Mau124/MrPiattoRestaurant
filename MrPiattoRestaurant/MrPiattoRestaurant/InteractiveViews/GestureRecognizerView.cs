@@ -202,27 +202,27 @@ namespace MrPiattoRestaurant
                     {
                         Point point; 
 
-                        //////////////////////////////////
-                        if (tables.Count() > 0 && isTable(tables[tableIndex], tables[tableIndex].firstX, tables[tableIndex].firstY))
-                        {
-                            int hours = timeLineView.GetHour();
-                            int minutes = timeLineView.GetMinutes();
-                            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hours, minutes, 0);
+                        ////////////////////////////////////
+                        //if (tables.Count() > 0 && isTable(tables[tableIndex], tables[tableIndex].firstX, tables[tableIndex].firstY))
+                        //{
+                        //    int hours = timeLineView.GetHour();
+                        //    int minutes = timeLineView.GetMinutes();
+                        //    DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hours, minutes, 0);
 
-                            point = new Point(tables[tableIndex].firstX, tables[tableIndex].firstY);
-                            tables.ElementAt(tableIndex).AddDistribution(point, date);
+                        //    point = new Point(tables[tableIndex].firstX, tables[tableIndex].firstY);
+                        //    tables.ElementAt(tableIndex).AddDistribution(point, date);
 
-                            Toast.MakeText(Application.Context, "Size: " + tables[tableIndex].TableDistributions.Count(), ToastLength.Long).Show();
+                        //    Toast.MakeText(Application.Context, "Size: " + tables[tableIndex].TableDistributions.Count(), ToastLength.Long).Show();
 
-                            Console.WriteLine("///////////////////////////////////////////////////////////////////////////////////////" + minutes);
-                            Console.WriteLine("Hora: " + hours + "Minutes " + minutes);
+                        //    Console.WriteLine("///////////////////////////////////////////////////////////////////////////////////////" + minutes);
+                        //    Console.WriteLine("Hora: " + hours + "Minutes " + minutes);
 
-                            for (int i = 0; i < tables[tableIndex].TableDistributions.Count(); ++i)
-                            {
-                                Console.WriteLine("Puntos: " + tables[tableIndex].TableDistributions.ElementAt(i).Key + " Fecha: " + tables[tableIndex].TableDistributions.ElementAt(i).Value);
-                            }
-                            Console.WriteLine("///////////////////////////////////////////////////////////////////////////////////////" + minutes);
-                        }
+                        //    for (int i = 0; i < tables[tableIndex].TableDistributions.Count(); ++i)
+                        //    {
+                        //        Console.WriteLine("Puntos: " + tables[tableIndex].TableDistributions.ElementAt(i).Key + " Fecha: " + tables[tableIndex].TableDistributions.ElementAt(i).Value);
+                        //    }
+                        //    Console.WriteLine("///////////////////////////////////////////////////////////////////////////////////////" + minutes);
+                        //}
                     }
                     isTablePressed = false;
                     _activePointerId = InvalidPointerId;

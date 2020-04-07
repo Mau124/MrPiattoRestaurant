@@ -42,7 +42,7 @@ namespace MrPiattoRestaurant
 
             promotions.Click += promotionsClick;
 
-            aboutMeFragment = new AboutMe();
+            aboutMeFragment = new AboutMe(this);
             statisticsFragment = new Statistics(this);
             photosGalleryFragment = new PhotosGallery(this);
 
