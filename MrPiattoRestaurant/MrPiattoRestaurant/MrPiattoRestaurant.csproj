@@ -75,6 +75,7 @@
     <Compile Include="adapters\waitListAdapters\WaitListAdapter.cs" />
     <Compile Include="DashboardActivity.cs" />
     <Compile Include="Fragments\AboutMe.cs" />
+    <Compile Include="Fragments\ModifyRestaurant.cs" />
     <Compile Include="Fragments\NotificationsFragment.cs" />
     <Compile Include="Fragments\PhotosGallery.cs" />
     <Compile Include="Fragments\Reservations\ActualFragment.cs" />
@@ -532,6 +533,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\layout_item_waiter.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\layout_add_waiter.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\layout_modify_restaurant.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\layout_new_password.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

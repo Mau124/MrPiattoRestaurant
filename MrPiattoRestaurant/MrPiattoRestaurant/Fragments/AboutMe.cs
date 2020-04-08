@@ -26,7 +26,11 @@ namespace MrPiattoRestaurant.Fragments
         EditText maxRes, minRes, maxArrive, minMod;
         Spinner spinner, spinner2, spinner3;
         Switch switch1, switch2;
-        Button mod, accept;
+        Button mod, accept, addWaiter;
+
+        EditText restaurantName, restaurantMail, hour1, hour2, restaurantDesc;
+        Button modifyRes, modifyPass, acceptRes;
+
         List<string> waiters = new List<string>();
 
         Color main = new Color(222, 96, 104);
@@ -38,6 +42,7 @@ namespace MrPiattoRestaurant.Fragments
         WaitersAdapter mAdapter;
 
         bool isModifying = false;
+        bool isModifyinRes = false;
 
         public AboutMe(Context context)
         {
@@ -73,6 +78,17 @@ namespace MrPiattoRestaurant.Fragments
 
             mod = view.FindViewById<Button>(Resource.Id.idMod);
             accept = view.FindViewById<Button>(Resource.Id.idAccept);
+            addWaiter = view.FindViewById<Button>(Resource.Id.idAddWaiter);
+
+            restaurantName = view.FindViewById<EditText>(Resource.Id.idRestaurantName);
+            restaurantMail = view.FindViewById<EditText>(Resource.Id.idRestaurantMail);
+            hour1 = view.FindViewById<EditText>(Resource.Id.idHour1);
+            hour2 = view.FindViewById<EditText>(Resource.Id.idHour2);
+            restaurantDesc = view.FindViewById<EditText>(Resource.Id.idRestaurantDesc);
+
+            modifyRes = view.FindViewById<Button>(Resource.Id.idModifyRes);
+            modifyPass = view.FindViewById<Button>(Resource.Id.idModifyPass);
+            acceptRes = view.FindViewById<Button>(Resource.Id.idAcceptRes);
 
             spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
             spinner2.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner2_ItemSelected);
@@ -81,7 +97,7 @@ namespace MrPiattoRestaurant.Fragments
             mLayoutManager = new LinearLayoutManager(context);
             mRecyclerView.SetLayoutManager(mLayoutManager);
 
-            mAdapter = new WaitersAdapter(waiters);
+            mAdapter = new WaitersAdapter(waiters, context);
             mRecyclerView.SetAdapter(mAdapter);
 
             var adapter = ArrayAdapter.CreateFromResource(
@@ -93,12 +109,18 @@ namespace MrPiattoRestaurant.Fragments
             spinner3.Adapter = adapter;
 
             InitializePolitics();
+            InitializeRes();
 
             switch1.CheckedChange += switch1_Toggled;
             switch2.CheckedChange += switch2_Toggled;
 
             mod.Click += modifyPolitics;
             accept.Click += acceptPolitics;
+            addWaiter.Click += onAddWaiter;
+
+            modifyRes.Click += modifyRestaurant;
+            acceptRes.Click += acceptRestaurant;
+            modifyPass.Click += modifyPassword;
 
             return view;
         }
@@ -124,6 +146,17 @@ namespace MrPiattoRestaurant.Fragments
             switch1.TrackDrawable.SetColorFilter(disable, PorterDuff.Mode.Multiply);
 
             accept.Visibility = ViewStates.Gone;
+        }
+
+        private void InitializeRes()
+        {
+            restaurantName.Enabled = false;
+            restaurantMail.Enabled = false;
+            hour1.Enabled = false;
+            hour2.Enabled = false;
+            restaurantDesc.Enabled = false;
+
+            acceptRes.Visibility = ViewStates.Gone;
         }
 
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -225,14 +258,73 @@ namespace MrPiattoRestaurant.Fragments
                 isModifying = true;
             } else
             {
+                mod.Text = "Modificar";
                 InitializePolitics();
                 isModifying = false;
             }
         }
 
+        private void modifyRestaurant(object sender, EventArgs e)
+        {
+            if (!isModifyinRes)
+            {
+                restaurantName.Enabled = true;
+                restaurantMail.Enabled = true;
+                hour1.Enabled = true;
+                hour2.Enabled = true;
+                restaurantDesc.Enabled = true;
+                isModifyinRes = true;
+
+                acceptRes.Visibility = ViewStates.Visible;
+                modifyRes.Text = "Cancelar";
+                modifyPass.Visibility = ViewStates.Gone;
+            } else
+            {
+                InitializeRes();
+                modifyPass.Visibility = ViewStates.Visible;
+                modifyRes.Text = "Modificar";
+                isModifyinRes = false;
+            }
+        }
+
+        private void modifyPassword(object sender, EventArgs e)
+        {
+            InitializeRes();
+            modifyPass.Visibility = ViewStates.Visible;
+            modifyRes.Text = "Modificar";
+            isModifyinRes = false;
+
+            View content = LayoutInflater.Inflate(Resource.Layout.layout_new_password, null);
+
+            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
+            alertDialog.SetCancelable(true);
+            alertDialog.SetView(content);
+            alertDialog.Show();
+        }
+
+        private void acceptRestaurant(object sender, EventArgs e)
+        {
+            InitializeRes();
+            modifyPass.Visibility = ViewStates.Visible;
+            modifyRes.Text = "Modificar";
+            isModifyinRes = false;
+        }
+
+        private void onAddWaiter(object sender, EventArgs e)
+        {
+            View content = LayoutInflater.Inflate(Resource.Layout.layout_add_waiter, null);
+
+            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
+            alertDialog.SetCancelable(true);
+            alertDialog.SetView(content);
+            alertDialog.Show();
+        }
+
         private void acceptPolitics(object sender, EventArgs e)
         {
+            mod.Text = "Modificar";
             InitializePolitics();
+            isModifying = false;
         }
     }
 }
