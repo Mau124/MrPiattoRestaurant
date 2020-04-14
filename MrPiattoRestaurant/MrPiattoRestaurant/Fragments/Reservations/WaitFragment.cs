@@ -29,20 +29,6 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         public WaitListAdapter mAdapter;
 
         public List<WaitList> waitList = new List<WaitList>();
-
-        //We define a delegate for our tablepressed event
-        public delegate void AddClientEventHandler(object source, EventArgs args);
-
-        //We define an event based on the tablepressed delegate
-        public event AddClientEventHandler AddClient;
-        //Raise the event
-        protected virtual void OnAddClient()
-        {
-            if (AddClient != null)
-            {
-                AddClient(this, EventArgs.Empty);
-            }
-        }
         public WaitFragment(Context context)
         {
             waitList = new List<WaitList>();
@@ -83,8 +69,56 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         }
         public void OnAddWait(object sender, EventArgs args)
         {
-            OnAddClient();
-            Toast.MakeText(Application.Context, "Se presiono el boton desde wait", ToastLength.Long).Show();
+            View content = LayoutInflater.Inflate(Resource.Layout.add_waitList, null);
+            Button add;
+            ImageView dismiss;
+            EditText nameClient, numSeats;
+            SeekBar mSeekBar;
+
+            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
+            alertDialog.SetCancelable(true);
+            alertDialog.SetView(content);
+            alertDialog.Show();
+
+            add = content.FindViewById<Button>(Resource.Id.idAdd);
+            dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
+
+            nameClient = content.FindViewById<EditText>(Resource.Id.idName);
+            numSeats = content.FindViewById<EditText>(Resource.Id.idSeats);
+            mSeekBar = content.FindViewById<SeekBar>(Resource.Id.idSeekBar);
+
+            mSeekBar.Min = 1;
+            mSeekBar.Max = 15;
+
+            dismiss.Click += delegate
+            {
+                alertDialog.Dismiss();
+            };
+
+            numSeats.TextChanged += (object s, Android.Text.TextChangedEventArgs e) =>
+            {
+                mSeekBar.Progress = Int32.Parse(numSeats.Text);
+            };
+
+            mSeekBar.ProgressChanged += (object senderProgresBar, SeekBar.ProgressChangedEventArgs e) =>
+            {
+                if (e.FromUser)
+                {
+                    numSeats.Hint = e.Progress.ToString();
+                    Toast.MakeText(Application.Context, "Se esta presionando el seek", ToastLength.Long).Show();
+                }
+            };
+
+            add.Click += (s, a) => {
+                string name;
+                int seats;
+
+                name = nameClient.Text;
+                seats = Int32.Parse(numSeats.Text);
+
+                AddToList(name, seats);
+                alertDialog.Dismiss();
+            };
         }
 
         public void AddToList(string name, int seats)

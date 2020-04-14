@@ -198,32 +198,6 @@ namespace MrPiattoRestaurant
                         JoinTables(tableIndex, auxTableIndex);
                         Toast.MakeText(Application.Context, "Esta sobre una mesa: " + auxTableIndex, ToastLength.Long).Show();
                     }
-                    else
-                    {
-                        Point point; 
-
-                        ////////////////////////////////////
-                        //if (tables.Count() > 0 && isTable(tables[tableIndex], tables[tableIndex].firstX, tables[tableIndex].firstY))
-                        //{
-                        //    int hours = timeLineView.GetHour();
-                        //    int minutes = timeLineView.GetMinutes();
-                        //    DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hours, minutes, 0);
-
-                        //    point = new Point(tables[tableIndex].firstX, tables[tableIndex].firstY);
-                        //    tables.ElementAt(tableIndex).AddDistribution(point, date);
-
-                        //    Toast.MakeText(Application.Context, "Size: " + tables[tableIndex].TableDistributions.Count(), ToastLength.Long).Show();
-
-                        //    Console.WriteLine("///////////////////////////////////////////////////////////////////////////////////////" + minutes);
-                        //    Console.WriteLine("Hora: " + hours + "Minutes " + minutes);
-
-                        //    for (int i = 0; i < tables[tableIndex].TableDistributions.Count(); ++i)
-                        //    {
-                        //        Console.WriteLine("Puntos: " + tables[tableIndex].TableDistributions.ElementAt(i).Key + " Fecha: " + tables[tableIndex].TableDistributions.ElementAt(i).Value);
-                        //    }
-                        //    Console.WriteLine("///////////////////////////////////////////////////////////////////////////////////////" + minutes);
-                        //}
-                    }
                     isTablePressed = false;
                     _activePointerId = InvalidPointerId;
                     break;
@@ -328,8 +302,14 @@ namespace MrPiattoRestaurant
         {
             if (tables.Count() > 0)
                 tables.ElementAt(tableIndex).borderOn = false;
-            tables.Add(new Table(context, type, seats, (int)centerX, (int)centerY, true));
+            tables.Add(new Table(context, "text", type, seats, (int)centerX, (int)centerY, true));
             OnTablePressed(floorIndex, tables.Count() - 1);
+            Invalidate();
+        }
+
+        public void AddTable(Table table)
+        {
+            tables.Add(new Table(context, table.TableName, table.type, table.seats, table.firstX, table.firstY, table.borderOn));
             Invalidate();
         }
 
@@ -357,20 +337,6 @@ namespace MrPiattoRestaurant
             tables.ElementAt(tableIterator).setActualClient(actualClient);
             ocupiedTables.Add(tables.ElementAt(tableIterator));
         }
-
-        public void updateTableDistributions(int hours, int minutes)
-        {
-            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hours, minutes, 0);
-            foreach (Table t in tables)
-            {
-                if (t.TableDistributions.Count() > 0)
-                {
-                    t.ChangeTableDistribution(date);
-                    Invalidate();
-                }
-            }
-        }
-
         protected override void OnDraw(Canvas canvas)
         {
             base.OnDraw(canvas);

@@ -16,7 +16,6 @@ android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_notific
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_waitlist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_add_waiter.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_catalogue.xml
-android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_login.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_main_container.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_manual_reservation.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_new_password.xml
@@ -73,7 +72,6 @@ corners;obj\Debug\90\res\drawable\dashboard_selected_item.xml
 corners;obj\Debug\90\res\drawable\delete_buttons.xml
 corners;obj\Debug\90\res\drawable\generic.xml
 corners;obj\Debug\90\res\drawable\politics_edit.xml
-corners;obj\Debug\90\res\drawable\polititcs_edit.xml
 corners;obj\Debug\90\res\drawable\promotions_container.xml
 corners;obj\Debug\90\res\drawable\save_buttons.xml
 corners;obj\Debug\90\res\drawable\second_button.xml
@@ -125,21 +123,18 @@ item;obj\Debug\90\res\menu\waitlistmenu.xml
 item;obj\Debug\90\res\values\periods.xml
 item;obj\Debug\90\res\values\strings.xml
 item;obj\Debug\90\res\values\styles.xml
-LinearLayout;obj\Debug\90\res\drawable\polititcs_edit.xml
 LinearLayout;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 LinearLayout;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 LinearLayout;obj\Debug\90\res\layout\activity_main.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_answer_survey.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_join_tables.xml
-LinearLayout;obj\Debug\90\res\layout\layout_add_waiter.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item_gallery.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item_waiter.xml
 LinearLayout;obj\Debug\90\res\layout\layout_login.xml
 LinearLayout;obj\Debug\90\res\layout\layout_manual_reservation.xml
 LinearLayout;obj\Debug\90\res\layout\layout_modify_restaurant.xml
-LinearLayout;obj\Debug\90\res\layout\layout_new_password.xml
 LinearLayout;obj\Debug\90\res\layout\layout_promotions.xml
 LinearLayout;obj\Debug\90\res\layout\layout_section.xml
 LinearLayout;obj\Debug\90\res\layout\table_properties.xml
@@ -158,6 +153,7 @@ resources;obj\Debug\90\res\values\ic_launcher_background.xml
 resources;obj\Debug\90\res\values\periods.xml
 resources;obj\Debug\90\res\values\strings.xml
 resources;obj\Debug\90\res\values\styles.xml
+SeekBar;obj\Debug\90\res\layout\add_waitlist.xml
 SeekBar;obj\Debug\90\res\layout\layout_manual_reservation.xml
 SeekBar;obj\Debug\90\res\layout\table_properties.xml
 selector;obj\Debug\90\res\drawable\theme_color.xml
@@ -172,7 +168,6 @@ shape;obj\Debug\90\res\drawable\generic.xml
 shape;obj\Debug\90\res\drawable\main_sections.xml
 shape;obj\Debug\90\res\drawable\material_button.xml
 shape;obj\Debug\90\res\drawable\politics_edit.xml
-shape;obj\Debug\90\res\drawable\polititcs_edit.xml
 shape;obj\Debug\90\res\drawable\promotions_container.xml
 shape;obj\Debug\90\res\drawable\save_buttons.xml
 shape;obj\Debug\90\res\drawable\second_button.xml
@@ -190,7 +185,6 @@ size;obj\Debug\90\res\drawable\delete_buttons.xml
 size;obj\Debug\90\res\drawable\generic.xml
 size;obj\Debug\90\res\drawable\main_sections.xml
 size;obj\Debug\90\res\drawable\politics_edit.xml
-size;obj\Debug\90\res\drawable\polititcs_edit.xml
 size;obj\Debug\90\res\drawable\promotions_container.xml
 size;obj\Debug\90\res\drawable\save_buttons.xml
 size;obj\Debug\90\res\drawable\second_button.xml
@@ -206,7 +200,6 @@ solid;obj\Debug\90\res\drawable\generic.xml
 solid;obj\Debug\90\res\drawable\main_sections.xml
 solid;obj\Debug\90\res\drawable\material_button.xml
 solid;obj\Debug\90\res\drawable\politics_edit.xml
-solid;obj\Debug\90\res\drawable\polititcs_edit.xml
 solid;obj\Debug\90\res\drawable\promotions_container.xml
 solid;obj\Debug\90\res\drawable\save_buttons.xml
 solid;obj\Debug\90\res\drawable\second_button.xml
@@ -230,7 +223,6 @@ stroke;obj\Debug\90\res\drawable\dashboard_main_design.xml
 stroke;obj\Debug\90\res\drawable\delete_buttons.xml
 stroke;obj\Debug\90\res\drawable\generic.xml
 stroke;obj\Debug\90\res\drawable\politics_edit.xml
-stroke;obj\Debug\90\res\drawable\polititcs_edit.xml
 stroke;obj\Debug\90\res\drawable\promotions_container.xml
 stroke;obj\Debug\90\res\drawable\save_buttons.xml
 stroke;obj\Debug\90\res\drawable\second_button.xml
@@ -269,7 +261,6 @@ TextView;obj\Debug\90\res\layout\recycler_waitlist.xml
 TextView;obj\Debug\90\res\layout\spinner_item_politics.xml
 TextView;obj\Debug\90\res\layout\statistics_spinner_item.xml
 TextView;obj\Debug\90\res\layout\table_properties.xml
-ToggleButton;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 View;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 View;obj\Debug\90\res\layout\activity_dashboard_gallery.xml
 View;obj\Debug\90\res\layout\activity_dashboard_statistics.xml

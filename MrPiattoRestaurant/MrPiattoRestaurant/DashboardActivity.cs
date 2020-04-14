@@ -11,6 +11,7 @@ using Android.Widget;
 using Android.Views;
 
 using MrPiattoRestaurant.Fragments;
+using MrPiattoRestaurant.Pickers;
 
 namespace MrPiattoRestaurant
 {
@@ -18,6 +19,8 @@ namespace MrPiattoRestaurant
     public class DashboardActivity : AppCompatActivity
     {
         ImageView aboutMe, statistics, photosGallery;
+        TextView hourInterval1, hourInterval2;
+        ImageView dismiss;
 
         ImageView promotions;
 
@@ -114,6 +117,40 @@ namespace MrPiattoRestaurant
             alertDialog.SetCancelable(true);
             alertDialog.SetView(content);
             alertDialog.Show();
+
+            dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
+
+            hourInterval1 = content.FindViewById<TextView>(Resource.Id.idHourInterval1);
+            hourInterval2 = content.FindViewById<TextView>(Resource.Id.idHourInterval2);
+
+            dismiss.Click += delegate
+            {
+                alertDialog.Dismiss();
+            };
+
+            hourInterval1.Click += onHourInterval1;
+            hourInterval2.Click += onHourInterval2;
+
+        }
+
+        private void onHourInterval1(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                hourInterval1.Text = time.ToString("dd/MM/yyyy");
+
+            });
+            frag.Show(SupportFragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void onHourInterval2(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                hourInterval2.Text = time.ToString("dd/MM/yyyy");
+
+            });
+            frag.Show(SupportFragmentManager, DatePickerFragment.TAG);
         }
     }
 }

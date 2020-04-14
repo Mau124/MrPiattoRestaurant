@@ -16,6 +16,9 @@ using SkiaSharp;
 using Entry = Microcharts.Entry;
 using Microcharts.Droid;
 
+using MrPiattoRestaurant.Pickers;
+
+
 namespace MrPiattoRestaurant.Fragments
 {
     public class Statistics : Android.Support.V4.App.Fragment
@@ -36,6 +39,13 @@ namespace MrPiattoRestaurant.Fragments
         List<String> listTableUse = new List<String>();
         List<String> listWaiters = new List<String>();
         List<String> listTableAverage = new List<String>();
+
+        TextView hourInterval1, hourInterval2;
+        TextView tableUseInterval1, tableUseInterval2;
+        TextView daysInterval1, daysInterval2;
+        TextView waitersInterval1, waitersInterval2;
+        TextView tableAverageInterval1, tableAverageInterval2;
+        TextView alexaInterval1, alexaInterval2;
 
         public Statistics(Context context)
         {
@@ -388,6 +398,20 @@ namespace MrPiattoRestaurant.Fragments
             spinnerWaiters = view.FindViewById<Spinner>(Resource.Id.idSpinnerWaiters);
             spinnerTableAverage = view.FindViewById<Spinner>(Resource.Id.idSpinnerTableAverage);
 
+            hourInterval1 = view.FindViewById<TextView>(Resource.Id.idHourInterval1);
+            hourInterval2 = view.FindViewById<TextView>(Resource.Id.idHourInterval2);
+            tableUseInterval1 = view.FindViewById<TextView>(Resource.Id.idTableUseInterval1);
+            tableUseInterval2 = view.FindViewById<TextView>(Resource.Id.idTableUseInterval2);
+            daysInterval1 = view.FindViewById<TextView>(Resource.Id.idDaysInterval1);
+            daysInterval2 = view.FindViewById<TextView>(Resource.Id.idDaysInterval2);
+            waitersInterval1 = view.FindViewById<TextView>(Resource.Id.idWaitersInterval1);
+            waitersInterval2 = view.FindViewById<TextView>(Resource.Id.idWaitersInterval2);
+            tableAverageInterval1 = view.FindViewById<TextView>(Resource.Id.idTableAverageInterval1);
+            tableAverageInterval2 = view.FindViewById<TextView>(Resource.Id.idTableAverageInterval2);
+            alexaInterval1 = view.FindViewById<TextView>(Resource.Id.idAlexaInterval1);
+            alexaInterval2 = view.FindViewById<TextView>(Resource.Id.idAlexaInterval2);
+
+
             var chart1 = new LineChart() { Entries = entriesHours };
             var chart2 = new BarChart() { Entries = entriesTableUse };
             var chart3 = new DonutChart() { Entries = entriesDays };
@@ -414,7 +438,140 @@ namespace MrPiattoRestaurant.Fragments
             adapter3.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinnerTableAverage.Adapter = adapter3;
 
+            hourInterval1.Click += onHourInterval1;
+            hourInterval2.Click += onHourInterval2;
+            tableUseInterval1.Click += onTableUseInterval1;
+            tableUseInterval2.Click += onTableUseInterval2;
+            daysInterval1.Click += onDaysInterval1;
+            daysInterval2.Click += onDaysInterval2;
+            waitersInterval1.Click += onWaitersInterval1;
+            waitersInterval2.Click += onWaitersInterval2;
+            tableAverageInterval1.Click += onTableAverageInterval1;
+            tableAverageInterval2.Click += onTableAverageInterval2;
+            alexaInterval1.Click += onAlexaInterval1;
+            alexaInterval2.Click += onAlexaInterval2;
+
             return view;
+        }
+
+        private void onHourInterval1(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                hourInterval1.Text = time.ToLongDateString();
+
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void onHourInterval2(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                hourInterval2.Text = time.ToLongDateString();
+
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void onTableUseInterval1(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                tableUseInterval1.Text = time.ToString("dd/MM/yyyy");
+
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void onTableUseInterval2(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                tableUseInterval2.Text = time.ToString("dd/MM/yyyy");
+
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void onDaysInterval1(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                daysInterval1.Text = time.ToString("dd/MM/yyyy");
+
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void onDaysInterval2(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                daysInterval2.Text = time.ToString("dd/MM/yyyy");
+
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void onWaitersInterval1(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                waitersInterval1.Text = time.ToString("dd/MM/yyyy");
+
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void onWaitersInterval2(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                waitersInterval2.Text = time.ToString("dd/MM/yyyy");
+
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void onTableAverageInterval1(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                tableAverageInterval1.Text = time.ToString("dd/MM/yyyy");
+
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void onTableAverageInterval2(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                tableAverageInterval2.Text = time.ToString("dd/MM/yyyy");
+
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void onAlexaInterval1(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                alexaInterval1.Text = time.ToLongDateString();
+
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void onAlexaInterval2(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                alexaInterval2.Text = time.ToLongDateString();
+
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
     }
 }

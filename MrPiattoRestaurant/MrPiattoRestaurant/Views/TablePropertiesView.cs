@@ -27,6 +27,21 @@ namespace MrPiattoRestaurant.Views
 
         List<GestureRecognizerView> floors;
 
+        //We define a delegate for our tablepressed event
+        public delegate void ClosePressedEventHandler();
+
+        //We define an event based on the tablepressed delegate
+        public event ClosePressedEventHandler ClosePressed;
+
+        //Raise the event
+        protected virtual void OnClosePressed()
+        {
+            if (ClosePressed != null)
+            {
+                ClosePressed();
+            }
+        }
+
         /// <summary>
         /// Class that creates a tablepropertiesView
         /// </summary>
@@ -51,6 +66,7 @@ namespace MrPiattoRestaurant.Views
         {
             EditText tableName;
             TextView tableSeats;
+            ImageView dismiss;
             RecyclerView mRecyclerView;
             SeekBar mSeekBar;
 
@@ -65,12 +81,15 @@ namespace MrPiattoRestaurant.Views
             tableSeats = tablePropertiesView.FindViewById<TextView>(Resource.Id.idTableSeats);
             mRecyclerView = tablePropertiesView.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
             mSeekBar = tablePropertiesView.FindViewById<SeekBar>(Resource.Id.idSeekBar);
+            dismiss = tablePropertiesView.FindViewById<ImageView>(Resource.Id.idDismiss);
 
             tableName.Hint = table.TableName;
             tableSeats.Text = table.seats.ToString();
 
             mRecyclerView.SetLayoutManager(mLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
+
+            dismiss.Click += onDismiss;
 
             mSeekBar.Min = 1;
             mSeekBar.Max = 5;
@@ -103,6 +122,11 @@ namespace MrPiattoRestaurant.Views
             Button buttonDelete = tablePropertiesView.FindViewById<Button>(Resource.Id.idDeleteButton);
 
             return tablePropertiesView;
+        }
+
+        private void onDismiss(object sender, EventArgs e)
+        {
+            OnClosePressed();
         }
     }
 }

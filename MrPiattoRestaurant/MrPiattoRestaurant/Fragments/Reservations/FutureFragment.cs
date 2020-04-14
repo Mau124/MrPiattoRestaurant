@@ -71,7 +71,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
         public void OnAddReservation()
         {
-            Client element = new Client("Mauricio Andres Flores Perez", 3, DateTime.Now);
+            Client element = new Client("Mauricio Andres Flores Perez", 3, DateTime.Now, 3);
             futureList.Add(element);
             mAdapter = new FutureListAdapter(context, futureList);
             mRecyclerView.SetAdapter(mAdapter);
@@ -80,6 +80,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             EditText name, tel;
             TextView date, hour, numSeats;
             SeekBar mSeekBar;
+            ImageView dismiss;
 
             View content = LayoutInflater.Inflate(Resource.Layout.layout_manual_reservation, null);
 
@@ -88,6 +89,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             alertDialog.SetView(content);
             alertDialog.Show();
 
+            dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
             name = content.FindViewById<EditText>(Resource.Id.idName);
             tel = content.FindViewById<EditText>(Resource.Id.idTel);
             numSeats = content.FindViewById<EditText>(Resource.Id.idNumSeats);
@@ -97,6 +99,11 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
             mSeekBar.Min = 1;
             mSeekBar.Max = 15;
+
+            dismiss.Click += delegate
+            {
+                alertDialog.Dismiss();
+            };
 
             numSeats.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
             {

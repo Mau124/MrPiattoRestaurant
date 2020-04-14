@@ -17,12 +17,14 @@ namespace MrPiattoRestaurant.Models
         public string name { get; set; }
         public int timeUsed { get; set; }
         public DateTime reservationDate { get; set; }
+        public int Seats { get; set; }
 
-        public Client(string name, int timeUsed, DateTime reservationDate)
+        public Client(string name, int timeUsed, DateTime reservationDate, int Seats)
         {
             this.name = name;
             this.timeUsed = timeUsed;
             this.reservationDate = reservationDate;
+            this.Seats = Seats;
         }
     }
 }

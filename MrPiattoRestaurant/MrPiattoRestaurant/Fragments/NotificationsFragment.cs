@@ -44,7 +44,7 @@ namespace MrPiattoRestaurant.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
-            Client client = new Client("Juan", 30, DateTime.Now);
+            Client client = new Client("Juan", 30, DateTime.Now, 2);
 
             NotificationsList.Add(client);
             NotificationsList.Add(client);

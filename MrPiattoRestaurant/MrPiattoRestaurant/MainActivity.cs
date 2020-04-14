@@ -20,13 +20,17 @@ using MrPiattoRestaurant.Pickers;
 using MrPiattoRestaurant.InteractiveViews;
 using MrPiattoRestaurant.Models.Reservations;
 using MrPiattoRestaurant.Models;
+using MrPiattoRestaurant.ModelsDB;
 using MrPiattoRestaurant.Views;
+using MrPiattoRestaurant.Resources.utilities;
 
 namespace MrPiattoRestaurant
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
     public class MainActivity : AppCompatActivity
     {
+        private APICaller API = new APICaller();
+
         public RelativeLayout container;
         public LinearLayout options;
         public Button newFloor, modifyFloor;
@@ -118,11 +122,37 @@ namespace MrPiattoRestaurant
 
             dashboard.Click += OpenDashboard;
 
-            waitFragment.AddClient += AddWaitClient;
-
             floor.Drag += OnDrag;
 
             timeLineView.TimeLinePressed += UpdateTime;
+
+            InitializeTables();
+        }
+
+        private void InitializeTables()
+        {
+            int idRestaurant = 1;
+
+            List<RestaurantTables> tables = API.GetTables(idRestaurant);
+            List<Client> clients = new List<Client>();
+
+            foreach(RestaurantTables t in tables)
+            {
+                Table aux = new Table(this, t.tableName, t.Type, Int32.Parse(t.Seats), (int)t.CoordenateX, (int)t.CoordenateY, false);
+                floors.ElementAt(0).AddTable(aux);
+                clients.Clear();
+
+                foreach (Reservation r in t.Reservation)
+                {
+                    string name = API.GetUserName(r.Iduser);
+                    Client client = new Client(name, 0, r.Date, r.AmountOfPeople);
+                    clients.Add(client);
+                }
+
+                if (clients.Count() > 0)
+                    floors.ElementAt(0).tables.ElementAt(floors.ElementAt(0).tables.Count() - 1).setClient(clients);
+            }
+
         }
         private void BottomNavigation_NavigationItemSelected(object sender, BottomNavigationView.NavigationItemSelectedEventArgs e)
         {
@@ -162,6 +192,10 @@ namespace MrPiattoRestaurant
             options.RemoveAllViews();
             TablePropertiesView tablepropertiesView = new TablePropertiesView(this, floors, floorIndex, tableIndex);
             tablepropertiesView.CreateView(options);
+            tablepropertiesView.ClosePressed += delegate
+            {
+                OnCancel();
+            };
         }
 
         public void SaveChanges()
@@ -226,7 +260,7 @@ namespace MrPiattoRestaurant
             mSectionedExpandableHelper = new SectionedExpandableGridHelper(this, mRecyclerView, 3);
 
             mSectionedExpandableHelper.ItemPressed += OnItemPressed;
-            cancel.Click += delegate { OnCancel(catalogueTables); };
+            cancel.Click += delegate { OnCancel(); };
         }
 
         public void OnItemPressed(string type, int seats)
@@ -234,7 +268,7 @@ namespace MrPiattoRestaurant
             floors.ElementAt(floorIndex).AddTable(type, seats);
         }
 
-        public void OnCancel(View view)
+        public void OnCancel()
         {
             options.RemoveAllViews();
 
@@ -264,17 +298,6 @@ namespace MrPiattoRestaurant
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 date.Text = time.ToLongDateString();
-                //Cambiar codigo
-                ///////////
-                //////////////
-                //////////////
-                //////////////
-                /////////////////
-                //////////////
-                //////////////
-                /////////////////
-                //////////////
-                //////////////
                 Android.Support.V4.App.Fragment fragment = new FutureFragment(this, floors.ElementAt(floorIndex).GetReservations(time));
                 SupportFragmentManager.BeginTransaction()
                 .Replace(Resource.Id.idContent_frame, fragment)
@@ -307,35 +330,6 @@ namespace MrPiattoRestaurant
         {
             Intent dashboard = new Intent(this, typeof(DashboardActivity));
             StartActivity(dashboard);
-        }
-
-        public void AddWaitClient(object sender, EventArgs args)
-        {
-            View content = LayoutInflater.Inflate(Resource.Layout.add_waitList, null);
-            Button add, cancel;
-            EditText nameClient, numSeats;
-
-            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(this).Create();
-            alertDialog.SetCancelable(true);
-            alertDialog.SetView(content);
-            alertDialog.Show();
-
-            add = content.FindViewById<Button>(Resource.Id.idAdd);
-            cancel = content.FindViewById<Button>(Resource.Id.idCancel);
-
-            nameClient = content.FindViewById<EditText>(Resource.Id.idName);
-            numSeats = content.FindViewById<EditText>(Resource.Id.idSeats);
-
-            add.Click += (s, a) => {
-                string name;
-                int seats;
-
-                name = nameClient.Text;
-                seats = Int32.Parse(numSeats.Text);
-
-                waitFragment.AddToList(name, seats);
-                alertDialog.Dismiss();
-            };
         }
 
         void OnDrag(object sender, View.DragEventArgs e)
@@ -384,7 +378,7 @@ namespace MrPiattoRestaurant
                         name.Text = waitFragment.waitList.ElementAt(pos).personName;
                         seats.Text = waitFragment.waitList.ElementAt(pos).numSeats.ToString();
 
-                        Client client = new Client(name.Text, 0, DateTime.Now);
+                        Client client = new Client(name.Text, 0, DateTime.Now, Int32.Parse(seats.Text));
                         floors.ElementAt(floorIndex).setActualClientOnTable(client, table);
                         waitFragment.RemoveFromWaitList(pos);
 
@@ -411,7 +405,7 @@ namespace MrPiattoRestaurant
 
         public void UpdateTime(int hours, int minutes)
         {
-            floors.ElementAt(floorIndex).updateTableDistributions(hours, minutes);
+            //floors.ElementAt(floorIndex).updateTableDistributions(hours, minutes);
             hour.Text = hours.ToString("00") + ":" + minutes.ToString("00");
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

@@ -5,6 +5,7 @@ public class MonoPackageManager_Resources {
 		"MrPiattoRestaurant.dll",
 		"Microcharts.dll",
 		"Microcharts.Droid.dll",
+		"Newtonsoft.Json.dll",
 		"SkiaSharp.dll",
 		"SkiaSharp.Views.Android.dll",
 		"Xamarin.Android.Arch.Core.Common.dll",

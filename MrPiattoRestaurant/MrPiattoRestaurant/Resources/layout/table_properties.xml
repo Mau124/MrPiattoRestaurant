@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancelar"
-            android:id="@+id/idCancel"
+            android:id="@+id/idDismiss"
             app:layout_constraintRight_toRightOf="parent"
             android:background="@drawable/close"
             android:layout_marginTop="10dp"/>

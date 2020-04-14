@@ -39,31 +39,6 @@
             métodos para la representación visual de la mesa dentro de un lienzo (canvas)
             </summary>
         </member>
-        <member name="M:MrPiattoRestaurant.Table.#ctor(Android.Content.Context,System.String,System.Int32,System.Int32,System.Int32,System.Boolean)">
-            <summary>
-            Constructor to create a table
-            </summary>
-            <param name="context">Context of the activity</param>
-            <param name="type">Table type. Can be 'c' for circle or 's' for square</param>
-            <param name="seats">Number of seats</param>
-            <param name="firstX">Position of x</param>
-            <param name="firstY">Position of y</param>
-            <param name="borderOn">If appears with a border or not</param>
-        </member>
-        <member name="M:MrPiattoRestaurant.Table.AddDistribution(Android.Graphics.Point,System.DateTime)">
-            <summary>
-            Function that adds a new coordinate for a table
-            </summary>
-            <param name="point">Point x and y where the new table is located</param>
-            <param name="date">Date in wich that distribution is changed</param>
-        </member>
-        <member name="M:MrPiattoRestaurant.Table.ChangeTableDistribution(System.DateTime)">
-            <summary>
-            Function that changes table image on the plane depending on the time sent
-            </summary>
-            <param name="hours">Hours for table</param>
-            <param name="minutes">Minutes for table</param>
-        </member>
         <member name="T:MrPiattoRestaurant.Views.TablePropertiesView">
             <summary>
             Class that creates and manages a table properties view
