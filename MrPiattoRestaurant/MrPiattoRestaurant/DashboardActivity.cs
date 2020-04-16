@@ -12,6 +12,8 @@ using Android.Views;
 
 using MrPiattoRestaurant.Fragments;
 using MrPiattoRestaurant.Pickers;
+using MrPiattoRestaurant.ModelsDB;
+using MrPiattoRestaurant.Resources.utilities;
 
 namespace MrPiattoRestaurant
 {
@@ -21,6 +23,8 @@ namespace MrPiattoRestaurant
         ImageView aboutMe, statistics, photosGallery;
         TextView hourInterval1, hourInterval2;
         ImageView dismiss;
+        private Restaurant restaurant = new Restaurant();
+        private APICaller API = new APICaller();
 
         ImageView promotions;
 
@@ -33,24 +37,30 @@ namespace MrPiattoRestaurant
             SetContentView(Resource.Layout.activity_dashboard);
             // Create your application here
 
+            int idRes = Intent.GetIntExtra("id", 0);
+            InitializeRestaurant(idRes);
+
             aboutMe = FindViewById<ImageView>(Resource.Id.idAboutMe);
             statistics = FindViewById<ImageView>(Resource.Id.idStatistics);
             photosGallery = FindViewById<ImageView>(Resource.Id.idPhotosGallery);
-
             promotions = FindViewById<ImageView>(Resource.Id.idPromotions);
 
             aboutMe.Click += aboutMeClick;
             statistics.Click += statisticsClick;
             photosGallery.Click += photosGalleryClick;
-
             promotions.Click += promotionsClick;
 
-            aboutMeFragment = new AboutMe(this);
+            aboutMeFragment = new AboutMe(this, restaurant);
             statisticsFragment = new Statistics(this);
             photosGalleryFragment = new PhotosGallery(this);
 
             LoadFragment(Resource.Id.idAboutMe);
 
+        }
+
+        private void InitializeRestaurant(int idRestaurant)
+        {
+            restaurant = API.GetRestaurant(idRestaurant);
         }
 
         public void LoadFragment(int id)

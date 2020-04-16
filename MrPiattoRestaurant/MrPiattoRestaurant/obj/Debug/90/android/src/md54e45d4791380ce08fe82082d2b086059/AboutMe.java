@@ -24,13 +24,6 @@ public class AboutMe
 			mono.android.TypeManager.Activate ("MrPiattoRestaurant.Fragments.AboutMe, MrPiattoRestaurant", "", this, new java.lang.Object[] {  });
 	}
 
-	public AboutMe (android.content.Context p0)
-	{
-		super ();
-		if (getClass () == AboutMe.class)
-			mono.android.TypeManager.Activate ("MrPiattoRestaurant.Fragments.AboutMe, MrPiattoRestaurant", "Android.Content.Context, Mono.Android", this, new java.lang.Object[] { p0 });
-	}
-
 
 	public void onCreate (android.os.Bundle p0)
 	{

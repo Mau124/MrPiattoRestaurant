@@ -38,6 +38,7 @@ namespace MrPiattoRestaurant
         public Spinner floorName;
         public List<GestureRecognizerView> floors = new List<GestureRecognizerView>();
         public List<string> floorsNames = new List<string>();
+        private Restaurant restaurant = new Restaurant();
         public View v;
         public TextView date, hour;
         public Android.Support.Constraints.ConstraintLayout timeLine;
@@ -75,18 +76,13 @@ namespace MrPiattoRestaurant
             date = FindViewById<TextView>(Resource.Id.idDate);
             hour = FindViewById<TextView>(Resource.Id.idHour);
 
+            InitializeRestaurant();
+            InitializeFloors();
+            InitializeTables();
+
             waitFragment = new WaitFragment(this);
 
             Return.Click += ReturnActualTime;
-
-            //We create the first floor and add it to the list of floors
-            GestureRecognizerView floor = new GestureRecognizerView(this, "Piso 1", 0, timeLineView);
-            floors.Add(floor);
-            floorsNames.Add("Piso 1");
-
-            floor.TablePressed += OnTablePressed;
-            //We pass the floor to the container
-            container.AddView(floors.ElementAt(floorIndex));
 
             timeLine.AddView(timeLineView);
 
@@ -121,25 +117,54 @@ namespace MrPiattoRestaurant
             hour.Click += HourSelect_OnClick;
 
             dashboard.Click += OpenDashboard;
-
-            floor.Drag += OnDrag;
-
             timeLineView.TimeLinePressed += UpdateTime;
+        }
 
-            InitializeTables();
+        private void InitializeRestaurant()
+        {
+            int idRestaurant = 1;
+            restaurant = API.GetRestaurant(idRestaurant);
+        }
+
+        private void InitializeFloors()
+        {
+            int idRestaurant = restaurant.Idrestaurant;
+            Dictionary<int, string> floorsList = API.GetFloors(idRestaurant);
+
+            foreach(KeyValuePair<int, string> p in floorsList)
+            {
+                GestureRecognizerView gView = new GestureRecognizerView(this, p.Value, p.Key, timeLineView);
+                gView.TablePressed += OnTablePressed;
+                gView.Drag += OnDrag;
+                string s = p.Value;
+                floors.Add(gView);
+                floorsNames.Add(s);
+            }
+
+            if (floorsList.Count() == 0)
+            {
+                //Entramos hasta que cree un piso. Sin al menos un piso, no puede usar la aplicacion.
+                addFloor();
+            }
+
+
+            var adapter = new ArrayAdapter<string>(this,
+                    Android.Resource.Layout.SimpleSpinnerItem, floorsNames);
+            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            floorName.Adapter = adapter;
+            floorName.SetSelection(0);
         }
 
         private void InitializeTables()
         {
-            int idRestaurant = 1;
-
+            int idRestaurant = restaurant.Idrestaurant;
             List<RestaurantTables> tables = API.GetTables(idRestaurant);
             List<Client> clients = new List<Client>();
 
             foreach(RestaurantTables t in tables)
             {
                 Table aux = new Table(this, t.tableName, t.Type, Int32.Parse(t.Seats), (int)t.CoordenateX, (int)t.CoordenateY, false);
-                floors.ElementAt(0).AddTable(aux);
+                floors.ElementAt(t.floorIndex).AddTable(aux);
                 clients.Clear();
 
                 foreach (Reservation r in t.Reservation)
@@ -150,7 +175,7 @@ namespace MrPiattoRestaurant
                 }
 
                 if (clients.Count() > 0)
-                    floors.ElementAt(0).tables.ElementAt(floors.ElementAt(0).tables.Count() - 1).setClient(clients);
+                    floors.ElementAt(t.floorIndex).tables.ElementAt(floors.ElementAt(t.floorIndex).tables.Count() - 1).setClient(clients);
             }
 
         }
@@ -215,12 +240,15 @@ namespace MrPiattoRestaurant
         }
         public void addFloor()
         {
-            options.RemoveAllViews();
-            LayoutInflater inflater = LayoutInflater.From(this);
-            View addFloorView = inflater.Inflate(Resource.Layout.AddFloor, options, true);
+            View content = LayoutInflater.Inflate(Resource.Layout.AddFloor, null);
 
-            Button addFloor = addFloorView.FindViewById<Button>(Resource.Id.idAddButton);
-            EditText afloorName = addFloorView.FindViewById<EditText>(Resource.Id.idFloorName);
+            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(this).Create();
+            alertDialog.SetCancelable(true);
+            alertDialog.SetView(content);
+            alertDialog.Show();
+
+            Button addFloor = content.FindViewById<Button>(Resource.Id.idAddButton);
+            EditText afloorName = content.FindViewById<EditText>(Resource.Id.idFloorName);
 
             addFloor.Click += delegate {
                 string s = afloorName.Text;
@@ -238,6 +266,7 @@ namespace MrPiattoRestaurant
                 floorName.Adapter = adapter;
                 floorName.SetSelection(floorsNames.Count() - 1);
 
+                alertDialog.Dismiss();
                 catalogueTable();
             };
 
@@ -329,6 +358,7 @@ namespace MrPiattoRestaurant
         public void OpenDashboard(object sender, EventArgs args)
         {
             Intent dashboard = new Intent(this, typeof(DashboardActivity));
+            dashboard.PutExtra("id", restaurant.Idrestaurant);
             StartActivity(dashboard);
         }
 

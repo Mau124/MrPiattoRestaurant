@@ -17,12 +17,14 @@ using Android.Support.V7.Widget;
 
 using MrPiattoRestaurant.Models;
 using MrPiattoRestaurant.adapters;
+using MrPiattoRestaurant.ModelsDB;
 
 namespace MrPiattoRestaurant.Fragments
 {
     public class AboutMe : Android.Support.V4.App.Fragment
     {
         private Context context;
+        private Restaurant restaurant = new Restaurant();
         EditText maxRes, minRes, maxArrive, minMod;
         Spinner spinner, spinner2, spinner3;
         Switch switch1, switch2;
@@ -44,9 +46,10 @@ namespace MrPiattoRestaurant.Fragments
         bool isModifying = false;
         bool isModifyinRes = false;
 
-        public AboutMe(Context context)
+        public AboutMe(Context context, Restaurant restaurant)
         {
             this.context = context;
+            this.restaurant = restaurant;
         }
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -150,6 +153,10 @@ namespace MrPiattoRestaurant.Fragments
 
         private void InitializeRes()
         {
+            restaurantName.Text = restaurant.Name;
+            restaurantMail.Text = restaurant.Mail;
+            restaurantDesc.Text = restaurant.Description;
+
             restaurantName.Enabled = false;
             restaurantMail.Enabled = false;
             hour1.Enabled = false;
