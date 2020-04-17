@@ -27,6 +27,7 @@ namespace MrPiattoRestaurant.Fragments
         private Context context;
         private Restaurant restaurant = new Restaurant();
         private Policies policies = new Policies();
+        private List<Waiters> waiters = new List<Waiters>();
         private APICaller API = new APICaller();
         TextView strikeType;
         EditText maxRes, minRes, maxArrive, minMod, strikeTime;
@@ -36,8 +37,6 @@ namespace MrPiattoRestaurant.Fragments
 
         EditText restaurantName, restaurantMail, restaurantDesc;
         Button modifyRes, modifyPass, modifyHours, acceptRes;
-
-        List<string> waiters = new List<string>();
 
         Color main = new Color(222, 96, 104);
         Color unused = new Color(134, 142, 150);
@@ -60,9 +59,6 @@ namespace MrPiattoRestaurant.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
-            waiters.Add("Mauricio Andres Flores Perez");
-            waiters.Add("Juanito Perez Lopez");
-            waiters.Add("Alan Mauricio Farfan Pita");
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -104,6 +100,12 @@ namespace MrPiattoRestaurant.Fragments
             spinner3.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner3_ItemSelected);
             spinner4.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner4_ItemSelected);
 
+            InitializePolitics();
+            InitializeRes();
+            InitializePolicies();
+            InitializeWaiters();
+
+
             mLayoutManager = new LinearLayoutManager(context);
             mRecyclerView.SetLayoutManager(mLayoutManager);
 
@@ -118,10 +120,6 @@ namespace MrPiattoRestaurant.Fragments
             spinner2.Adapter = adapter;
             spinner3.Adapter = adapter;
             spinner4.Adapter = adapter;
-
-            InitializePolitics();
-            InitializeRes();
-            InitializePolicies();
 
             switch1.CheckedChange += switch1_Toggled;
             switch2.CheckedChange += switch2_Toggled;
@@ -182,9 +180,35 @@ namespace MrPiattoRestaurant.Fragments
             maxRes.Hint = policies.MaxTimeRes.ToString();
             minRes.Hint = policies.MinTimeRes.ToString();
             maxArrive.Hint = policies.MaxTimeArr.ToString();
-            minMod.Hint = policies.MinTimeRes.ToString();
+            minMod.Hint = policies.ModTimeHours.ToString() + "h/ " + policies.ModTimeDays.ToString() + "d/ " + policies.ModTimeSeats.ToString() + "s";
+
+            spinner.SetSelection(policies.MaxTimePer);
+            spinner2.SetSelection(policies.MinTimePer);
+            spinner3.SetSelection(policies.StrikeTypePer);
+            spinner4.SetSelection(policies.MaxTimeArrPer);
+
+            if (policies.StrikeType == 0)
+            {
+                switch1.Checked = false;
+                strikeType.Text = "Permanente";
+                strikeTime.Text = policies.StrikeType.ToString();
+                strikeTime.Visibility = ViewStates.Gone;
+                spinner4.Visibility = ViewStates.Gone;
+            } else
+            {
+                switch1.Checked = true;
+                strikeType.Text = "Horas";
+                strikeTime.Visibility = ViewStates.Visible;
+                spinner4.Visibility = ViewStates.Visible;
+            }
+
 
             switch2.Checked = (policies.Strikes) ? true : false;
+        }
+
+        private void InitializeWaiters()
+        {
+            waiters = API.GetWaiters(restaurant.Idrestaurant);
         }
 
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)

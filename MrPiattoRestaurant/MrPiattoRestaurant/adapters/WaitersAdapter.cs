@@ -11,13 +11,16 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 
+using MrPiattoRestaurant.ModelsDB;
+using MrPiattoRestaurant.Resources.utilities;
+
 namespace MrPiattoRestaurant.adapters
 {
     public class WaitersAdapter : RecyclerView.Adapter
     {
-        List<string> waiters = new List<string>();
+        List<Waiters> waiters = new List<Waiters>();
         private Context context;
-        public WaitersAdapter(List<string> waiters, Context context)
+        public WaitersAdapter(List<Waiters> waiters, Context context)
         {
             this.waiters = waiters;
             this.context = context;
@@ -37,7 +40,7 @@ namespace MrPiattoRestaurant.adapters
             // Load the photo image resource from the photo album:
 
             // Load the photo caption from the photo album:
-            vh.name.Text = waiters[position];
+            vh.name.Text = waiters[position].WaiterFirstName + " " + waiters[position].WaiterLasName;
 
             vh.delete.Click += delegate
             {
@@ -55,7 +58,7 @@ namespace MrPiattoRestaurant.adapters
                 Button button = content.FindViewById<Button>(Resource.Id.idButton);
 
                 textTitle.Text = "Modificar mesero";
-                name.Hint = waiters[position];
+                name.Hint = waiters[position].WaiterFirstName + " " + waiters[position].WaiterLasName;
                 button.Text = "Modificar"; 
 
 

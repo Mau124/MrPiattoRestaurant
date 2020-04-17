@@ -87,11 +87,14 @@
     <Compile Include="InteractiveViews\TimeLineView.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="ModelsDB\DayStatistics.cs" />
+    <Compile Include="ModelsDB\HourStatistics.cs" />
     <Compile Include="ModelsDB\Policies.cs" />
     <Compile Include="ModelsDB\Reservation.cs" />
     <Compile Include="ModelsDB\Restaurant.cs" />
     <Compile Include="ModelsDB\RestaurantTables.cs" />
     <Compile Include="ModelsDB\User.cs" />
+    <Compile Include="ModelsDB\Waiters.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ItemPhotos.cs" />
