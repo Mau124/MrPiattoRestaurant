@@ -116,5 +116,28 @@ namespace MrPiattoRestaurant.Resources.utilities
                 return null;
             }
         }
+
+        public Policies GetPolicies(int idRes)
+        {
+            Policies policies = new Policies();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}ResInfo/Policies/{idRes}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    policies = JsonConvert.DeserializeObject<Policies>(json);
+                }
+
+                return policies;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

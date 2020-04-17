@@ -18,6 +18,7 @@ using Android.Support.V7.Widget;
 using MrPiattoRestaurant.Models;
 using MrPiattoRestaurant.adapters;
 using MrPiattoRestaurant.ModelsDB;
+using MrPiattoRestaurant.Resources.utilities;
 
 namespace MrPiattoRestaurant.Fragments
 {
@@ -25,13 +26,16 @@ namespace MrPiattoRestaurant.Fragments
     {
         private Context context;
         private Restaurant restaurant = new Restaurant();
-        EditText maxRes, minRes, maxArrive, minMod;
-        Spinner spinner, spinner2, spinner3;
+        private Policies policies = new Policies();
+        private APICaller API = new APICaller();
+        TextView strikeType;
+        EditText maxRes, minRes, maxArrive, minMod, strikeTime;
+        Spinner spinner, spinner2, spinner3, spinner4;
         Switch switch1, switch2;
         Button mod, accept, addWaiter;
 
-        EditText restaurantName, restaurantMail, hour1, hour2, restaurantDesc;
-        Button modifyRes, modifyPass, acceptRes;
+        EditText restaurantName, restaurantMail, restaurantDesc;
+        Button modifyRes, modifyPass, modifyHours, acceptRes;
 
         List<string> waiters = new List<string>();
 
@@ -71,6 +75,7 @@ namespace MrPiattoRestaurant.Fragments
             spinner = view.FindViewById<Spinner>(Resource.Id.idSpinner);
             spinner2 = view.FindViewById<Spinner>(Resource.Id.idSpinner2);
             spinner3 = view.FindViewById<Spinner>(Resource.Id.idSpinner3);
+            spinner4 = view.FindViewById<Spinner>(Resource.Id.idSpinner4);
             switch1 = view.FindViewById<Switch>(Resource.Id.idSwitch1);
             switch2 = view.FindViewById<Switch>(Resource.Id.idSwitch2);
 
@@ -78,6 +83,8 @@ namespace MrPiattoRestaurant.Fragments
             minRes = view.FindViewById<EditText>(Resource.Id.idMinRes);
             maxArrive = view.FindViewById<EditText>(Resource.Id.idMaxArrive);
             minMod = view.FindViewById<EditText>(Resource.Id.idMinMod);
+            strikeTime = view.FindViewById<EditText>(Resource.Id.idStrikeTime);
+            strikeType = view.FindViewById<TextView>(Resource.Id.idStrikeType);
 
             mod = view.FindViewById<Button>(Resource.Id.idMod);
             accept = view.FindViewById<Button>(Resource.Id.idAccept);
@@ -85,17 +92,17 @@ namespace MrPiattoRestaurant.Fragments
 
             restaurantName = view.FindViewById<EditText>(Resource.Id.idRestaurantName);
             restaurantMail = view.FindViewById<EditText>(Resource.Id.idRestaurantMail);
-            hour1 = view.FindViewById<EditText>(Resource.Id.idHour1);
-            hour2 = view.FindViewById<EditText>(Resource.Id.idHour2);
             restaurantDesc = view.FindViewById<EditText>(Resource.Id.idRestaurantDesc);
 
             modifyRes = view.FindViewById<Button>(Resource.Id.idModifyRes);
             modifyPass = view.FindViewById<Button>(Resource.Id.idModifyPass);
+            modifyHours = view.FindViewById<Button>(Resource.Id.idModifyHours);
             acceptRes = view.FindViewById<Button>(Resource.Id.idAcceptRes);
 
             spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
             spinner2.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner2_ItemSelected);
             spinner3.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner3_ItemSelected);
+            spinner4.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner4_ItemSelected);
 
             mLayoutManager = new LinearLayoutManager(context);
             mRecyclerView.SetLayoutManager(mLayoutManager);
@@ -110,9 +117,11 @@ namespace MrPiattoRestaurant.Fragments
             spinner.Adapter = adapter;
             spinner2.Adapter = adapter;
             spinner3.Adapter = adapter;
+            spinner4.Adapter = adapter;
 
             InitializePolitics();
             InitializeRes();
+            InitializePolicies();
 
             switch1.CheckedChange += switch1_Toggled;
             switch2.CheckedChange += switch2_Toggled;
@@ -124,6 +133,7 @@ namespace MrPiattoRestaurant.Fragments
             modifyRes.Click += modifyRestaurant;
             acceptRes.Click += acceptRestaurant;
             modifyPass.Click += modifyPassword;
+            modifyHours.Click += modifyHoursRes;
 
             return view;
         }
@@ -134,10 +144,12 @@ namespace MrPiattoRestaurant.Fragments
             minRes.Enabled = false;
             maxArrive.Enabled = false;
             minMod.Enabled = false;
+            strikeTime.Enabled = false;
 
             spinner.Enabled = false;
             spinner2.Enabled = false;
             spinner3.Enabled = false;
+            spinner4.Enabled = false;
 
             switch1.Enabled = false;
             switch2.Enabled = false;
@@ -153,17 +165,26 @@ namespace MrPiattoRestaurant.Fragments
 
         private void InitializeRes()
         {
-            restaurantName.Text = restaurant.Name;
-            restaurantMail.Text = restaurant.Mail;
-            restaurantDesc.Text = restaurant.Description;
+            restaurantName.Hint = restaurant.Name;
+            restaurantMail.Hint = restaurant.Mail;
+            restaurantDesc.Hint = restaurant.Description;
 
             restaurantName.Enabled = false;
             restaurantMail.Enabled = false;
-            hour1.Enabled = false;
-            hour2.Enabled = false;
             restaurantDesc.Enabled = false;
 
             acceptRes.Visibility = ViewStates.Gone;
+        }
+
+        private void InitializePolicies()
+        {
+            policies = API.GetPolicies(restaurant.Idrestaurant);
+            maxRes.Hint = policies.MaxTimeRes.ToString();
+            minRes.Hint = policies.MinTimeRes.ToString();
+            maxArrive.Hint = policies.MaxTimeArr.ToString();
+            minMod.Hint = policies.MinTimeRes.ToString();
+
+            switch2.Checked = (policies.Strikes) ? true : false;
         }
 
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -187,6 +208,13 @@ namespace MrPiattoRestaurant.Fragments
             Toast.MakeText(context, toast, ToastLength.Long).Show();
         }
 
+        private void spinner4_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            Spinner spinner = (Spinner)sender;
+            string toast = string.Format("The period is {0}", spinner.GetItemAtPosition(e.Position));
+            Toast.MakeText(context, toast, ToastLength.Long).Show();
+        }
+
         private void switch1_Toggled(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
             var toast = Toast.MakeText(context, "I Love Xamarin !" +
@@ -196,10 +224,16 @@ namespace MrPiattoRestaurant.Fragments
             {
                 switch1.ThumbDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
                 switch1.TrackDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
+                strikeType.Text = "Horas";
+                strikeTime.Visibility = ViewStates.Visible;
+                spinner4.Visibility = ViewStates.Visible;
             } else
             {
                 switch1.ThumbDrawable.SetColorFilter(unused, PorterDuff.Mode.SrcAtop);
                 switch1.TrackDrawable.SetColorFilter(unused, PorterDuff.Mode.Multiply);
+                strikeType.Text = "Permanente";
+                strikeTime.Visibility = ViewStates.Gone;
+                spinner4.Visibility = ViewStates.Gone;
             }
         }
 
@@ -225,10 +259,16 @@ namespace MrPiattoRestaurant.Fragments
             {
                 switch1.ThumbDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
                 switch1.TrackDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
+                strikeType.Text = "Horas";
+                strikeTime.Visibility = ViewStates.Visible;
+                spinner4.Visibility = ViewStates.Visible;
             } else
             {
                 switch1.ThumbDrawable.SetColorFilter(unused, PorterDuff.Mode.SrcAtop);
                 switch1.TrackDrawable.SetColorFilter(unused, PorterDuff.Mode.Multiply);
+                strikeType.Text = "Permanente";
+                strikeTime.Visibility = ViewStates.Gone;
+                spinner4.Visibility = ViewStates.Gone;
             }
 
             if (switch2.Checked)
@@ -250,10 +290,12 @@ namespace MrPiattoRestaurant.Fragments
                 minRes.Enabled = true;
                 maxArrive.Enabled = true;
                 minMod.Enabled = true;
+                strikeTime.Enabled = true;
 
                 spinner.Enabled = true;
                 spinner2.Enabled = true;
                 spinner3.Enabled = true;
+                spinner4.Enabled = true;
 
                 switch1.Enabled = true;
                 switch2.Enabled = true;
@@ -277,18 +319,18 @@ namespace MrPiattoRestaurant.Fragments
             {
                 restaurantName.Enabled = true;
                 restaurantMail.Enabled = true;
-                hour1.Enabled = true;
-                hour2.Enabled = true;
                 restaurantDesc.Enabled = true;
                 isModifyinRes = true;
 
                 acceptRes.Visibility = ViewStates.Visible;
                 modifyRes.Text = "Cancelar";
                 modifyPass.Visibility = ViewStates.Gone;
+                modifyHours.Visibility = ViewStates.Gone;
             } else
             {
                 InitializeRes();
                 modifyPass.Visibility = ViewStates.Visible;
+                modifyHours.Visibility = ViewStates.Visible;
                 modifyRes.Text = "Modificar";
                 isModifyinRes = false;
             }
@@ -309,10 +351,26 @@ namespace MrPiattoRestaurant.Fragments
             alertDialog.Show();
         }
 
+        private void modifyHoursRes(object sender, EventArgs e)
+        {
+            InitializeRes();
+            modifyHours.Visibility = ViewStates.Visible;
+            modifyRes.Text = "Modificar";
+            isModifyinRes = false;
+
+            View content = LayoutInflater.Inflate(Resource.Layout.layout_Schedule, null);
+
+            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
+            alertDialog.SetCancelable(true);
+            alertDialog.SetView(content);
+            alertDialog.Show();
+        }
+
         private void acceptRestaurant(object sender, EventArgs e)
         {
             InitializeRes();
             modifyPass.Visibility = ViewStates.Visible;
+            modifyHours.Visibility = ViewStates.Visible;
             modifyRes.Text = "Modificar";
             isModifyinRes = false;
         }

@@ -144,57 +144,6 @@
              android:orientation="horizontal"
              android:background="@drawable/generic"
              android:gravity="center"
-             android:layout_margin="5dp">
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hora de apertura: "
-                android:textColor="#969DA7"/>
-
-            
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="10:00 a.m."
-                android:textColor="#576171"
-                android:textSize="15dp"
-                android:id="@+id/idHour1"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="50dp"
-             android:orientation="horizontal"
-             android:background="@drawable/generic"
-             android:gravity="center"
-             android:layout_margin="5dp">
-
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hora de cierre: "
-                android:textColor="#969DA7"/>
-
-            
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="11:00 p.m."
-                android:textColor="#576171"
-                android:textSize="15dp"
-                android:id="@+id/idHour2"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="50dp"
-             android:orientation="horizontal"
-             android:background="@drawable/generic"
-             android:gravity="center"
              android:layout_margin="5dp"
              android:textColor="#969DA7">
 
@@ -248,6 +197,16 @@
             android:layout_margin="5dp"
             android:textAllCaps="false"
             android:id="@+id/idModifyPass"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Modificar Horarios"
+            android:background="@drawable/delete_buttons"
+            android:textColor="#FFFFFF"
+            android:layout_margin="5dp"
+            android:textAllCaps="false"
+            android:id="@+id/idModifyHours"/>
 
     </LinearLayout>
 
@@ -471,13 +430,39 @@
            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tipo de penalización impuesta: "
-                android:textColor="#15142F"/>
+                android:text="Tipo de penalización: "
+                android:textColor="#15142F"
+                android:layout_marginRight="50dp"/>
 
             <Switch
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:id="@+id/idSwitch1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Permanente"
+                android:textColor="#9C9CB1"
+                android:id="@+id/idStrikeType"
+            android:layout_marginRight="13dp"/>
+
+            <EditText
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:hint="1"
+                android:textSize="15dp"
+                android:textColor="#9C9CB1"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="#ACACAC"
+                android:id="@+id/idStrikeTime"
+                android:inputType="number"/> 
+
+            <Spinner
+                android:id="@+id/idSpinner4"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:prompt="@string/periods_prompt"/>
 
         </LinearLayout>
 

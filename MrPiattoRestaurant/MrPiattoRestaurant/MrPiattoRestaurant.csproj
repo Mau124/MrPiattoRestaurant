@@ -87,6 +87,7 @@
     <Compile Include="InteractiveViews\TimeLineView.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="ModelsDB\Policies.cs" />
     <Compile Include="ModelsDB\Reservation.cs" />
     <Compile Include="ModelsDB\Restaurant.cs" />
     <Compile Include="ModelsDB\RestaurantTables.cs" />
@@ -624,6 +625,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\s12Ocupied.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\layout_Schedule.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
