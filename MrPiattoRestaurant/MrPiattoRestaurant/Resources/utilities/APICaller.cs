@@ -163,10 +163,10 @@ namespace MrPiattoRestaurant.Resources.utilities
             }
         }
 
-        public DayStatistics GetDayStatistics(int idRes)
+        public List<DayStatistics> GetDayStatistics(int idRes)
         {
-            DayStatistics statistics = new DayStatistics();
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Satistics/Day/{idRes}");
+            List<DayStatistics> statistics = new List<DayStatistics>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Statistics/Day/{idRes}");
 
             try
             {
@@ -175,7 +175,7 @@ namespace MrPiattoRestaurant.Resources.utilities
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     var json = reader.ReadToEnd();
-                    statistics = JsonConvert.DeserializeObject<DayStatistics>(json);
+                    statistics = JsonConvert.DeserializeObject<List<DayStatistics>>(json);
                 }
 
                 return statistics;
@@ -189,7 +189,7 @@ namespace MrPiattoRestaurant.Resources.utilities
         public List<HourStatistics> GetHourStatistics(int idRes)
         {
             List<HourStatistics> statistics = new List<HourStatistics>();
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Satistics/Hour/{idRes}");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Statistics/Hour/{idRes}");
 
             try
             {

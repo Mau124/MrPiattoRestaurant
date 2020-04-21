@@ -458,20 +458,20 @@ namespace MrPiattoRestaurant.Fragments
 
         private void printSchedule()
         {
-            monday1.Text = schedule.Otmonday.ToString(@"hh\:mm");
-            monday2.Text = schedule.Ctmonday.ToString(@"hh\:mm");
-            tuesday1.Text = schedule.Ottuesday.ToString(@"hh\:mm");
-            tuesday2.Text = schedule.Cttuestday.ToString(@"hh\:mm");
-            wednesday1.Text = schedule.Otwednesday.ToString(@"hh\:mm");
-            wednesday2.Text = schedule.Ctwednesday.ToString(@"hh\:mm");
-            thursday1.Text = schedule.Otthursday.ToString(@"hh\:mm");
-            thursday2.Text = schedule.Ctthursday.ToString(@"hh\:mm");
-            friday1.Text = schedule.Otfriday.ToString(@"hh\:mm");
-            friday2.Text = schedule.Ctfriday.ToString(@"hh\:mm");
-            saturday1.Text = schedule.Otsaturday.ToString(@"hh\:mm");
-            saturday2.Text = schedule.Ctsaturday.ToString(@"hh\:mm");
-            sunday1.Text = schedule.Otsunday.ToString(@"hh\:mm");
-            sunday2.Text = schedule.Ctsunday.ToString(@"hh\:mm");
+            monday1.Text = (schedule.Otmonday.HasValue) ? schedule.Otmonday.Value.ToString(@"hh\:mm") : "--:--";
+            monday2.Text = (schedule.Ctmonday.HasValue) ? schedule.Ctmonday.Value.ToString(@"hh\:mm") : "--:--";
+            tuesday1.Text = (schedule.Ottuesday.HasValue) ? schedule.Ottuesday.Value.ToString(@"hh\:mm") : "--:--";
+            tuesday2.Text = (schedule.Cttuestday.HasValue) ? schedule.Cttuestday.Value.ToString(@"hh\:mm") : "--:--";
+            wednesday1.Text = (schedule.Otwednesday.HasValue) ? schedule.Otwednesday.Value.ToString(@"hh\:mm") : "--:--";
+            wednesday2.Text = (schedule.Ctwednesday.HasValue) ? schedule.Ctwednesday.Value.ToString(@"hh\:mm") : "--:--";
+            thursday1.Text = (schedule.Otthursday.HasValue) ? schedule.Otthursday.Value.ToString(@"hh\:mm") : "--:--";
+            thursday2.Text = (schedule.Ctthursday.HasValue) ? schedule.Ctthursday.Value.ToString(@"hh\:mm") : "--:--";
+            friday1.Text = (schedule.Otfriday.HasValue) ? schedule.Otfriday.Value.ToString(@"hh\:mm") : "--:--";
+            friday2.Text = (schedule.Ctfriday.HasValue) ? schedule.Ctfriday.Value.ToString(@"hh\:mm") : "--:--";
+            saturday1.Text = (schedule.Otsaturday.HasValue) ? schedule.Otsaturday.Value.ToString(@"hh\:mm") : "--:--";
+            saturday2.Text = (schedule.Ctsaturday.HasValue) ? schedule.Ctsaturday.Value.ToString(@"hh\:mm") : "--:--";
+            sunday1.Text = (schedule.Otsunday.HasValue) ? schedule.Otsunday.Value.ToString(@"hh\:mm") : "--:--";
+            sunday2.Text = (schedule.Ctsunday.HasValue) ? schedule.Ctsunday.Value.ToString(@"hh\:mm") : "--:--";
         }
 
         private void clickMonday1(object sender, EventArgs e)

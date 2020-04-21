@@ -27,19 +27,28 @@ namespace MrPiattoRestaurant.Fragments
     {
         Context context;
 
-        double hour0, hour1, hour2, hour3;
-        double hour4, hour5, hour6, hour7;
-        double hour8, hour9, hour10, hour11;
-        double hour12, hour13, hour14, hour15;
-        double hour16, hour17, hour18, hour19;
-        double hour20, hour21, hour22, hour23;
-
-        List<Entry> entriesDays;
+        List<Entry> entriesDays = new List<Entry>();
         List<Entry> entriesTableUse;
         List<Entry> entriesHours = new List<Entry>();
         List<Entry> entriesWaiters;
         List<Entry> entriesTableUseAverage;
         List<Entry> entriesAlexa;
+        List<string> colors = new List<string>();
+        List<string> daysWeek = new List<string>();
+
+        List<double?> daysAverages = new List<double?>();
+        List<double?> hourAverages = new List<double?>();
+
+        double? avgHour0 = null, avgHour1 = null, avgHour2 = null, avgHour3 = null;
+        double? avgHour4 = null, avgHour5 = null, avgHour6 = null, avgHour7 = null;
+        double? avgHour8 = null, avgHour9 = null, avgHour10 = null, avgHour11 = null;
+        double? avgHour12 = null, avgHour13 = null, avgHour14 = null, avgHour15 = null;
+        double? avgHour16 = null, avgHour17 = null, avgHour18 = null, avgHour19 = null;
+        double? avgHour20 = null, avgHour21 = null, avgHour22 = null, avgHour23 = null;
+
+        double? avgDay0 = null, avgDay1 = null, avgDay2 = null;
+        double? avgDay3 = null, avgDay4 = null, avgDay5 = null;
+        double? avgDay6 = null;
 
         Spinner spinnerTableUse;
         Spinner spinnerWaiters;
@@ -49,6 +58,9 @@ namespace MrPiattoRestaurant.Fragments
         List<String> listWaiters = new List<String>();
         List<String> listTableAverage = new List<String>();
 
+        DateTime hInterval1, hInterval2;
+        DateTime dInterval1, dInterval2;
+
         TextView hourInterval1, hourInterval2;
         TextView tableUseInterval1, tableUseInterval2;
         TextView daysInterval1, daysInterval2;
@@ -57,9 +69,20 @@ namespace MrPiattoRestaurant.Fragments
         TextView alexaInterval1, alexaInterval2;
 
         Restaurant restaurant = new Restaurant();
-        DayStatistics dayStatistics = new DayStatistics();
+        List<DayStatistics> dayStatistics = new List<DayStatistics>();
         List<HourStatistics> hourStatistics = new List<HourStatistics>();
         Schedule schedule = new Schedule();
+
+        ChartView chartView1;
+        ChartView chartView2;
+        ChartView chartView3;
+        ChartView chartView4;
+        ChartView chartView5;
+        ChartView chartView6;
+
+        LineChart chart1;
+        BarChart chart2;
+        DonutChart chart3;
 
         APICaller API = new APICaller();
 
@@ -70,14 +93,34 @@ namespace MrPiattoRestaurant.Fragments
             dayStatistics = API.GetDayStatistics(restaurant.Idrestaurant);
             hourStatistics = API.GetHourStatistics(restaurant.Idrestaurant);
             schedule = API.GetSchedule(restaurant.Idrestaurant);
+            fillColors();
+            fillDaysWeek();
+        }
+
+        private void fillColors()
+        {
+            colors.Add("#E06D64");
+            colors.Add("#E9785D");
+            colors.Add("#EF8555");
+            colors.Add("#F3934E");
+            colors.Add("#F4A247");
+            colors.Add("#F2B141");
+            colors.Add("#EDC13F");
+        }
+
+        private void fillDaysWeek()
+        {
+            daysWeek.Add("Lunes");
+            daysWeek.Add("Martes");
+            daysWeek.Add("Miercoles");
+            daysWeek.Add("Jueves");
+            daysWeek.Add("Viernes");
+            daysWeek.Add("Sabado");
+            daysWeek.Add("Domingo");
         }
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
-            // Chart 1. Hours
-            fillHours();
 
             // Chart 2. Table use per hour
             entriesTableUse = new List<Entry>
@@ -113,42 +156,6 @@ namespace MrPiattoRestaurant.Fragments
                     ValueLabel = "30"
                 },
             };
-
-            // Chart 3. Days
-            entriesDays = new List<Entry>
-            {
-                new Entry(200)
-                {
-                    Color = SKColor.Parse("#E06D64"),
-                    Label = "Lunes",
-                    ValueLabel = "200"
-                },
-                new Entry(400)
-                {
-                    Color = SKColor.Parse("#E38259"),
-                    Label = "Martes",
-                    ValueLabel = "400"
-                },
-                new Entry(500)
-                {
-                    Color = SKColor.Parse("#E69852"),
-                    Label = "Miercoles",
-                    ValueLabel = "500"
-                },
-                new Entry(150)
-                {
-                    Color = SKColor.Parse("#E5AE51"),
-                    Label = "Jueves",
-                    ValueLabel = "150"
-                },
-                new Entry(300)
-                {
-                    Color = SKColor.Parse("#EDC13F"),
-                    Label = "Viernes",
-                    ValueLabel = "300"
-                },
-            };
-
             // Chart 4. Waiters
             entriesWaiters = new List<Entry>
             {
@@ -260,165 +267,170 @@ namespace MrPiattoRestaurant.Fragments
         //Fill Hours with data from dabase
         private void fillHours()
         {
-            entriesHours = new List<Entry>
+            entriesHours.Clear();
+            hourAverages.Clear();
+            List<HourStatistics> auxStatistics = new List<HourStatistics>();
+            auxStatistics = hourStatistics.Where(d => d.DateStatistics >= hInterval1 && d.DateStatistics <= hInterval2).ToList();
+
+            avgHour0 = null;
+            avgHour1 = null;
+            avgHour2 = null;
+            avgHour3 = null;
+            avgHour4 = null;
+            avgHour5 = null;
+            avgHour6 = null;
+            avgHour7 = null;
+            avgHour8 = null;
+            avgHour9 = null;
+            avgHour10 = null;
+            avgHour11 = null;
+            avgHour12 = null;
+            avgHour13 = null;
+            avgHour14 = null; 
+            avgHour15 = null;
+            avgHour16 = null;
+            avgHour17 = null;
+            avgHour18 = null;
+            avgHour19 = null;
+            avgHour20 = null;
+            avgHour21 = null;
+            avgHour22 = null;
+            avgHour23 = null;
+
+            foreach (HourStatistics h in auxStatistics)
             {
-                new Entry(20)
+                avgHour0 = (avgHour0 != null) ? ((h.Average0000.HasValue) ? avgHour0 * h.Average0000 : avgHour0) : ((h.Average0000.HasValue) ? h.Average0000 : avgHour0);
+                avgHour1 = (avgHour1 != null) ? ((h.Average0100.HasValue) ? avgHour1 * h.Average0100 : avgHour1) : ((h.Average0100.HasValue) ? h.Average0100 : avgHour1);
+                avgHour2 = (avgHour2 != null) ? ((h.Average0200.HasValue) ? avgHour2 * h.Average0200 : avgHour2) : ((h.Average0200.HasValue) ? h.Average0200 : avgHour2);
+                avgHour3 = (avgHour3 != null) ? ((h.Average0300.HasValue) ? avgHour3 * h.Average0300 : avgHour3) : ((h.Average0300.HasValue) ? h.Average0300 : avgHour3);
+                avgHour4 = (avgHour4 != null) ? ((h.Average0400.HasValue) ? avgHour4 * h.Average0400 : avgHour4) : ((h.Average0400.HasValue) ? h.Average0400 : avgHour4);
+                avgHour5 = (avgHour5 != null) ? ((h.Average0500.HasValue) ? avgHour5 * h.Average0500 : avgHour5) : ((h.Average0500.HasValue) ? h.Average0500 : avgHour5);
+                avgHour6 = (avgHour6 != null) ? ((h.Average0600.HasValue) ? avgHour6 * h.Average0600 : avgHour6) : ((h.Average0600.HasValue) ? h.Average0600 : avgHour6);
+                avgHour7 = (avgHour7 != null) ? ((h.Average0700.HasValue) ? avgHour7 * h.Average0700 : avgHour7) : ((h.Average0700.HasValue) ? h.Average0700 : avgHour7);
+                avgHour8 = (avgHour8 != null) ? ((h.Average0800.HasValue) ? avgHour8 * h.Average0800 : avgHour8) : ((h.Average0800.HasValue) ? h.Average0800 : avgHour8);
+                avgHour9 = (avgHour9 != null) ? ((h.Average0900.HasValue) ? avgHour9 * h.Average0900 : avgHour9) : ((h.Average0900.HasValue) ? h.Average0900 : avgHour9);
+                avgHour10 = (avgHour10 != null) ? ((h.Average1000.HasValue) ? avgHour10 * h.Average1000 : avgHour10) : ((h.Average1000.HasValue) ? h.Average1000 : avgHour10);
+                avgHour11 = (avgHour11 != null) ? ((h.Average1100.HasValue) ? avgHour11 * h.Average1100 : avgHour11) : ((h.Average1100.HasValue) ? h.Average1100 : avgHour11);
+                avgHour12 = (avgHour12 != null) ? ((h.Average1200.HasValue) ? avgHour12 * h.Average1200 : avgHour12) : ((h.Average1200.HasValue) ? h.Average1200 : avgHour12);
+                avgHour13 = (avgHour13 != null) ? ((h.Average1300.HasValue) ? avgHour13 * h.Average1300 : avgHour13) : ((h.Average1300.HasValue) ? h.Average1300 : avgHour13);
+                avgHour14 = (avgHour14 != null) ? ((h.Average1400.HasValue) ? avgHour14 * h.Average1400 : avgHour14) : ((h.Average1400.HasValue) ? h.Average1400 : avgHour14);
+                avgHour15 = (avgHour15 != null) ? ((h.Average1500.HasValue) ? avgHour15 * h.Average1500 : avgHour15) : ((h.Average1500.HasValue) ? h.Average1500 : avgHour15);
+                avgHour16 = (avgHour16 != null) ? ((h.Average1600.HasValue) ? avgHour16 * h.Average1600 : avgHour16) : ((h.Average1600.HasValue) ? h.Average1600 : avgHour16);
+                avgHour17 = (avgHour17 != null) ? ((h.Average1700.HasValue) ? avgHour17 * h.Average1700 : avgHour17) : ((h.Average1700.HasValue) ? h.Average1700 : avgHour17);
+                avgHour18 = (avgHour18 != null) ? ((h.Average1800.HasValue) ? avgHour18 * h.Average1800 : avgHour18) : ((h.Average1800.HasValue) ? h.Average1800 : avgHour18);
+                avgHour19 = (avgHour19 != null) ? ((h.Average1900.HasValue) ? avgHour19 * h.Average1900 : avgHour19) : ((h.Average1900.HasValue) ? h.Average1900 : avgHour19);
+                avgHour20 = (avgHour20 != null) ? ((h.Average2000.HasValue) ? avgHour20 * h.Average2000 : avgHour20) : ((h.Average2000.HasValue) ? h.Average2000 : avgHour20);
+                avgHour21 = (avgHour21 != null) ? ((h.Average2100.HasValue) ? avgHour21 * h.Average2100 : avgHour21) : ((h.Average2100.HasValue) ? h.Average2100 : avgHour21);
+                avgHour22 = (avgHour22 != null) ? ((h.Average2200.HasValue) ? avgHour22 * h.Average2200 : avgHour22) : ((h.Average2200.HasValue) ? h.Average2200 : avgHour22);
+                avgHour23 = (avgHour23 != null) ? ((h.Average2300.HasValue) ? avgHour23 * h.Average2300 : avgHour23) : ((h.Average2300.HasValue) ? h.Average2300 : avgHour23);
+            }
+
+            hourAverages.Add(avgHour0);
+            hourAverages.Add(avgHour1);
+            hourAverages.Add(avgHour2);
+            hourAverages.Add(avgHour3);
+            hourAverages.Add(avgHour4);
+            hourAverages.Add(avgHour5);
+            hourAverages.Add(avgHour6);
+            hourAverages.Add(avgHour7);
+            hourAverages.Add(avgHour8);
+            hourAverages.Add(avgHour9);
+            hourAverages.Add(avgHour10);
+            hourAverages.Add(avgHour11);
+            hourAverages.Add(avgHour12);
+            hourAverages.Add(avgHour13);
+            hourAverages.Add(avgHour14);
+            hourAverages.Add(avgHour15);
+            hourAverages.Add(avgHour16);
+            hourAverages.Add(avgHour17);
+            hourAverages.Add(avgHour18);
+            hourAverages.Add(avgHour19);
+            hourAverages.Add(avgHour20);
+            hourAverages.Add(avgHour21);
+            hourAverages.Add(avgHour22);
+            hourAverages.Add(avgHour23);
+
+            for (int i = 0; i < 24; ++i)
+            {
+                if (hourAverages[i] != null)
                 {
-                    Color = SKColor.Parse("#E06D64"),
-                    Label = "0",
-                    ValueLabel = "20"
-                },
-                new Entry(40)
+                    Entry entry = new Entry((float)hourAverages[i])
+                    {
+                        Color = SKColor.Parse("#E06D64"),
+                        Label = i.ToString(),
+                        ValueLabel = hourAverages[i].ToString()
+                    };
+                    entriesHours.Add(entry);
+                }
+            }
+
+            chart1 = new LineChart() { Entries = entriesHours };
+            chartView1.Chart = chart1;
+        }
+
+        private void fillDays()
+        {
+            entriesDays.Clear();
+            daysAverages.Clear();
+
+            List<DayStatistics> auxStatistics = new List<DayStatistics>();
+            auxStatistics = dayStatistics.Where(d => d.DateStatistics >= dInterval1 && d.DateStatistics <= dInterval2).ToList();
+
+            avgDay0 = null;
+            avgDay1 = null;
+            avgDay2 = null;
+            avgDay3 = null;
+            avgDay4 = null;
+            avgDay5 = null;
+            avgDay6 = null;
+
+            foreach (DayStatistics d in auxStatistics)
+            {
+                avgDay0 = (avgDay0 != null) ? ((d.AverageMonday.HasValue) ? avgDay0 * d.AverageMonday : avgDay0) : ((d.AverageMonday.HasValue) ? d.AverageMonday : avgDay0);
+                avgDay1 = (avgDay1 != null) ? ((d.AverageTuesday.HasValue) ? avgDay1 * d.AverageTuesday : avgDay1) : ((d.AverageTuesday.HasValue) ? d.AverageTuesday : avgDay1);
+                avgDay2 = (avgDay2 != null) ? ((d.AverageWednesday.HasValue) ? avgDay2 * d.AverageWednesday : avgDay2) : ((d.AverageWednesday.HasValue) ? d.AverageWednesday : avgDay2);
+                avgDay3 = (avgDay3 != null) ? ((d.AverageThursday.HasValue) ? avgDay3 * d.AverageThursday : avgDay3) : ((d.AverageThursday.HasValue) ? d.AverageThursday : avgDay3);
+                avgDay4 = (avgDay4 != null) ? ((d.AverageFriday.HasValue) ? avgDay4 * d.AverageFriday : avgDay4) : ((d.AverageFriday.HasValue) ? d.AverageFriday : avgDay4);
+                avgDay5 = (avgDay5 != null) ? ((d.AverageSaturday.HasValue) ? avgDay5 * d.AverageSaturday : avgDay5) : ((d.AverageSaturday.HasValue) ? d.AverageSaturday : avgDay5);
+                avgDay6 = (avgDay6 != null) ? ((d.AverageSunday.HasValue) ? avgDay6 * d.AverageSunday : avgDay6) : ((d.AverageSunday.HasValue) ? d.AverageSunday : avgDay6);
+            }
+
+            daysAverages.Add(avgDay0);
+            daysAverages.Add(avgDay1);
+            daysAverages.Add(avgDay2);
+            daysAverages.Add(avgDay3);
+            daysAverages.Add(avgDay4);
+            daysAverages.Add(avgDay5);
+            daysAverages.Add(avgDay6);
+
+            for (int i = 0; i < 7; ++i)
+            {
+                if (daysAverages[i] != null)
                 {
-                    Color = SKColor.Parse("#E1795E"),
-                    Label = "1",
-                    ValueLabel = "40"
-                },
-                new Entry(50)
-                {
-                    Color = SKColor.Parse("#E38558"),
-                    Label = "2",
-                    ValueLabel = "50"
-                },
-                new Entry(15)
-                {
-                    Color = SKColor.Parse("#E59154"),
-                    Label = "3",
-                    ValueLabel = "15"
-                },
-                new Entry(30)
-                {
-                    Color = SKColor.Parse("#E79E51"),
-                    Label = "4",
-                    ValueLabel = "30"
-                },
-                new Entry(20)
-                {
-                    Color = SKColor.Parse("#E5AB51"),
-                    Label = "5",
-                    ValueLabel = "20"
-                },
-                new Entry(40)
-                {
-                    Color = SKColor.Parse("#E3B752"),
-                    Label = "6",
-                    ValueLabel = "40"
-                },
-                new Entry(35)
-                {
-                    Color = SKColor.Parse("#E0C357"),
-                    Label = "7",
-                    ValueLabel = "35"
-                },
-                new Entry(25)
-                {
-                    Color = SKColor.Parse("#E3B752"),
-                    Label = "8",
-                    ValueLabel = "25"
-                },
-                new Entry(45)
-                {
-                    Color = SKColor.Parse("#E5AB51"),
-                    Label = "9",
-                    ValueLabel = "45"
-                },
-                new Entry(35)
-                {
-                    Color = SKColor.Parse("#E79E51"),
-                    Label = "10",
-                    ValueLabel = "35"
-                },
-                new Entry(35)
-                {
-                    Color = SKColor.Parse("#E59154"),
-                    Label = "11",
-                    ValueLabel = "35"
-                },
-                new Entry(35)
-                {
-                    Color = SKColor.Parse("#E38558"),
-                    Label = "12",
-                    ValueLabel = "35"
-                },
-                new Entry(45)
-                {
-                    Color = SKColor.Parse("#E1795E"),
-                    Label = "13",
-                    ValueLabel = "45"
-                },
-                new Entry(20)
-                {
-                    Color = SKColor.Parse("#E06D64"),
-                    Label = "14",
-                    ValueLabel = "20"
-                },
-                new Entry(22)
-                {
-                    Color = SKColor.Parse("#E1795E"),
-                    Label = "15",
-                    ValueLabel = "22"
-                },
-                new Entry(33)
-                {
-                    Color = SKColor.Parse("#E38558"),
-                    Label = "16",
-                    ValueLabel = "33"
-                },
-                new Entry(12)
-                {
-                    Color = SKColor.Parse("#E59154"),
-                    Label = "17",
-                    ValueLabel = "12"
-                },
-                new Entry(40)
-                {
-                    Color = SKColor.Parse("#E79E51"),
-                    Label = "18",
-                    ValueLabel = "40"
-                },
-                new Entry(57)
-                {
-                    Color = SKColor.Parse("#E5AB51"),
-                    Label = "19",
-                    ValueLabel = "57"
-                },
-                new Entry(35)
-                {
-                    Color = SKColor.Parse("#E3B752"),
-                    Label = "20",
-                    ValueLabel = "35"
-                },
-                new Entry(45)
-                {
-                    Color = SKColor.Parse("#E0C357"),
-                    Label = "21",
-                    ValueLabel = "45"
-                },
-                new Entry(51)
-                {
-                    Color = SKColor.Parse("#E3B752"),
-                    Label = "22",
-                    ValueLabel = "51"
-                },
-                new Entry(13)
-                {
-                    Color = SKColor.Parse("#E5AB51"),
-                    Label = "23",
-                    ValueLabel = "13"
-                },
-            };
+                    Entry entry = new Entry((float)daysAverages[i])
+                    {
+                        Color = SKColor.Parse(colors[i % 7]),
+                        Label = daysWeek[i],
+                        ValueLabel = daysAverages[i].ToString()
+                    };
+                    entriesDays.Add(entry);
+                }
+            }
+
+            chart3 = new DonutChart() { Entries = entriesDays };
+            chartView3.Chart = chart3;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.activity_dashboard_statistics, container, false);
 
-            var chartView1 = view.FindViewById<ChartView>(Resource.Id.idChart1);
-            var chartView2 = view.FindViewById<ChartView>(Resource.Id.idChart2);
-            var chartView3 = view.FindViewById<ChartView>(Resource.Id.idChart3);
-            var chartView4 = view.FindViewById<ChartView>(Resource.Id.idChart4);
-            var chartView5 = view.FindViewById<ChartView>(Resource.Id.idChart5);
-            var chartView6 = view.FindViewById<ChartView>(Resource.Id.idChart6);
+            chartView1 = view.FindViewById<ChartView>(Resource.Id.idChart1);
+            chartView2 = view.FindViewById<ChartView>(Resource.Id.idChart2);
+            chartView3 = view.FindViewById<ChartView>(Resource.Id.idChart3);
+            chartView4 = view.FindViewById<ChartView>(Resource.Id.idChart4);
+            chartView5 = view.FindViewById<ChartView>(Resource.Id.idChart5);
+            chartView6 = view.FindViewById<ChartView>(Resource.Id.idChart6);
 
             spinnerTableUse = view.FindViewById<Spinner>(Resource.Id.idSpinnerTableUse);
             spinnerWaiters = view.FindViewById<Spinner>(Resource.Id.idSpinnerWaiters);
@@ -437,10 +449,12 @@ namespace MrPiattoRestaurant.Fragments
             alexaInterval1 = view.FindViewById<TextView>(Resource.Id.idAlexaInterval1);
             alexaInterval2 = view.FindViewById<TextView>(Resource.Id.idAlexaInterval2);
 
+            InitializeIntervals();
+            ShowIntervals();
 
-            var chart1 = new LineChart() { Entries = entriesHours };
-            var chart2 = new BarChart() { Entries = entriesTableUse };
-            var chart3 = new DonutChart() { Entries = entriesDays };
+            chart1 = new LineChart() { Entries = entriesHours };
+            chart2 = new BarChart() { Entries = entriesTableUse };
+            chart3 = new DonutChart() { Entries = entriesDays };
             var chart4 = new RadialGaugeChart() { Entries = entriesWaiters };
             var chart5 = new BarChart() { Entries = entriesTableUseAverage };
             var chart6 = new BarChart() { Entries = entriesAlexa };
@@ -477,14 +491,36 @@ namespace MrPiattoRestaurant.Fragments
             alexaInterval1.Click += onAlexaInterval1;
             alexaInterval2.Click += onAlexaInterval2;
 
+            // Fill all charts
+            fillHours();
+            fillDays();
+
             return view;
+        }
+
+        private void InitializeIntervals()
+        {
+            hInterval1 = hourStatistics.Min(d => d.DateStatistics);
+            hInterval2 = hourStatistics.Max(d => d.DateStatistics);
+            dInterval1 = dayStatistics.Min(d => d.DateStatistics);
+            dInterval2 = dayStatistics.Max(d => d.DateStatistics);
+        }
+
+        private void ShowIntervals()
+        {
+            hourInterval1.Text = hInterval1.ToString("dd/MM/yyyy");
+            hourInterval2.Text = hInterval2.ToString("dd/MM/yyyy");
+            daysInterval1.Text = dInterval1.ToString("dd/MM/yyyy");
+            daysInterval2.Text = dInterval2.ToString("dd/MM/yyyy");
         }
 
         private void onHourInterval1(object sender, EventArgs e)
         {
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
-                hourInterval1.Text = time.ToLongDateString();
+                hourInterval1.Text = time.ToString("dd/MM/yyyy");
+                hInterval1 = time;
+                fillHours();
 
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
@@ -494,8 +530,9 @@ namespace MrPiattoRestaurant.Fragments
         {
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
-                hourInterval2.Text = time.ToLongDateString();
-
+                hourInterval2.Text = time.ToString("dd/MM/yyyy");
+                hInterval2 = time;
+                fillHours();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
@@ -525,7 +562,8 @@ namespace MrPiattoRestaurant.Fragments
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 daysInterval1.Text = time.ToString("dd/MM/yyyy");
-
+                dInterval1 = time;
+                fillDays();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
@@ -535,7 +573,8 @@ namespace MrPiattoRestaurant.Fragments
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 daysInterval2.Text = time.ToString("dd/MM/yyyy");
-
+                dInterval2 = time;
+                fillDays();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
