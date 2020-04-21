@@ -24,13 +24,6 @@ public class Statistics
 			mono.android.TypeManager.Activate ("MrPiattoRestaurant.Fragments.Statistics, MrPiattoRestaurant", "", this, new java.lang.Object[] {  });
 	}
 
-	public Statistics (android.content.Context p0)
-	{
-		super ();
-		if (getClass () == Statistics.class)
-			mono.android.TypeManager.Activate ("MrPiattoRestaurant.Fragments.Statistics, MrPiattoRestaurant", "Android.Content.Context, Mono.Android", this, new java.lang.Object[] { p0 });
-	}
-
 
 	public void onCreate (android.os.Bundle p0)
 	{

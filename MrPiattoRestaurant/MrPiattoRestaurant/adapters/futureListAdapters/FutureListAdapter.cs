@@ -82,7 +82,7 @@ namespace MrPiattoRestaurant.adapters.futureListAdapters
             {
                 personName = itemView.FindViewById<TextView>(Resource.Id.idPersonName);
                 tableName = itemView.FindViewById<TextView>(Resource.Id.idtableName);
-                reservationCode = itemView.FindViewById<TextView>(Resource.Id.idReservationCode);
+                //reservationCode = itemView.FindViewById<TextView>(Resource.Id.idReservationCode);
                 menu = itemView.FindViewById<TextView>(Resource.Id.idViewOptions);
             }
         }

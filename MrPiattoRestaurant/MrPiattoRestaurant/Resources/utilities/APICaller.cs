@@ -163,5 +163,74 @@ namespace MrPiattoRestaurant.Resources.utilities
             }
         }
 
+        public DayStatistics GetDayStatistics(int idRes)
+        {
+            DayStatistics statistics = new DayStatistics();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Satistics/Day/{idRes}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    statistics = JsonConvert.DeserializeObject<DayStatistics>(json);
+                }
+
+                return statistics;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<HourStatistics> GetHourStatistics(int idRes)
+        {
+            List<HourStatistics> statistics = new List<HourStatistics>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Satistics/Hour/{idRes}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    statistics = JsonConvert.DeserializeObject<List<HourStatistics>>(json);
+                }
+
+                return statistics;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public Schedule GetSchedule(int idRes)
+        {
+            Schedule schedule = new Schedule();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Schedules/Raw/{idRes}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    schedule = JsonConvert.DeserializeObject<Schedule>(json);
+                }
+
+                return schedule;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
     }
 }

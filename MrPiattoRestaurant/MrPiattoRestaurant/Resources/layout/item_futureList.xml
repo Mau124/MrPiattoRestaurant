@@ -7,39 +7,76 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/subtitles_design"
-    android:padding="5dp">
+    android:padding="10dp">
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/user"
+        android:id="@+id/idImageUser"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/idPersonName"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/idImageUser"
+        app:layout_constraintTop_toTopOf="@+id/idImageUser"
+        app:layout_constraintBottom_toBottomOf="@+id/idImageUser"
+        android:text="Mauricio Andres Flores Perez"
+        android:textColor="#333333"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/idtableName"
-        android:layout_marginBottom="5dp"
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/itemTable"
+        android:id="@+id/idImageTable"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idPersonName"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/idDate"
-        android:layout_marginBottom="5dp"
+        android:id="@+id/idtableName"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/idImageTable"
+        app:layout_constraintTop_toTopOf="@+id/idImageTable"
+        app:layout_constraintBottom_toBottomOf="@+id/idImageTable"
+        android:text="Mesa 1"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/time"
+        android:id="@+id/idImageTime"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idtableName"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/idDate"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/idImageTime"
+        app:layout_constraintTop_toTopOf="@+id/idImageTime"
+        app:layout_constraintBottom_toBottomOf="@+id/idImageTime"
+        android:text="12/04/20 3:30"/>
+
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/idReservationCode"
         android:layout_marginBottom="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idDate"/>
+        app:layout_constraintTop_toBottomOf="@+id/idDate"
+        android:text="XYZ-1829"/>-->
 
     <TextView
         android:id="@+id/idViewOptions"

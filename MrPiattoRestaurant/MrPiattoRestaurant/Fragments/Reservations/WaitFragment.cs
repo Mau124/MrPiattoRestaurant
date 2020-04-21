@@ -97,7 +97,8 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
             numSeats.TextChanged += (object s, Android.Text.TextChangedEventArgs e) =>
             {
-                mSeekBar.Progress = Int32.Parse(numSeats.Text);
+                if (validateSeats(numSeats.Text))
+                    mSeekBar.Progress = Int32.Parse(numSeats.Text);
             };
 
             mSeekBar.ProgressChanged += (object senderProgresBar, SeekBar.ProgressChangedEventArgs e) =>
@@ -113,12 +114,48 @@ namespace MrPiattoRestaurant.Fragments.Reservations
                 string name;
                 int seats;
 
-                name = nameClient.Text;
-                seats = Int32.Parse(numSeats.Text);
-
-                AddToList(name, seats);
-                alertDialog.Dismiss();
+                if (nameClient.Text.Equals(""))
+                {
+                    Toast.MakeText(Application.Context, "Coloque un nombre", ToastLength.Long).Show();
+                } else if (numSeats.Text.Equals(""))
+                {
+                    if (validateSeats(numSeats.Hint))
+                    {
+                        seats = Int32.Parse(numSeats.Hint);
+                        if (seats > 0 && seats < 16)
+                        {
+                            name = nameClient.Text;
+                            AddToList(name, seats);
+                            alertDialog.Dismiss();
+                        }
+                    }
+                    Toast.MakeText(Application.Context, "Coloque un numero de asientos valido", ToastLength.Long).Show();
+                } else
+                {
+                    if (validateSeats(numSeats.Text))
+                    {
+                        seats = Int32.Parse(numSeats.Text);
+                        if (seats > 0 && seats < 16)
+                        {
+                            name = nameClient.Text;
+                            AddToList(name, seats);
+                            alertDialog.Dismiss();
+                        }
+                    }
+                    Toast.MakeText(Application.Context, "Coloque un numero de asientos valido", ToastLength.Long).Show();
+                }
             };
+        }
+
+        private bool validateSeats(string s)
+        {
+            if (s.Count() == 0) return false;
+            foreach (char c in s)
+            {
+                if (c < '0' || c > '9')
+                    return false;
+            }
+            return true;
         }
 
         public void AddToList(string name, int seats)

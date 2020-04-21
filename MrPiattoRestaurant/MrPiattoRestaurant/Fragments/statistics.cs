@@ -17,6 +17,8 @@ using Entry = Microcharts.Entry;
 using Microcharts.Droid;
 
 using MrPiattoRestaurant.Pickers;
+using MrPiattoRestaurant.Resources.utilities;
+using MrPiattoRestaurant.ModelsDB;
 
 
 namespace MrPiattoRestaurant.Fragments
@@ -25,9 +27,16 @@ namespace MrPiattoRestaurant.Fragments
     {
         Context context;
 
+        double hour0, hour1, hour2, hour3;
+        double hour4, hour5, hour6, hour7;
+        double hour8, hour9, hour10, hour11;
+        double hour12, hour13, hour14, hour15;
+        double hour16, hour17, hour18, hour19;
+        double hour20, hour21, hour22, hour23;
+
         List<Entry> entriesDays;
         List<Entry> entriesTableUse;
-        List<Entry> entriesHours;
+        List<Entry> entriesHours = new List<Entry>();
         List<Entry> entriesWaiters;
         List<Entry> entriesTableUseAverage;
         List<Entry> entriesAlexa;
@@ -47,9 +56,20 @@ namespace MrPiattoRestaurant.Fragments
         TextView tableAverageInterval1, tableAverageInterval2;
         TextView alexaInterval1, alexaInterval2;
 
-        public Statistics(Context context)
+        Restaurant restaurant = new Restaurant();
+        DayStatistics dayStatistics = new DayStatistics();
+        List<HourStatistics> hourStatistics = new List<HourStatistics>();
+        Schedule schedule = new Schedule();
+
+        APICaller API = new APICaller();
+
+        public Statistics(Context context, Restaurant restaurant)
         {
             this.context = context;
+            this.restaurant = restaurant;
+            dayStatistics = API.GetDayStatistics(restaurant.Idrestaurant);
+            hourStatistics = API.GetHourStatistics(restaurant.Idrestaurant);
+            schedule = API.GetSchedule(restaurant.Idrestaurant);
         }
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -57,153 +77,7 @@ namespace MrPiattoRestaurant.Fragments
 
             // Create your fragment here
             // Chart 1. Hours
-            entriesHours = new List<Entry>
-            {
-                new Entry(20)
-                {
-                    Color = SKColor.Parse("#E06D64"),
-                    Label = "0",
-                    ValueLabel = "20"
-                },
-                new Entry(40)
-                {
-                    Color = SKColor.Parse("#E1795E"),
-                    Label = "1",
-                    ValueLabel = "40"
-                },
-                new Entry(50)
-                {
-                    Color = SKColor.Parse("#E38558"),
-                    Label = "2",
-                    ValueLabel = "50"
-                },
-                new Entry(15)
-                {
-                    Color = SKColor.Parse("#E59154"),
-                    Label = "3",
-                    ValueLabel = "15"
-                },
-                new Entry(30)
-                {
-                    Color = SKColor.Parse("#E79E51"),
-                    Label = "4",
-                    ValueLabel = "30"
-                },
-                new Entry(20)
-                {
-                    Color = SKColor.Parse("#E5AB51"),
-                    Label = "5",
-                    ValueLabel = "20"
-                },
-                new Entry(40)
-                {
-                    Color = SKColor.Parse("#E3B752"),
-                    Label = "6",
-                    ValueLabel = "40"
-                },
-                new Entry(35)
-                {
-                    Color = SKColor.Parse("#E0C357"),
-                    Label = "7",
-                    ValueLabel = "35"
-                },
-                new Entry(25)
-                {
-                    Color = SKColor.Parse("#E3B752"),
-                    Label = "8",
-                    ValueLabel = "25"
-                },
-                new Entry(45)
-                {
-                    Color = SKColor.Parse("#E5AB51"),
-                    Label = "9",
-                    ValueLabel = "45"
-                },
-                new Entry(35)
-                {
-                    Color = SKColor.Parse("#E79E51"),
-                    Label = "10",
-                    ValueLabel = "35"
-                },
-                new Entry(35)
-                {
-                    Color = SKColor.Parse("#E59154"),
-                    Label = "11",
-                    ValueLabel = "35"
-                },
-                new Entry(35)
-                {
-                    Color = SKColor.Parse("#E38558"),
-                    Label = "12",
-                    ValueLabel = "35"
-                },
-                new Entry(45)
-                {
-                    Color = SKColor.Parse("#E1795E"),
-                    Label = "13",
-                    ValueLabel = "45"
-                },
-                new Entry(20)
-                {
-                    Color = SKColor.Parse("#E06D64"),
-                    Label = "14",
-                    ValueLabel = "20"
-                },
-                new Entry(22)
-                {
-                    Color = SKColor.Parse("#E1795E"),
-                    Label = "15",
-                    ValueLabel = "22"
-                },
-                new Entry(33)
-                {
-                    Color = SKColor.Parse("#E38558"),
-                    Label = "16",
-                    ValueLabel = "33"
-                },
-                new Entry(12)
-                {
-                    Color = SKColor.Parse("#E59154"),
-                    Label = "17",
-                    ValueLabel = "12"
-                },
-                new Entry(40)
-                {
-                    Color = SKColor.Parse("#E79E51"),
-                    Label = "18",
-                    ValueLabel = "40"
-                },
-                new Entry(57)
-                {
-                    Color = SKColor.Parse("#E5AB51"),
-                    Label = "19",
-                    ValueLabel = "57"
-                },
-                new Entry(35)
-                {
-                    Color = SKColor.Parse("#E3B752"),
-                    Label = "20",
-                    ValueLabel = "35"
-                },
-                new Entry(45)
-                {
-                    Color = SKColor.Parse("#E0C357"),
-                    Label = "21",
-                    ValueLabel = "45"
-                },
-                new Entry(51)
-                {
-                    Color = SKColor.Parse("#E3B752"),
-                    Label = "22",
-                    ValueLabel = "51"
-                },
-                new Entry(13)
-                {
-                    Color = SKColor.Parse("#E5AB51"),
-                    Label = "23",
-                    ValueLabel = "13"
-                },
-            };
+            fillHours();
 
             // Chart 2. Table use per hour
             entriesTableUse = new List<Entry>
@@ -381,6 +255,158 @@ namespace MrPiattoRestaurant.Fragments
             listTableAverage.Add("1 ... 5");
             listTableAverage.Add("6 ... 10");
             listTableAverage.Add("11 ... 15");
+        }
+
+        //Fill Hours with data from dabase
+        private void fillHours()
+        {
+            entriesHours = new List<Entry>
+            {
+                new Entry(20)
+                {
+                    Color = SKColor.Parse("#E06D64"),
+                    Label = "0",
+                    ValueLabel = "20"
+                },
+                new Entry(40)
+                {
+                    Color = SKColor.Parse("#E1795E"),
+                    Label = "1",
+                    ValueLabel = "40"
+                },
+                new Entry(50)
+                {
+                    Color = SKColor.Parse("#E38558"),
+                    Label = "2",
+                    ValueLabel = "50"
+                },
+                new Entry(15)
+                {
+                    Color = SKColor.Parse("#E59154"),
+                    Label = "3",
+                    ValueLabel = "15"
+                },
+                new Entry(30)
+                {
+                    Color = SKColor.Parse("#E79E51"),
+                    Label = "4",
+                    ValueLabel = "30"
+                },
+                new Entry(20)
+                {
+                    Color = SKColor.Parse("#E5AB51"),
+                    Label = "5",
+                    ValueLabel = "20"
+                },
+                new Entry(40)
+                {
+                    Color = SKColor.Parse("#E3B752"),
+                    Label = "6",
+                    ValueLabel = "40"
+                },
+                new Entry(35)
+                {
+                    Color = SKColor.Parse("#E0C357"),
+                    Label = "7",
+                    ValueLabel = "35"
+                },
+                new Entry(25)
+                {
+                    Color = SKColor.Parse("#E3B752"),
+                    Label = "8",
+                    ValueLabel = "25"
+                },
+                new Entry(45)
+                {
+                    Color = SKColor.Parse("#E5AB51"),
+                    Label = "9",
+                    ValueLabel = "45"
+                },
+                new Entry(35)
+                {
+                    Color = SKColor.Parse("#E79E51"),
+                    Label = "10",
+                    ValueLabel = "35"
+                },
+                new Entry(35)
+                {
+                    Color = SKColor.Parse("#E59154"),
+                    Label = "11",
+                    ValueLabel = "35"
+                },
+                new Entry(35)
+                {
+                    Color = SKColor.Parse("#E38558"),
+                    Label = "12",
+                    ValueLabel = "35"
+                },
+                new Entry(45)
+                {
+                    Color = SKColor.Parse("#E1795E"),
+                    Label = "13",
+                    ValueLabel = "45"
+                },
+                new Entry(20)
+                {
+                    Color = SKColor.Parse("#E06D64"),
+                    Label = "14",
+                    ValueLabel = "20"
+                },
+                new Entry(22)
+                {
+                    Color = SKColor.Parse("#E1795E"),
+                    Label = "15",
+                    ValueLabel = "22"
+                },
+                new Entry(33)
+                {
+                    Color = SKColor.Parse("#E38558"),
+                    Label = "16",
+                    ValueLabel = "33"
+                },
+                new Entry(12)
+                {
+                    Color = SKColor.Parse("#E59154"),
+                    Label = "17",
+                    ValueLabel = "12"
+                },
+                new Entry(40)
+                {
+                    Color = SKColor.Parse("#E79E51"),
+                    Label = "18",
+                    ValueLabel = "40"
+                },
+                new Entry(57)
+                {
+                    Color = SKColor.Parse("#E5AB51"),
+                    Label = "19",
+                    ValueLabel = "57"
+                },
+                new Entry(35)
+                {
+                    Color = SKColor.Parse("#E3B752"),
+                    Label = "20",
+                    ValueLabel = "35"
+                },
+                new Entry(45)
+                {
+                    Color = SKColor.Parse("#E0C357"),
+                    Label = "21",
+                    ValueLabel = "45"
+                },
+                new Entry(51)
+                {
+                    Color = SKColor.Parse("#E3B752"),
+                    Label = "22",
+                    ValueLabel = "51"
+                },
+                new Entry(13)
+                {
+                    Color = SKColor.Parse("#E5AB51"),
+                    Label = "23",
+                    ValueLabel = "13"
+                },
+            };
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

@@ -75,8 +75,6 @@ C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\color\default_text_color.xml
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\color\theme_color.xml
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\layout\layout_item.xml
-C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\ic_keyboard_arrow_down_white_24dp.png
-C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\ic_keyboard_arrow_up_white_24dp.png
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\table.png
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\theme_color.xml
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\layout\layout_catalogue.xml
@@ -492,3 +490,7 @@ C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\s11ocupied.png
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\s12ocupied.png
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\layout\layout_schedule.xml
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\down_arrow.png
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\up_arrow.png
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\itemtable.png
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\time.png

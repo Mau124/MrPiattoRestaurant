@@ -93,6 +93,7 @@
     <Compile Include="ModelsDB\Reservation.cs" />
     <Compile Include="ModelsDB\Restaurant.cs" />
     <Compile Include="ModelsDB\RestaurantTables.cs" />
+    <Compile Include="ModelsDB\Schedule.cs" />
     <Compile Include="ModelsDB\User.cs" />
     <Compile Include="ModelsDB\Waiters.cs" />
     <Compile Include="Models\Item.cs" />
@@ -219,12 +220,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\layout_item.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_keyboard_arrow_down_white_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_keyboard_arrow_up_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\table.png" />
@@ -633,6 +628,18 @@
     <AndroidResource Include="Resources\layout\layout_Schedule.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\down_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\up_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\itemTable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\time.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

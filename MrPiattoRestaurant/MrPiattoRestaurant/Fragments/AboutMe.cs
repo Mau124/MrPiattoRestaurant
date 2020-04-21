@@ -16,6 +16,7 @@ using Android.Support.V7.Widget;
 
 
 using MrPiattoRestaurant.Models;
+using MrPiattoRestaurant.Pickers;
 using MrPiattoRestaurant.adapters;
 using MrPiattoRestaurant.ModelsDB;
 using MrPiattoRestaurant.Resources.utilities;
@@ -25,10 +26,22 @@ namespace MrPiattoRestaurant.Fragments
     public class AboutMe : Android.Support.V4.App.Fragment
     {
         private Context context;
+
         private Restaurant restaurant = new Restaurant();
         private Policies policies = new Policies();
         private List<Waiters> waiters = new List<Waiters>();
+        private Schedule schedule = new Schedule();
         private APICaller API = new APICaller();
+
+        //This is for schedule
+        TextView monday1, monday2;
+        TextView tuesday1, tuesday2;
+        TextView wednesday1, wednesday2;
+        TextView thursday1, thursday2;
+        TextView friday1, friday2;
+        TextView saturday1, saturday2;
+        TextView sunday1, sunday2;
+
         TextView strikeType;
         EditText maxRes, minRes, maxArrive, minMod, strikeTime;
         Spinner spinner, spinner2, spinner3, spinner4;
@@ -104,6 +117,7 @@ namespace MrPiattoRestaurant.Fragments
             InitializeRes();
             InitializePolicies();
             InitializeWaiters();
+            InitializeSchedule();
 
 
             mLayoutManager = new LinearLayoutManager(context);
@@ -209,6 +223,11 @@ namespace MrPiattoRestaurant.Fragments
         private void InitializeWaiters()
         {
             waiters = API.GetWaiters(restaurant.Idrestaurant);
+        }
+
+        private void InitializeSchedule()
+        {
+            schedule = API.GetSchedule(restaurant.Idrestaurant);
         }
 
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -369,25 +388,230 @@ namespace MrPiattoRestaurant.Fragments
 
             View content = LayoutInflater.Inflate(Resource.Layout.layout_new_password, null);
 
+            ImageView dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
+
             Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
             alertDialog.SetCancelable(true);
             alertDialog.SetView(content);
             alertDialog.Show();
+
+            dismiss.Click += delegate
+            {
+                alertDialog.Dismiss();
+            };
         }
 
         private void modifyHoursRes(object sender, EventArgs e)
         {
             InitializeRes();
+            InitializeSchedule();
             modifyHours.Visibility = ViewStates.Visible;
             modifyRes.Text = "Modificar";
             isModifyinRes = false;
 
             View content = LayoutInflater.Inflate(Resource.Layout.layout_Schedule, null);
 
+            ImageView dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
+
+            monday1 = content.FindViewById<TextView>(Resource.Id.idMonday1);
+            monday2 = content.FindViewById<TextView>(Resource.Id.idMonday2);
+            tuesday1 = content.FindViewById<TextView>(Resource.Id.idTuesday1);
+            tuesday2 = content.FindViewById<TextView>(Resource.Id.idTuesday2);
+            wednesday1 = content.FindViewById<TextView>(Resource.Id.idWednesday1);
+            wednesday2 = content.FindViewById<TextView>(Resource.Id.idWednesday2);
+            thursday1 = content.FindViewById<TextView>(Resource.Id.idThursday1);
+            thursday2 = content.FindViewById<TextView>(Resource.Id.idThursday2);
+            friday1 = content.FindViewById<TextView>(Resource.Id.idFriday1);
+            friday2 = content.FindViewById<TextView>(Resource.Id.idFriday2);
+            saturday1 = content.FindViewById<TextView>(Resource.Id.idSaturday1);
+            saturday2 = content.FindViewById<TextView>(Resource.Id.idSaturday2);
+            sunday1 = content.FindViewById<TextView>(Resource.Id.idSunday1);
+            sunday2 = content.FindViewById<TextView>(Resource.Id.idSunday2);
+
             Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
             alertDialog.SetCancelable(true);
             alertDialog.SetView(content);
             alertDialog.Show();
+
+            dismiss.Click += delegate
+            {
+                alertDialog.Dismiss();
+            };
+
+            printSchedule();
+
+            monday1.Click += clickMonday1;
+            monday2.Click += clickMonday2;
+            tuesday1.Click += clickTuesday1;
+            tuesday2.Click += clickTuesday2;
+            wednesday1.Click += clickWednesday1;
+            wednesday2.Click += clickWednesday2;
+            thursday1.Click += clickThursday1;
+            thursday2.Click += clickThursday2;
+            friday1.Click += clickFriday1;
+            friday2.Click += clickFriday2;
+            saturday1.Click += clickSaturday1;
+            saturday2.Click += clickSaturday2;
+            sunday1.Click += clickSunday1;
+            sunday2.Click += clickSunday2;
+        }
+
+        private void printSchedule()
+        {
+            monday1.Text = schedule.Otmonday.ToString(@"hh\:mm");
+            monday2.Text = schedule.Ctmonday.ToString(@"hh\:mm");
+            tuesday1.Text = schedule.Ottuesday.ToString(@"hh\:mm");
+            tuesday2.Text = schedule.Cttuestday.ToString(@"hh\:mm");
+            wednesday1.Text = schedule.Otwednesday.ToString(@"hh\:mm");
+            wednesday2.Text = schedule.Ctwednesday.ToString(@"hh\:mm");
+            thursday1.Text = schedule.Otthursday.ToString(@"hh\:mm");
+            thursday2.Text = schedule.Ctthursday.ToString(@"hh\:mm");
+            friday1.Text = schedule.Otfriday.ToString(@"hh\:mm");
+            friday2.Text = schedule.Ctfriday.ToString(@"hh\:mm");
+            saturday1.Text = schedule.Otsaturday.ToString(@"hh\:mm");
+            saturday2.Text = schedule.Ctsaturday.ToString(@"hh\:mm");
+            sunday1.Text = schedule.Otsunday.ToString(@"hh\:mm");
+            sunday2.Text = schedule.Ctsunday.ToString(@"hh\:mm");
+        }
+
+        private void clickMonday1(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                monday1.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickMonday2(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                monday2.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickTuesday1(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                tuesday1.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickTuesday2(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                tuesday2.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickWednesday1(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                wednesday1.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickWednesday2(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                wednesday2.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickThursday1(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                thursday1.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickThursday2(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                thursday2.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickFriday1(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                friday1.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickFriday2(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                friday2.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickSaturday1(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                saturday1.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickSaturday2(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                saturday2.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickSunday1(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                sunday1.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
+        }
+
+        private void clickSunday2(object sender, EventArgs e)
+        {
+            TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                sunday2.Text = time.ToString("hh:mm");
+
+            });
+            frag.Show(FragmentManager, TimePickerFragment.TAG);
         }
 
         private void acceptRestaurant(object sender, EventArgs e)
@@ -403,10 +627,17 @@ namespace MrPiattoRestaurant.Fragments
         {
             View content = LayoutInflater.Inflate(Resource.Layout.layout_add_waiter, null);
 
+            ImageView dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
+
             Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
             alertDialog.SetCancelable(true);
             alertDialog.SetView(content);
             alertDialog.Show();
+
+            dismiss.Click += delegate
+            {
+                alertDialog.Dismiss();
+            };
         }
 
         private void acceptPolitics(object sender, EventArgs e)

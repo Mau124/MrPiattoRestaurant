@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:padding="10dp"
         android:id="@+id/idTitle"
-        android:background="@drawable/containers_design">
+        android:background="#EDC13F">
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,15 +22,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
             android:textSize="20dp"
-            android:textColor="#000000"/>
+            android:textColor="#FFFFFF"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancelar"
-            android:id="@+id/idCancel"
+            android:id="@+id/idDismiss"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/close"
+            android:background="@drawable/closeWhite"
             android:layout_marginTop="10dp"/>
 
         </android.support.constraint.ConstraintLayout>
@@ -140,27 +140,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Aceptar"
-        app:layout_constraintBottom_toTopOf="@+id/idDeleteButton"
-        android:background="@drawable/save_buttons"
-        android:textColor="#ffffff"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textAllCaps="false"
-        android:id="@+id/idSaveButton"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancelar"
-        android:id="@+id/idDeleteButton"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/delete_buttons"
         android:textColor="#ffffff"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        android:id="@+id/idSaveButton"/>
 
     </android.support.constraint.ConstraintLayout>
 

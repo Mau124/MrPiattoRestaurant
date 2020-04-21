@@ -72,11 +72,11 @@ namespace MrPiattoRestaurant.adapters
 
                     if (items.ElementAt(position).isExpandable)
                     {
-                        vh.sectionToggleButton.SetImageResource(Resource.Drawable.ic_keyboard_arrow_up_white_24dp);
+                        vh.sectionToggleButton.SetImageResource(Resource.Drawable.up_arrow);
                     }
                     else
                     {
-                        vh.sectionToggleButton.SetImageResource(Resource.Drawable.ic_keyboard_arrow_down_white_24dp);
+                        vh.sectionToggleButton.SetImageResource(Resource.Drawable.down_arrow);
                     }
                     break;
             }

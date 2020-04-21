@@ -63,7 +63,7 @@ namespace MrPiattoRestaurant.adapters
             {
                 personName = itemView.FindViewById<TextView>(Resource.Id.idPersonName);
                 tableName = itemView.FindViewById<TextView>(Resource.Id.idtableName);
-                reservationCode = itemView.FindViewById<TextView>(Resource.Id.idReservationCode);
+                //reservationCode = itemView.FindViewById<TextView>(Resource.Id.idReservationCode);
             }
         }
     }

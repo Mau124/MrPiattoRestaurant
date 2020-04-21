@@ -56,16 +56,21 @@ namespace MrPiattoRestaurant.adapters
                 TextView textTitle = content.FindViewById<TextView>(Resource.Id.idTextTitle);
                 EditText name = content.FindViewById<EditText>(Resource.Id.idName);
                 Button button = content.FindViewById<Button>(Resource.Id.idButton);
+                ImageView dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
 
                 textTitle.Text = "Modificar mesero";
                 name.Hint = waiters[position].WaiterFirstName + " " + waiters[position].WaiterLasName;
                 button.Text = "Modificar"; 
 
-
                 Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
                 alertDialog.SetCancelable(true);
                 alertDialog.SetView(content);
                 alertDialog.Show();
+
+                dismiss.Click += delegate
+                {
+                    alertDialog.Dismiss();
+                };
             };
         }
 

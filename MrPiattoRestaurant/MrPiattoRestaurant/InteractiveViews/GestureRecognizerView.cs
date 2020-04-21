@@ -359,6 +359,7 @@ namespace MrPiattoRestaurant
 
             TextView nameTable1, nameTable2, seatsTable1, seatsTable2;
             ImageView imageTable1, imageTable2;
+            ImageView dismiss;
 
             nameTable1 = content.FindViewById<TextView>(Resource.Id.idNameTable1);
             nameTable2 = content.FindViewById<TextView>(Resource.Id.idNameTable2);
@@ -366,6 +367,7 @@ namespace MrPiattoRestaurant
             seatsTable2 = content.FindViewById<TextView>(Resource.Id.idSeatsTable2);
             imageTable1 = content.FindViewById<ImageView>(Resource.Id.idImageTable1);
             imageTable2 = content.FindViewById<ImageView>(Resource.Id.idImageTable2);
+            dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
 
             nameTable1.Text = tables.ElementAt(indexTable1).TableName;
             seatsTable1.Text = tables.ElementAt(indexTable1).seats.ToString();
@@ -380,6 +382,11 @@ namespace MrPiattoRestaurant
             alertDialog.SetCancelable(true);
             alertDialog.SetView(content);
             alertDialog.Show();
+
+            dismiss.Click += delegate
+            {
+                alertDialog.Dismiss();
+            }; 
         }
         private class MyScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener
         {
