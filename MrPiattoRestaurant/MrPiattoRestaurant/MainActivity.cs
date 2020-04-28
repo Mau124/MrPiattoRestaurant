@@ -163,7 +163,7 @@ namespace MrPiattoRestaurant
 
             foreach(RestaurantTables t in tables)
             {
-                Table aux = new Table(this, t.tableName, t.Type, Int32.Parse(t.Seats), (int)t.CoordenateX, (int)t.CoordenateY, false);
+                Table aux = new Table(this, t.tableName, t.Type, t.Seats, (int)t.CoordenateX, (int)t.CoordenateY, false);
                 floors.ElementAt(t.floorIndex).AddTable(aux);
                 clients.Clear();
 
@@ -408,7 +408,7 @@ namespace MrPiattoRestaurant
                         name.Text = waitFragment.waitList.ElementAt(pos).personName;
                         seats.Text = waitFragment.waitList.ElementAt(pos).numSeats.ToString();
 
-                        Client client = new Client(name.Text, 0, DateTime.Now, Int32.Parse(seats.Text));
+                        Client client = new Client(waitFragment.waitList.ElementAt(pos).personName, 0, DateTime.Now, waitFragment.waitList.ElementAt(pos).numSeats);
                         floors.ElementAt(floorIndex).setActualClientOnTable(client, table);
                         waitFragment.RemoveFromWaitList(pos);
 

@@ -12,14 +12,16 @@ using Android.Widget;
 using Android.Support.V7.Widget;
 
 using MrPiattoRestaurant.Models;
+using MrPiattoRestaurant.ModelsDB;
+using MrPiattoRestaurant.Resources.utilities;
 
 namespace MrPiattoRestaurant.adapters
 {
     public class PhotosGalleryAdapter : RecyclerView.Adapter
     {
-        List<ItemPhotos> itemPhotos = new List<ItemPhotos>();
+        List<RestaurantPhotos> itemPhotos = new List<RestaurantPhotos>();
 
-        public PhotosGalleryAdapter(List<ItemPhotos> itemPhotos)
+        public PhotosGalleryAdapter(List<RestaurantPhotos> itemPhotos)
         {
             this.itemPhotos = itemPhotos;
         }
@@ -36,10 +38,7 @@ namespace MrPiattoRestaurant.adapters
             PhotosGalleryViewHolder vh = holder as PhotosGalleryViewHolder;
 
             // Load the photo image resource from the photo album:
-            vh.image.SetImageResource(itemPhotos[position].imageID);
-
-            // Load the photo caption from the photo album:
-            vh.imageName.Text = itemPhotos[position].imageText;
+            vh.image.SetImageBitmap(ImageHelper.GetImageBitmapFromUrl(itemPhotos[position].Url));
         }
 
         public override int ItemCount
@@ -49,13 +48,11 @@ namespace MrPiattoRestaurant.adapters
 
         public class PhotosGalleryViewHolder : RecyclerView.ViewHolder
         {
-            public TextView imageName;
             public ImageView image;
             public Button button;
 
             public PhotosGalleryViewHolder(View itemView) : base(itemView)
             {
-                imageName = itemView.FindViewById<TextView>(Resource.Id.idImageName);
                 image = itemView.FindViewById<ImageView>(Resource.Id.idImage);
                 button = itemView.FindViewById<Button>(Resource.Id.idButton);
             }

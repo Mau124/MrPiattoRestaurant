@@ -22,7 +22,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
     {
         Button newClient;
         RecyclerView mRecyclerView;
-        TextView message;
+        LinearLayout message;
 
         //RecyclerView elements
         public RecyclerView.LayoutManager mLayoutManager;
@@ -55,7 +55,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
             newClient = view.FindViewById<Button>(Resource.Id.idButton);
             mRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
-            message = view.FindViewById<TextView>(Resource.Id.idMessage);
+            message = view.FindViewById<LinearLayout>(Resource.Id.idNoClients);
 
             mLayoutManager = new LinearLayoutManager(Application.Context);
             mAdapter = new ActualListAdapter(context, ocupiedTables);

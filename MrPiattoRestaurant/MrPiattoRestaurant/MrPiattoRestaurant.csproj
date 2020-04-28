@@ -92,8 +92,11 @@
     <Compile Include="ModelsDB\Policies.cs" />
     <Compile Include="ModelsDB\Reservation.cs" />
     <Compile Include="ModelsDB\Restaurant.cs" />
+    <Compile Include="ModelsDB\RestaurantPhotos.cs" />
     <Compile Include="ModelsDB\RestaurantTables.cs" />
     <Compile Include="ModelsDB\Schedule.cs" />
+    <Compile Include="ModelsDB\Surveys.cs" />
+    <Compile Include="ModelsDB\TableStatistics.cs" />
     <Compile Include="ModelsDB\User.cs" />
     <Compile Include="ModelsDB\Waiters.cs" />
     <Compile Include="Models\Item.cs" />
@@ -102,6 +105,7 @@
     <Compile Include="Models\Reservations\ActualList.cs" />
     <Compile Include="Models\Reservations\FutureList.cs" />
     <Compile Include="Models\Reservations\WaitList.cs" />
+    <Compile Include="Models\TableStats.cs" />
     <Compile Include="Pickers\DatePickerFragment.cs" />
     <Compile Include="Pickers\TimePickerFragment.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -109,6 +113,7 @@
     <Compile Include="Models\Table.cs" />
     <Compile Include="Args\TablePressedEventArgs.cs" />
     <Compile Include="Resources\utilities\APICaller.cs" />
+    <Compile Include="Resources\utilities\ImageHelper.cs" />
     <Compile Include="Views\TablePropertiesView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -640,6 +645,15 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\time.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\chair.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\team.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\code.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

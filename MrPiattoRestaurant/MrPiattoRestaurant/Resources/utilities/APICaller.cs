@@ -47,6 +47,29 @@ namespace MrPiattoRestaurant.Resources.utilities
             }
         }
 
+        public List<RestaurantPhotos> GetPhotos(int idRestaurant)
+        {
+            List<RestaurantPhotos> photos;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Photos/Restaurant/{idRestaurant}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    photos = JsonConvert.DeserializeObject<List<RestaurantPhotos>>(json);
+                }
+
+                return photos;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public List<RestaurantTables> GetTables(int idRestaurant)
         {
             List<RestaurantTables> resTables;
@@ -202,6 +225,52 @@ namespace MrPiattoRestaurant.Resources.utilities
                 }
 
                 return statistics;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<TableStatistics> GetTableStatistics(int idRes)
+        {
+            List<TableStatistics> tableStatistics = new List<TableStatistics>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Statistics/Table/{idRes}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    tableStatistics = JsonConvert.DeserializeObject<List<TableStatistics>>(json);
+                }
+
+                return tableStatistics;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<Surveys> GetSurveys(int idRes)
+        {
+            List<Surveys> surveys = new List<Surveys>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Statistics/Survey/{idRes}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    surveys = JsonConvert.DeserializeObject<List<Surveys>>(json);
+                }
+
+                return surveys;
             }
             catch (Exception)
             {

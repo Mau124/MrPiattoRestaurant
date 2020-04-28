@@ -13,22 +13,28 @@ using Android.Widget;
 using Android.Support.V7.Widget;
 
 using MrPiattoRestaurant.Models;
+using MrPiattoRestaurant.ModelsDB;
 using MrPiattoRestaurant.adapters;
+using MrPiattoRestaurant.Resources.utilities;
 
 namespace MrPiattoRestaurant.Fragments
 {
     public class PhotosGallery : Android.Support.V4.App.Fragment
     {
-        List<ItemPhotos> itemPhotos = new List<ItemPhotos>();
-        Context context;
+        private Context context;
+        private APICaller API = new APICaller();
+        private List<RestaurantPhotos> itemPhotos = new List<RestaurantPhotos>();
+        private Restaurant restaurant = new Restaurant();
+        
 
         RecyclerView mRecyclerView;
         RecyclerView.LayoutManager mLayoutManager;
         PhotosGalleryAdapter mAdapter;
 
-        public PhotosGallery(Context context)
+        public PhotosGallery(Context context, Restaurant restaurant)
         {
             this.context = context;
+            this.restaurant = restaurant;
         }
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -36,11 +42,7 @@ namespace MrPiattoRestaurant.Fragments
 
             // Create your fragment here
             itemPhotos.Clear();
-            itemPhotos.Add(new ItemPhotos(Resource.Drawable.res, "Banner"));
-            itemPhotos.Add(new ItemPhotos(Resource.Drawable.res, "Imagen 2"));
-            itemPhotos.Add(new ItemPhotos(Resource.Drawable.res, "Imagen 3"));
-            itemPhotos.Add(new ItemPhotos(Resource.Drawable.res, "Imagen 4"));
-            itemPhotos.Add(new ItemPhotos(Resource.Drawable.res, "Imagen 5"));
+            itemPhotos = API.GetPhotos(restaurant.Idrestaurant);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

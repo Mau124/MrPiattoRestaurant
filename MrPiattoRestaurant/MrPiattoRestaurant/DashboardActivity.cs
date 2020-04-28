@@ -52,7 +52,7 @@ namespace MrPiattoRestaurant
 
             aboutMeFragment = new AboutMe(this, restaurant);
             statisticsFragment = new Statistics(this, restaurant);
-            photosGalleryFragment = new PhotosGallery(this);
+            photosGalleryFragment = new PhotosGallery(this, restaurant);
 
             LoadFragment(Resource.Id.idAboutMe);
 

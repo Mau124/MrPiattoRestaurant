@@ -19,6 +19,7 @@ using Microcharts.Droid;
 using MrPiattoRestaurant.Pickers;
 using MrPiattoRestaurant.Resources.utilities;
 using MrPiattoRestaurant.ModelsDB;
+using MrPiattoRestaurant.Models;
 
 
 namespace MrPiattoRestaurant.Fragments
@@ -28,11 +29,11 @@ namespace MrPiattoRestaurant.Fragments
         Context context;
 
         List<Entry> entriesDays = new List<Entry>();
-        List<Entry> entriesTableUse;
+        List<Entry> entriesTableHours = new List<Entry>();
         List<Entry> entriesHours = new List<Entry>();
-        List<Entry> entriesWaiters;
-        List<Entry> entriesTableUseAverage;
-        List<Entry> entriesAlexa;
+        List<Entry> entriesWaiters = new List<Entry>();
+        List<Entry> entriesTableUseAverage = new List<Entry>();
+        List<Entry> entriesAlexa = new List<Entry>();
         List<string> colors = new List<string>();
         List<string> daysWeek = new List<string>();
 
@@ -60,6 +61,10 @@ namespace MrPiattoRestaurant.Fragments
 
         DateTime hInterval1, hInterval2;
         DateTime dInterval1, dInterval2;
+        DateTime thourInterval1, thourInterval2;
+        DateTime tdayInterval1, tdayInterval2;
+        DateTime wInterval1, wInterval2;
+        DateTime sInterval1, sInterval2;
 
         TextView hourInterval1, hourInterval2;
         TextView tableUseInterval1, tableUseInterval2;
@@ -71,6 +76,9 @@ namespace MrPiattoRestaurant.Fragments
         Restaurant restaurant = new Restaurant();
         List<DayStatistics> dayStatistics = new List<DayStatistics>();
         List<HourStatistics> hourStatistics = new List<HourStatistics>();
+        List<TableStatistics> tableStatistics = new List<TableStatistics>();
+        List<Waiters> waiters = new List<Waiters>();
+        List<Surveys> surveys = new List<Surveys>();
         Schedule schedule = new Schedule();
 
         ChartView chartView1;
@@ -83,6 +91,9 @@ namespace MrPiattoRestaurant.Fragments
         LineChart chart1;
         BarChart chart2;
         DonutChart chart3;
+        RadialGaugeChart chart4;
+        BarChart chart5;
+        BarChart chart6;
 
         APICaller API = new APICaller();
 
@@ -92,6 +103,9 @@ namespace MrPiattoRestaurant.Fragments
             this.restaurant = restaurant;
             dayStatistics = API.GetDayStatistics(restaurant.Idrestaurant);
             hourStatistics = API.GetHourStatistics(restaurant.Idrestaurant);
+            tableStatistics = API.GetTableStatistics(restaurant.Idrestaurant);
+            waiters = API.GetWaiters(restaurant.Idrestaurant);
+            surveys = API.GetSurveys(restaurant.Idrestaurant);
             schedule = API.GetSchedule(restaurant.Idrestaurant);
             fillColors();
             fillDaysWeek();
@@ -121,110 +135,6 @@ namespace MrPiattoRestaurant.Fragments
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Chart 2. Table use per hour
-            entriesTableUse = new List<Entry>
-            {
-                new Entry(20)
-                {
-                    Color = SKColor.Parse("#E06D64"),
-                    Label = "Mesa 1",
-                    ValueLabel = "20"
-                },
-                new Entry(40)
-                {
-                    Color = SKColor.Parse("#E38259"),
-                    Label = "Mesa 2",
-                    ValueLabel = "40"
-                },
-                new Entry(50)
-                {
-                    Color = SKColor.Parse("#E69852"),
-                    Label = "Mesa 3",
-                    ValueLabel = "50"
-                },
-                new Entry(15)
-                {
-                    Color = SKColor.Parse("#E5AE51"),
-                    Label = "Mesa 4",
-                    ValueLabel = "15"
-                },
-                new Entry(30)
-                {
-                    Color = SKColor.Parse("#EDC13F"),
-                    Label = "Mesa 5",
-                    ValueLabel = "30"
-                },
-            };
-            // Chart 4. Waiters
-            entriesWaiters = new List<Entry>
-            {
-                new Entry(9)
-                {
-                    Color = SKColor.Parse("#E06D64"),
-                    Label = "Juan",
-                    ValueLabel = "9"
-                },
-                new Entry(9.2f)
-                {
-                    Color = SKColor.Parse("#E38259"),
-                    Label = "Pepe",
-                    ValueLabel = "9.2"
-                },
-                new Entry(8.7f)
-                {
-                    Color = SKColor.Parse("#E69852"),
-                    Label = "Jesus",
-                    ValueLabel = "8.7"
-                },
-                new Entry(9)
-                {
-                    Color = SKColor.Parse("#E5AE51"),
-                    Label = "Jose",
-                    ValueLabel = "9"
-                },
-                new Entry(10)
-                {
-                    Color = SKColor.Parse("#EDC13F"),
-                    Label = "Guillermo",
-                    ValueLabel = "10"
-                },
-            };
-
-            // Chart 5. Table Use Average per hour
-            entriesTableUseAverage = new List<Entry>
-            {
-                new Entry(20)
-                {
-                    Color = SKColor.Parse("#E06D64"),
-                    Label = "Mesa 1",
-                    ValueLabel = "20"
-                },
-                new Entry(40)
-                {
-                    Color = SKColor.Parse("#E38259"),
-                    Label = "Mesa 2",
-                    ValueLabel = "40"
-                },
-                new Entry(50)
-                {
-                    Color = SKColor.Parse("#E69852"),
-                    Label = "Mesa 3",
-                    ValueLabel = "50"
-                },
-                new Entry(15)
-                {
-                    Color = SKColor.Parse("#E5AE51"),
-                    Label = "Mesa 4",
-                    ValueLabel = "15"
-                },
-                new Entry(30)
-                {
-                    Color = SKColor.Parse("#EDC13F"),
-                    Label = "Mesa 5",
-                    ValueLabel = "30"
-                },
-            };
 
             // Chart 5. Alexa
             entriesAlexa = new List<Entry>
@@ -421,6 +331,190 @@ namespace MrPiattoRestaurant.Fragments
             chartView3.Chart = chart3;
         }
 
+        private void fillTableHours()
+        {
+            entriesTableHours.Clear();
+
+            List<TableStatistics> auxStatistics = new List<TableStatistics>();
+            List<TableStats> tableStats = new List<TableStats>();
+
+            // Obtenemos y ordenamos las mesas por el id de la mesa
+            auxStatistics = tableStatistics.Where(d => d.DateStatistics >= thourInterval1 && d.DateStatistics <= thourInterval2).ToList();
+            auxStatistics.OrderBy(id => id.IDTable); 
+
+            // Iteramos por cada  mesa y obtenemos el promedio de sus horas
+            for (int i = 0; i < auxStatistics.Count;)
+            {
+                int auxId = auxStatistics[i].IDTable;
+                double averageAux = 0;
+                while (i < auxStatistics.Count && auxId == auxStatistics[i].IDTable)
+                {
+                    if (averageAux == 0)
+                        averageAux = auxStatistics[i].AvarageUse;
+                    else
+                        averageAux = (averageAux + auxStatistics[i].AvarageUse) / 2;
+                    ++i;
+                }
+                tableStats.Add(new TableStats(i.ToString(), averageAux));
+            }
+
+            // Mostramos los resultados en las graficas
+            for (int i = 0; i < tableStats.Count; ++i)
+            {
+                Entry entry = new Entry((float)tableStats[i].Average)
+                {
+                    Color = SKColor.Parse(colors[i % 7]),
+                    Label = tableStats[i].Name,
+                    ValueLabel = tableStats[i].Average.ToString()
+                };
+                entriesTableHours.Add(entry);
+            }
+
+            chart2 = new BarChart() { Entries = entriesTableHours };
+            chartView2.Chart = chart2;
+        }
+
+        private void fillWaiters()
+        {
+            entriesWaiters.Clear();
+
+            List<Waiters> auxWaiters = new List<Waiters>();
+            List<TableStats> tableStats = new List<TableStats>();
+
+            auxWaiters = waiters.Where(d => d.DateStatistics >= wInterval1 && d.DateStatistics <= wInterval2).ToList();
+
+            // Colocamos los valores
+            var rates = auxWaiters
+                .GroupBy(d => d.WaiterFirstName, a => a.WaiterRating)
+                .Select(g => new 
+                {
+                    Name = g.Key,
+                    Avg = g.Average()
+                });
+
+            foreach (var rate in rates)
+            {
+                tableStats.Add(new TableStats(rate.Name, rate.Avg));
+            }
+
+            // Mostramos los resultados en las graficas
+            for (int i = 0; i < tableStats.Count; ++i)
+            {
+                Entry entry = new Entry((float)tableStats[i].Average)
+                {
+                    Color = SKColor.Parse(colors[i % 7]),
+                    Label = tableStats[i].Name,
+                    ValueLabel = tableStats[i].Average.ToString()
+                };
+                entriesWaiters.Add(entry);
+            }
+
+            chart4 = new RadialGaugeChart() { Entries = entriesWaiters };
+            chartView4.Chart = chart4;
+        }
+
+        private void fillTableDays()
+        {
+            entriesTableUseAverage.Clear();
+
+            List<TableStatistics> auxStatistics = new List<TableStatistics>();
+            List<TableStats> tableStats = new List<TableStats>();
+            List<int> ids = new List<int>();
+
+            // Obtenemos y ordenamos las mesas por el id de la mesa
+            auxStatistics = tableStatistics.Where(d => d.DateStatistics >= tdayInterval1 && d.DateStatistics <= tdayInterval2).ToList();
+
+            ids = auxStatistics.Select(id => id.IDTable).Distinct().ToList();
+
+            // Iteramos por cada  mesa y obtenemos el promedio de sus horas
+            foreach (int id in ids)
+            {
+                double averageAux = 0;
+                var rates = auxStatistics
+                    .Where(i => i.IDTable == id)
+                    .GroupBy(d => d.DateStatistics.Date, a => a.AvarageUse)
+                    .Select(g => new
+                    {
+                        DateStatistics = g.Key,
+                        AvarageUse = g.Sum()
+                    });
+
+                foreach(var x in rates)
+                {
+                    if (averageAux == 0)
+                        averageAux = x.AvarageUse;
+                    else
+                        averageAux = (averageAux + x.AvarageUse) / 2;
+                }
+                tableStats.Add(new TableStats(id.ToString(), averageAux));
+            }
+
+            // Mostramos los resultados en las graficas
+            for (int i = 0; i < tableStats.Count; ++i)
+            {
+                Entry entry = new Entry((float)tableStats[i].Average)
+                {
+                    Color = SKColor.Parse(colors[i % 7]),
+                    Label = tableStats[i].Name,
+                    ValueLabel = tableStats[i].Average.ToString()
+                };
+                entriesTableUseAverage.Add(entry);
+            }
+
+            chart5 = new BarChart() { Entries = entriesTableUseAverage };
+            chartView5.Chart = chart5;
+        }
+
+        private void fillSurveys()
+        {
+            entriesAlexa.Clear();
+
+            List<Surveys> auxSurveys = new List<Surveys>();
+
+            auxSurveys = surveys.Where(d => d.DateStatistics >= sInterval1 && d.DateStatistics <= sInterval2).ToList();
+
+            // Colocamos los valores
+            if (auxSurveys.Any())
+            {
+                double foodRating = auxSurveys.Average(a => a.FoodRating);
+                double comfortRating = auxSurveys.Average(a => a.ComfortRating);
+                double serviceRating = auxSurveys.Average(a => a.ServiceRating);
+
+                // Mostramos los resultados en las graficas
+                Entry entry;
+                entry = new Entry((float)foodRating)
+                {
+                    Color = SKColor.Parse(colors[0]),
+                    Label = "Comida",
+                    ValueLabel = foodRating.ToString()
+                };
+                entriesAlexa.Add(entry);
+
+                entry = new Entry((float)comfortRating)
+                {
+                    Color = SKColor.Parse(colors[1]),
+                    Label = "Comodidad",
+                    ValueLabel = comfortRating.ToString()
+                };
+                entriesAlexa.Add(entry);
+
+                entry = new Entry((float)serviceRating)
+                {
+                    Color = SKColor.Parse(colors[2]),
+                    Label = "Servicio",
+                    ValueLabel = serviceRating.ToString()
+                };
+                entriesAlexa.Add(entry);
+
+                chart6 = new BarChart() { Entries = entriesAlexa };
+                chartView6.Chart = chart6;
+            } else
+            {
+                chart6 = new BarChart() { Entries = entriesAlexa };
+                chartView6.Chart = chart6;
+            }
+        }
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.activity_dashboard_statistics, container, false);
@@ -452,20 +546,6 @@ namespace MrPiattoRestaurant.Fragments
             InitializeIntervals();
             ShowIntervals();
 
-            chart1 = new LineChart() { Entries = entriesHours };
-            chart2 = new BarChart() { Entries = entriesTableUse };
-            chart3 = new DonutChart() { Entries = entriesDays };
-            var chart4 = new RadialGaugeChart() { Entries = entriesWaiters };
-            var chart5 = new BarChart() { Entries = entriesTableUseAverage };
-            var chart6 = new BarChart() { Entries = entriesAlexa };
-
-            chartView1.Chart = chart1;
-            chartView2.Chart = chart2;
-            chartView3.Chart = chart3;
-            chartView4.Chart = chart4;
-            chartView5.Chart = chart5;
-            chartView6.Chart = chart6;
-
             var adapter1 = new ArrayAdapter<string>(context, Resource.Layout.statistics_spinner_item, listTableUse);
             adapter1.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinnerTableUse.Adapter = adapter1;
@@ -494,6 +574,10 @@ namespace MrPiattoRestaurant.Fragments
             // Fill all charts
             fillHours();
             fillDays();
+            fillTableHours();
+            fillTableDays();
+            fillWaiters();
+            fillSurveys();
 
             return view;
         }
@@ -504,6 +588,14 @@ namespace MrPiattoRestaurant.Fragments
             hInterval2 = hourStatistics.Max(d => d.DateStatistics);
             dInterval1 = dayStatistics.Min(d => d.DateStatistics);
             dInterval2 = dayStatistics.Max(d => d.DateStatistics);
+            thourInterval1 = hourStatistics.Min(d => d.DateStatistics);
+            thourInterval2 = hourStatistics.Max(d => d.DateStatistics);
+            tdayInterval1 = hourStatistics.Min(d => d.DateStatistics);
+            tdayInterval2 = hourStatistics.Max(d => d.DateStatistics);
+            wInterval1 = waiters.Min(d => d.DateStatistics);
+            wInterval2 = waiters.Max(d => d.DateStatistics);
+            sInterval1 = surveys.Min(d => d.DateStatistics);
+            sInterval2 = surveys.Max(d => d.DateStatistics);
         }
 
         private void ShowIntervals()
@@ -512,6 +604,14 @@ namespace MrPiattoRestaurant.Fragments
             hourInterval2.Text = hInterval2.ToString("dd/MM/yyyy");
             daysInterval1.Text = dInterval1.ToString("dd/MM/yyyy");
             daysInterval2.Text = dInterval2.ToString("dd/MM/yyyy");
+            tableUseInterval1.Text = thourInterval1.ToString("dd/MM/yyyy");
+            tableUseInterval2.Text = thourInterval2.ToString("dd/MM/yyyy");
+            tableAverageInterval1.Text = tdayInterval1.ToString("dd/MM/yyyy");
+            tableAverageInterval2.Text = tdayInterval2.ToString("dd/MM/yyyy");
+            waitersInterval1.Text = wInterval1.ToString("dd/MM/yyyy");
+            waitersInterval2.Text = wInterval2.ToString("dd/MM/yyyy");
+            alexaInterval1.Text = sInterval1.ToString("dd/MM/yyyy");
+            alexaInterval2.Text = sInterval2.ToString("dd/MM/yyyy");
         }
 
         private void onHourInterval1(object sender, EventArgs e)
@@ -542,7 +642,8 @@ namespace MrPiattoRestaurant.Fragments
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 tableUseInterval1.Text = time.ToString("dd/MM/yyyy");
-
+                thourInterval1 = time;
+                fillTableHours();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
@@ -552,7 +653,8 @@ namespace MrPiattoRestaurant.Fragments
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 tableUseInterval2.Text = time.ToString("dd/MM/yyyy");
-
+                thourInterval2 = time;
+                fillTableHours();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
@@ -584,7 +686,8 @@ namespace MrPiattoRestaurant.Fragments
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 waitersInterval1.Text = time.ToString("dd/MM/yyyy");
-
+                wInterval1 = time;
+                fillWaiters();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
@@ -594,7 +697,8 @@ namespace MrPiattoRestaurant.Fragments
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 waitersInterval2.Text = time.ToString("dd/MM/yyyy");
-
+                wInterval2 = time;
+                fillWaiters();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
@@ -604,6 +708,8 @@ namespace MrPiattoRestaurant.Fragments
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 tableAverageInterval1.Text = time.ToString("dd/MM/yyyy");
+                tdayInterval1 = time;
+                fillTableDays();
 
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
@@ -614,7 +720,8 @@ namespace MrPiattoRestaurant.Fragments
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 tableAverageInterval2.Text = time.ToString("dd/MM/yyyy");
-
+                tdayInterval2 = time;
+                fillTableDays();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
@@ -623,8 +730,9 @@ namespace MrPiattoRestaurant.Fragments
         {
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
-                alexaInterval1.Text = time.ToLongDateString();
-
+                alexaInterval1.Text = time.ToString("dd/MM/yyyy");
+                sInterval1 = time;
+                fillSurveys();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
@@ -633,8 +741,9 @@ namespace MrPiattoRestaurant.Fragments
         {
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
-                alexaInterval2.Text = time.ToLongDateString();
-
+                alexaInterval2.Text = time.ToString("dd/MM/yyyy");
+                sInterval2 = time;
+                fillSurveys();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
