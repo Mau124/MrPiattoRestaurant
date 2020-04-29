@@ -138,6 +138,7 @@ LinearLayout;obj\Debug\90\res\layout\activity_main.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_answer_survey.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_join_tables.xml
+LinearLayout;obj\Debug\90\res\layout\item_futurelist.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item_gallery.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item_waiter.xml
@@ -148,6 +149,7 @@ LinearLayout;obj\Debug\90\res\layout\layout_promotions.xml
 LinearLayout;obj\Debug\90\res\layout\layout_schedule.xml
 LinearLayout;obj\Debug\90\res\layout\layout_section.xml
 LinearLayout;obj\Debug\90\res\layout\recycler_actuallist.xml
+LinearLayout;obj\Debug\90\res\layout\recycler_futurelist.xml
 LinearLayout;obj\Debug\90\res\layout\table_properties.xml
 menu;obj\Debug\90\res\menu\actuallistmenu.xml
 menu;obj\Debug\90\res\menu\bottom_navigation_main.xml
@@ -269,6 +271,7 @@ TextView;obj\Debug\90\res\layout\layout_section.xml
 TextView;obj\Debug\90\res\layout\modify_floor.xml
 TextView;obj\Debug\90\res\layout\modify_waitlist.xml
 TextView;obj\Debug\90\res\layout\recycler_actuallist.xml
+TextView;obj\Debug\90\res\layout\recycler_futurelist.xml
 TextView;obj\Debug\90\res\layout\recycler_notifications.xml
 TextView;obj\Debug\90\res\layout\recycler_waitlist.xml
 TextView;obj\Debug\90\res\layout\spinner_item_politics.xml
@@ -280,3 +283,4 @@ View;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 View;obj\Debug\90\res\layout\activity_main.xml
 View;obj\Debug\90\res\layout\layout_item_gallery.xml
 View;obj\Debug\90\res\layout\layout_item_waiter.xml
+View;obj\Debug\90\res\layout\recycler_futurelist.xml

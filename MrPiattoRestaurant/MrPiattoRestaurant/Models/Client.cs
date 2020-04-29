@@ -18,7 +18,9 @@ namespace MrPiattoRestaurant.Models
         public int timeUsed { get; set; }
         public DateTime reservationDate { get; set; }
         public int Seats { get; set; }
-
+        public string floorName { get; set; }
+        public string tableName { get; set; }
+        public Client() { }
         public Client(string name, int timeUsed, DateTime reservationDate, int Seats)
         {
             this.name = name;

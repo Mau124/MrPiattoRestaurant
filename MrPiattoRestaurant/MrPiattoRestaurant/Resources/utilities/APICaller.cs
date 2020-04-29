@@ -91,6 +91,29 @@ namespace MrPiattoRestaurant.Resources.utilities
                 return null;
             }
         }
+
+        public List<Reservation> GetReservations(int idRestaurant)
+        {
+            List<Reservation> reservations;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/Res/{idRestaurant}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    reservations = JsonConvert.DeserializeObject<List<Reservation>>(json);
+                }
+
+                return reservations;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         public string GetUserName(int idUser)
         {
             string userName;

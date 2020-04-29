@@ -11,5 +11,8 @@ namespace MrPiattoRestaurant.ModelsDB
         public DateTime Date { get; set; }
         public int AmountOfPeople { get; set; }
         public string Url { get; set; }
+
+        public virtual RestaurantTables IdtableNavigation { get; set; }
+        public virtual User IduserNavigation { get; set; }
     }
 }

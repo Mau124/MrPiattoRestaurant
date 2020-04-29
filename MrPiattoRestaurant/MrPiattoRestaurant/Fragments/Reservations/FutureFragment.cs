@@ -16,7 +16,9 @@ using Android.Support.V4.App;
 using MrPiattoRestaurant.adapters.futureListAdapters;
 using MrPiattoRestaurant.Models.Reservations;
 using MrPiattoRestaurant.Models;
+using MrPiattoRestaurant.ModelsDB;
 using MrPiattoRestaurant.Pickers;
+using MrPiattoRestaurant.Resources.utilities;
 
 namespace MrPiattoRestaurant.Fragments.Reservations
 {
@@ -25,23 +27,57 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         Button newReservation;
         RecyclerView mRecyclerView;
 
+        TextView interval1;
+        TextView interval2;
+
+        DateTime dInterval1;
+        DateTime dInterval2;
+
         private Context context;
 
         //RecyclerView elements
-        public RecyclerView.LayoutManager mLayoutManager;
-        public FutureListAdapter mAdapter;
+        private RecyclerView.LayoutManager mLayoutManager;
+        private FutureListAdapter mAdapter;
 
-        public List<Client> futureList = new List<Client>();
+        private List<Client> futureList = new List<Client>();
+        private List<Reservation> reservations = new List<Reservation>();
+        private Restaurant restaurant = new Restaurant();
+        private APICaller API = new APICaller();
 
         public FutureFragment()
         {
             futureList = new List<Client>();
         }
 
-        public FutureFragment(Context context, List<Client> futureList)
+        public FutureFragment(Context context, Restaurant restaurant)
         {
             this.context = context;
-            this.futureList = futureList;
+            this.restaurant = restaurant;
+            reservations = API.GetReservations(restaurant.Idrestaurant);
+        }
+
+        private void updateRes()
+        {
+            futureList.Clear();
+            List<Reservation> auxReservations = new List<Reservation>();
+            auxReservations = reservations.Where(d => d.Date >= dInterval1 && d.Date <= dInterval2).ToList();
+            
+            foreach (Reservation res in auxReservations)
+            {
+                Client c = new Client();
+                c.name = res.IduserNavigation.FirstName + " " + res.IduserNavigation.LastName;
+                c.timeUsed = 0;
+                c.reservationDate = res.Date;
+                c.Seats = res.AmountOfPeople;
+                c.floorName = res.IdtableNavigation.FloorName;
+                c.tableName = res.IdtableNavigation.tableName;
+                futureList.Add(c);
+            }
+            futureList.OrderBy(d => d.reservationDate);
+
+            mAdapter = new FutureListAdapter(context, futureList);
+            mAdapter.HasStableIds = true;
+            mRecyclerView.SetAdapter(mAdapter);
         }
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -57,6 +93,8 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
             newReservation = view.FindViewById<Button>(Resource.Id.idButton);
             mRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
+            interval1 = view.FindViewById<TextView>(Resource.Id.idInterval1);
+            interval2 = view.FindViewById<TextView>(Resource.Id.idInterval2);
 
             mLayoutManager = new LinearLayoutManager(Application.Context);
             mAdapter = new FutureListAdapter(context, futureList);
@@ -66,6 +104,13 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             mRecyclerView.SetAdapter(mAdapter);
 
             newReservation.Click += delegate { OnAddReservation(); };
+
+            interval1.Click += OnInterval1;
+            interval2.Click += OnInterval2;
+
+            initializeIntervals();
+            updateRes();
+
             return view;
         }
 
@@ -137,6 +182,36 @@ namespace MrPiattoRestaurant.Fragments.Reservations
                 });
                 frag.Show(FragmentManager, TimePickerFragment.TAG);
             };
+        }
+
+        private void initializeIntervals()
+        {
+            dInterval1 = reservations.Min(d => d.Date);
+            dInterval2 = reservations.Max(d => d.Date);
+            interval1.Text = dInterval1.ToString("dd/MM/yyyy");
+            interval2.Text = dInterval2.ToString("dd/MM/yyyy");
+        }
+
+        private void OnInterval1(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                interval1.Text = time.ToString("dd/MM/yyyy");
+                dInterval1 = time;
+                updateRes();
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void OnInterval2(object sender, EventArgs e)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                interval2.Text = time.ToString("dd/MM/yyyy");
+                dInterval2 = time;
+                updateRes();
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
     }
 }

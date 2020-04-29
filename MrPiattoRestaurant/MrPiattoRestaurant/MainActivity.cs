@@ -192,7 +192,7 @@ namespace MrPiattoRestaurant
                     fragment = new ActualFragment(this, floors.ElementAt(floorIndex).ocupiedTables);
                     break;
                 case Resource.Id.idFutureList:
-                    fragment = new FutureFragment(this, floors.ElementAt(floorIndex).GetReservations(DateTime.Now));
+                    fragment = new FutureFragment(this, restaurant);
                     break;
                 case Resource.Id.idWaitList:
                     fragment = waitFragment;
@@ -327,7 +327,7 @@ namespace MrPiattoRestaurant
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 date.Text = time.ToLongDateString();
-                Android.Support.V4.App.Fragment fragment = new FutureFragment(this, floors.ElementAt(floorIndex).GetReservations(time));
+                Android.Support.V4.App.Fragment fragment = new FutureFragment(this, restaurant);
                 SupportFragmentManager.BeginTransaction()
                 .Replace(Resource.Id.idContent_frame, fragment)
                 .Commit();

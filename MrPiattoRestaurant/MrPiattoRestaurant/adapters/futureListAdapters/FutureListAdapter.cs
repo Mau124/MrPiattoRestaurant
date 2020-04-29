@@ -38,7 +38,9 @@ namespace MrPiattoRestaurant.adapters.futureListAdapters
         {
             FutureListViewHolder vh = holder as FutureListViewHolder;
             vh.personName.Text = futureList.ElementAt(position).name;
-            vh.tableName.Text = futureList.ElementAt(position).reservationDate.ToString();
+            vh.tableName.Text = futureList.ElementAt(position).floorName + ", " + futureList.ElementAt(position).tableName;
+            vh.seats.Text = futureList.ElementAt(position).Seats.ToString() + " sillas";
+            vh.date.Text = futureList.ElementAt(position).reservationDate.ToString();
 
             vh.menu.Click += (s, arg) =>
             {
@@ -76,12 +78,14 @@ namespace MrPiattoRestaurant.adapters.futureListAdapters
         }
         public class FutureListViewHolder : RecyclerView.ViewHolder
         {
-            public TextView personName, tableName, reservationCode, menu;
+            public TextView personName, tableName, seats, date, reservationCode, menu;
 
             public FutureListViewHolder(View itemView) : base(itemView)
             {
                 personName = itemView.FindViewById<TextView>(Resource.Id.idPersonName);
                 tableName = itemView.FindViewById<TextView>(Resource.Id.idtableName);
+                seats = itemView.FindViewById<TextView>(Resource.Id.idtableSeats);
+                date = itemView.FindViewById<TextView>(Resource.Id.idDate);
                 //reservationCode = itemView.FindViewById<TextView>(Resource.Id.idReservationCode);
                 menu = itemView.FindViewById<TextView>(Resource.Id.idViewOptions);
             }

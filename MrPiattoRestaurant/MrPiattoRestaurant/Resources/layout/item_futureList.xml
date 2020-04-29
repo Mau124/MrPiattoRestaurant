@@ -29,25 +29,44 @@
         android:text="Mauricio Andres Flores Perez"
         android:textColor="#333333"/>
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/itemTable"
-        android:id="@+id/idImageTable"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idPersonName"/>
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/idtableName"
-        android:layout_marginLeft="10dp"
-        app:layout_constraintLeft_toRightOf="@+id/idImageTable"
-        app:layout_constraintTop_toTopOf="@+id/idImageTable"
-        app:layout_constraintBottom_toBottomOf="@+id/idImageTable"
-        android:text="Mesa 1"/>
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/idPersonName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/idTableInfo"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/itemTable"
+            android:id="@+id/idImageTable"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/idtableName"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Mesa 1"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/chair"
+            android:id="@+id/idImageTable"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/idtableSeats"
+            android:layout_marginLeft="10dp"
+            android:text="Mesa 1"/>
+
+    </LinearLayout>
 
     <ImageView
         android:layout_width="20dp"
@@ -57,7 +76,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idtableName"/>
+        app:layout_constraintTop_toBottomOf="@+id/idTableInfo"/>
 
     <TextView
         android:layout_width="wrap_content"
