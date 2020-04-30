@@ -158,7 +158,6 @@ menu;obj\Debug\90\res\menu\waitlistmenu.xml
 Microcharts.Droid.ChartView;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 paths;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\40\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 RelativeLayout;obj\Debug\90\res\layout\activity_main.xml
-RelativeLayout;obj\Debug\90\res\layout\layout_item_gallery.xml
 resources;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\0\jl\res\values\strings.xml
 resources;obj\Debug\90\res\values\colors.xml
 resources;obj\Debug\90\res\values\dimens.xml
@@ -166,7 +165,6 @@ resources;obj\Debug\90\res\values\ic_launcher_background.xml
 resources;obj\Debug\90\res\values\periods.xml
 resources;obj\Debug\90\res\values\strings.xml
 resources;obj\Debug\90\res\values\styles.xml
-ScrollView;obj\Debug\90\res\layout\layout_schedule.xml
 SeekBar;obj\Debug\90\res\layout\add_waitlist.xml
 SeekBar;obj\Debug\90\res\layout\layout_manual_reservation.xml
 SeekBar;obj\Debug\90\res\layout\table_properties.xml
@@ -260,7 +258,6 @@ TextView;obj\Debug\90\res\layout\item_waitlist.xml
 TextView;obj\Debug\90\res\layout\layout_add_waiter.xml
 TextView;obj\Debug\90\res\layout\layout_catalogue.xml
 TextView;obj\Debug\90\res\layout\layout_item.xml
-TextView;obj\Debug\90\res\layout\layout_item_gallery.xml
 TextView;obj\Debug\90\res\layout\layout_item_waiter.xml
 TextView;obj\Debug\90\res\layout\layout_login.xml
 TextView;obj\Debug\90\res\layout\layout_manual_reservation.xml

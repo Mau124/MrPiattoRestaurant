@@ -42,6 +42,7 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
+    <MandroidI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -113,6 +114,7 @@
     <Compile Include="Models\Table.cs" />
     <Compile Include="Args\TablePressedEventArgs.cs" />
     <Compile Include="Resources\utilities\APICaller.cs" />
+    <Compile Include="Resources\utilities\APIUpdate.cs" />
     <Compile Include="Resources\utilities\ImageHelper.cs" />
     <Compile Include="Views\TablePropertiesView.cs" />
   </ItemGroup>
@@ -150,6 +152,9 @@
   <ItemGroup>
     <PackageReference Include="Microcharts">
       <Version>0.7.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Net.Http">
+      <Version>2.2.29</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>

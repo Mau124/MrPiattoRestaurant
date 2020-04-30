@@ -32,6 +32,7 @@ namespace MrPiattoRestaurant.Fragments
         private List<Waiters> waiters = new List<Waiters>();
         private Schedule schedule = new Schedule();
         private APICaller API = new APICaller();
+        private APIUpdate APIupdate = new APIUpdate();
 
         //This is for schedule
         TextView monday1, monday2;
@@ -614,9 +615,18 @@ namespace MrPiattoRestaurant.Fragments
             frag.Show(FragmentManager, TimePickerFragment.TAG);
         }
 
-        private void acceptRestaurant(object sender, EventArgs e)
+        private async void acceptRestaurant(object sender, EventArgs e)
         {
             InitializeRes();
+
+            Restaurant res = new Restaurant(restaurant);
+
+            res.Name = restaurantName.Text;
+            res.Description = restaurantDesc.Text;
+
+            var response = await APIupdate.UpdateRestaurant(res);
+            Toast.MakeText(context, response, ToastLength.Long).Show();
+            
             modifyPass.Visibility = ViewStates.Visible;
             modifyHours.Visibility = ViewStates.Visible;
             modifyRes.Text = "Modificar";
