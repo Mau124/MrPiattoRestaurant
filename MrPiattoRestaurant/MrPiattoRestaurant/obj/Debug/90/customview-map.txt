@@ -44,6 +44,7 @@ background;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 background;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
 Button;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 Button;obj\Debug\90\res\layout\activity_dashboard_gallery.xml
+Button;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 Button;obj\Debug\90\res\layout\activity_main.xml
 Button;obj\Debug\90\res\layout\add_waitlist.xml
 Button;obj\Debug\90\res\layout\addfloor.xml
@@ -82,7 +83,7 @@ corners;obj\Debug\90\res\drawable\second_button.xml
 corners;obj\Debug\90\res\drawable\statistics_spinner_background.xml
 corners;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 dimen;obj\Debug\90\res\values\dimens.xml
-EditText;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
+EditText;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 EditText;obj\Debug\90\res\layout\add_waitlist.xml
 EditText;obj\Debug\90\res\layout\addfloor.xml
 EditText;obj\Debug\90\res\layout\layout_add_waiter.xml
@@ -101,6 +102,7 @@ FrameLayout;obj\Debug\90\res\layout\layout_main_container.xml
 ImageButton;obj\Debug\90\res\layout\activity_main.xml
 ImageView;obj\Debug\90\res\layout\activity_dashboard.xml
 ImageView;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
+ImageView;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 ImageView;obj\Debug\90\res\layout\activity_main.xml
 ImageView;obj\Debug\90\res\layout\add_waitlist.xml
 ImageView;obj\Debug\90\res\layout\addfloor.xml
@@ -133,6 +135,7 @@ item;obj\Debug\90\res\values\periods.xml
 item;obj\Debug\90\res\values\strings.xml
 item;obj\Debug\90\res\values\styles.xml
 LinearLayout;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
+LinearLayout;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 LinearLayout;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 LinearLayout;obj\Debug\90\res\layout\activity_main.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_answer_survey.xml
@@ -157,6 +160,7 @@ menu;obj\Debug\90\res\menu\futurelistmenu.xml
 menu;obj\Debug\90\res\menu\waitlistmenu.xml
 Microcharts.Droid.ChartView;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 paths;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\40\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+RelativeLayout;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 RelativeLayout;obj\Debug\90\res\layout\activity_main.xml
 resources;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\0\jl\res\values\strings.xml
 resources;obj\Debug\90\res\values\colors.xml
@@ -165,6 +169,7 @@ resources;obj\Debug\90\res\values\ic_launcher_background.xml
 resources;obj\Debug\90\res\values\periods.xml
 resources;obj\Debug\90\res\values\strings.xml
 resources;obj\Debug\90\res\values\styles.xml
+ScrollView;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 SeekBar;obj\Debug\90\res\layout\add_waitlist.xml
 SeekBar;obj\Debug\90\res\layout\layout_manual_reservation.xml
 SeekBar;obj\Debug\90\res\layout\table_properties.xml
@@ -219,7 +224,7 @@ solid;obj\Debug\90\res\drawable\statistics_spinner_background.xml
 solid;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 solid;obj\Debug\90\res\drawable\subtitles_design.xml
 solid;obj\Debug\90\res\drawable\theme_color.xml
-Spinner;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
+Spinner;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 Spinner;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 Spinner;obj\Debug\90\res\layout\activity_main.xml
 string;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\0\jl\res\values\strings.xml
@@ -241,9 +246,10 @@ stroke;obj\Debug\90\res\drawable\second_button.xml
 stroke;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 stroke;obj\Debug\90\res\drawable\subtitles_design.xml
 style;obj\Debug\90\res\values\styles.xml
-Switch;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
+Switch;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 TextView;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 TextView;obj\Debug\90\res\layout\activity_dashboard_gallery.xml
+TextView;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 TextView;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 TextView;obj\Debug\90\res\layout\activity_main.xml
 TextView;obj\Debug\90\res\layout\add_waitlist.xml
@@ -274,8 +280,8 @@ TextView;obj\Debug\90\res\layout\recycler_waitlist.xml
 TextView;obj\Debug\90\res\layout\spinner_item_politics.xml
 TextView;obj\Debug\90\res\layout\statistics_spinner_item.xml
 TextView;obj\Debug\90\res\layout\table_properties.xml
-View;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 View;obj\Debug\90\res\layout\activity_dashboard_gallery.xml
+View;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 View;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 View;obj\Debug\90\res\layout\activity_main.xml
 View;obj\Debug\90\res\layout\layout_item_gallery.xml

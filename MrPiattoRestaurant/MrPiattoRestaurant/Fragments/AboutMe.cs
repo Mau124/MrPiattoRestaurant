@@ -43,14 +43,15 @@ namespace MrPiattoRestaurant.Fragments
         TextView saturday1, saturday2;
         TextView sunday1, sunday2;
 
-        TextView strikeType;
-        EditText maxRes, minRes, maxArrive, minMod, strikeTime;
-        Spinner spinner, spinner2, spinner3, spinner4;
-        Switch switch1, switch2;
-        Button mod, accept, addWaiter;
+        //TextView strikeType;
+        //EditText maxRes, minRes, maxArrive, minMod, strikeTime;
+        //Spinner spinner, spinner2, spinner3, spinner4;
+        //Switch switch1, switch2;
+        //Button mod, accept; 
+        Button addWaiter;
 
-        EditText restaurantName, restaurantMail, restaurantDesc;
-        Button modifyRes, modifyPass, modifyHours, acceptRes;
+        TextView restaurantName, restaurantMail, restaurantDesc;
+        LinearLayout modifyRes, modifyPass, modifyHours;
 
         Color main = new Color(222, 96, 104);
         Color unused = new Color(134, 142, 150);
@@ -82,37 +83,36 @@ namespace MrPiattoRestaurant.Fragments
 
             mRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
 
-            spinner = view.FindViewById<Spinner>(Resource.Id.idSpinner);
-            spinner2 = view.FindViewById<Spinner>(Resource.Id.idSpinner2);
-            spinner3 = view.FindViewById<Spinner>(Resource.Id.idSpinner3);
-            spinner4 = view.FindViewById<Spinner>(Resource.Id.idSpinner4);
-            switch1 = view.FindViewById<Switch>(Resource.Id.idSwitch1);
-            switch2 = view.FindViewById<Switch>(Resource.Id.idSwitch2);
+            //spinner = view.FindViewById<Spinner>(Resource.Id.idSpinner);
+            //spinner2 = view.FindViewById<Spinner>(Resource.Id.idSpinner2);
+            //spinner3 = view.FindViewById<Spinner>(Resource.Id.idSpinner3);
+            //spinner4 = view.FindViewById<Spinner>(Resource.Id.idSpinner4);
+            //switch1 = view.FindViewById<Switch>(Resource.Id.idSwitch1);
+            //switch2 = view.FindViewById<Switch>(Resource.Id.idSwitch2);
 
-            maxRes = view.FindViewById<EditText>(Resource.Id.idMaxRes);
-            minRes = view.FindViewById<EditText>(Resource.Id.idMinRes);
-            maxArrive = view.FindViewById<EditText>(Resource.Id.idMaxArrive);
-            minMod = view.FindViewById<EditText>(Resource.Id.idMinMod);
-            strikeTime = view.FindViewById<EditText>(Resource.Id.idStrikeTime);
-            strikeType = view.FindViewById<TextView>(Resource.Id.idStrikeType);
+            //maxRes = view.FindViewById<EditText>(Resource.Id.idMaxRes);
+            //minRes = view.FindViewById<EditText>(Resource.Id.idMinRes);
+            //maxArrive = view.FindViewById<EditText>(Resource.Id.idMaxArrive);
+            //minMod = view.FindViewById<EditText>(Resource.Id.idMinMod);
+            //strikeTime = view.FindViewById<EditText>(Resource.Id.idStrikeTime);
+            //strikeType = view.FindViewById<TextView>(Resource.Id.idStrikeType);
 
-            mod = view.FindViewById<Button>(Resource.Id.idMod);
-            accept = view.FindViewById<Button>(Resource.Id.idAccept);
+            //mod = view.FindViewById<Button>(Resource.Id.idMod);
+            //accept = view.FindViewById<Button>(Resource.Id.idAccept);
             addWaiter = view.FindViewById<Button>(Resource.Id.idAddWaiter);
 
-            restaurantName = view.FindViewById<EditText>(Resource.Id.idRestaurantName);
-            restaurantMail = view.FindViewById<EditText>(Resource.Id.idRestaurantMail);
-            restaurantDesc = view.FindViewById<EditText>(Resource.Id.idRestaurantDesc);
+            restaurantName = view.FindViewById<TextView>(Resource.Id.idRestaurantName);
+            restaurantMail = view.FindViewById<TextView>(Resource.Id.idRestaurantMail);
+            restaurantDesc = view.FindViewById<TextView>(Resource.Id.idRestaurantDesc);
 
-            modifyRes = view.FindViewById<Button>(Resource.Id.idModifyRes);
-            modifyPass = view.FindViewById<Button>(Resource.Id.idModifyPass);
-            modifyHours = view.FindViewById<Button>(Resource.Id.idModifyHours);
-            acceptRes = view.FindViewById<Button>(Resource.Id.idAcceptRes);
+            modifyRes = view.FindViewById<LinearLayout>(Resource.Id.idModResInfo);
+            modifyPass = view.FindViewById<LinearLayout>(Resource.Id.idModPass);
+            modifyHours = view.FindViewById<LinearLayout>(Resource.Id.idModSche);
 
-            spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
-            spinner2.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner2_ItemSelected);
-            spinner3.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner3_ItemSelected);
-            spinner4.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner4_ItemSelected);
+            //spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
+            //spinner2.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner2_ItemSelected);
+            //spinner3.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner3_ItemSelected);
+            //spinner4.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner4_ItemSelected);
 
             InitializePolitics();
             InitializeRes();
@@ -131,20 +131,19 @@ namespace MrPiattoRestaurant.Fragments
                 context, Resource.Array.periods_array, Resource.Layout.spinner_item_politics);
 
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            spinner.Adapter = adapter;
-            spinner2.Adapter = adapter;
-            spinner3.Adapter = adapter;
-            spinner4.Adapter = adapter;
+            //spinner.Adapter = adapter;
+            //spinner2.Adapter = adapter;
+            //spinner3.Adapter = adapter;
+            //spinner4.Adapter = adapter;
 
-            switch1.CheckedChange += switch1_Toggled;
-            switch2.CheckedChange += switch2_Toggled;
+            //switch1.CheckedChange += switch1_Toggled;
+            //switch2.CheckedChange += switch2_Toggled;
 
-            mod.Click += modifyPolitics;
-            accept.Click += acceptPolitics;
+            //mod.Click += modifyPolitics;
+            //accept.Click += acceptPolitics;
             addWaiter.Click += onAddWaiter;
 
-            modifyRes.Click += modifyRestaurant;
-            acceptRes.Click += acceptRestaurant;
+            //modifyRes.Click += modifyRestaurant;
             modifyPass.Click += modifyPassword;
             modifyHours.Click += modifyHoursRes;
 
@@ -153,72 +152,64 @@ namespace MrPiattoRestaurant.Fragments
 
         private void InitializePolitics()
         {
-            maxRes.Enabled = false;
-            minRes.Enabled = false;
-            maxArrive.Enabled = false;
-            minMod.Enabled = false;
-            strikeTime.Enabled = false;
+            //maxRes.Enabled = false;
+            //minRes.Enabled = false;
+            //maxArrive.Enabled = false;
+            //minMod.Enabled = false;
+            //strikeTime.Enabled = false;
 
-            spinner.Enabled = false;
-            spinner2.Enabled = false;
-            spinner3.Enabled = false;
-            spinner4.Enabled = false;
+            //spinner.Enabled = false;
+            //spinner2.Enabled = false;
+            //spinner3.Enabled = false;
+            //spinner4.Enabled = false;
 
-            switch1.Enabled = false;
-            switch2.Enabled = false;
+            //switch1.Enabled = false;
+            //switch2.Enabled = false;
 
-            switch2.ThumbDrawable.SetColorFilter(disable, PorterDuff.Mode.SrcAtop);
-            switch2.TrackDrawable.SetColorFilter(disable, PorterDuff.Mode.Multiply);
+            //switch2.ThumbDrawable.SetColorFilter(disable, PorterDuff.Mode.SrcAtop);
+            //switch2.TrackDrawable.SetColorFilter(disable, PorterDuff.Mode.Multiply);
 
-            switch1.ThumbDrawable.SetColorFilter(disable, PorterDuff.Mode.SrcAtop);
-            switch1.TrackDrawable.SetColorFilter(disable, PorterDuff.Mode.Multiply);
+            //switch1.ThumbDrawable.SetColorFilter(disable, PorterDuff.Mode.SrcAtop);
+            //switch1.TrackDrawable.SetColorFilter(disable, PorterDuff.Mode.Multiply);
 
-            accept.Visibility = ViewStates.Gone;
+            //accept.Visibility = ViewStates.Gone;
         }
 
         private void InitializeRes()
         {
-            restaurantName.Hint = restaurant.Name;
-            restaurantMail.Hint = restaurant.Mail;
-            restaurantDesc.Hint = restaurant.Description;
 
-            restaurantName.Enabled = false;
-            restaurantMail.Enabled = false;
-            restaurantDesc.Enabled = false;
-
-            acceptRes.Visibility = ViewStates.Gone;
         }
 
         private void InitializePolicies()
         {
             policies = API.GetPolicies(restaurant.Idrestaurant);
-            maxRes.Hint = policies.MaxTimeRes.ToString();
-            minRes.Hint = policies.MinTimeRes.ToString();
-            maxArrive.Hint = policies.MaxTimeArr.ToString();
-            minMod.Hint = policies.ModTimeHours.ToString() + "h/ " + policies.ModTimeDays.ToString() + "d/ " + policies.ModTimeSeats.ToString() + "s";
+            //maxRes.Hint = policies.MaxTimeRes.ToString();
+            //minRes.Hint = policies.MinTimeRes.ToString();
+            //maxArrive.Hint = policies.MaxTimeArr.ToString();
+            //minMod.Hint = policies.ModTimeHours.ToString() + "h/ " + policies.ModTimeDays.ToString() + "d/ " + policies.ModTimeSeats.ToString() + "s";
 
-            spinner.SetSelection(policies.MaxTimePer);
-            spinner2.SetSelection(policies.MinTimePer);
-            spinner3.SetSelection(policies.StrikeTypePer);
-            spinner4.SetSelection(policies.MaxTimeArrPer);
+            //spinner.SetSelection(policies.MaxTimePer);
+            //spinner2.SetSelection(policies.MinTimePer);
+            //spinner3.SetSelection(policies.StrikeTypePer);
+            //spinner4.SetSelection(policies.MaxTimeArrPer);
 
-            if (policies.StrikeType == 0)
-            {
-                switch1.Checked = false;
-                strikeType.Text = "Permanente";
-                strikeTime.Text = policies.StrikeType.ToString();
-                strikeTime.Visibility = ViewStates.Gone;
-                spinner4.Visibility = ViewStates.Gone;
-            } else
-            {
-                switch1.Checked = true;
-                strikeType.Text = "Horas";
-                strikeTime.Visibility = ViewStates.Visible;
-                spinner4.Visibility = ViewStates.Visible;
-            }
+            //if (policies.StrikeType == 0)
+            //{
+            //    switch1.Checked = false;
+            //    strikeType.Text = "Permanente";
+            //    strikeTime.Text = policies.StrikeType.ToString();
+            //    strikeTime.Visibility = ViewStates.Gone;
+            //    spinner4.Visibility = ViewStates.Gone;
+            //} else
+            //{
+            //    switch1.Checked = true;
+            //    strikeType.Text = "Horas";
+            //    strikeTime.Visibility = ViewStates.Visible;
+            //    spinner4.Visibility = ViewStates.Visible;
+            //}
 
 
-            switch2.Checked = (policies.Strikes) ? true : false;
+            //switch2.Checked = (policies.Strikes) ? true : false;
         }
 
         private void InitializeWaiters()
@@ -259,134 +250,112 @@ namespace MrPiattoRestaurant.Fragments
             Toast.MakeText(context, toast, ToastLength.Long).Show();
         }
 
-        private void switch1_Toggled(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            var toast = Toast.MakeText(context, "I Love Xamarin !" +
-            (e.IsChecked ? "Yes" : " No"), ToastLength.Short);
-            toast.Show();
-            if (e.IsChecked)
-            {
-                switch1.ThumbDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
-                switch1.TrackDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
-                strikeType.Text = "Horas";
-                strikeTime.Visibility = ViewStates.Visible;
-                spinner4.Visibility = ViewStates.Visible;
-            } else
-            {
-                switch1.ThumbDrawable.SetColorFilter(unused, PorterDuff.Mode.SrcAtop);
-                switch1.TrackDrawable.SetColorFilter(unused, PorterDuff.Mode.Multiply);
-                strikeType.Text = "Permanente";
-                strikeTime.Visibility = ViewStates.Gone;
-                spinner4.Visibility = ViewStates.Gone;
-            }
-        }
+        //private void switch1_Toggled(object sender, CompoundButton.CheckedChangeEventArgs e)
+        //{
+        //    var toast = Toast.MakeText(context, "I Love Xamarin !" +
+        //    (e.IsChecked ? "Yes" : " No"), ToastLength.Short);
+        //    toast.Show();
+        //    if (e.IsChecked)
+        //    {
+        //        switch1.ThumbDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
+        //        switch1.TrackDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
+        //        strikeType.Text = "Horas";
+        //        strikeTime.Visibility = ViewStates.Visible;
+        //        spinner4.Visibility = ViewStates.Visible;
+        //    }
+        //    else
+        //    {
+        //        switch1.ThumbDrawable.SetColorFilter(unused, PorterDuff.Mode.SrcAtop);
+        //        switch1.TrackDrawable.SetColorFilter(unused, PorterDuff.Mode.Multiply);
+        //        strikeType.Text = "Permanente";
+        //        strikeTime.Visibility = ViewStates.Gone;
+        //        spinner4.Visibility = ViewStates.Gone;
+        //    }
+        //}
 
-        private void switch2_Toggled(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            var toast = Toast.MakeText(context, "I Love Xamarin !" +
-            (e.IsChecked ? "Yes" : " No"), ToastLength.Short);
-            toast.Show();
-            if (e.IsChecked)
-            {
-                switch2.ThumbDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
-                switch2.TrackDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
-            } else
-            {
-                switch2.ThumbDrawable.SetColorFilter(unused, PorterDuff.Mode.SrcAtop);
-                switch2.TrackDrawable.SetColorFilter(unused, PorterDuff.Mode.Multiply);
-            }
-        }
+        //private void switch2_Toggled(object sender, CompoundButton.CheckedChangeEventArgs e)
+        //{
+        //    var toast = Toast.MakeText(context, "I Love Xamarin !" +
+        //    (e.IsChecked ? "Yes" : " No"), ToastLength.Short);
+        //    toast.Show();
+        //    if (e.IsChecked)
+        //    {
+        //        switch2.ThumbDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
+        //        switch2.TrackDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
+        //    } else
+        //    {
+        //        switch2.ThumbDrawable.SetColorFilter(unused, PorterDuff.Mode.SrcAtop);
+        //        switch2.TrackDrawable.SetColorFilter(unused, PorterDuff.Mode.Multiply);
+        //    }
+        //}
 
-        private void changeSwitch()
-        {
-            if (switch1.Checked)
-            {
-                switch1.ThumbDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
-                switch1.TrackDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
-                strikeType.Text = "Horas";
-                strikeTime.Visibility = ViewStates.Visible;
-                spinner4.Visibility = ViewStates.Visible;
-            } else
-            {
-                switch1.ThumbDrawable.SetColorFilter(unused, PorterDuff.Mode.SrcAtop);
-                switch1.TrackDrawable.SetColorFilter(unused, PorterDuff.Mode.Multiply);
-                strikeType.Text = "Permanente";
-                strikeTime.Visibility = ViewStates.Gone;
-                spinner4.Visibility = ViewStates.Gone;
-            }
+        //private void changeSwitch()
+        //{
+        //    if (switch1.Checked)
+        //    {
+        //        switch1.ThumbDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
+        //        switch1.TrackDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
+        //        strikeType.Text = "Horas";
+        //        strikeTime.Visibility = ViewStates.Visible;
+        //        spinner4.Visibility = ViewStates.Visible;
+        //    } else
+        //    {
+        //        switch1.ThumbDrawable.SetColorFilter(unused, PorterDuff.Mode.SrcAtop);
+        //        switch1.TrackDrawable.SetColorFilter(unused, PorterDuff.Mode.Multiply);
+        //        strikeType.Text = "Permanente";
+        //        strikeTime.Visibility = ViewStates.Gone;
+        //        spinner4.Visibility = ViewStates.Gone;
+        //    }
 
-            if (switch2.Checked)
-            {
-                switch2.ThumbDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
-                switch2.TrackDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
-            } else
-            {
-                switch2.ThumbDrawable.SetColorFilter(unused, PorterDuff.Mode.SrcAtop);
-                switch2.TrackDrawable.SetColorFilter(unused, PorterDuff.Mode.Multiply);
-            }
-        }
+        //    if (switch2.Checked)
+        //    {
+        //        switch2.ThumbDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
+        //        switch2.TrackDrawable.SetColorFilter(main, PorterDuff.Mode.SrcAtop);
+        //    } else
+        //    {
+        //        switch2.ThumbDrawable.SetColorFilter(unused, PorterDuff.Mode.SrcAtop);
+        //        switch2.TrackDrawable.SetColorFilter(unused, PorterDuff.Mode.Multiply);
+        //    }
+        //}
 
-        private void modifyPolitics(object sender, EventArgs e)
-        {
-            if (!isModifying)
-            {
-                maxRes.Enabled = true;
-                minRes.Enabled = true;
-                maxArrive.Enabled = true;
-                minMod.Enabled = true;
-                strikeTime.Enabled = true;
+        //private void modifyPolitics(object sender, EventArgs e)
+        //{
+        //    if (!isModifying)
+        //    {
+        //        maxRes.Enabled = true;
+        //        minRes.Enabled = true;
+        //        maxArrive.Enabled = true;
+        //        minMod.Enabled = true;
+        //        strikeTime.Enabled = true;
 
-                spinner.Enabled = true;
-                spinner2.Enabled = true;
-                spinner3.Enabled = true;
-                spinner4.Enabled = true;
+        //        spinner.Enabled = true;
+        //        spinner2.Enabled = true;
+        //        spinner3.Enabled = true;
+        //        spinner4.Enabled = true;
 
-                switch1.Enabled = true;
-                switch2.Enabled = true;
+        //        switch1.Enabled = true;
+        //        switch2.Enabled = true;
 
-                changeSwitch();
+        //        changeSwitch();
 
-                mod.Text = "Cancelar";
-                accept.Visibility = ViewStates.Visible;
-                isModifying = true;
-            } else
-            {
-                mod.Text = "Modificar";
-                InitializePolitics();
-                isModifying = false;
-            }
-        }
+        //        mod.Text = "Cancelar";
+        //        accept.Visibility = ViewStates.Visible;
+        //        isModifying = true;
+        //    } else
+        //    {
+        //        mod.Text = "Modificar";
+        //        InitializePolitics();
+        //        isModifying = false;
+        //    }
+        //}
 
-        private void modifyRestaurant(object sender, EventArgs e)
-        {
-            if (!isModifyinRes)
-            {
-                restaurantName.Enabled = true;
-                restaurantMail.Enabled = true;
-                restaurantDesc.Enabled = true;
-                isModifyinRes = true;
-
-                acceptRes.Visibility = ViewStates.Visible;
-                modifyRes.Text = "Cancelar";
-                modifyPass.Visibility = ViewStates.Gone;
-                modifyHours.Visibility = ViewStates.Gone;
-            } else
-            {
-                InitializeRes();
-                modifyPass.Visibility = ViewStates.Visible;
-                modifyHours.Visibility = ViewStates.Visible;
-                modifyRes.Text = "Modificar";
-                isModifyinRes = false;
-            }
-        }
+        //private void modifyRestaurant(object sender, EventArgs e)
+        //{
+        //    InitializeRes();
+        //}
 
         private void modifyPassword(object sender, EventArgs e)
         {
-            InitializeRes();
-            modifyPass.Visibility = ViewStates.Visible;
-            modifyRes.Text = "Modificar";
-            isModifyinRes = false;
-
             View content = LayoutInflater.Inflate(Resource.Layout.layout_new_password, null);
 
             ImageView dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
@@ -406,9 +375,6 @@ namespace MrPiattoRestaurant.Fragments
         {
             InitializeRes();
             InitializeSchedule();
-            modifyHours.Visibility = ViewStates.Visible;
-            modifyRes.Text = "Modificar";
-            isModifyinRes = false;
 
             View content = LayoutInflater.Inflate(Resource.Layout.layout_Schedule, null);
 
@@ -615,24 +581,6 @@ namespace MrPiattoRestaurant.Fragments
             frag.Show(FragmentManager, TimePickerFragment.TAG);
         }
 
-        private async void acceptRestaurant(object sender, EventArgs e)
-        {
-            InitializeRes();
-
-            Restaurant res = new Restaurant(restaurant);
-
-            res.Name = restaurantName.Text;
-            res.Description = restaurantDesc.Text;
-
-            var response = await APIupdate.UpdateRestaurant(res);
-            Toast.MakeText(context, response, ToastLength.Long).Show();
-            
-            modifyPass.Visibility = ViewStates.Visible;
-            modifyHours.Visibility = ViewStates.Visible;
-            modifyRes.Text = "Modificar";
-            isModifyinRes = false;
-        }
-
         private void onAddWaiter(object sender, EventArgs e)
         {
             View content = LayoutInflater.Inflate(Resource.Layout.layout_add_waiter, null);
@@ -650,11 +598,42 @@ namespace MrPiattoRestaurant.Fragments
             };
         }
 
-        private void acceptPolitics(object sender, EventArgs e)
-        {
-            mod.Text = "Modificar";
-            InitializePolitics();
-            isModifying = false;
-        }
+        //private async void acceptPolitics(object sender, EventArgs e)
+        //{
+        //    Policies policies = new Policies();
+
+        //    policies.MaxTimeRes = Int32.Parse(maxRes.Text);
+        //    policies.MinTimeRes = Int32.Parse(minRes.Text);
+        //    policies.MaxTimeArr = Int32.Parse(maxArrive.Text);
+        //    //Todavia no se pueden modificar estos campos
+        //    policies.ModTimeHours = Int32.Parse(minMod.Text);
+        //    policies.ModTimeSeats = 1;
+        //    policies.ModTimeDays = 2;
+        //    ////////////////////////////////
+        //    // Si esta presionado, el tipo de strikes es por horas
+        //    if (switch1.Checked)
+        //    {
+        //        policies.StrikeType = Int32.Parse(strikeTime.Text);
+        //        policies.StrikeType = 1;
+        //    } else
+        //    {
+        //        policies.StrikeType = 0;
+        //    }
+        //    // Si esta presionado, genera strikes sobre el usuario
+        //    if (switch2.Checked)
+        //    {
+        //        policies.Strikes = true;
+        //    } else
+        //    {
+        //        policies.Strikes = false;
+        //    }
+
+        //    var response = await APIupdate.UpdatePolicies(policies);
+        //    Toast.MakeText(context, response, ToastLength.Long).Show();
+
+        //    mod.Text = "Modificar";
+        //    InitializePolitics();
+        //    isModifying = false;
+        //}
     }
 }

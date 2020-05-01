@@ -29,8 +29,18 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/idStatistics"
+            android:id="@+id/idPolicies"
             app:layout_constraintTop_toBottomOf="@+id/idAboutMe"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/policies"
+            android:padding="20dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/idStatistics"
+            app:layout_constraintTop_toBottomOf="@+id/idPolicies"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:src="@drawable/report"

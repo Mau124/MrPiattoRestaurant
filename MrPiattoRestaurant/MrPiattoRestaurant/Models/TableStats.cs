@@ -15,9 +15,9 @@ namespace MrPiattoRestaurant.Models
     public class TableStats
     {
         public string Name { get; set; }
-        public double Average { get; set; }
+        public double? Average { get; set; }
 
-        public TableStats(string name, double average)
+        public TableStats(string name, double? average)
         {
             Name = name;
             Average = average;

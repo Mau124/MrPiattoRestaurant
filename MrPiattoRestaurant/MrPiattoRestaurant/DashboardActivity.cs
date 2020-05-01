@@ -20,7 +20,7 @@ namespace MrPiattoRestaurant
     [Activity(Label = "DashboardActivity")]
     public class DashboardActivity : AppCompatActivity
     {
-        ImageView aboutMe, statistics, photosGallery;
+        ImageView aboutMe, statistics, photosGallery, policies;
         TextView hourInterval1, hourInterval2;
         ImageView dismiss;
         private Restaurant restaurant = new Restaurant();
@@ -29,6 +29,7 @@ namespace MrPiattoRestaurant
         ImageView promotions;
 
         Android.Support.V4.App.Fragment aboutMeFragment;
+        Android.Support.V4.App.Fragment policiesFragment;
         Android.Support.V4.App.Fragment statisticsFragment;
         Android.Support.V4.App.Fragment photosGalleryFragment;
         protected override void OnCreate(Bundle savedInstanceState)
@@ -41,16 +42,19 @@ namespace MrPiattoRestaurant
             InitializeRestaurant(idRes);
 
             aboutMe = FindViewById<ImageView>(Resource.Id.idAboutMe);
+            policies = FindViewById<ImageView>(Resource.Id.idPolicies);
             statistics = FindViewById<ImageView>(Resource.Id.idStatistics);
             photosGallery = FindViewById<ImageView>(Resource.Id.idPhotosGallery);
             promotions = FindViewById<ImageView>(Resource.Id.idPromotions);
 
             aboutMe.Click += aboutMeClick;
+            policies.Click += policiesClick;
             statistics.Click += statisticsClick;
             photosGallery.Click += photosGalleryClick;
             promotions.Click += promotionsClick;
 
             aboutMeFragment = new AboutMe(this, restaurant);
+            policiesFragment = new PoliciesFragment();
             statisticsFragment = new Statistics(this, restaurant);
             photosGalleryFragment = new PhotosGallery(this, restaurant);
 
@@ -70,6 +74,9 @@ namespace MrPiattoRestaurant
             {
                 case Resource.Id.idAboutMe:
                     fragment = aboutMeFragment;
+                    break;
+                case Resource.Id.idPolicies:
+                    fragment = policiesFragment;
                     break;
                 case Resource.Id.idStatistics:
                     fragment = statisticsFragment;
@@ -94,7 +101,22 @@ namespace MrPiattoRestaurant
             photosGallery.SetImageResource(Resource.Drawable.art);
             aboutMe.SetBackgroundResource(Resource.Drawable.dashboard_selected_item);
             aboutMe.SetImageResource(Resource.Drawable.userdashboardselected);
+            policies.SetBackgroundResource(0);
+            policies.SetImageResource(Resource.Drawable.policies);
             LoadFragment(Resource.Id.idAboutMe);
+        }
+
+        public void policiesClick(object sender, EventArgs args)
+        {
+            statistics.SetBackgroundResource(0);
+            statistics.SetImageResource(Resource.Drawable.report);
+            photosGallery.SetBackgroundResource(0);
+            photosGallery.SetImageResource(Resource.Drawable.art);
+            aboutMe.SetBackgroundResource(0);
+            aboutMe.SetImageResource(Resource.Drawable.userdashboard);
+            policies.SetBackgroundResource(Resource.Drawable.dashboard_selected_item);
+            policies.SetImageResource(Resource.Drawable.policiesSelected);
+            LoadFragment(Resource.Id.idPolicies);
         }
 
         public void statisticsClick(object sender, EventArgs args)
@@ -105,6 +127,8 @@ namespace MrPiattoRestaurant
             photosGallery.SetImageResource(Resource.Drawable.art);
             statistics.SetBackgroundResource(Resource.Drawable.dashboard_selected_item);
             statistics.SetImageResource(Resource.Drawable.reportselected);
+            policies.SetBackgroundResource(0);
+            policies.SetImageResource(Resource.Drawable.policies);
             LoadFragment(Resource.Id.idStatistics);
         }
 
@@ -116,6 +140,8 @@ namespace MrPiattoRestaurant
             statistics.SetImageResource(Resource.Drawable.report);
             photosGallery.SetBackgroundResource(Resource.Drawable.dashboard_selected_item);
             photosGallery.SetImageResource(Resource.Drawable.artSelected);
+            policies.SetBackgroundResource(0);
+            policies.SetImageResource(Resource.Drawable.policies);
             LoadFragment(Resource.Id.idPhotosGallery);
         }
 

@@ -79,6 +79,7 @@
     <Compile Include="Fragments\ModifyRestaurant.cs" />
     <Compile Include="Fragments\NotificationsFragment.cs" />
     <Compile Include="Fragments\PhotosGallery.cs" />
+    <Compile Include="Fragments\PoliciesFragment.cs" />
     <Compile Include="Fragments\Reservations\ActualFragment.cs" />
     <Compile Include="Fragments\Reservations\FutureFragment.cs" />
     <Compile Include="Fragments\Reservations\WaitFragment.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="ModelsDB\TableStatistics.cs" />
     <Compile Include="ModelsDB\User.cs" />
     <Compile Include="ModelsDB\Waiters.cs" />
+    <Compile Include="ModelsDB\WaiterStatistics.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ItemPhotos.cs" />
@@ -659,6 +661,32 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\code.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\foodInfo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\pass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\sche.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\policies.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\policiesSelected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_dashboard_policies.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\lineSpinner.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

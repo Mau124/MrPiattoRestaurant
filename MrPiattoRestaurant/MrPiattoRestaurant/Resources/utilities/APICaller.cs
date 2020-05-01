@@ -278,6 +278,29 @@ namespace MrPiattoRestaurant.Resources.utilities
             }
         }
 
+        public List<WaiterStatistics> GetWaitersStats(int idRestaurant)
+        {
+            List<WaiterStatistics> waiters;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Statistics/Waiters/{idRestaurant}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    waiters = JsonConvert.DeserializeObject<List<WaiterStatistics>>(json);
+                }
+
+                return waiters;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public List<Surveys> GetSurveys(int idRes)
         {
             List<Surveys> surveys = new List<Surveys>();

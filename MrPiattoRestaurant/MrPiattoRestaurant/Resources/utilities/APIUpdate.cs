@@ -41,5 +41,37 @@ namespace MrPiattoRestaurant.Resources.utilities
             var response = client.PostAsync("ResInfo", byteContent).Result;
             return await response.Content.ReadAsStringAsync();
         }
+
+        public async Task<string> UpdatePolicies(Policies policies)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(policies);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("ResInfo/Policies", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> UpdateSchedule(Schedule schedule)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(schedule);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("Schedules/Update", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
     }
 }
