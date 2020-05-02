@@ -30,8 +30,6 @@ namespace MrPiattoRestaurant.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.activity_dashboard_aboutme, container, false);
 
-            
-
             return view;
         }
 

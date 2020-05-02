@@ -56,11 +56,9 @@
                 android:layout_marginRight="5dp"
                 android:id="@+id/idMaxRes"
                 android:inputType="number"
-                android:gravity="right"
+                android:gravity="center"
                 android:background="@drawable/generic"
-                android:textColorHint="#9C9CB1"
-                android:paddingTop="7dp"
-                android:paddingRight="5dp"/>
+                android:textColorHint="#9C9CB1"/>
 
             <RelativeLayout
                     android:layout_width="match_parent"
@@ -73,7 +71,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:prompt="@string/periods_prompt"
-                        android:background="@android:color/transparent"/>
+                        android:background="@android:color/transparent"
+                        android:paddingLeft="10dp"/>
 
                     <ImageView
                         android:layout_width="30dp"
@@ -115,11 +114,9 @@
                 android:layout_marginRight="5dp"
                 android:id="@+id/idMaxArrive"
                 android:inputType="number"
-                android:gravity="right"
+                android:gravity="center"
                 android:background="@drawable/generic"
-                android:textColorHint="#9C9CB1"
-                android:paddingTop="7dp"
-                android:paddingRight="5dp"/>
+                android:textColorHint="#9C9CB1"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -132,7 +129,8 @@
                         android:layout_height="35dp"
                         android:id="@+id/idSpinner3"
                         android:prompt="@string/periods_prompt"
-                        android:background="@android:color/transparent"/>
+                        android:background="@android:color/transparent"
+                        android:paddingLeft="10dp"/>
 
                     <ImageView
                         android:layout_width="30dp"
@@ -187,24 +185,24 @@
                 android:layout_marginRight="5dp"
                 android:id="@+id/idStrikeTime"
                 android:inputType="number"
-                android:gravity="right"
+                android:gravity="center"
                 android:background="@drawable/generic"
-                android:textColorHint="#9C9CB1"
-                android:paddingTop="7dp"
-                android:paddingRight="5dp"/> 
+                android:textColorHint="#9C9CB1"/> 
 
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginRight="3dp"
-                    android:background="@drawable/promotions_container">
+                    android:background="@drawable/promotions_container"
+                    android:id="@+id/idPenalType">
 
                     <Spinner
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:id="@+id/idSpinner4"
                         android:prompt="@string/periods_prompt"
-                        android:background="@android:color/transparent"/>
+                        android:background="@android:color/transparent"
+                        android:paddingLeft="10dp"/>
 
                     <ImageView
                         android:layout_width="30dp"
@@ -233,8 +231,6 @@
                     android:textAllCaps="false"
                     android:id="@+id/idMod"
                     android:layout_marginBottom="5dp"/>
-
-            
 
                  <Button
                         android:layout_width="match_parent"
@@ -291,11 +287,9 @@
                     android:layout_marginRight="5dp"
                     android:id="@+id/idMinRes"
                     android:inputType="number"
-                    android:gravity="right"
+                    android:gravity="center"
                     android:background="@drawable/generic"
-                    android:textColorHint="#9C9CB1"
-                    android:paddingTop="7dp"
-                    android:paddingRight="5dp"/> 
+                    android:textColorHint="#9C9CB1"/> 
                 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -308,7 +302,8 @@
                         android:layout_height="35dp"
                         android:id="@+id/idSpinner2"
                         android:prompt="@string/periods_prompt"
-                        android:background="@android:color/transparent"/>
+                        android:background="@android:color/transparent"
+                        android:paddingLeft="10dp"/>
 
                     <ImageView
                         android:layout_width="30dp"
@@ -353,7 +348,7 @@
                     android:background="@drawable/generic"
                     android:textColorHint="#9C9CB1"
                     android:paddingTop="7dp"
-                    android:paddingRight="5dp"/>
+                    android:paddingRight="15dp"/>
 
             </LinearLayout>
 

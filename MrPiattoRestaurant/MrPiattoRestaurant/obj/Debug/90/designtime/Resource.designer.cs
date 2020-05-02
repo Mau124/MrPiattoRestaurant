@@ -3826,10 +3826,10 @@ namespace MrPiattoRestaurant
 			public const int always = 2131296278;
 			
 			// aapt resource value: 0x7F090017
-			public const int application_name = 2131296279;
+			public const int APPLICATION_NAME = 2131296279;
 			
 			// aapt resource value: 0x7F090018
-			public const int APPLICATION_NAME = 2131296280;
+			public const int application_name = 2131296280;
 			
 			// aapt resource value: 0x7F090019
 			public const int async = 2131296281;
@@ -4342,19 +4342,19 @@ namespace MrPiattoRestaurant
 			public const int idPassword = 2131296450;
 			
 			// aapt resource value: 0x7F0900C3
-			public const int idPersonName = 2131296451;
+			public const int idPenalType = 2131296451;
 			
 			// aapt resource value: 0x7F0900C4
-			public const int idPhotosGallery = 2131296452;
+			public const int idPersonName = 2131296452;
 			
 			// aapt resource value: 0x7F0900C5
-			public const int idPlaneOptions = 2131296453;
+			public const int idPhotosGallery = 2131296453;
 			
 			// aapt resource value: 0x7F0900C6
-			public const int idPolicies = 2131296454;
+			public const int idPlaneOptions = 2131296454;
 			
 			// aapt resource value: 0x7F0900C7
-			public const int idPolitics = 2131296455;
+			public const int idPolicies = 2131296455;
 			
 			// aapt resource value: 0x7F0900C8
 			public const int idPromotions = 2131296456;
@@ -5311,7 +5311,7 @@ namespace MrPiattoRestaurant
 			public const int layout_manual_reservation = 2131492930;
 			
 			// aapt resource value: 0x7F0C0043
-			public const int layout_modify_restaurant = 2131492931;
+			public const int layout_modify_res = 2131492931;
 			
 			// aapt resource value: 0x7F0C0044
 			public const int layout_new_password = 2131492932;
