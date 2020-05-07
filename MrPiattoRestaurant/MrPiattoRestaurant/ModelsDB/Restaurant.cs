@@ -41,6 +41,7 @@ namespace MrPiattoRestaurant.ModelsDB
         public double Lat { get; set; }
         public int Idcategories { get; set; }
         public int Idpayment { get; set; }
+        public string UrlMainFoto { get; set; }
 
         public Restaurant() { }
 
@@ -63,6 +64,7 @@ namespace MrPiattoRestaurant.ModelsDB
             Lat = restaurant.Lat;
             Idcategories = restaurant.Idcategories;
             Idpayment = restaurant.Idpayment;
+            UrlMainFoto = restaurant.UrlMainFoto;
         }
 
         //public virtual Categories IdcategoriesNavigation { get; set; }

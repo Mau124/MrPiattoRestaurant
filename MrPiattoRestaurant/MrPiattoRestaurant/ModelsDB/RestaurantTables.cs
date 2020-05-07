@@ -12,6 +12,15 @@ namespace MrPiattoRestaurant.ModelsDB
             //TableDistribution = new HashSet<TableDistribution>();
         }
 
+        public RestaurantTables(int Idtables, int CoordenateX, int CoordenateY, int Seats, string tableName)
+        {
+            this.Idtables = Idtables;
+            this.CoordenateX = CoordenateX;
+            this.CoordenateY = CoordenateY;
+            this.Seats = Seats;
+            this.tableName = tableName;
+        }
+
         public int Idtables { get; set; }
         public int Idrestaurant { get; set; }
         public string FloorName { get; set; }

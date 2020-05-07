@@ -62,15 +62,15 @@
         android:background="@drawable/promotions_container">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="Lunes      :"
+            android:text="Lunes    :"
             android:textSize="15sp"/>
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="17/03/20"
+                android:text="00:00"
                 android:id="@+id/idMonday1"
                 android:layout_margin="10dp"
                 android:layout_marginBottom="20dp"
@@ -87,9 +87,9 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="17/03/20"
+                android:text="00:00"
                 android:id="@+id/idMonday2"
                 android:layout_margin="10dp"
                 android:padding="10dp"
@@ -117,15 +117,15 @@
         android:background="@drawable/promotions_container">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="Martes    :"
+            android:text="Martes   :"
             android:textSize="15sp"/>
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="17/03/20"
+                android:text="08:00"
                 android:id="@+id/idTuesday1"
                 android:layout_margin="10dp"
                 android:layout_marginBottom="20dp"
@@ -142,9 +142,9 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="17/03/20"
+                android:text="09:00"
                 android:id="@+id/idTuesday2"
                 android:layout_margin="10dp"
                 android:padding="10dp"
@@ -172,13 +172,13 @@
         android:background="@drawable/promotions_container">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="Miercoles:"
             android:textSize="15sp"/>
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idWednesday1"
@@ -197,7 +197,7 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idWednesday2"
@@ -227,13 +227,13 @@
         android:background="@drawable/promotions_container">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="Jueves    :"
+            android:text="Jueves   :"
             android:textSize="15sp"/>
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idThursday1"
@@ -252,7 +252,7 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idThursday2"
@@ -282,13 +282,13 @@
         android:background="@drawable/promotions_container">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="Viernes   :"
+            android:text="Viernes  :"
             android:textSize="15sp"/>
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idFriday1"
@@ -307,7 +307,7 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idFriday2"
@@ -337,13 +337,13 @@
         android:background="@drawable/promotions_container">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="Sabado   :"
             android:textSize="15sp"/>
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idSaturday1"
@@ -362,7 +362,7 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idSaturday2"
@@ -393,13 +393,13 @@
         android:background="@drawable/promotions_container">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="Domingo :"
+            android:text="Domingo  :"
             android:textSize="15sp"/>
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idSunday1"
@@ -418,7 +418,7 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="17/03/20"
                 android:id="@+id/idSunday2"
@@ -451,7 +451,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Modificar"
-        android:id="@+id/idCancel"
+        android:id="@+id/idMod"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/delete_buttons"
         android:textColor="#ffffff"

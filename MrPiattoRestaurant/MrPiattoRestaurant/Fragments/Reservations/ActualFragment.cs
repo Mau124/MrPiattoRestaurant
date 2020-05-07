@@ -59,6 +59,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
             mLayoutManager = new LinearLayoutManager(Application.Context);
             mAdapter = new ActualListAdapter(context, ocupiedTables);
+            mAdapter.EndFood += OnEndFood;
 
             mRecyclerView.SetLayoutManager(mLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
@@ -81,6 +82,14 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         {
             this.ocupiedTables = ocupiedTables;
             mAdapter = new ActualListAdapter(context, ocupiedTables);
+            mAdapter.EndFood += OnEndFood;
+            mRecyclerView.SetAdapter(mAdapter);
+        }
+        
+        private void OnEndFood(int position)
+        {
+            mAdapter = new ActualListAdapter(context, ocupiedTables);
+            mAdapter.EndFood += OnEndFood;
             mRecyclerView.SetAdapter(mAdapter);
         }
     }

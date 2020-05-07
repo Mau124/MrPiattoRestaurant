@@ -12,6 +12,8 @@ using Android.Widget;
 using Android.Support.V7.Widget;
 
 using MrPiattoRestaurant.adapters.futureListAdapters;
+using MrPiattoRestaurant.Resources.utilities;
+using MrPiattoRestaurant.ModelsDB;
 
 namespace MrPiattoRestaurant.Views
 {
@@ -24,6 +26,8 @@ namespace MrPiattoRestaurant.Views
 
         private int floorIndex;
         private int tableIndex;
+        private APIUpdate APIupdate = new APIUpdate();
+
 
         List<GestureRecognizerView> floors;
 
@@ -84,7 +88,7 @@ namespace MrPiattoRestaurant.Views
             dismiss = tablePropertiesView.FindViewById<ImageView>(Resource.Id.idDismiss);
 
             tableName.Hint = table.TableName;
-            tableSeats.Text = table.seats.ToString();
+            tableSeats.Hint = table.seats.ToString();
 
             mRecyclerView.SetLayoutManager(mLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
@@ -92,21 +96,85 @@ namespace MrPiattoRestaurant.Views
             dismiss.Click += onDismiss;
 
             mSeekBar.Min = 1;
-            mSeekBar.Max = 5;
+            mSeekBar.Max = 12;
+            mSeekBar.Progress = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).seats;
 
-            tableName.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
+            tableName.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) =>
             {
+                RestaurantTables restaurant = new RestaurantTables();
                 floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).TableName = e.Text.ToString();
                 floors.ElementAt(floorIndex).Draw();
-                tableSeats.Text = e.Text.ToString();
+
+                restaurant.Idtables = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).Id;
+                restaurant.CoordenateX = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).firstX;
+                restaurant.CoordenateY = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).firstY;
+                restaurant.Seats = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).seats;
+                restaurant.tableName = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).TableName;
+
+                var response = await APIupdate.UpdateTable(restaurant);
+                Toast.MakeText(context, response, ToastLength.Long).Show();
             };
 
-            mSeekBar.ProgressChanged += (object sender, SeekBar.ProgressChangedEventArgs e) =>
+            tableSeats.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) =>
+            {
+                try
+                {
+                    int seats;
+                    string type = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).type;
+                    if (e.Text.ToString().Equals("") || Int32.Parse(e.Text.ToString()) > 12)
+                    {
+                        seats =  Int32.Parse(tableSeats.Hint);
+                        mSeekBar.Progress = Int32.Parse(tableSeats.Hint);
+                    } else
+                    {
+                        seats = Int32.Parse(e.Text.ToString());
+                        mSeekBar.Progress = Int32.Parse(e.Text.ToString());
+                    }
+
+                    try
+                    {
+                        floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).setDrawable(type, seats);
+                        floors.ElementAt(floorIndex).Invalidate();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+
+                    RestaurantTables restaurant = new RestaurantTables();
+
+                    restaurant.Idtables = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).Id;
+                    restaurant.CoordenateX = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).firstX;
+                    restaurant.CoordenateY = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).firstY;
+                    restaurant.Seats = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).seats;
+                    restaurant.tableName = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).TableName;
+
+                    var response = await APIupdate.UpdateTable(restaurant);
+                    Toast.MakeText(context, response, ToastLength.Long).Show();
+                } catch
+                {
+                    Toast.MakeText(context, "Valores Incorrectos", ToastLength.Long).Show();
+                }
+            };
+
+            mSeekBar.ProgressChanged += async (object sender, SeekBar.ProgressChangedEventArgs e) =>
             {
                 if (e.FromUser)
                 {
                     string type = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).type;
                     tableSeats.Text = e.Progress.ToString();
+
+                    RestaurantTables restaurant = new RestaurantTables();
+
+                    restaurant.Idtables = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).Id;
+                    restaurant.CoordenateX = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).firstX;
+                    restaurant.CoordenateY = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).firstY;
+                    restaurant.Seats = e.Progress;
+                    restaurant.tableName = floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).TableName;
+
+                    var response = await APIupdate.UpdateTable(restaurant);
+                    Toast.MakeText(context, response, ToastLength.Long).Show();
+
                     try
                     {
                         floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).setDrawable(type, e.Progress);

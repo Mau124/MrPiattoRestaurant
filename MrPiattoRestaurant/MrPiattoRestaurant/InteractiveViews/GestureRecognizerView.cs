@@ -7,10 +7,13 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Android.Graphics;
+using System.Threading.Tasks;
 using Android.Graphics.Drawables;
 
 using MrPiattoRestaurant.Models;
 using MrPiattoRestaurant.InteractiveViews;
+using MrPiattoRestaurant.Resources.utilities;
+using MrPiattoRestaurant.ModelsDB;
 
 namespace MrPiattoRestaurant
 {
@@ -29,6 +32,10 @@ namespace MrPiattoRestaurant
         public bool moveValid = false;
         public bool isTablePressed = false;
 
+        // Menciona si se estan seleccionando mesas
+        // En caso de que se esten seleccionando mesas, no se podran mover ni modificar las actuales
+        public bool isSelecting { get; set; }
+
         // Indexes for floor and table
         public int tableIndex = new int();
         public int floorIndex = new int();
@@ -40,6 +47,7 @@ namespace MrPiattoRestaurant
 
         public List<Table> tables = new List<Table>();
         public List<Table> ocupiedTables = new List<Table>();
+        public List<Table> auxTables = new List<Table>();
 
         private readonly ScaleGestureDetector _scaleDetector;
 
@@ -50,6 +58,9 @@ namespace MrPiattoRestaurant
         private float _posY;
         private float _scaleFactor = 1.0f;
 
+        private APIUpdate APIupdate = new APIUpdate();
+        private APICaller API = new APICaller();
+
         //We define a delegate for our tablepressed event
         public delegate void TablePressedEventHandler(int floorIndex, int tableIndex);
 
@@ -57,12 +68,87 @@ namespace MrPiattoRestaurant
         public event TablePressedEventHandler TablePressed;
 
         //Raise the event
-        protected virtual void OnTablePressed(int floorIndex, int tableIndex)      
+        protected virtual void OnTablePressed(int floorIndex, int tableIndex)
         {
             if (TablePressed != null)
             {
                 TablePressed(floorIndex, tableIndex);
             }
+        }
+
+        // Evento para definir cuando una mesa se selecciono
+        public delegate void TableSelectedEventHandler(Table table);
+        public event TableSelectedEventHandler TableSelected;
+        protected virtual void OnTableSelected(Table table)
+        {
+            if (TableSelected != null)
+            {
+                TableSelected(table);
+            }
+        }
+
+        // Evento para definir que una mesa se deselecciono
+        public delegate void TableDisSelectEventHandler(Table table);
+        public event TableDisSelectEventHandler TableDisSelect;
+        protected virtual void OnTableDisSelectPressed(Table table)
+        {
+            if (TableDisSelect != null)
+            {
+                TableDisSelect(table);
+            }
+        }
+
+        public void InitializeUnion(Table t)
+        {
+            isSelecting = true;
+            auxTables.Clear();
+            auxTables.Add(t);
+            t.setSelected(1);
+            Invalidate();
+        }
+
+        public void Union(List<Table> tablesToJoin, Client client, int seats)
+        {
+            Table auxTable = new Table(context, tablesToJoin, client, seats);
+
+            // Iteramos sobre la lista de mesas que se van a unir
+            foreach (Table t in tablesToJoin)
+            {
+                // Removemos de la lista de mesas las que se uninar
+                t.Selected = 2;
+                tables.Remove(t);
+            }
+
+
+            auxTable.TableUnJoined += unJoined;
+            tables.Add(auxTable);
+            ocupiedTables.Add(auxTable);
+            setDisSelect();
+            isSelecting = false;
+
+            Invalidate();
+        }
+
+        private void setDisSelect()
+        {
+            foreach (Table t in tables)
+            {
+                t.InitializeImages();
+            }
+        }
+
+        private void unJoined(Table table)
+        {
+            ocupiedTables.Remove(table);
+
+            foreach (Table t in table.tables)
+            {
+                tables.Add(t);
+            }
+
+            setDisSelect();
+            tables.Remove(table);
+            Invalidate();
         }
 
         public Table getTableProperties(int iterator)
@@ -84,7 +170,7 @@ namespace MrPiattoRestaurant
             this.floorIndex = floorIndex;
             this.timeLineView = timeLineView;
             moveValid = false;
-            
+
             _scaleDetector = new ScaleGestureDetector(context, new MyScaleListener(this));
         }
         public override bool OnTouchEvent(MotionEvent ev)
@@ -99,7 +185,7 @@ namespace MrPiattoRestaurant
                 case MotionEventActions.Down:
                     _lastTouchX = ev.GetX();
                     _lastTouchY = ev.GetY();
-                    
+
                     DifferentX = (_posX * (-1)) * (_scaleFactor);
                     DifferentY = (_posY * (-1)) * (_scaleFactor);
 
@@ -109,22 +195,45 @@ namespace MrPiattoRestaurant
                     AbsolutTouchX *= (1 / _scaleFactor);
                     AbsolutTouchY *= (1 / _scaleFactor);
 
-                    if (tables.Count() > 0)
-                        tables[tableIndex].borderOn = false;
+                    foreach (Table t in tables) {
+                        t.borderOn = false;
+                    }
 
                     if (isOnTable() != -1)
                     {
-                        OnTablePressed(floorIndex, tableIndex);
-                        moveValid = true;
-                        isTablePressed = true;
+                        if (isSelecting)
+                        {
+                            switch (tables[tableIndex].Selected)
+                            {
+                                case 0:
+                                    Toast.MakeText(Application.Context, "No se puede seleccionar esta mesa", ToastLength.Short).Show();
+                                    break;
+                                case 1:
+                                    auxTables.Remove(tables[tableIndex]);
+                                    TableDisSelect(tables[tableIndex]);
+                                    tables[tableIndex].setSelected(2);
+                                    break;
+                                case 2:
+                                    auxTables.Add(tables[tableIndex]);
+                                    TableSelected(tables[tableIndex]);
+                                    tables[tableIndex].setSelected(1);
+                                    break;
+                            }
+                            Invalidate();
+                        } else
+                        {
+                            OnTablePressed(floorIndex, tableIndex);
+                            moveValid = true;
+                            isTablePressed = true;
 
-                        tables[tableIndex].borderOn = true;
+                            tables[tableIndex].borderOn = true;
 
-                        n1 = AbsolutTouchX - tables[tableIndex].firstX;
-                        n2 = AbsolutTouchY - tables[tableIndex].firstY;
+                            n1 = AbsolutTouchX - tables[tableIndex].firstX;
+                            n2 = AbsolutTouchY - tables[tableIndex].firstY;
+                        }
                     }
                     else
-                    { 
+                    {
                         moveValid = false;
                     }
 
@@ -168,9 +277,13 @@ namespace MrPiattoRestaurant
                     centerX *= (1 / _scaleFactor);
                     centerY *= (1 / _scaleFactor);
 
-                    if (moveValid)
+                    if (moveValid && !isSelecting)
                     {
                         tables[tableIndex].SetCoordinates(AbsolutTouchX - n1, AbsolutTouchY - n2);
+                        // Actualizamos en la base de datos con esas nuevas coordenadas
+                        var response = APIupdate.UpdateTable(new RestaurantTables(tables[tableIndex].Id, tables[tableIndex].firstX, tables[tableIndex].firstY, tables[tableIndex].seats, tables[tableIndex].TableName)).Result;
+                        Toast.MakeText(context, response, ToastLength.Long).Show();
+
                         Invalidate();
                     }
 
@@ -179,25 +292,6 @@ namespace MrPiattoRestaurant
                 case MotionEventActions.Up:
                 case MotionEventActions.Cancel:
                     //We no longer need to keep track of the active pointer
-                    bool tablePressed = false;
-                    int auxTableIndex = new int();
-                    for (int i = 0; i < tables.Count() && !tablePressed; i++)
-                    {
-                        if ((isTable(tables[i], tables[tableIndex].firstX, tables[tableIndex].firstY)
-                            || isTable(tables[i], tables[tableIndex].firstX, tables[tableIndex].firstY + tables[tableIndex].getHeight())
-                            || isTable(tables[i], tables[tableIndex].firstX + tables[tableIndex].getWidth(), tables[tableIndex].firstY)
-                            || isTable(tables[i], tables[tableIndex].firstX + tables[tableIndex].getWidth(), tables[tableIndex].firstY + tables[tableIndex].getHeight()))
-                            && i != tableIndex)
-                        {
-                            tablePressed = true;
-                            auxTableIndex = i;
-                        }
-                    }
-                    if (tablePressed)
-                    {
-                        JoinTables(tableIndex, auxTableIndex);
-                        Toast.MakeText(Application.Context, "Esta sobre una mesa: " + auxTableIndex, ToastLength.Long).Show();
-                    }
                     isTablePressed = false;
                     _activePointerId = InvalidPointerId;
                     break;
@@ -284,7 +378,7 @@ namespace MrPiattoRestaurant
             bool tablePressed = false;
             for (int i = 0; i < tables.Count() && !tablePressed; i++)
             {
-                if (isTable(tables[i], (int) AbsolutTouchX, (int) AbsolutTouchY))
+                if (isTable(tables[i], (int)AbsolutTouchX, (int)AbsolutTouchY))
                 {
                     tablePressed = true;
                     table = i;
@@ -298,37 +392,32 @@ namespace MrPiattoRestaurant
             Invalidate();
         }
 
-        public void AddTable(string type, int seats)
+        public void AddOneTable(Table table)
         {
-            if (tables.Count() > 0)
-                tables.ElementAt(tableIndex).borderOn = false;
-            tables.Add(new Table(context, "text", type, seats, (int)centerX, (int)centerY, true));
+            foreach (Table auxTable in tables)
+            {
+                auxTable.borderOn = false;
+            }
+
+            Table t = new Table(context, table.Id, table.TableName, table.type, table.seats, table.firstX, table.firstY, true);
+            t.Draw += DrawTable;
+            tables.Add(t);
+
             OnTablePressed(floorIndex, tables.Count() - 1);
             Invalidate();
         }
 
         public void AddTable(Table table)
         {
-            tables.Add(new Table(context, table.TableName, table.type, table.seats, table.firstX, table.firstY, table.borderOn));
+            Table t = new Table(context, table.Id, table.TableName, table.type, table.seats, table.firstX, table.firstY, table.borderOn);
+            t.Draw += DrawTable;
+            tables.Add(t);
+
             Invalidate();
         }
 
-        public void JoinTables(int indexTable1, int indexTable2)
-        {
-            int auxSeats = tables.ElementAt(indexTable1).seats + tables.ElementAt(indexTable2).seats;
-            string auxType = tables.ElementAt(indexTable1).type;
-            int x = tables.ElementAt(indexTable1).firstX;
-            int y = tables.ElementAt(indexTable1).firstY;
-
-            ShowJoinTablesDialog(indexTable1, indexTable2);
-
-            tables.ElementAt(indexTable1).type = auxType;
-            tables.ElementAt(indexTable1).seats = auxSeats;
-            tables.ElementAt(indexTable1).setDrawable(auxType, auxSeats);
-            tables.ElementAt(indexTable1).SetCoordinates(x, y);
-
-            tables.RemoveAt(indexTable2);
-            tableIndex = (indexTable1 > indexTable2) ? indexTable1 - 1 : indexTable1;
+        public void DrawTable() 
+        { 
             Invalidate();
         }
 
@@ -347,47 +436,11 @@ namespace MrPiattoRestaurant
             {
                 t.DrawTable(canvas);
             }
-            if (tables.Count() > 0) 
+            if (tableIndex < tables.Count) 
                 tables[tableIndex].DrawTable(canvas);
             canvas.Restore();
         }
 
-        public void ShowJoinTablesDialog(int indexTable1, int indexTable2)
-        {
-            LayoutInflater inflater = LayoutInflater.From(context);
-            View content = inflater.Inflate(Resource.Layout.dialog_join_tables, null);
-
-            TextView nameTable1, nameTable2, seatsTable1, seatsTable2;
-            ImageView imageTable1, imageTable2;
-            ImageView dismiss;
-
-            nameTable1 = content.FindViewById<TextView>(Resource.Id.idNameTable1);
-            nameTable2 = content.FindViewById<TextView>(Resource.Id.idNameTable2);
-            seatsTable1 = content.FindViewById<TextView>(Resource.Id.idSeatsTable1);
-            seatsTable2 = content.FindViewById<TextView>(Resource.Id.idSeatsTable2);
-            imageTable1 = content.FindViewById<ImageView>(Resource.Id.idImageTable1);
-            imageTable2 = content.FindViewById<ImageView>(Resource.Id.idImageTable2);
-            dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
-
-            nameTable1.Text = tables.ElementAt(indexTable1).TableName;
-            seatsTable1.Text = tables.ElementAt(indexTable1).seats.ToString();
-
-            nameTable2.Text = tables.ElementAt(indexTable2).TableName;
-            seatsTable2.Text = tables.ElementAt(indexTable2).seats.ToString();
-
-            imageTable1.SetImageResource(context.Resources.GetIdentifier(tables.ElementAt(indexTable1).tableDrawable, "drawable", context.PackageName));
-            imageTable2.SetImageResource(context.Resources.GetIdentifier(tables.ElementAt(indexTable2).tableDrawable, "drawable", context.PackageName));
-
-            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
-            alertDialog.SetCancelable(true);
-            alertDialog.SetView(content);
-            alertDialog.Show();
-
-            dismiss.Click += delegate
-            {
-                alertDialog.Dismiss();
-            }; 
-        }
         private class MyScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener
         {
             private readonly GestureRecognizerView _view;

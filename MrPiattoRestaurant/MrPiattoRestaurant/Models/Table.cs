@@ -29,12 +29,22 @@ namespace MrPiattoRestaurant
         private int width = 100;
         private int height = 100;
         private int textSize = 20;
+
+        // Esta propiedad indica tres posibles estados de la mesa descritos a continuacion
+        // 0: No es posible seleccionar la mesa
+        // 1: La mesa esta seleccionada
+        // 2: La mesa no esta seleccionada
+        public bool isJoined { get; set; }
+        public int Selected { get; set; }
+        public int Id { get; set; }
         public string TableName { get; set; }
         public string tableDrawable { get; set; }
         public string type { get; set; }
         public int seats { get; set; }
 
-        private Drawable image;
+        public string actualColor { get; set; }
+
+        public Drawable image;
         private Drawable border;
         private Paint paint;
 
@@ -42,6 +52,7 @@ namespace MrPiattoRestaurant
 
         public Client actualClient { get; set; }
         public List<Client> reservations { get; set; }
+        public List<Table> tables { get; set; }
 
         public bool borderOn { get; set; }
         public bool isOcupied { get; set; }
@@ -50,18 +61,79 @@ namespace MrPiattoRestaurant
         public int firstY { get; set; }
         public int secondX { get; set; }
         public int secondY { get; set; }
-        public Table(Context context, string tableName, string type, int seats, int firstX, int firstY, bool borderOn)
+
+        public delegate void TableUnJoinedEventHandler(Table table);
+        public event TableUnJoinedEventHandler TableUnJoined;
+        protected virtual void OnTableUnJoined()
         {
+            if (TableUnJoined != null)
+            {
+                TableUnJoined(this);
+            }
+        }
+
+        public void UnJoined()
+        {
+            OnTableUnJoined();
+        }
+
+        public delegate void DrawEventHandler();
+        public event DrawEventHandler Draw;
+        protected virtual void OnDraw()
+        {
+            if (Draw != null)
+            {
+                Draw();
+            }
+        }
+
+        public void DrawTable()
+        {
+            OnDraw();
+        }
+
+        public Table(Context context, int Id, string tableName, string type, int seats, int firstX, int firstY, bool borderOn)
+        {
+            isJoined = false;
             this.context = context;
+            this.Id = Id;
             this.firstX = firstX;
             this.firstY = firstY;
             this.type = type;
             this.seats = seats;
             this.borderOn = borderOn;
+
+            Selected = 2;
             TableName = tableName;
+            actualColor = "#B0ADE8";
 
             InitializeProperties();
-            InitializePaint();
+            InitializeImages();
+        }
+
+        // Constructor utilizado cuando se crea una union de mesas
+        public Table(Context context, List<Table> tables, Client actualClient, int seats)
+        {
+            isJoined = true;
+            this.context = context;
+
+            this.tables = new List<Table>(tables);
+
+            this.actualClient = actualClient;
+            this.seats = seats;
+
+            TableName = "Union";
+
+            firstX = tables.First().firstX;
+            firstY = tables.First().firstY;
+            type = tables.First().type;
+
+            tableDrawable = type + seats + "ocupied";
+            secondX = firstX + width;
+            secondY = firstY + height;
+            reservations = new List<Client>();
+
+            actualColor = "#E2B7B8";
             InitializeImages();
         }
         private void InitializeProperties()
@@ -73,18 +145,31 @@ namespace MrPiattoRestaurant
 
             reservations = new List<Client>();
         }
-        private void InitializePaint()
+
+        private void setPaint(string color)
         {
             paint = new Paint();
-            paint.Color = Color.ParseColor("#B0ADE8");
+            paint.Color = Color.ParseColor(color);
             paint.SetStyle(Paint.Style.Fill);
             paint.TextSize = textSize;
             paint.TextAlign = Paint.Align.Center;
             paint.SetTypeface(Typeface.SansSerif);
             paint.AntiAlias = true;
         }
-        private void InitializeImages()
+
+        private void InitializePaint()
         {
+            paint = new Paint();
+            paint.Color = Color.ParseColor(actualColor);
+            paint.SetStyle(Paint.Style.Fill);
+            paint.TextSize = textSize;
+            paint.TextAlign = Paint.Align.Center;
+            paint.SetTypeface(Typeface.SansSerif);
+            paint.AntiAlias = true;
+        }
+        public void InitializeImages()
+        {
+            InitializePaint();
             image = context.Resources.GetDrawable(context.Resources.GetIdentifier(tableDrawable, "drawable", context.PackageName));
             border = context.Resources.GetDrawable(Resource.Drawable.border);
 
@@ -96,16 +181,38 @@ namespace MrPiattoRestaurant
         {
             reservations = new List<Client>(clients);
         }
-        public void setOcupied()
+        public void setOcupied(bool ocupied)
         {
-            string auxDrawable = tableDrawable + "ocupied";
-            image = context.Resources.GetDrawable(context.Resources.GetIdentifier(auxDrawable, "drawable", context.PackageName));
-            image.SetBounds(this.firstX, this.firstY, secondX, secondY);
+            if (ocupied)
+            {
+                isOcupied = true;
+                actualColor = "#E2B7B8";
+                tableDrawable = tableDrawable + "ocupied";
+                InitializeImages();
+                OnDraw();
+            } else
+            {
+                isOcupied = false;
+                actualColor = "#B0ADE8";
+                tableDrawable = type + seats;
+                InitializeImages();
+                OnDraw();
+            }
         }
 
         public void setDrawable(string type, int seats)
         {
+            this.type = type;
+            this.seats = seats;
             string auxDrawable = type + seats;
+            image = context.Resources.GetDrawable(context.Resources.GetIdentifier(auxDrawable, "drawable", context.PackageName));
+            image.SetBounds(this.firstX, this.firstY, secondX, secondY);
+            border.SetBounds(this.firstX - 5, this.firstY - 5, secondX + 5, secondY + 5);
+        }
+
+        public void setDrawable(string selection)
+        {
+            string auxDrawable = type + seats + selection;
             image = context.Resources.GetDrawable(context.Resources.GetIdentifier(auxDrawable, "drawable", context.PackageName));
             image.SetBounds(this.firstX, this.firstY, secondX, secondY);
             border.SetBounds(this.firstX - 5, this.firstY - 5, secondX + 5, secondY + 5);
@@ -132,6 +239,41 @@ namespace MrPiattoRestaurant
         public void setActualClient(Client actualClient)
         {
             this.actualClient = actualClient;
+        }
+
+        public void setSelected(int selected)
+        {
+            Selected = selected;
+
+            switch(Selected)
+            {
+                case 0:
+                    setDrawable("disable");
+                    setPaint("#B5BDCD");
+                    break;
+                case 1:
+                    setDrawable("selected");
+                    setPaint("#7FCBFB");
+                    break;
+                case 2:
+                    setDrawable("");
+                    setPaint("#B0ADE8");
+                    break;
+            }
+        }
+
+        // Retorna verdadero si se va a sobrelapar con una reservacion
+        public bool nextReservations()
+        {
+            DateTime date = DateTime.Now.AddHours(2);
+
+            foreach (Client c in reservations)
+            {
+                if (date > c.reservationDate)
+                    return true;
+            }
+
+            return false;
         }
 
         public int getWidth() { return width; }

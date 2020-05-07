@@ -60,5 +60,21 @@
             <param name="viewGroup">Container in which the table will be shown</param>
             <returns></returns>
         </member>
+        <member name="M:MrPiattoRestaurant.Views.TableUnion.#ctor(Android.Content.Context,MrPiattoRestaurant.Models.Client,System.Collections.Generic.List{MrPiattoRestaurant.GestureRecognizerView},System.Int32,System.Int32)">
+            <summary>
+            Class that creates a tablepropertiesView
+            </summary>
+            <param name="context">Context of activity</param>
+            <param name="floors">List of floors</param>
+            <param name="floorIndex">Actual floor Index</param>
+            <param name="tableIndex">Actual table Index in that floor</param>
+        </member>
+        <member name="M:MrPiattoRestaurant.Views.TableUnion.CreateView(Android.Views.ViewGroup)">
+            <summary>
+            Creates and shows the table properties View
+            </summary>
+            <param name="viewGroup">Container in which the table will be shown</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

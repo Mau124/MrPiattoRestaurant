@@ -8,6 +8,7 @@
     <item>Hora</item>
     <item>Dia</item>
     <item>Semana</item>
+    <item>Mes</item>
     <item>Año</item>
     </string-array>
 </resources>

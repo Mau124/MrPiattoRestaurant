@@ -30,6 +30,7 @@ namespace MrPiattoRestaurant
     public class MainActivity : AppCompatActivity
     {
         private APICaller API = new APICaller();
+        private APIUpdate APIupdate = new APIUpdate();
 
         public RelativeLayout container;
         public LinearLayout options;
@@ -109,7 +110,7 @@ namespace MrPiattoRestaurant
             floorName.ItemSelected += new System.EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
 
             var adapter = new ArrayAdapter<string>(this,
-                Android.Resource.Layout.SimpleSpinnerItem, floorsNames);
+                Resource.Layout.spinner_item_politics, floorsNames);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             floorName.Adapter = adapter;
 
@@ -149,7 +150,7 @@ namespace MrPiattoRestaurant
 
 
             var adapter = new ArrayAdapter<string>(this,
-                    Android.Resource.Layout.SimpleSpinnerItem, floorsNames);
+                    Resource.Layout.spinner_item_politics, floorsNames);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             floorName.Adapter = adapter;
             floorName.SetSelection(0);
@@ -163,11 +164,11 @@ namespace MrPiattoRestaurant
 
             foreach(RestaurantTables t in tables)
             {
-                Table aux = new Table(this, t.tableName, t.Type, t.Seats, (int)t.CoordenateX, (int)t.CoordenateY, false);
+                Table aux = new Table(this, t.Idtables, t.tableName, t.Type, t.Seats, (int)t.CoordenateX, (int)t.CoordenateY, false);
                 floors.ElementAt(t.floorIndex).AddTable(aux);
                 clients.Clear();
 
-                foreach (Reservation r in t.Reservation)
+                foreach (Reservation r in t.Reservation.Where(d => d.Date > DateTime.Now))
                 {
                     string name = API.GetUserName(r.Iduser);
                     Client client = new Client(name, 0, r.Date, r.AmountOfPeople);
@@ -261,7 +262,7 @@ namespace MrPiattoRestaurant
                 container.AddView(auxFloor);
 
                 var adapter = new ArrayAdapter<string>(this,
-                    Android.Resource.Layout.SimpleSpinnerItem, floorsNames);
+                    Resource.Layout.spinner_item_politics, floorsNames);
                 adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
                 floorName.Adapter = adapter;
                 floorName.SetSelection(floorsNames.Count() - 1);
@@ -294,7 +295,28 @@ namespace MrPiattoRestaurant
 
         public void OnItemPressed(string type, int seats)
         {
-            floors.ElementAt(floorIndex).AddTable(type, seats);
+            // Limpiamos el canvas actual
+            RestaurantTables auxTable = new RestaurantTables();
+
+            auxTable.Idrestaurant = restaurant.Idrestaurant;
+            auxTable.FloorName = floorsNames.ElementAt(floorIndex);
+            auxTable.CoordenateX = floors.ElementAt(floorIndex).centerX;
+            auxTable.CoordenateY = floors.ElementAt(floorIndex).centerY;
+            auxTable.Type = type;
+            auxTable.Seats = seats;
+            auxTable.floorIndex = floorIndex;
+            auxTable.tableName = "Text";
+
+            var response = APIupdate.AddTable(auxTable).Result;
+            Toast.MakeText(this, response, ToastLength.Long).Show();
+
+            List<RestaurantTables> auxTables = new List<RestaurantTables>();
+            auxTables = API.GetTables(restaurant.Idrestaurant);
+
+            int auxId = auxTables.Where(id => id.Idtables == (auxTables.Max(i => i.Idtables))).Select(id => id.Idtables).First();
+            Table aux = new Table(this, auxId, auxTable.tableName, auxTable.Type, auxTable.Seats, (int)auxTable.CoordenateX, (int)auxTable.CoordenateY, false);
+
+            floors.ElementAt(auxTable.floorIndex).AddOneTable(aux);
         }
 
         public void OnCancel()
@@ -392,36 +414,76 @@ namespace MrPiattoRestaurant
                     int table = floors.ElementAt(floorIndex).IsOnTable(x, y);
                     if (table != -1)
                     {
-                        floors.ElementAt(floorIndex).tables.ElementAt(table).setOcupied();
-                        floors.ElementAt(floorIndex).Draw();
-
-
+                        // Hay que checar que la mesa cumpla con los siguientes requisitos
+                        // IMPORTANTE ESTE REQUISITO PARA QUE EL SISTEMA FUNCIONE
+                        // No este ocupada actualmente y que no existan reservaciones en las proximos dos horas
                         int pos = waitFragment.getDraggedItemPosition();
-                        //Create alertdialog
-                        View content = LayoutInflater.Inflate(Resource.Layout.dialog_confirm_assigntable_fromWait, null);
 
-                        TextView name, seats;
+                        if (floors.ElementAt(floorIndex).tables.ElementAt(table).isOcupied || floors.ElementAt(floorIndex).tables.ElementAt(table).nextReservations())
+                        {
+                            Toast.MakeText(Application.Context, "No se puede seleccionar la mesa. Esta ocupada o lo estara pronto", ToastLength.Short).Show();
+                        } else
+                        {
+                            if (floors.ElementAt(floorIndex).tables.ElementAt(table).seats >= waitFragment.waitList.ElementAt(pos).numSeats)
+                            {
+                                //Create alertdialog
+                                View content = LayoutInflater.Inflate(Resource.Layout.dialog_confirm_assigntable_fromWait, null);
 
-                        name = content.FindViewById<TextView>(Resource.Id.idName);
-                        seats = content.FindViewById<TextView>(Resource.Id.idSeats);
+                                TextView name, seats;
+                                Button button;
+                                ImageView dismiss;
 
-                        name.Text = waitFragment.waitList.ElementAt(pos).personName;
-                        seats.Text = waitFragment.waitList.ElementAt(pos).numSeats.ToString();
+                                name = content.FindViewById<TextView>(Resource.Id.idName);
+                                seats = content.FindViewById<TextView>(Resource.Id.idSeats);
+                                dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
+                                button = content.FindViewById<Button>(Resource.Id.idButton);
 
-                        Client client = new Client(waitFragment.waitList.ElementAt(pos).personName, 0, DateTime.Now, waitFragment.waitList.ElementAt(pos).numSeats);
-                        floors.ElementAt(floorIndex).setActualClientOnTable(client, table);
-                        waitFragment.RemoveFromWaitList(pos);
+                                name.Text = waitFragment.waitList.ElementAt(pos).personName;
+                                seats.Text = waitFragment.waitList.ElementAt(pos).numSeats.ToString();
 
-                        bottomNavigation.SelectedItemId = Resource.Id.idActualList;
-                        LoadFragment(Resource.Id.idActualList);
+                                Client client = new Client(waitFragment.waitList.ElementAt(pos).personName, 0, DateTime.Now, waitFragment.waitList.ElementAt(pos).numSeats);
 
-                        Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(this).Create();
-                        alertDialog.SetCancelable(true);
-                        alertDialog.SetView(content);
-                        alertDialog.Show();
-                        
+                                Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(this).Create();
+                                alertDialog.SetCancelable(true);
+                                alertDialog.SetView(content);
+                                alertDialog.Show();
 
-                        Toast.MakeText(Application.Context, "Posicion " + pos, ToastLength.Short).Show();
+                                dismiss.Click += delegate
+                                {
+                                    alertDialog.Dismiss();
+                                };
+
+                                button.Click += delegate
+                                {
+                                    floors.ElementAt(floorIndex).tables.ElementAt(table).setOcupied(true);
+                                    floors.ElementAt(floorIndex).Draw();
+
+                                    floors.ElementAt(floorIndex).setActualClientOnTable(client, table);
+                                    waitFragment.RemoveFromWaitList(pos);
+
+                                    bottomNavigation.SelectedItemId = Resource.Id.idActualList;
+                                    LoadFragment(Resource.Id.idActualList);
+
+                                    alertDialog.Dismiss();
+                                };
+
+                            }
+                            else
+                            {
+                                // Entramos a modo union mesas
+                                Client client = new Client(waitFragment.waitList.ElementAt(pos).personName, 0, DateTime.Now, waitFragment.waitList.ElementAt(pos).numSeats);
+                                options.RemoveAllViews();
+
+                                TableUnion tableUnion = new TableUnion(this, client, floors, floorIndex, table);
+                                tableUnion.CreateView(options);
+
+                                tableUnion.ClosePressed += delegate
+                                {
+                                    waitFragment.RemoveFromWaitList(pos);
+                                    OnCancel();
+                                };
+                            }
+                        }
                     } 
                     else
                     {

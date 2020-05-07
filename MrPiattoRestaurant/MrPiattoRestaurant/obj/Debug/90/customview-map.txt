@@ -13,6 +13,7 @@ android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\dialog_join_
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_actuallist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_futurelist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_notifications.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_union.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_waitlist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_add_waiter.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_catalogue.xml
@@ -22,6 +23,7 @@ android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_modif
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_new_password.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_promotions.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_schedule.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_union_tables.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\modify_floor.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\modify_waitlist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\recycler_actuallist.xml
@@ -36,6 +38,7 @@ android.support.v7.widget.CardView;obj\Debug\90\res\layout\layout_item_gallery.x
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\activity_dashboard_gallery.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\layout_catalogue.xml
+android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\layout_union_tables.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\recycler_actuallist.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\recycler_futurelist.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\recycler_notifications.xml
@@ -61,6 +64,7 @@ Button;obj\Debug\90\res\layout\layout_modify_res.xml
 Button;obj\Debug\90\res\layout\layout_new_password.xml
 Button;obj\Debug\90\res\layout\layout_promotions.xml
 Button;obj\Debug\90\res\layout\layout_schedule.xml
+Button;obj\Debug\90\res\layout\layout_union_tables.xml
 Button;obj\Debug\90\res\layout\modify_waitlist.xml
 Button;obj\Debug\90\res\layout\recycler_actuallist.xml
 Button;obj\Debug\90\res\layout\recycler_futurelist.xml
@@ -77,6 +81,7 @@ corners;obj\Debug\90\res\drawable\dashboard_design.xml
 corners;obj\Debug\90\res\drawable\dashboard_main_design.xml
 corners;obj\Debug\90\res\drawable\dashboard_selected_item.xml
 corners;obj\Debug\90\res\drawable\delete_buttons.xml
+corners;obj\Debug\90\res\drawable\end_food.xml
 corners;obj\Debug\90\res\drawable\generic.xml
 corners;obj\Debug\90\res\drawable\politics_edit.xml
 corners;obj\Debug\90\res\drawable\promotions_container.xml
@@ -91,6 +96,7 @@ EditText;obj\Debug\90\res\layout\addfloor.xml
 EditText;obj\Debug\90\res\layout\layout_add_waiter.xml
 EditText;obj\Debug\90\res\layout\layout_login.xml
 EditText;obj\Debug\90\res\layout\layout_manual_reservation.xml
+EditText;obj\Debug\90\res\layout\layout_modify_res.xml
 EditText;obj\Debug\90\res\layout\layout_new_password.xml
 EditText;obj\Debug\90\res\layout\layout_promotions.xml
 EditText;obj\Debug\90\res\layout\modify_waitlist.xml
@@ -113,6 +119,7 @@ ImageView;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 ImageView;obj\Debug\90\res\layout\dialog_join_tables.xml
 ImageView;obj\Debug\90\res\layout\item_actuallist.xml
 ImageView;obj\Debug\90\res\layout\item_futurelist.xml
+ImageView;obj\Debug\90\res\layout\item_union.xml
 ImageView;obj\Debug\90\res\layout\item_waitlist.xml
 ImageView;obj\Debug\90\res\layout\layout_add_waiter.xml
 ImageView;obj\Debug\90\res\layout\layout_catalogue.xml
@@ -125,6 +132,7 @@ ImageView;obj\Debug\90\res\layout\layout_new_password.xml
 ImageView;obj\Debug\90\res\layout\layout_promotions.xml
 ImageView;obj\Debug\90\res\layout\layout_schedule.xml
 ImageView;obj\Debug\90\res\layout\layout_section.xml
+ImageView;obj\Debug\90\res\layout\layout_union_tables.xml
 ImageView;obj\Debug\90\res\layout\modify_floor.xml
 ImageView;obj\Debug\90\res\layout\modify_waitlist.xml
 ImageView;obj\Debug\90\res\layout\recycler_actuallist.xml
@@ -144,15 +152,14 @@ LinearLayout;obj\Debug\90\res\layout\activity_main.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_answer_survey.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_join_tables.xml
-LinearLayout;obj\Debug\90\res\layout\dialog_modifyres.xml
 LinearLayout;obj\Debug\90\res\layout\item_futurelist.xml
+LinearLayout;obj\Debug\90\res\layout\item_union.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item_gallery.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item_waiter.xml
 LinearLayout;obj\Debug\90\res\layout\layout_login.xml
 LinearLayout;obj\Debug\90\res\layout\layout_manual_reservation.xml
 LinearLayout;obj\Debug\90\res\layout\layout_modify_res.xml
-LinearLayout;obj\Debug\90\res\layout\layout_modify_restaurant.xml
 LinearLayout;obj\Debug\90\res\layout\layout_promotions.xml
 LinearLayout;obj\Debug\90\res\layout\layout_schedule.xml
 LinearLayout;obj\Debug\90\res\layout\layout_section.xml
@@ -187,6 +194,7 @@ shape;obj\Debug\90\res\drawable\dashboard_design.xml
 shape;obj\Debug\90\res\drawable\dashboard_main_design.xml
 shape;obj\Debug\90\res\drawable\dashboard_selected_item.xml
 shape;obj\Debug\90\res\drawable\delete_buttons.xml
+shape;obj\Debug\90\res\drawable\end_food.xml
 shape;obj\Debug\90\res\drawable\generic.xml
 shape;obj\Debug\90\res\drawable\main_sections.xml
 shape;obj\Debug\90\res\drawable\material_button.xml
@@ -205,6 +213,7 @@ size;obj\Debug\90\res\drawable\dashboard_design.xml
 size;obj\Debug\90\res\drawable\dashboard_main_design.xml
 size;obj\Debug\90\res\drawable\dashboard_selected_item.xml
 size;obj\Debug\90\res\drawable\delete_buttons.xml
+size;obj\Debug\90\res\drawable\end_food.xml
 size;obj\Debug\90\res\drawable\generic.xml
 size;obj\Debug\90\res\drawable\main_sections.xml
 size;obj\Debug\90\res\drawable\politics_edit.xml
@@ -219,6 +228,7 @@ solid;obj\Debug\90\res\drawable\dashboard_design.xml
 solid;obj\Debug\90\res\drawable\dashboard_main_design.xml
 solid;obj\Debug\90\res\drawable\dashboard_selected_item.xml
 solid;obj\Debug\90\res\drawable\delete_buttons.xml
+solid;obj\Debug\90\res\drawable\end_food.xml
 solid;obj\Debug\90\res\drawable\generic.xml
 solid;obj\Debug\90\res\drawable\main_sections.xml
 solid;obj\Debug\90\res\drawable\material_button.xml
@@ -244,6 +254,7 @@ stroke;obj\Debug\90\res\drawable\containers_design.xml
 stroke;obj\Debug\90\res\drawable\dashboard_design.xml
 stroke;obj\Debug\90\res\drawable\dashboard_main_design.xml
 stroke;obj\Debug\90\res\drawable\delete_buttons.xml
+stroke;obj\Debug\90\res\drawable\end_food.xml
 stroke;obj\Debug\90\res\drawable\generic.xml
 stroke;obj\Debug\90\res\drawable\politics_edit.xml
 stroke;obj\Debug\90\res\drawable\promotions_container.xml
@@ -266,6 +277,7 @@ TextView;obj\Debug\90\res\layout\dialog_join_tables.xml
 TextView;obj\Debug\90\res\layout\item_actuallist.xml
 TextView;obj\Debug\90\res\layout\item_futurelist.xml
 TextView;obj\Debug\90\res\layout\item_notifications.xml
+TextView;obj\Debug\90\res\layout\item_union.xml
 TextView;obj\Debug\90\res\layout\item_waitlist.xml
 TextView;obj\Debug\90\res\layout\layout_add_waiter.xml
 TextView;obj\Debug\90\res\layout\layout_catalogue.xml
@@ -278,6 +290,7 @@ TextView;obj\Debug\90\res\layout\layout_new_password.xml
 TextView;obj\Debug\90\res\layout\layout_promotions.xml
 TextView;obj\Debug\90\res\layout\layout_schedule.xml
 TextView;obj\Debug\90\res\layout\layout_section.xml
+TextView;obj\Debug\90\res\layout\layout_union_tables.xml
 TextView;obj\Debug\90\res\layout\modify_floor.xml
 TextView;obj\Debug\90\res\layout\modify_waitlist.xml
 TextView;obj\Debug\90\res\layout\recycler_actuallist.xml
@@ -293,4 +306,6 @@ View;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 View;obj\Debug\90\res\layout\activity_main.xml
 View;obj\Debug\90\res\layout\layout_item_gallery.xml
 View;obj\Debug\90\res\layout\layout_item_waiter.xml
+View;obj\Debug\90\res\layout\layout_main_container.xml
 View;obj\Debug\90\res\layout\recycler_futurelist.xml
+View;obj\Debug\90\res\layout\table_properties.xml

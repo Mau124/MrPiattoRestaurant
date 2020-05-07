@@ -58,6 +58,38 @@ namespace MrPiattoRestaurant.Resources.utilities
             return await response.Content.ReadAsStringAsync();
         }
 
+        public async Task<string> UpdateWaiters(Waiters waiter)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(waiter);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("ResInfo/Waiters/Update", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> AddWaiter(Waiters waiter)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(waiter);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("ResInfo/Waiters/Add", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
         public async Task<string> UpdateSchedule(Schedule schedule)
         {
             HttpClient client = new HttpClient();
@@ -71,6 +103,38 @@ namespace MrPiattoRestaurant.Resources.utilities
             var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
             byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
             var response = client.PostAsync("Schedules/Update", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> AddTable(RestaurantTables table)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(table);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("Grid", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> UpdateTable(RestaurantTables table)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(table);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("Grid/UpdateTable", byteContent).Result;
             return await response.Content.ReadAsStringAsync();
         }
     }

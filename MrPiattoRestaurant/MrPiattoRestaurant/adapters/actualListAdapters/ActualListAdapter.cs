@@ -17,6 +17,16 @@ namespace MrPiattoRestaurant.adapters.actualListAdapters
 {
     public class ActualListAdapter : RecyclerView.Adapter
     {
+        public delegate void EndFoodEventHandler(int position);
+        public event EndFoodEventHandler EndFood;
+        protected virtual void OnTablePressed(int position)
+        {
+            if (EndFood != null)
+            {
+                EndFood(position);
+            }
+        }
+
         public List<Table> ocupiedTables;
         public Context context;
         public ActualListAdapter(Context context, List<Table> ocupiedTables)
@@ -50,6 +60,19 @@ namespace MrPiattoRestaurant.adapters.actualListAdapters
                     switch (arg1.Item.ItemId)
                     {
                         case Resource.Id.item1:
+                            if (ocupiedTables[position].isJoined)
+                            {
+                                // Eliminara la mesa unida
+                                ocupiedTables[position].UnJoined();
+
+                                // Debemos de actualizar el recycler, eliminando a este cliente
+                                EndFood(position);
+                            } else
+                            {
+                                ocupiedTables[position].setOcupied(false);
+                                ocupiedTables.Remove(ocupiedTables[position]);
+                                EndFood(position);
+                            }
                             AnswerSurveyDialog();
                             break;
                         case Resource.Id.item2:

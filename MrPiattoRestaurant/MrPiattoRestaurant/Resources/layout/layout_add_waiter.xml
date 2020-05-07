@@ -40,9 +40,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:hint="Nombre"
+        android:hint="Primer Nombre"
         app:layout_constraintTop_toBottomOf="@+id/idTitle"
-        app:layout_constraintBottom_toTopOf="@+id/idButtons"
+        app:layout_constraintBottom_toTopOf="@+id/idLastName"
         android:id="@+id/idName"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -51,6 +51,21 @@
         android:textSize="15sp"
        android:layout_marginTop="10dp"
        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Segundo nombre"
+        app:layout_constraintTop_toBottomOf="@+id/idName"
+        app:layout_constraintBottom_toTopOf="@+id/idButtons"
+        android:id="@+id/idLastName"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/promotions_container"
+        android:padding="20dp"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

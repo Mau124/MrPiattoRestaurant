@@ -386,8 +386,14 @@ namespace MrPiattoRestaurant.Fragments
             foreach (Waiters w in waiters)
             {
                 auxWaiters = w.WaiterStatistics.Where(d => d.DateStatistics >= wInterval1 && d.DateStatistics <= wInterval2).ToList();
-                var rate = auxWaiters.Average(r => r.Rating);
-                tableStats.Add(new TableStats(w.WaiterFirstName, rate));
+                if (auxWaiters.Any())
+                {
+                    var rate = auxWaiters.Average(r => r.Rating);
+                    tableStats.Add(new TableStats(w.WaiterFirstName, rate));
+                } else
+                {
+                    tableStats.Add(new TableStats(w.WaiterFirstName, 0));
+                }
             }
 
             // Mostramos los resultados en las graficas
@@ -581,10 +587,10 @@ namespace MrPiattoRestaurant.Fragments
             hInterval2 = hourStatistics.Max(d => d.DateStatistics);
             dInterval1 = dayStatistics.Min(d => d.DateStatistics);
             dInterval2 = dayStatistics.Max(d => d.DateStatistics);
-            thourInterval1 = hourStatistics.Min(d => d.DateStatistics);
-            thourInterval2 = hourStatistics.Max(d => d.DateStatistics);
-            tdayInterval1 = hourStatistics.Min(d => d.DateStatistics);
-            tdayInterval2 = hourStatistics.Max(d => d.DateStatistics);
+            thourInterval1 = tableStatistics.Min(d => d.DateStatistics);
+            thourInterval2 = tableStatistics.Max(d => d.DateStatistics);
+            tdayInterval1 = tableStatistics.Min(d => d.DateStatistics);
+            tdayInterval2 = tableStatistics.Max(d => d.DateStatistics);
             wInterval1 = waitersStatistics.Min(d => d.DateStatistics);
             wInterval2 = waitersStatistics.Max(d => d.DateStatistics);
             sInterval1 = surveys.Min(d => d.DateStatistics);

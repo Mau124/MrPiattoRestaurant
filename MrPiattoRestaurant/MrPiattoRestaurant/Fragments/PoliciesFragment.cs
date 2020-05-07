@@ -30,6 +30,7 @@ namespace MrPiattoRestaurant.Fragments
         Restaurant restaurant = new Restaurant();
         Policies policies = new Policies();
         APICaller API = new APICaller();
+        APIUpdate APIupdate = new APIUpdate();
 
         private Context context;
 
@@ -146,6 +147,7 @@ namespace MrPiattoRestaurant.Fragments
                 strikeTime.Text = policies.StrikeType.ToString();
                 strikeTime.Visibility = ViewStates.Gone;
                 spinner4.Visibility = ViewStates.Gone;
+                penalType.Visibility = ViewStates.Gone;
             }
             else
             {
@@ -153,6 +155,7 @@ namespace MrPiattoRestaurant.Fragments
                 strikeType.Text = "Horas";
                 strikeTime.Visibility = ViewStates.Visible;
                 spinner4.Visibility = ViewStates.Visible;
+                penalType.Visibility = ViewStates.Visible;
             }
 
 
@@ -186,44 +189,54 @@ namespace MrPiattoRestaurant.Fragments
             else
             {
                 mod.Text = "Modificar";
+                InitializePolicies();
                 InitializePolitics();
                 isModifying = false;
             }
         }
         private async void acceptPolitics(object sender, EventArgs e)
         {
-            Policies policies = new Policies();
-
-            policies.MaxTimeRes = Int32.Parse(maxRes.Text);
-            policies.MinTimeRes = Int32.Parse(minRes.Text);
-            policies.MaxTimeArr = Int32.Parse(maxArrive.Text);
-            //Todavia no se pueden modificar estos campos
-            policies.ModTimeHours = Int32.Parse(minMod.Text);
-            policies.ModTimeSeats = 1;
-            policies.ModTimeDays = 2;
-            ////////////////////////////////
-            // Si esta presionado, el tipo de strikes es por horas
+            if (!maxRes.Text.Equals(""))
+            {
+                policies.MaxTimeRes = Int32.Parse(maxRes.Text);
+            }
+            if (!maxArrive.Text.Equals(""))
+            {
+                policies.MaxTimeArr = Int32.Parse(maxArrive.Text);
+            }
             if (switch1.Checked)
             {
-                policies.StrikeType = Int32.Parse(strikeTime.Text);
-                policies.StrikeType = 1;
-            }
-            else
+                if (!strikeTime.Text.Equals(""))
+                {
+                    policies.StrikeType = Int32.Parse(strikeTime.Text);
+                }
+                policies.StrikeTypePer = (int)spinner4.SelectedItemId;
+            } else
             {
                 policies.StrikeType = 0;
+                policies.StrikeTypePer = 0;
             }
-            // Si esta presionado, genera strikes sobre el usuario
+            if (!minRes.Text.Equals(""))
+            {
+                policies.MinTimeRes = Int32.Parse(minRes.Text);
+            }
+
+            // Falta minimo tiempo de modificar
+
             if (switch2.Checked)
             {
                 policies.Strikes = true;
-            }
-            else
+            } else
             {
                 policies.Strikes = false;
             }
 
-            //var response = await APIupdate.UpdatePolicies(policies);
-            //Toast.MakeText(context, response, ToastLength.Long).Show();
+            policies.MaxTimePer = (int)spinner.SelectedItemId;
+            policies.MaxTimeArrPer = (int)spinner3.SelectedItemId;
+            policies.MinTimePer = (int)spinner2.SelectedItemId;
+
+            var response = await APIupdate.UpdatePolicies(policies);
+            Toast.MakeText(context, response, ToastLength.Long).Show();
 
             mod.Text = "Modificar";
             InitializePolitics();

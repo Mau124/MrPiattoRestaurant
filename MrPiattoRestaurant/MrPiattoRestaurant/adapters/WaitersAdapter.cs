@@ -18,12 +18,29 @@ namespace MrPiattoRestaurant.adapters
 {
     public class WaitersAdapter : RecyclerView.Adapter
     {
-        List<Waiters> waiters = new List<Waiters>();
-        private Context context;
-        public WaitersAdapter(List<Waiters> waiters, Context context)
+        //We define a delegate for our tablepressed event
+        public delegate void ChangeItemEventHandler(object sender, EventArgs e);
+
+        //We define an event based on the tablepressed delegate
+        public event ChangeItemEventHandler ChangeItem;
+
+        //Raise the event
+        protected virtual void OnChangeItem()
         {
-            this.waiters = waiters;
+            if (ChangeItem != null)
+            {
+                ChangeItem(this, EventArgs.Empty);
+            }
+        }
+
+        private List<Waiters> waiters = new List<Waiters>();
+        private Context context;
+
+        private APIUpdate APIupdate = new APIUpdate();
+        public WaitersAdapter(Context context, List<Waiters> waiters)
+        {
             this.context = context;
+            this.waiters = waiters;
         }
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
@@ -55,11 +72,13 @@ namespace MrPiattoRestaurant.adapters
 
                 TextView textTitle = content.FindViewById<TextView>(Resource.Id.idTextTitle);
                 EditText name = content.FindViewById<EditText>(Resource.Id.idName);
+                EditText lastName = content.FindViewById<EditText>(Resource.Id.idLastName);
                 Button button = content.FindViewById<Button>(Resource.Id.idButton);
                 ImageView dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
 
                 textTitle.Text = "Modificar mesero";
-                name.Hint = waiters[position].WaiterFirstName + " " + waiters[position].WaiterLasName;
+                name.Hint = waiters[position].WaiterFirstName;
+                lastName.Hint = waiters[position].WaiterLasName;
                 button.Text = "Modificar"; 
 
                 Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
@@ -70,6 +89,32 @@ namespace MrPiattoRestaurant.adapters
                 dismiss.Click += delegate
                 {
                     alertDialog.Dismiss();
+                };
+
+                button.Click += async delegate
+                {
+                    if (name.Text.Equals("") || lastName.Text.Equals(""))
+                    {
+                        Toast.MakeText(context, "Falta algun campo" , ToastLength.Long).Show();
+                    } else
+                    {
+                        Waiters waiter = new Waiters();
+
+                        waiter.Idwaiter = waiters[position].Idwaiter;
+                        waiter.Idrestaurant = waiters[position].Idrestaurant;
+                        waiter.WaiterFirstName = name.Text;
+                        waiter.WaiterLasName = lastName.Text;
+
+                        var response = await APIupdate.UpdateWaiters(waiter);
+                        Toast.MakeText(context, response, ToastLength.Long).Show();
+
+                        waiters[position].WaiterFirstName = name.Text;
+                        waiters[position].WaiterLasName = lastName.Text;
+
+                        OnChangeItem();
+
+                        alertDialog.Dismiss();
+                    }
                 };
             };
         }
