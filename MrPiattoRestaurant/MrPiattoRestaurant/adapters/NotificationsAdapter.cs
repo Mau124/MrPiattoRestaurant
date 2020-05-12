@@ -20,8 +20,8 @@ namespace MrPiattoRestaurant.adapters
     public class NotificationsAdapter : RecyclerView.Adapter
     {
         private Context context;
-        public List<Client> NotificationsList;
-        public NotificationsAdapter(Context context, List<Client> NotificationsList)
+        public List<Models.Notification> NotificationsList;
+        public NotificationsAdapter(Context context, List<Models.Notification> NotificationsList)
         {
             this.context = context;
             this.NotificationsList = NotificationsList;
@@ -37,8 +37,10 @@ namespace MrPiattoRestaurant.adapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             NotificationsListViewHolder vh = holder as NotificationsListViewHolder;
-            vh.personName.Text = NotificationsList.ElementAt(position).name;
-            vh.tableName.Text = NotificationsList.ElementAt(position).reservationDate.ToString();
+            vh.personName.Text = NotificationsList.ElementAt(position).Name + " " + NotificationsList.ElementAt(position).LastName;
+            vh.tableName.Text = NotificationsList.ElementAt(position).TableName;
+            vh.date.Text = NotificationsList.ElementAt(position).Date.ToString();
+            vh.phone.Text = NotificationsList.ElementAt(position).Phone;
         }
 
         public override int ItemCount
@@ -57,13 +59,14 @@ namespace MrPiattoRestaurant.adapters
         }
         public class NotificationsListViewHolder : RecyclerView.ViewHolder
         {
-            public TextView personName, tableName, reservationCode;
+            public TextView personName, tableName, date, phone;
 
             public NotificationsListViewHolder(View itemView) : base(itemView)
             {
                 personName = itemView.FindViewById<TextView>(Resource.Id.idPersonName);
                 tableName = itemView.FindViewById<TextView>(Resource.Id.idtableName);
-                //reservationCode = itemView.FindViewById<TextView>(Resource.Id.idReservationCode);
+                date = itemView.FindViewById<TextView>(Resource.Id.idDate);
+                phone = itemView.FindViewById<TextView>(Resource.Id.idPhone);
             }
         }
     }

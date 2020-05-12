@@ -92,6 +92,29 @@ namespace MrPiattoRestaurant.Resources.utilities
             }
         }
 
+        public List<AuxiliarTables> GetAuxTables(int idRestaurant)
+        {
+            List<AuxiliarTables> resTables;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Grid/Aux/{idRestaurant}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    resTables = JsonConvert.DeserializeObject<List<AuxiliarTables>>(json);
+                }
+
+                return resTables;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public List<Reservation> GetReservations(int idRestaurant)
         {
             List<Reservation> reservations;
@@ -340,6 +363,76 @@ namespace MrPiattoRestaurant.Resources.utilities
                 }
 
                 return schedule;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        // Reservations
+        public List<Reservation> GetNotReservations(int idRes)
+        {
+            List<Reservation> reservations = new List<Reservation>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/Not/Res/{idRes}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    reservations = JsonConvert.DeserializeObject<List<Reservation>>(json);
+                }
+
+                return reservations;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<AuxiliarReservation> GetNotAuxReservations(int idRes)
+        {
+            List<AuxiliarReservation> reservations = new List<AuxiliarReservation>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/Not/Aux/{idRes}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    reservations = JsonConvert.DeserializeObject<List<AuxiliarReservation>>(json);
+                }
+
+                return reservations;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<ManualReservation> GetNotManReservations(int idRes)
+        {
+            List<ManualReservation> reservations = new List<ManualReservation>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/Not/ManRes/{idRes}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    reservations = JsonConvert.DeserializeObject<List<ManualReservation>>(json);
+                }
+
+                return reservations;
             }
             catch (Exception)
             {

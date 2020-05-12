@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Runtime;
 using Android.Widget;
 using Android.Views;
+using Android.Net;
+using Android.Content;
+using Android.Widget;
 
 using MrPiattoRestaurant.Fragments;
 using MrPiattoRestaurant.Pickers;
@@ -22,9 +26,17 @@ namespace MrPiattoRestaurant
     {
         ImageView aboutMe, statistics, photosGallery, policies;
         TextView hourInterval1, hourInterval2;
+        Button button;
         ImageView dismiss;
+        ImageView getImage;
+        EditText name;
+        EditText desc;
+        LinearLayout containerImages;
         private Restaurant restaurant = new Restaurant();
         private APICaller API = new APICaller();
+
+        private Android.Net.Uri uriToSend;
+        private int imageId = 1000;
 
         ImageView promotions;
 
@@ -155,18 +167,72 @@ namespace MrPiattoRestaurant
             alertDialog.Show();
 
             dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
+            button = content.FindViewById<Button>(Resource.Id.idButton);
+            getImage = content.FindViewById<ImageView>(Resource.Id.idImage);
+            name = content.FindViewById<EditText>(Resource.Id.idName);
+            desc = content.FindViewById<EditText>(Resource.Id.idDesc);
+            containerImages = content.FindViewById<LinearLayout>(Resource.Id.idContainerImages);
 
             hourInterval1 = content.FindViewById<TextView>(Resource.Id.idHourInterval1);
             hourInterval2 = content.FindViewById<TextView>(Resource.Id.idHourInterval2);
 
+            getImage.Click += delegate
+            {
+                Intent = new Intent();
+                Intent.SetType("image/*");
+                Intent.SetAction(Intent.ActionGetContent);
+                StartActivityForResult(Intent.CreateChooser(Intent, "Selecciona una imagen"), imageId);
+            };
+            
             dismiss.Click += delegate
             {
                 alertDialog.Dismiss();
             };
 
+            button.Click += delegate
+            {
+                // Checamos que todos los campos esten correctos
+
+                Intent send = new Intent(Intent.ActionSend);
+                send.SetType("message/rfc822");
+                send.PutExtra(Intent.ExtraEmail, new String[] { "andresperez1024@gmail.com", "a16300109@ceti.mx"});
+                send.PutExtra(Intent.ExtraSubject, "hola");
+                if (uriToSend != null)
+                {
+                    send.PutExtra(Intent.ExtraStream, uriToSend);
+                }
+                send.PutExtra(Intent.ExtraText, "hola again");
+                try
+                {
+                    StartActivity(Intent.CreateChooser(send, "Enviando correo..."));
+                    alertDialog.Dismiss();
+
+                } catch (Android.Content.ActivityNotFoundException ex)
+                {
+                    Toast.MakeText(this, "Hubo un problema al enviar el correo", ToastLength.Long).Show();
+                }
+            };
+
+
             hourInterval1.Click += onHourInterval1;
             hourInterval2.Click += onHourInterval2;
 
+        }
+
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            if ((requestCode == imageId) && (resultCode == Result.Ok) && (data != null))
+            {
+                Android.Net.Uri uri = data.Data;
+                uriToSend = uri;
+
+                ImageView iv = new ImageView(this);
+                iv.SetImageURI(uri);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(100, 100);
+                lp.SetMargins(10, 10, 10, 10);
+                iv.LayoutParameters = lp;
+                containerImages.AddView(iv);
+            }
         }
 
         private void onHourInterval1(object sender, EventArgs e)

@@ -18,7 +18,9 @@ using Android.Support.Design.Widget;
 using MrPiattoRestaurant.adapters;
 using MrPiattoRestaurant.Models.Reservations;
 using MrPiattoRestaurant.Models;
+using MrPiattoRestaurant.ModelsDB;
 using MrPiattoRestaurant.Pickers;
+using MrPiattoRestaurant.Resources.utilities;
 
 
 namespace MrPiattoRestaurant.Fragments
@@ -28,15 +30,18 @@ namespace MrPiattoRestaurant.Fragments
         RecyclerView mRecyclerView;
         TextView message;
 
-        Context context;
+        private Context context;
+        private Restaurant restaurant;
+        private APICaller API = new APICaller();
 
         public RecyclerView.LayoutManager mLayoutManager;
         public NotificationsAdapter mAdapter;
 
-        public List<Client> NotificationsList = new List<Client>();
-        public NotificationsFragment(Context context)
+        public List<Models.Notification> NotificationsList = new List<Models.Notification>();
+        public NotificationsFragment(Context context, Restaurant restaurant)
         {
             this.context = context;
+            this.restaurant = restaurant;
         }
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -44,12 +49,7 @@ namespace MrPiattoRestaurant.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
-            Client client = new Client("Juan", 30, DateTime.Now, 2);
-
-            NotificationsList.Add(client);
-            NotificationsList.Add(client);
-            NotificationsList.Add(client);
-            NotificationsList.Add(client);
+            InitializeNotifications();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -81,6 +81,28 @@ namespace MrPiattoRestaurant.Fragments
             }
 
             return view;
+        }
+
+        private void InitializeNotifications()
+        {
+            List<Reservation>? reservations = API.GetNotReservations(restaurant.Idrestaurant);
+            List<AuxiliarReservation>? auxReservations = API.GetNotAuxReservations(restaurant.Idrestaurant);
+            List<ManualReservation>? manReservations = API.GetNotManReservations(restaurant.Idrestaurant);
+
+            foreach (Reservation r in reservations)
+            {
+                NotificationsList.Add(new Models.Notification(r.IduserNavigation.FirstName, r.IduserNavigation.LastName, r.IdtableNavigation.tableName, r.Date, "Reservado desde celular"));
+            }
+
+            foreach (AuxiliarReservation r in auxReservations)
+            {
+                NotificationsList.Add(new Models.Notification(r.Name, r.LastName, "Union", r.Date, r.Phone));
+            }
+
+            foreach (ManualReservation r in manReservations)
+            {
+                NotificationsList.Add(new Models.Notification(r.Name, r.LastName, r.IdtableNavigation.tableName, r.Date, r.Phone));
+            }
         }
     }
 

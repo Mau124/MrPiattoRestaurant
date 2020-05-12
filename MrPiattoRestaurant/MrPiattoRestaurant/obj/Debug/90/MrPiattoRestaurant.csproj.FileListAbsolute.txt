@@ -567,3 +567,6 @@ C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\layout\item_union.xml
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md5a3863839c315fb02e623e2e31cd2262d\UnionAdapter.java
 C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md5a3863839c315fb02e623e2e31cd2262d\UnionAdapter_UnionViewHolder.java
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\res\drawable\communications.png
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md504cfae61ac13c21741f9d6a8d484ecff\AlarmReceiver.java
+C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\android\src\md504cfae61ac13c21741f9d6a8d484ecff\BootReceiver.java

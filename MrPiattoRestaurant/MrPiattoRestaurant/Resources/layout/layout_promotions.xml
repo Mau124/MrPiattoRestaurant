@@ -92,7 +92,7 @@
         android:layout_height="60dp"
         android:hint="Nombre"
         app:layout_constraintTop_toBottomOf="@+id/idDateContainer"
-        app:layout_constraintBottom_toTopOf="@+id/idSeats"
+        app:layout_constraintBottom_toTopOf="@+id/idContainer"
         android:id="@+id/idName"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -106,26 +106,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/art"
-        app:layout_constraintBottom_toBottomOf="@+id/idSeats"
-        app:layout_constraintRight_toRightOf="@+id/idSeats"
+        app:layout_constraintBottom_toBottomOf="@+id/idContainer"
+        app:layout_constraintRight_toRightOf="@+id/idContainer"
         android:background="@drawable/material_button"
         android:elevation="5dp"
         android:padding="10dp"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:id="@+id/idImage"/>
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:hint="Descripcion"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/idName"
         app:layout_constraintBottom_toTopOf="@+id/idButtons"
-        android:id="@+id/idSeats"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/promotions_container"
-        android:padding="20dp"
-        android:textSize="15sp"
-       android:layout_marginBottom="10dp"/>
+        android:id="@+id/idContainer"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:hint="Descripcion"
+            android:id="@+id/idDesc"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/promotions_container"
+            android:padding="20dp"
+            android:textSize="15sp"
+            android:layout_marginBottom="10dp"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/promotions_container">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/idContainerImages"
+                android:orientation="vertical">
+
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -139,7 +167,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Enviar"
-        android:id="@+id/idCancel"
+        android:id="@+id/idButton"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/delete_buttons"
         android:textColor="#ffffff"

@@ -171,7 +171,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Reservar"
-        android:id="@+id/idCancel"
+        android:id="@+id/idButton"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/delete_buttons"
         android:textColor="#ffffff"

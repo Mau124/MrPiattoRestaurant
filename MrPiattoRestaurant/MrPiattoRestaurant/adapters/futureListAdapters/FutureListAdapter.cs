@@ -39,7 +39,7 @@ namespace MrPiattoRestaurant.adapters.futureListAdapters
             FutureListViewHolder vh = holder as FutureListViewHolder;
             vh.personName.Text = futureList.ElementAt(position).name;
             vh.tableName.Text = futureList.ElementAt(position).floorName + ", " + futureList.ElementAt(position).tableName;
-            vh.seats.Text = futureList.ElementAt(position).Seats.ToString() + " sillas";
+            vh.seats.Text = futureList.ElementAt(position).seats.ToString() + " sillas";
             vh.date.Text = futureList.ElementAt(position).reservationDate.ToString();
 
             vh.menu.Click += (s, arg) =>

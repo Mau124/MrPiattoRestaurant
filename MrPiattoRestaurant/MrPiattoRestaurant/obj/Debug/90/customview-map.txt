@@ -119,6 +119,7 @@ ImageView;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 ImageView;obj\Debug\90\res\layout\dialog_join_tables.xml
 ImageView;obj\Debug\90\res\layout\item_actuallist.xml
 ImageView;obj\Debug\90\res\layout\item_futurelist.xml
+ImageView;obj\Debug\90\res\layout\item_notifications.xml
 ImageView;obj\Debug\90\res\layout\item_union.xml
 ImageView;obj\Debug\90\res\layout\item_waitlist.xml
 ImageView;obj\Debug\90\res\layout\layout_add_waiter.xml
@@ -153,6 +154,7 @@ LinearLayout;obj\Debug\90\res\layout\dialog_answer_survey.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_join_tables.xml
 LinearLayout;obj\Debug\90\res\layout\item_futurelist.xml
+LinearLayout;obj\Debug\90\res\layout\item_notifications.xml
 LinearLayout;obj\Debug\90\res\layout\item_union.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item_gallery.xml
@@ -183,6 +185,7 @@ resources;obj\Debug\90\res\values\strings.xml
 resources;obj\Debug\90\res\values\styles.xml
 ScrollView;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 ScrollView;obj\Debug\90\res\layout\layout_modify_res.xml
+ScrollView;obj\Debug\90\res\layout\layout_promotions.xml
 SeekBar;obj\Debug\90\res\layout\add_waitlist.xml
 SeekBar;obj\Debug\90\res\layout\layout_manual_reservation.xml
 SeekBar;obj\Debug\90\res\layout\table_properties.xml

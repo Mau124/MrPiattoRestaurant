@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Threading;
 using System.Linq;
 
 using Android.App;
@@ -23,6 +24,8 @@ using MrPiattoRestaurant.Models;
 using MrPiattoRestaurant.ModelsDB;
 using MrPiattoRestaurant.Views;
 using MrPiattoRestaurant.Resources.utilities;
+using MrPiattoRestaurant.Timers;
+using MrPiattoRestaurant.Notifications;
 
 namespace MrPiattoRestaurant
 {
@@ -119,6 +122,20 @@ namespace MrPiattoRestaurant
 
             dashboard.Click += OpenDashboard;
             timeLineView.TimeLinePressed += UpdateTime;
+
+
+            // Codigo que se encargara verificar si existen reservaciones en los iguientes minutes y en ese caso las mostrara
+
+            Intent alarmIntent = new Intent(this, typeof(AlarmReceiver));
+            alarmIntent.PutExtra("restaurant", restaurant.Idrestaurant);
+            PendingIntent pending = PendingIntent.GetBroadcast(this, 0, alarmIntent, PendingIntentFlags.UpdateCurrent);
+            AlarmManager alarmManager = GetSystemService(AlarmService).JavaCast<AlarmManager>();
+
+            //AlarmType.RtcWakeup – it will fire up the pending intent at a specified time, waking up the device
+            alarmManager.SetRepeating(AlarmType.RtcWakeup, BootReceiver.FirstReminder(), BootReceiver.reminderInterval, pending);
+            PendingIntent pendingIntent = PendingIntent.GetBroadcast(this, 0, alarmIntent, 0);
+
+            // Aqui termina la parte de crear las notificaciones
         }
 
         private void InitializeRestaurant()
@@ -193,13 +210,21 @@ namespace MrPiattoRestaurant
                     fragment = new ActualFragment(this, floors.ElementAt(floorIndex).ocupiedTables);
                     break;
                 case Resource.Id.idFutureList:
-                    fragment = new FutureFragment(this, restaurant);
+                    FutureFragment fFragment = new FutureFragment(this, restaurant);
+                    fFragment.UnionPressed += UnionTables;
+                    if (fFragment == null)
+                        return;
+                    else
+                        SupportFragmentManager.BeginTransaction()
+                        .Replace(Resource.Id.idContent_frame, fFragment)
+                        .Commit();
+                    return;
                     break;
                 case Resource.Id.idWaitList:
                     fragment = waitFragment;
                     break;
                 case Resource.Id.idNotifications:
-                    fragment = new NotificationsFragment(this);
+                    fragment = new NotificationsFragment(this, restaurant);
                     break;
             }
             if (fragment == null)
@@ -349,9 +374,10 @@ namespace MrPiattoRestaurant
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 date.Text = time.ToLongDateString();
-                Android.Support.V4.App.Fragment fragment = new FutureFragment(this, restaurant);
+                FutureFragment fFragment = new FutureFragment(this, restaurant);
+                fFragment.UnionPressed += UnionTables;
                 SupportFragmentManager.BeginTransaction()
-                .Replace(Resource.Id.idContent_frame, fragment)
+                .Replace(Resource.Id.idContent_frame, fFragment)
                 .Commit();
 
             });
@@ -475,7 +501,7 @@ namespace MrPiattoRestaurant
                                 options.RemoveAllViews();
 
                                 TableUnion tableUnion = new TableUnion(this, client, floors, floorIndex, table);
-                                tableUnion.CreateView(options);
+                                tableUnion.CreateView(options, true);
 
                                 tableUnion.ClosePressed += delegate
                                 {
@@ -493,6 +519,18 @@ namespace MrPiattoRestaurant
                     //Toast.MakeText(Application.Context, "Coordenadas; x: " + x + " y: " + y, ToastLength.Short).Show();
                     break;
             }
+        }
+
+        private void UnionTables(Client client)
+        {
+            options.RemoveAllViews();
+            TableUnion tableUnion = new TableUnion(this, restaurant, client, floors, floorIndex);
+            tableUnion.CreateView(options, false);
+
+            tableUnion.ClosePressed += delegate
+            {
+                OnCancel();
+            };
         }
 
         public void UpdateTime(int hours, int minutes)

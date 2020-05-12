@@ -24,13 +24,6 @@ public class NotificationsFragment
 			mono.android.TypeManager.Activate ("MrPiattoRestaurant.Fragments.NotificationsFragment, MrPiattoRestaurant", "", this, new java.lang.Object[] {  });
 	}
 
-	public NotificationsFragment (android.content.Context p0)
-	{
-		super ();
-		if (getClass () == NotificationsFragment.class)
-			mono.android.TypeManager.Activate ("MrPiattoRestaurant.Fragments.NotificationsFragment, MrPiattoRestaurant", "Android.Content.Context, Mono.Android", this, new java.lang.Object[] { p0 });
-	}
-
 
 	public void onCreate (android.os.Bundle p0)
 	{

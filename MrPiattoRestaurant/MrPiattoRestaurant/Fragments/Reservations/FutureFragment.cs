@@ -24,6 +24,17 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 {
     public class FutureFragment : Android.Support.V4.App.Fragment
     {
+        // Evento para notificar al main que hay que unir mesas
+        public delegate void UnionPressedEventHandler(Client client);
+        public event UnionPressedEventHandler UnionPressed;
+        protected virtual void OnUnionPressed(Client client)
+        {
+            if (UnionPressed != null)
+            {
+                UnionPressed(client);
+            }
+        }
+
         Button newReservation;
         RecyclerView mRecyclerView;
 
@@ -68,7 +79,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
                 c.name = res.IduserNavigation.FirstName + " " + res.IduserNavigation.LastName;
                 c.timeUsed = 0;
                 c.reservationDate = res.Date;
-                c.Seats = res.AmountOfPeople;
+                c.seats = res.AmountOfPeople;
                 c.floorName = res.IdtableNavigation.FloorName;
                 c.tableName = res.IdtableNavigation.tableName;
                 futureList.Add(c);
@@ -126,6 +137,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             TextView date, hour, numSeats;
             SeekBar mSeekBar;
             ImageView dismiss;
+            Button button;
 
             View content = LayoutInflater.Inflate(Resource.Layout.layout_manual_reservation, null);
 
@@ -135,6 +147,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             alertDialog.Show();
 
             dismiss = content.FindViewById<ImageView>(Resource.Id.idDismiss);
+            button = content.FindViewById<Button>(Resource.Id.idButton);
             name = content.FindViewById<EditText>(Resource.Id.idName);
             tel = content.FindViewById<EditText>(Resource.Id.idTel);
             numSeats = content.FindViewById<EditText>(Resource.Id.idNumSeats);
@@ -147,6 +160,17 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
             dismiss.Click += delegate
             {
+                alertDialog.Dismiss();
+            };
+
+            button.Click += delegate 
+            {
+
+                //string auxName = name.Text;
+                //int auxNumSeats =  Int32.Parse(numSeats.Text);
+
+                Client client = new Client("Juan", "Lopez", DateTime.Now, 2, "332121345");
+                OnUnionPressed(client);
                 alertDialog.Dismiss();
             };
 

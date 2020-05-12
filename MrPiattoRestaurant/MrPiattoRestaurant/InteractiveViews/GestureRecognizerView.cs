@@ -107,6 +107,13 @@ namespace MrPiattoRestaurant
             Invalidate();
         }
 
+        public void InitializeUnion()
+        {
+            isSelecting = true;
+            auxTables.Clear();
+            Invalidate();
+        }
+
         public void Union(List<Table> tablesToJoin, Client client, int seats)
         {
             Table auxTable = new Table(context, tablesToJoin, client, seats);

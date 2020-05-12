@@ -69,7 +69,15 @@
             <param name="floorIndex">Actual floor Index</param>
             <param name="tableIndex">Actual table Index in that floor</param>
         </member>
-        <member name="M:MrPiattoRestaurant.Views.TableUnion.CreateView(Android.Views.ViewGroup)">
+        <member name="M:MrPiattoRestaurant.Views.TableUnion.#ctor(Android.Content.Context,MrPiattoRestaurant.ModelsDB.Restaurant,MrPiattoRestaurant.Models.Client,System.Collections.Generic.List{MrPiattoRestaurant.GestureRecognizerView},System.Int32)">
+            <summary>
+            Class that creates a tablepropertiesView
+            </summary>
+            <param name="context">Context of activity</param>
+            <param name="floors">List of floors</param>
+            <param name="floorIndex">Actual floor Index</param>
+        </member>
+        <member name="M:MrPiattoRestaurant.Views.TableUnion.CreateView(Android.Views.ViewGroup,System.Boolean)">
             <summary>
             Creates and shows the table properties View
             </summary>
