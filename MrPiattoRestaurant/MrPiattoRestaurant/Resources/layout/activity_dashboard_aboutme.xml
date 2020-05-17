@@ -208,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:text="Direccion: "
                 android:textColor="#969DA7"/>
-
+                
         </LinearLayout>
 
         <TextView

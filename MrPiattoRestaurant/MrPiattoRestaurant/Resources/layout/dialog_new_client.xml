@@ -1,0 +1,138 @@
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:padding="10dp"
+        android:id="@+id/idTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#EDC13F">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nuevo cliente"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textColor="#FFFFFF"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:id="@+id/idDismiss"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/closeWhite"
+            android:layout_marginTop="10dp"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/idTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/idNFC"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:gravity="center"
+        android:background="@drawable/dashboard_design"
+        android:id="@+id/idQR">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/qr"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QR"
+            android:layout_marginTop="10dp"
+            android:textColor="#DF6A67"
+            android:textSize="20sp"/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/idTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/idQR"
+        app:layout_constraintRight_toLeftOf="@+id/idManual"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:gravity="center"
+        android:background="@drawable/dashboard_design"
+        android:id="@+id/idNFC">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/nfc"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NFC"
+            android:layout_marginTop="10dp"
+            android:textColor="#DF6A67"
+            android:textSize="20sp"/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/idTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/idNFC"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:gravity="center"
+        android:background="@drawable/dashboard_design"
+        android:id="@+id/idManual">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/manual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manual"
+            android:layout_marginTop="10dp"
+            android:textColor="#DF6A67"
+            android:textSize="20sp"/>
+
+        </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

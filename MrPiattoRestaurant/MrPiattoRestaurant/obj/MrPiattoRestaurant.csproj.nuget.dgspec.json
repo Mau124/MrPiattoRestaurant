@@ -74,6 +74,10 @@
               "target": "Package",
               "version": "[28.0.0.1, )"
             },
+            "Xamarin.Android.Support.v4": {
+              "target": "Package",
+              "version": "[28.0.0.1, )"
+            },
             "Xamarin.Android.Support.v7.AppCompat": {
               "target": "Package",
               "version": "[28.0.0.1, )"
@@ -85,6 +89,10 @@
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.2.0, )"
+            },
+            "Xamarin.GooglePlayServices.Vision": {
+              "target": "Package",
+              "version": "[71.1702.2, )"
             }
           }
         }

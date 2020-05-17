@@ -10,6 +10,7 @@ android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\addfloor.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\dialog_answer_survey.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\dialog_join_tables.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\dialog_new_client.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_actuallist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_futurelist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_notifications.xml
@@ -17,7 +18,9 @@ android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_union.x
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_waitlist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_add_waiter.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_catalogue.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_check_qr.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_main_container.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_manual_assigment.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_manual_reservation.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_modify_res.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_new_password.xml
@@ -38,6 +41,8 @@ android.support.v7.widget.CardView;obj\Debug\90\res\layout\layout_item_gallery.x
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\activity_dashboard_gallery.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\layout_catalogue.xml
+android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\layout_check_qr.xml
+android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\layout_manual_assigment.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\layout_union_tables.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\recycler_actuallist.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\recycler_futurelist.xml
@@ -71,7 +76,7 @@ Button;obj\Debug\90\res\layout\recycler_futurelist.xml
 Button;obj\Debug\90\res\layout\recycler_notifications.xml
 Button;obj\Debug\90\res\layout\recycler_waitlist.xml
 Button;obj\Debug\90\res\layout\table_properties.xml
-cache-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\40\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+cache-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\42\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 CheckBox;obj\Debug\90\res\layout\layout_schedule.xml
 color;obj\Debug\90\res\values\colors.xml
 color;obj\Debug\90\res\values\ic_launcher_background.xml
@@ -101,8 +106,8 @@ EditText;obj\Debug\90\res\layout\layout_new_password.xml
 EditText;obj\Debug\90\res\layout\layout_promotions.xml
 EditText;obj\Debug\90\res\layout\modify_waitlist.xml
 EditText;obj\Debug\90\res\layout\table_properties.xml
-external-cache-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\40\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
-external-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\40\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+external-cache-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\42\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+external-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\42\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
 FrameLayout;obj\Debug\90\res\layout\activity_dashboard.xml
@@ -117,6 +122,7 @@ ImageView;obj\Debug\90\res\layout\addfloor.xml
 ImageView;obj\Debug\90\res\layout\dialog_answer_survey.xml
 ImageView;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 ImageView;obj\Debug\90\res\layout\dialog_join_tables.xml
+ImageView;obj\Debug\90\res\layout\dialog_new_client.xml
 ImageView;obj\Debug\90\res\layout\item_actuallist.xml
 ImageView;obj\Debug\90\res\layout\item_futurelist.xml
 ImageView;obj\Debug\90\res\layout\item_notifications.xml
@@ -124,9 +130,11 @@ ImageView;obj\Debug\90\res\layout\item_union.xml
 ImageView;obj\Debug\90\res\layout\item_waitlist.xml
 ImageView;obj\Debug\90\res\layout\layout_add_waiter.xml
 ImageView;obj\Debug\90\res\layout\layout_catalogue.xml
+ImageView;obj\Debug\90\res\layout\layout_check_qr.xml
 ImageView;obj\Debug\90\res\layout\layout_item.xml
 ImageView;obj\Debug\90\res\layout\layout_item_gallery.xml
 ImageView;obj\Debug\90\res\layout\layout_login.xml
+ImageView;obj\Debug\90\res\layout\layout_manual_assigment.xml
 ImageView;obj\Debug\90\res\layout\layout_manual_reservation.xml
 ImageView;obj\Debug\90\res\layout\layout_modify_res.xml
 ImageView;obj\Debug\90\res\layout\layout_new_password.xml
@@ -153,13 +161,16 @@ LinearLayout;obj\Debug\90\res\layout\activity_main.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_answer_survey.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_join_tables.xml
+LinearLayout;obj\Debug\90\res\layout\dialog_new_client.xml
 LinearLayout;obj\Debug\90\res\layout\item_futurelist.xml
 LinearLayout;obj\Debug\90\res\layout\item_notifications.xml
 LinearLayout;obj\Debug\90\res\layout\item_union.xml
+LinearLayout;obj\Debug\90\res\layout\layout_check_qr.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item_gallery.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item_waiter.xml
 LinearLayout;obj\Debug\90\res\layout\layout_login.xml
+LinearLayout;obj\Debug\90\res\layout\layout_manual_assigment.xml
 LinearLayout;obj\Debug\90\res\layout\layout_manual_reservation.xml
 LinearLayout;obj\Debug\90\res\layout\layout_modify_res.xml
 LinearLayout;obj\Debug\90\res\layout\layout_promotions.xml
@@ -173,7 +184,7 @@ menu;obj\Debug\90\res\menu\bottom_navigation_main.xml
 menu;obj\Debug\90\res\menu\futurelistmenu.xml
 menu;obj\Debug\90\res\menu\waitlistmenu.xml
 Microcharts.Droid.ChartView;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
-paths;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\40\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+paths;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\42\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 RelativeLayout;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 RelativeLayout;obj\Debug\90\res\layout\activity_main.xml
 resources;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\0\jl\res\values\strings.xml
@@ -266,6 +277,7 @@ stroke;obj\Debug\90\res\drawable\second_button.xml
 stroke;obj\Debug\90\res\drawable\style_statistics_pickers.xml
 stroke;obj\Debug\90\res\drawable\subtitles_design.xml
 style;obj\Debug\90\res\values\styles.xml
+SurfaceView;obj\Debug\90\res\layout\layout_check_qr.xml
 Switch;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 TextView;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 TextView;obj\Debug\90\res\layout\activity_dashboard_gallery.xml
@@ -277,6 +289,7 @@ TextView;obj\Debug\90\res\layout\addfloor.xml
 TextView;obj\Debug\90\res\layout\dialog_answer_survey.xml
 TextView;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 TextView;obj\Debug\90\res\layout\dialog_join_tables.xml
+TextView;obj\Debug\90\res\layout\dialog_new_client.xml
 TextView;obj\Debug\90\res\layout\item_actuallist.xml
 TextView;obj\Debug\90\res\layout\item_futurelist.xml
 TextView;obj\Debug\90\res\layout\item_notifications.xml
@@ -284,9 +297,11 @@ TextView;obj\Debug\90\res\layout\item_union.xml
 TextView;obj\Debug\90\res\layout\item_waitlist.xml
 TextView;obj\Debug\90\res\layout\layout_add_waiter.xml
 TextView;obj\Debug\90\res\layout\layout_catalogue.xml
+TextView;obj\Debug\90\res\layout\layout_check_qr.xml
 TextView;obj\Debug\90\res\layout\layout_item.xml
 TextView;obj\Debug\90\res\layout\layout_item_waiter.xml
 TextView;obj\Debug\90\res\layout\layout_login.xml
+TextView;obj\Debug\90\res\layout\layout_manual_assigment.xml
 TextView;obj\Debug\90\res\layout\layout_manual_reservation.xml
 TextView;obj\Debug\90\res\layout\layout_modify_res.xml
 TextView;obj\Debug\90\res\layout\layout_new_password.xml
@@ -307,8 +322,9 @@ View;obj\Debug\90\res\layout\activity_dashboard_gallery.xml
 View;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 View;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 View;obj\Debug\90\res\layout\activity_main.xml
+View;obj\Debug\90\res\layout\layout_check_qr.xml
 View;obj\Debug\90\res\layout\layout_item_gallery.xml
 View;obj\Debug\90\res\layout\layout_item_waiter.xml
-View;obj\Debug\90\res\layout\layout_main_container.xml
+View;obj\Debug\90\res\layout\layout_manual_assigment.xml
 View;obj\Debug\90\res\layout\recycler_futurelist.xml
 View;obj\Debug\90\res\layout\table_properties.xml
