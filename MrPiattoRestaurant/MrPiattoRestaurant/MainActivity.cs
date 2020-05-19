@@ -207,7 +207,7 @@ namespace MrPiattoRestaurant
             switch (id)
             {
                 case Resource.Id.idActualList:
-                    fragment = new ActualFragment(this, floors.ElementAt(floorIndex).ocupiedTables);
+                    fragment = new ActualFragment(this, restaurant, floors.ElementAt(floorIndex).ocupiedTables, floors);
                     break;
                 case Resource.Id.idFutureList:
                     FutureFragment fFragment = new FutureFragment(this, restaurant);

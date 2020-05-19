@@ -417,10 +417,56 @@ namespace MrPiattoRestaurant.Resources.utilities
             }
         }
 
+        public List<AuxiliarReservation> GetNotAuxReservationsByHour(int idRes, DateTime date)
+        {
+            List<AuxiliarReservation> reservations = new List<AuxiliarReservation>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/Not/Aux/{idRes}/{date.ToString("yyyy-MM-dd HH:mm:ss")}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    reservations = JsonConvert.DeserializeObject<List<AuxiliarReservation>>(json);
+                }
+
+                return reservations;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public List<ManualReservation> GetNotManReservations(int idRes)
         {
             List<ManualReservation> reservations = new List<ManualReservation>();
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/Not/ManRes/{idRes}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    reservations = JsonConvert.DeserializeObject<List<ManualReservation>>(json);
+                }
+
+                return reservations;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<ManualReservation> GetNotManReservationsByHour(int idRes, DateTime date)
+        {
+            List<ManualReservation> reservations = new List<ManualReservation>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/Not/ManRes/{idRes}/{date.ToString("yyyy-MM-dd HH:mm:ss")}");
 
             try
             {

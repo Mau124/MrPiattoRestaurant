@@ -22,7 +22,11 @@ using static Android.Gms.Vision.Detector;
 
 using MrPiattoRestaurant.adapters.actualListAdapters;
 using MrPiattoRestaurant.Models.Reservations;
+using MrPiattoRestaurant.Models;
+using MrPiattoRestaurant.ModelsDB;
 using MrPiattoRestaurant.Pickers;
+using MrPiattoRestaurant.Resources.utilities;
+using MrPiattoRestaurant.adapters;
 
 namespace MrPiattoRestaurant.Fragments.Reservations
 {
@@ -44,18 +48,24 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         public RecyclerView.LayoutManager mLayoutManager;
         public ActualListAdapter mAdapter;
 
+        private APICaller API = new APICaller();
+
         public List<Table> ocupiedTables = new List<Table>();
+        public List<GestureRecognizerView> floors = new List<GestureRecognizerView>();
 
         public Context context;
+        public Restaurant restaurant;
 
         public ActualFragment()
         {
             //Default Constructor
         }
-        public ActualFragment(Context context, List<Table> ocupiedTables)
+        public ActualFragment(Context context, Restaurant restaurant, List<Table> ocupiedTables, List<GestureRecognizerView> floors)
         {
             this.context = context;
             this.ocupiedTables = ocupiedTables;
+            this.restaurant = restaurant;
+            this.floors = floors;
         }
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -143,6 +153,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         {
             View content = LayoutInflater.Inflate(Resource.Layout.layout_manual_assigment, null);
             TextView hour;
+            RecyclerView mRecyclerView;
 
             Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
             alertDialog.SetCancelable(true);
@@ -150,12 +161,39 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             alertDialog.Show();
 
             hour = content.FindViewById<TextView>(Resource.Id.idHour);
+            mRecyclerView = content.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
 
             hour.Click += delegate
             {
                 TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
                 {
                     hour.Text = time.ToString("hh:mm tt");
+
+                    List<Models.Notification> res = new List<Models.Notification>();
+                    List<AuxiliarReservation>? auxReservations = API.GetNotAuxReservationsByHour(restaurant.Idrestaurant, time);
+                    List<ManualReservation>? manReservations = API.GetNotManReservationsByHour(restaurant.Idrestaurant, time);
+
+                    if (auxReservations != null)
+                    {
+                        foreach (AuxiliarReservation r in auxReservations)
+                        {
+                            res.Add(new Models.Notification(r.Name, r.LastName, "Union", r.Date, r.Phone));
+                        }
+                    }
+
+                    if (manReservations != null)
+                    {
+                        foreach (ManualReservation r in manReservations)
+                        {
+                            res.Add(new Models.Notification(r.Name, r.LastName, r.IdtableNavigation.tableName, r.Date, r.Phone, r.IdtableNavigation.floorIndex, r.IdtableNavigation.Idtables));
+                        }
+                    }
+
+                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(Application.Context);
+                    AssigmentAdapter mAdapter = new AssigmentAdapter(context, res, floors);
+
+                    mRecyclerView.SetLayoutManager(mLayoutManager);
+                    mRecyclerView.SetAdapter(mAdapter);
                 });
                 frag.Show(FragmentManager, TimePickerFragment.TAG);
             };

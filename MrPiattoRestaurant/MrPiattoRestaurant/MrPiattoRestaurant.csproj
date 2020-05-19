@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="adapters\actualListAdapters\ActualListAdapter.cs" />
+    <Compile Include="adapters\AssigmentAdapter.cs" />
     <Compile Include="adapters\futureListAdapters\FutureListAdapter.cs" />
     <Compile Include="adapters\NotificationsAdapter.cs" />
     <Compile Include="adapters\PhotosGalleryAdapter.cs" />
