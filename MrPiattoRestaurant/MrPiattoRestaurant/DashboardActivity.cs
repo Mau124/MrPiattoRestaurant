@@ -37,8 +37,13 @@ namespace MrPiattoRestaurant
 
         private Android.Net.Uri uriToSend;
         private int imageId = 1000;
+        private string[] mails;
+        private DateTime dateInterval1;
+        private DateTime dateInterval2;
 
         ImageView promotions;
+
+        ImageView iv;
 
         Android.Support.V4.App.Fragment aboutMeFragment;
         Android.Support.V4.App.Fragment policiesFragment;
@@ -71,7 +76,6 @@ namespace MrPiattoRestaurant
             photosGalleryFragment = new PhotosGallery(this, restaurant);
 
             LoadFragment(Resource.Id.idAboutMe);
-
         }
 
         private void InitializeRestaurant(int idRestaurant)
@@ -176,6 +180,15 @@ namespace MrPiattoRestaurant
             hourInterval1 = content.FindViewById<TextView>(Resource.Id.idHourInterval1);
             hourInterval2 = content.FindViewById<TextView>(Resource.Id.idHourInterval2);
 
+            iv = new ImageView(this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(100, 100);
+            lp.SetMargins(10, 10, 10, 10);
+            iv.LayoutParameters = lp;
+            containerImages.AddView(iv);
+
+            uriToSend = null;
+            InitializeDates();
+
             getImage.Click += delegate
             {
                 Intent = new Intent();
@@ -192,31 +205,73 @@ namespace MrPiattoRestaurant
             button.Click += delegate
             {
                 // Checamos que todos los campos esten correctos
+                getMails();
+                if (name.Text.Equals(""))
+                {
+                    Toast.MakeText(Application.Context, "La promocion necesita un nombre", ToastLength.Short).Show();
+                } else if (!areClients())
+                {
+                    Toast.MakeText(Application.Context, "No existen clientes en ese intervalo de tiempo", ToastLength.Short).Show();
+                } else
+                {
+                    Intent send = new Intent(Intent.ActionSend);
+                    send.SetType("message/rfc822");
+                    send.PutExtra(Intent.ExtraEmail, mails);
+                    send.PutExtra(Intent.ExtraSubject, name.Text);
+                    if (uriToSend != null)
+                    {
+                        send.PutExtra(Intent.ExtraStream, uriToSend);
+                    }
+                    send.PutExtra(Intent.ExtraText, desc.Text);
+                    try
+                    {
+                        StartActivity(Intent.CreateChooser(send, "Enviando correo..."));
+                        alertDialog.Dismiss();
 
-                Intent send = new Intent(Intent.ActionSend);
-                send.SetType("message/rfc822");
-                send.PutExtra(Intent.ExtraEmail, new String[] { "andresperez1024@gmail.com", "a16300109@ceti.mx"});
-                send.PutExtra(Intent.ExtraSubject, "hola");
-                if (uriToSend != null)
-                {
-                    send.PutExtra(Intent.ExtraStream, uriToSend);
-                }
-                send.PutExtra(Intent.ExtraText, "hola again");
-                try
-                {
-                    StartActivity(Intent.CreateChooser(send, "Enviando correo..."));
-                    alertDialog.Dismiss();
-
-                } catch (Android.Content.ActivityNotFoundException ex)
-                {
-                    Toast.MakeText(this, "Hubo un problema al enviar el correo", ToastLength.Long).Show();
+                    }
+                    catch (Android.Content.ActivityNotFoundException ex)
+                    {
+                        Toast.MakeText(this, "Hubo un problema al enviar el correo", ToastLength.Long).Show();
+                    }
                 }
             };
 
 
             hourInterval1.Click += onHourInterval1;
             hourInterval2.Click += onHourInterval2;
+        }
 
+        private void InitializeDates()
+        {
+            List<Reservation> res = API.GetAllReservations(restaurant.Idrestaurant);
+
+            dateInterval1 = res.Select(r => r.Date).Min(r => r.Date);
+            dateInterval2 = res.Select(r => r.Date).Max(r => r.Date);
+
+            hourInterval1.Text = dateInterval1.ToString("dd / MM / yyyy");
+            hourInterval2.Text = dateInterval2.ToString("dd / MM / yyyy");
+        }
+
+        private void getMails()
+        {
+            List<User> users = API.GetUsers(restaurant.Idrestaurant, dateInterval1, dateInterval2);
+            List<string> usersMails = new List<string>();
+
+            foreach (User u in users)
+            {
+                usersMails.Add(u.Mail);
+            }
+
+            mails = usersMails.ToArray();
+        }
+
+        private bool areClients()
+        {
+            List<User> users = API.GetUsers(restaurant.Idrestaurant, dateInterval1, dateInterval2);
+
+            if (users == null) return false;
+            if (users.Any()) return true;
+            return false;
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
@@ -226,12 +281,8 @@ namespace MrPiattoRestaurant
                 Android.Net.Uri uri = data.Data;
                 uriToSend = uri;
 
-                ImageView iv = new ImageView(this);
+
                 iv.SetImageURI(uri);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(100, 100);
-                lp.SetMargins(10, 10, 10, 10);
-                iv.LayoutParameters = lp;
-                containerImages.AddView(iv);
             }
         }
 
@@ -239,8 +290,8 @@ namespace MrPiattoRestaurant
         {
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
-                hourInterval1.Text = time.ToString("dd/MM/yyyy");
-
+                hourInterval1.Text = time.ToString("dd / MM / yyyy");
+                dateInterval1 = time;
             });
             frag.Show(SupportFragmentManager, DatePickerFragment.TAG);
         }
@@ -249,8 +300,8 @@ namespace MrPiattoRestaurant
         {
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
-                hourInterval2.Text = time.ToString("dd/MM/yyyy");
-
+                hourInterval2.Text = time.ToString("dd / MM / yyyy");
+                dateInterval2 = time;
             });
             frag.Show(SupportFragmentManager, DatePickerFragment.TAG);
         }

@@ -90,7 +90,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:hint="Nombre"
+        android:hint="Nombre Promocion"
         app:layout_constraintTop_toBottomOf="@+id/idDateContainer"
         app:layout_constraintBottom_toTopOf="@+id/idContainer"
         android:id="@+id/idName"

@@ -486,5 +486,51 @@ namespace MrPiattoRestaurant.Resources.utilities
             }
         }
 
+        public List<User> GetUsers(int idRes, DateTime date1, DateTime date2)
+        {
+            List<User> users = new List<User>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Users/Intervals/{idRes}/{date1.ToString("yyyy-MM-dd")}/{date2.ToString("yyyy-MM-dd")}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    users = JsonConvert.DeserializeObject<List<User>>(json);
+                }
+
+                return users;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<Reservation> GetAllReservations(int idRes)
+        {
+            List<Reservation> res = new List<Reservation>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Users/All/{idRes}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    res = JsonConvert.DeserializeObject<List<Reservation>>(json);
+                }
+
+                return res;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
     }
 }
