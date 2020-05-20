@@ -36,15 +36,29 @@ namespace MrPiattoRestaurant.Models
             this.tableIndex = tableIndex;
         }
 
-        public Notification(string Name, string LastName, string TableName, DateTime Date, string Phone, int floorIndex, string tableString)
+        public Notification(string Name, string LastName, string TableName, DateTime Date, string Phone, string tableString)
         {
             type = 1;
+            tablesID = new List<int>();
             this.Name = Name;
             this.LastName = LastName;
             this.TableName = TableName;
             this.Date = Date;
             this.Phone = Phone;
-            this.floorIndex = floorIndex;
+
+            string[] div = tableString.Split(' ');
+
+            foreach (string s in div)
+            {
+                try
+                {
+                    int idTable = Int32.Parse(s);
+                    tablesID.Add(idTable);
+                }
+                catch (FormatException e)
+                { }
+            }
+
             this.tableString = tableString;
         }
 
@@ -62,5 +76,6 @@ namespace MrPiattoRestaurant.Models
         public int tableIndex { get; set; }
         public int seats { get; set; }
         public string tableString { get; set; }
+        public List<int> tablesID { get; set; }
     }
 }

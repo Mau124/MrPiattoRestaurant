@@ -56,6 +56,16 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         public Context context;
         public Restaurant restaurant;
 
+        public delegate void UpdateEventHandler();
+        public event UpdateEventHandler Update;
+        protected virtual void OnUpdate()
+        {
+            if (Update != null)
+            {
+                Update();
+            }
+        }
+
         public ActualFragment()
         {
             //Default Constructor
@@ -106,13 +116,13 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             return view;
         }
 
-        public void Update(List<Table> ocupiedTables)
-        {
-            this.ocupiedTables = ocupiedTables;
-            mAdapter = new ActualListAdapter(context, ocupiedTables);
-            mAdapter.EndFood += OnEndFood;
-            mRecyclerView.SetAdapter(mAdapter);
-        }
+        //public void Update(List<Table> ocupiedTables)
+        //{
+        //    this.ocupiedTables = ocupiedTables;
+        //    mAdapter = new ActualListAdapter(context, ocupiedTables);
+        //    mAdapter.EndFood += OnEndFood;
+        //    mRecyclerView.SetAdapter(mAdapter);
+        //}
         
         private void OnEndFood(int position)
         {
@@ -177,7 +187,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
                     {
                         foreach (AuxiliarReservation r in auxReservations)
                         {
-                            res.Add(new Models.Notification(r.Name, r.LastName, "Union", r.Date, r.Phone));
+                            res.Add(new Models.Notification(r.Name, r.LastName, "Union", r.Date, r.Phone, r.IdauxiliarTableNavigation.StringIdtables));
                         }
                     }
 
@@ -190,10 +200,16 @@ namespace MrPiattoRestaurant.Fragments.Reservations
                     }
 
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(Application.Context);
-                    AssigmentAdapter mAdapter = new AssigmentAdapter(context, res, floors);
+                    AssigmentAdapter mAdapter = new AssigmentAdapter(context, res, floors, restaurant);
 
                     mRecyclerView.SetLayoutManager(mLayoutManager);
                     mRecyclerView.SetAdapter(mAdapter);
+
+                    mAdapter.FinishSelection += delegate
+                    {
+                        OnUpdate();
+                        alertDialog.Dismiss();
+                    };
                 });
                 frag.Show(FragmentManager, TimePickerFragment.TAG);
             };

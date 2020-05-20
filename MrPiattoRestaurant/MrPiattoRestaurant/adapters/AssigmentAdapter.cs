@@ -24,11 +24,25 @@ namespace MrPiattoRestaurant.adapters
         private Context context;
 
         private APIUpdate APIupdate = new APIUpdate();
-        public AssigmentAdapter(Context context, List<Models.Notification> reservations, List<GestureRecognizerView> floors)
+        private APICaller API = new APICaller();
+        private Restaurant restaurant = new Restaurant();
+
+        public delegate void FinishSelectionHandler();
+        public event FinishSelectionHandler FinishSelection;
+        protected virtual void OnFinishSelection()
+        {
+            if (FinishSelection != null)
+            {
+                FinishSelection();
+            }
+        }
+
+        public AssigmentAdapter(Context context, List<Models.Notification> reservations, List<GestureRecognizerView> floors, Restaurant restaurant)
         {
             this.context = context;
             this.reservations = reservations;
             this.floors = floors;
+            this.restaurant = restaurant;
         }
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
@@ -62,6 +76,31 @@ namespace MrPiattoRestaurant.adapters
                     floors.ElementAt(reservations[position].floorIndex).Draw();
 
                     floors.ElementAt(reservations[position].floorIndex).setActualClientOnTable(client, tableIndex);
+
+                    OnFinishSelection();
+                } else if (reservations[position].type == 1)
+                {
+                    Client client = new Client(reservations[position].Name + " " + reservations[position].LastName, 0, DateTime.Now, reservations[position].seats);
+
+                    List<RestaurantTables> tables = API.GetTables(restaurant.Idrestaurant);
+                    List<Table> tablesToJoin = new List<Table>();
+
+                    int floorIndex = tables.Where(t => t.Idtables == reservations[position].tablesID[0]).Select(t => t.floorIndex).First();
+                    int seats = new int();
+
+                    foreach (int id in reservations[position].tablesID)
+                    {
+                        tablesToJoin.Add(floors[floorIndex].tables.Where(t => t.Id == id).First());
+                    }
+                    
+                    foreach (Table t in tablesToJoin)
+                    {
+                        seats += t.seats;
+                    }
+
+                    floors[floorIndex].Union(tablesToJoin, client, seats);
+
+                    OnFinishSelection();
                 }
             };
         }

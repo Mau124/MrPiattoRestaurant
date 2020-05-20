@@ -217,8 +217,18 @@ namespace MrPiattoRestaurant
             switch (id)
             {
                 case Resource.Id.idActualList:
-                    fragment = new ActualFragment(this, restaurant, floors.ElementAt(floorIndex).ocupiedTables, floors);
-                    break;
+                    ActualFragment afragment = new ActualFragment(this, restaurant, floors.ElementAt(floorIndex).ocupiedTables, floors);
+                    afragment.Update += updateActual;
+                    if (afragment == null)
+                    {
+                        return;
+                    } else
+                    {
+                        SupportFragmentManager.BeginTransaction()
+                        .Replace(Resource.Id.idContent_frame, afragment)
+                        .Commit();
+                        return;
+                    }
                 case Resource.Id.idFutureList:
                     FutureFragment fFragment = new FutureFragment(this, restaurant);
                     fFragment.UnionPressed += UnionTables;
@@ -229,7 +239,6 @@ namespace MrPiattoRestaurant
                         .Replace(Resource.Id.idContent_frame, fFragment)
                         .Commit();
                     return;
-                    break;
                 case Resource.Id.idWaitList:
                     fragment = waitFragment;
                     break;
@@ -546,6 +555,11 @@ namespace MrPiattoRestaurant
             {
                 OnCancel();
             };
+        }
+
+        private void updateActual()
+        {
+            OnCancel();
         }
 
         public void UpdateTime(int hours, int minutes)
