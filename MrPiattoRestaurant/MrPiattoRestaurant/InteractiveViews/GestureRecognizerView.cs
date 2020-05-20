@@ -144,6 +144,17 @@ namespace MrPiattoRestaurant
             }
         }
 
+        public void backGrid()
+        {
+            foreach (Table t in tables)
+            {
+                t.Selected = 2;
+            }
+            isSelecting = false;
+            setDisSelect();
+            Invalidate();
+        }
+
         private void unJoined(Table table)
         {
             ocupiedTables.Remove(table);

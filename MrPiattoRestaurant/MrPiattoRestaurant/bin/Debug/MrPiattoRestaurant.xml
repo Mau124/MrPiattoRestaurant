@@ -77,7 +77,7 @@
             <param name="floors">List of floors</param>
             <param name="floorIndex">Actual floor Index</param>
         </member>
-        <member name="M:MrPiattoRestaurant.Views.TableUnion.CreateView(Android.Views.ViewGroup,System.Boolean)">
+        <member name="M:MrPiattoRestaurant.Views.TableUnion.CreateView(Android.Views.ViewGroup)">
             <summary>
             Creates and shows the table properties View
             </summary>

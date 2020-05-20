@@ -26,7 +26,7 @@ namespace MrPiattoRestaurant.Timers
 
         private List<Reservation> reservation = new List<Reservation>();
         private List<AuxiliarReservation> auxReservation = new List<AuxiliarReservation>();
-        private List<ManualReservation> manReservation = new List<ManualReservation>();
+        private List<ManualReservations> manReservation = new List<ManualReservations>();
 
         public StatusChecker(Context context, int count)
         {

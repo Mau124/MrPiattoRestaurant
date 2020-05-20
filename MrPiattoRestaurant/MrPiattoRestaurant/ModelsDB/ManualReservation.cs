@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace MrPiattoRestaurant.ModelsDB
 {
-    public class ManualReservation
+    public class ManualReservations
     {
         public int IDReservation { get; set; }
         public int IDTable { get; set; }

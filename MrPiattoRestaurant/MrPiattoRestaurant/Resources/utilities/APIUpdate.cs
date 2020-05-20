@@ -170,7 +170,7 @@ namespace MrPiattoRestaurant.Resources.utilities
             return await response.Content.ReadAsStringAsync();
         }
 
-        public async Task<string> AddManReservation(ManualReservation reservation)
+        public async Task<string> AddManReservation(ManualReservations reservation)
         {
             HttpClient client = new HttpClient();
 

@@ -262,7 +262,7 @@ namespace MrPiattoRestaurant
             }
         }
 
-        // Retorna verdadero si se va a sobrelapar con una reservacion
+        // Retorna verdadero si se va a sobrelapar con una reservacion dese el momento actual
         public bool nextReservations()
         {
             DateTime date = DateTime.Now.AddHours(2);
@@ -270,6 +270,21 @@ namespace MrPiattoRestaurant
             foreach (Client c in reservations)
             {
                 if (date > c.reservationDate)
+                    return true;
+            }
+
+            return false;
+        }
+
+        // Retorna verdadero si se va a sobrelapar con una reservacion desde una fecha y hora
+        public bool nextReservations(DateTime date)
+        {
+            DateTime auxDate1 = date.AddHours(2);
+            DateTime auxDate2 = date.AddHours(-2);
+
+            foreach(Client c in reservations)
+            {
+                if (c.reservationDate >= auxDate2 && c.reservationDate <= auxDate1)
                     return true;
             }
 

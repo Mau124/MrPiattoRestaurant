@@ -55,6 +55,9 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         private Restaurant restaurant = new Restaurant();
         private APICaller API = new APICaller();
 
+        private DateTime dateHour;
+        private DateTime dateDay;
+
         public FutureFragment()
         {
             futureList = new List<Client>();
@@ -165,11 +168,11 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
             button.Click += delegate 
             {
-
+                DateTime auxDate = new DateTime(dateDay.Year, dateDay.Month, dateDay.Day, dateHour.Hour, dateHour.Minute, 0);
                 //string auxName = name.Text;
                 //int auxNumSeats =  Int32.Parse(numSeats.Text);
 
-                Client client = new Client("Juan", "Lopez", DateTime.Now, 2, "332121345");
+                Client client = new Client("Juan", "Lopez", auxDate, 2, "332121345");
                 OnUnionPressed(client);
                 alertDialog.Dismiss();
             };
@@ -194,6 +197,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
                 DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
                 {
                     date.Text = time.ToLongDateString();
+                    dateDay = time;
                 });
                 frag.Show(FragmentManager, DatePickerFragment.TAG);
             };
@@ -203,6 +207,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
                 TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
                 {
                     hour.Text = time.ToString("hh:mm tt");
+                    dateHour = time;
                 });
                 frag.Show(FragmentManager, TimePickerFragment.TAG);
             };

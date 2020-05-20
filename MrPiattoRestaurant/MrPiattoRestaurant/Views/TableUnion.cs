@@ -34,6 +34,8 @@ namespace MrPiattoRestaurant.Views
         List<GestureRecognizerView> floors;
         Client client = new Client();
 
+        private bool isRes;
+
         public delegate void ClosePressedEventHandler();
         public event ClosePressedEventHandler ClosePressed;
         protected virtual void OnClosePressed()
@@ -41,6 +43,16 @@ namespace MrPiattoRestaurant.Views
             if (ClosePressed != null)
             {
                 ClosePressed();
+            }
+        }
+
+        public delegate void UpdateEventHandler();
+        public event UpdateEventHandler Update;
+        protected virtual void OnUpdate()
+        {
+            if (Update != null)
+            {
+                Update();
             }
         }
 
@@ -53,6 +65,7 @@ namespace MrPiattoRestaurant.Views
         /// <param name="tableIndex">Actual table Index in that floor</param>
         public TableUnion(Context context, Client client, List<GestureRecognizerView> floors, int floorIndex, int tableIndex)
         {
+            isRes = false;
             this.context = context;
             this.client = client;
             this.floors = floors;
@@ -70,6 +83,7 @@ namespace MrPiattoRestaurant.Views
         /// <param name="floorIndex">Actual floor Index</param>
         public TableUnion(Context context, Restaurant restaurant, Client client, List<GestureRecognizerView> floors, int floorIndex)
         {
+            isRes = true;
             this.context = context;
             this.restaurant = restaurant;
             this.client = client;
@@ -84,7 +98,7 @@ namespace MrPiattoRestaurant.Views
         /// </summary>
         /// <param name="viewGroup">Container in which the table will be shown</param>
         /// <returns></returns>
-        public View CreateView(ViewGroup viewGroup, bool waitList)
+        public View CreateView(ViewGroup viewGroup)
         {
             LayoutInflater inflater = LayoutInflater.From(context);
             View tableUnion = inflater.Inflate(Resource.Layout.layout_union_tables, viewGroup, true);
@@ -99,7 +113,7 @@ namespace MrPiattoRestaurant.Views
             mRecyclerView.SetLayoutManager(mLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
 
-            if (waitList)
+            if (!isRes)
             {
                 foreach (Table t in floors[floorIndex].tables)
                 {
@@ -110,7 +124,40 @@ namespace MrPiattoRestaurant.Views
                 }
             } else
             {
+                DateTime auxDate1 = client.reservationDate.AddHours(2);
+                DateTime auxDate2 = client.reservationDate.AddHours(-2);
 
+                List<AuxiliarReservation>? auxReservations = API.GetAllAuxReservations(restaurant.Idrestaurant).Where(c => c.Date >= auxDate2 && c.Date <= auxDate1).ToList();
+
+                // Revisamos si existe alguna reservacion existente
+                foreach (Table t in floors[floorIndex].tables)
+                {
+                    if (t.nextReservations(client.reservationDate))
+                    {
+                        t.setSelected(0);
+                    }
+                }
+
+                // Revisamos si existe alguna reservacion para las mesas unidas
+                if (auxReservations != null)
+                {
+                    foreach(AuxiliarReservation aux in auxReservations)
+                    {
+                        string[] div = aux.IdauxiliarTableNavigation.StringIdtables.Split(' ');
+
+                        foreach(string s in div)
+                        {
+                            try 
+                            {
+                                int idTable = Int32.Parse(s);
+                                int tableIndex = floors[floorIndex].tables.FindIndex(t => t.Id == idTable);
+
+                                floors[floorIndex].tables[tableIndex].setSelected(0);
+                            } catch (FormatException e)
+                            {}
+                        }
+                    }
+                }
             }
 
             floors[floorIndex].Draw();
@@ -127,7 +174,7 @@ namespace MrPiattoRestaurant.Views
                 }
                 if (seats >= client.seats && seats < 13)
                 {
-                    if (waitList)
+                    if (!isRes)
                     {
                         floors[floorIndex].Union(floors[floorIndex].auxTables, client, seats);
                         OnClosePressed();
@@ -136,7 +183,7 @@ namespace MrPiattoRestaurant.Views
                         if (floors[floorIndex].auxTables.Count == 1)
                         {
                             // En este caso guardamos la reservacion en la tabla de reservacion manual
-                            ManualReservation reservation = new ManualReservation();
+                            ManualReservations reservation = new ManualReservations();
 
                             reservation.IDTable = floors[floorIndex].auxTables.First().Id;
                             reservation.Date = client.reservationDate;
@@ -148,7 +195,7 @@ namespace MrPiattoRestaurant.Views
                             var response = APIupdate.AddManReservation(reservation).Result;
                             Toast.MakeText(context, response, ToastLength.Long).Show();
                             OnClosePressed();
-                        } else
+                        } else 
                         {
                             // En este caso guardariamos la reservacion en la tabla auxiliar, realizando en primer lugar la creacion de la mesa
                             AuxiliarTables table = new AuxiliarTables();
@@ -182,6 +229,9 @@ namespace MrPiattoRestaurant.Views
                             Toast.MakeText(context, response, ToastLength.Long).Show();
                             OnClosePressed();
                         }
+
+                        OnUpdate();
+                        floors[floorIndex].backGrid();
                     }
                 } else
                 {

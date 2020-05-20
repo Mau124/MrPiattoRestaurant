@@ -24,7 +24,7 @@ namespace MrPiattoRestaurant.Notifications
 
         private List<Reservation> reservations = new List<Reservation>();
         private List<AuxiliarReservation> auxReservations = new List<AuxiliarReservation>();
-        private List<ManualReservation> manualReservations = new List<ManualReservation>();
+        private List<ManualReservations> manualReservations = new List<ManualReservations>();
 
         public override void OnReceive(Context context, Intent intent)
         {

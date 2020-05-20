@@ -440,9 +440,9 @@ namespace MrPiattoRestaurant.Resources.utilities
             }
         }
 
-        public List<ManualReservation> GetNotManReservations(int idRes)
+        public List<ManualReservations> GetNotManReservations(int idRes)
         {
-            List<ManualReservation> reservations = new List<ManualReservation>();
+            List<ManualReservations> reservations = new List<ManualReservations>();
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/Not/ManRes/{idRes}");
 
             try
@@ -452,7 +452,7 @@ namespace MrPiattoRestaurant.Resources.utilities
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     var json = reader.ReadToEnd();
-                    reservations = JsonConvert.DeserializeObject<List<ManualReservation>>(json);
+                    reservations = JsonConvert.DeserializeObject<List<ManualReservations>>(json);
                 }
 
                 return reservations;
@@ -463,9 +463,9 @@ namespace MrPiattoRestaurant.Resources.utilities
             }
         }
 
-        public List<ManualReservation> GetNotManReservationsByHour(int idRes, DateTime date)
+        public List<ManualReservations> GetNotManReservationsByHour(int idRes, DateTime date)
         {
-            List<ManualReservation> reservations = new List<ManualReservation>();
+            List<ManualReservations> reservations = new List<ManualReservations>();
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/Not/ManRes/{idRes}/{date.ToString("yyyy-MM-dd HH:mm:ss")}");
 
             try
@@ -475,7 +475,7 @@ namespace MrPiattoRestaurant.Resources.utilities
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     var json = reader.ReadToEnd();
-                    reservations = JsonConvert.DeserializeObject<List<ManualReservation>>(json);
+                    reservations = JsonConvert.DeserializeObject<List<ManualReservations>>(json);
                 }
 
                 return reservations;
@@ -502,6 +502,29 @@ namespace MrPiattoRestaurant.Resources.utilities
                 }
 
                 return users;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<AuxiliarReservation> GetAllAuxReservations(int idRes)
+        {
+            List<AuxiliarReservation> res = new List<AuxiliarReservation>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/Not/Aux/All/{idRes}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    res = JsonConvert.DeserializeObject<List<AuxiliarReservation>>(json);
+                }
+
+                return res;
             }
             catch (Exception)
             {

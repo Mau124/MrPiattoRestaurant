@@ -82,7 +82,6 @@ namespace MrPiattoRestaurant
 
             InitializeRestaurant();
             InitializeFloors();
-            InitializeTables();
 
             waitFragment = new WaitFragment(this);
 
@@ -146,6 +145,8 @@ namespace MrPiattoRestaurant
 
         private void InitializeFloors()
         {
+            floors = new List<GestureRecognizerView>();
+            floorsNames = new List<string>();
             int idRestaurant = restaurant.Idrestaurant;
             Dictionary<int, string> floorsList = API.GetFloors(idRestaurant);
 
@@ -171,6 +172,8 @@ namespace MrPiattoRestaurant
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             floorName.Adapter = adapter;
             floorName.SetSelection(0);
+
+            InitializeTables();
         }
 
         private void InitializeTables()
@@ -189,6 +192,13 @@ namespace MrPiattoRestaurant
                 {
                     string name = API.GetUserName(r.Iduser);
                     Client client = new Client(name, 0, r.Date, r.AmountOfPeople);
+                    clients.Add(client);
+                }
+
+                foreach (ManualReservations m in t.ManualReservations.Where(d => d.Date > DateTime.Now))
+                {
+                    string name = m.Name + " " + m.LastName;
+                    Client client = new Client(name, 0, m.Date, m.AmountOfPeople);
                     clients.Add(client);
                 }
 
@@ -501,7 +511,7 @@ namespace MrPiattoRestaurant
                                 options.RemoveAllViews();
 
                                 TableUnion tableUnion = new TableUnion(this, client, floors, floorIndex, table);
-                                tableUnion.CreateView(options, true);
+                                tableUnion.CreateView(options);
 
                                 tableUnion.ClosePressed += delegate
                                 {
@@ -525,7 +535,12 @@ namespace MrPiattoRestaurant
         {
             options.RemoveAllViews();
             TableUnion tableUnion = new TableUnion(this, restaurant, client, floors, floorIndex);
-            tableUnion.CreateView(options, false);
+            tableUnion.CreateView(options);
+
+            tableUnion.Update += delegate
+            {
+                InitializeFloors();
+            };
 
             tableUnion.ClosePressed += delegate
             {

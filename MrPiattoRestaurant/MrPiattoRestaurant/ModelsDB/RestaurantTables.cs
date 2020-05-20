@@ -34,6 +34,7 @@ namespace MrPiattoRestaurant.ModelsDB
         public bool? IsJoin { get; set; }
 
         public virtual ICollection<Reservation> Reservation { get; set; }
+        public virtual ICollection<ManualReservations> ManualReservations { get; set; }
 
         //public virtual Restaurant IdrestaurantNavigation { get; set; }
         //public virtual ICollection<LockedTables> LockedTables { get; set; }

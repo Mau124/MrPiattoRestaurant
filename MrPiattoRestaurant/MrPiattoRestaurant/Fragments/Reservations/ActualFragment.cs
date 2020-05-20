@@ -171,7 +171,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
                     List<Models.Notification> res = new List<Models.Notification>();
                     List<AuxiliarReservation>? auxReservations = API.GetNotAuxReservationsByHour(restaurant.Idrestaurant, time);
-                    List<ManualReservation>? manReservations = API.GetNotManReservationsByHour(restaurant.Idrestaurant, time);
+                    List<ManualReservations>? manReservations = API.GetNotManReservationsByHour(restaurant.Idrestaurant, time);
 
                     if (auxReservations != null)
                     {
@@ -183,7 +183,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
                     if (manReservations != null)
                     {
-                        foreach (ManualReservation r in manReservations)
+                        foreach (ManualReservations r in manReservations)
                         {
                             res.Add(new Models.Notification(r.Name, r.LastName, r.IdtableNavigation.tableName, r.Date, r.Phone, r.IdtableNavigation.floorIndex, r.IdtableNavigation.Idtables));
                         }
