@@ -20,6 +20,8 @@ namespace MrPiattoRestaurant.Notifications
     public class AlarmReceiver : BroadcastReceiver
     {
         private APICaller API = new APICaller();
+        private APIUpdate APIupdate = new APIUpdate();
+        private Context context;
         private int idRes = new int();
 
         private List<Reservation> reservations = new List<Reservation>();
@@ -28,6 +30,7 @@ namespace MrPiattoRestaurant.Notifications
 
         public override void OnReceive(Context context, Intent intent)
         {
+            this.context = context;
             idRes = intent.GetIntExtra("restaurant", 0);
             InitializeReservations();
 
@@ -175,9 +178,39 @@ namespace MrPiattoRestaurant.Notifications
 
         private void InitializeReservations()
         {
-            reservations = API.GetNotReservations(idRes);
-            auxReservations = API.GetNotAuxReservations(idRes);
-            manualReservations = API.GetNotManReservations(idRes);
+            reservations = API.GetNotReservations(idRes).Where(r => r.Checked == false).ToList();
+            auxReservations = API.GetNotAuxReservations(idRes).Where(r => r.Checked == false).ToList();
+            manualReservations = API.GetNotManReservations(idRes).Where(r => r.Checked == false).ToList();
+
+            if (reservations != null)
+            {
+                foreach (Reservation r in reservations)
+                {
+                    r.Checked = true;
+                    var response = APIupdate.UpdateReservation(r).Result;
+                    Toast.MakeText(context, response, ToastLength.Long).Show();
+                }
+            }
+
+            if (auxReservations != null)
+            {
+                foreach (AuxiliarReservation r in auxReservations)
+                {
+                    r.Checked = true;
+                    var response = APIupdate.UpdateAuxReservation(r).Result;
+                    Toast.MakeText(context, response, ToastLength.Long).Show();
+                }
+            }
+
+            if (manualReservations != null)
+            {
+                foreach (ManualReservations r in manualReservations)
+                {
+                    r.Checked = true;
+                    var response = APIupdate.UpdateManReservation(r).Result;
+                    Toast.MakeText(context, response, ToastLength.Long).Show();
+                }
+            }
         }
     }
 }

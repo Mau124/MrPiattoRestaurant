@@ -66,9 +66,9 @@ namespace MrPiattoRestaurant.Fragments
             mRecyclerView.SetLayoutManager(mLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
 
-            var swipeHandler = new SwipeToDeleteCallback(0, ItemTouchHelper.Left, context, mAdapter);
-            var itemTouchHelper = new ItemTouchHelper(swipeHandler);
-            itemTouchHelper.AttachToRecyclerView(mRecyclerView);
+            //var swipeHandler = new SwipeToDeleteCallback(0, ItemTouchHelper.Left, context, mAdapter);
+            //var itemTouchHelper = new ItemTouchHelper(swipeHandler);
+            //itemTouchHelper.AttachToRecyclerView(mRecyclerView);
 
             if (NotificationsList.Any())
             {
@@ -106,37 +106,37 @@ namespace MrPiattoRestaurant.Fragments
         }
     }
 
-    public class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback
-    {
-        private NotificationsAdapter mAdapter;
-        private Context context;
+    //public class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback
+    //{
+    //    private NotificationsAdapter mAdapter;
+    //    private Context context;
 
-        public SwipeToDeleteCallback(int dragDirs, int swipeDirs, Context context) : base(dragDirs, swipeDirs)
-        {
-            this.context = context;
-        }
-        public SwipeToDeleteCallback(int dragDirs, int swipeDirs, Context context, NotificationsAdapter mRecyclerView) : this(dragDirs, swipeDirs, context)
-        {
-            this.context = context;
-            this.mAdapter = mRecyclerView;
-        }
+    //    public SwipeToDeleteCallback(int dragDirs, int swipeDirs, Context context) : base(dragDirs, swipeDirs)
+    //    {
+    //        this.context = context;
+    //    }
+    //    public SwipeToDeleteCallback(int dragDirs, int swipeDirs, Context context, NotificationsAdapter mRecyclerView) : this(dragDirs, swipeDirs, context)
+    //    {
+    //        this.context = context;
+    //        this.mAdapter = mRecyclerView;
+    //    }
 
-        public override void OnSwiped(RecyclerView.ViewHolder viewHolder, int direction)
-        {
-            int position = viewHolder.AdapterPosition;
-            mAdapter.RemoveItem(position);
-            mAdapter.NotifyDataSetChanged();
-            Toast.MakeText(Application.Context, "Posicion " + position, ToastLength.Short).Show();
-        }
+    //    public override void OnSwiped(RecyclerView.ViewHolder viewHolder, int direction)
+    //    {
+    //        int position = viewHolder.AdapterPosition;
+    //        mAdapter.RemoveItem(position);
+    //        mAdapter.NotifyDataSetChanged();
+    //        Toast.MakeText(Application.Context, "Posicion " + position, ToastLength.Short).Show();
+    //    }
 
-        public override bool OnMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
-        {
-            return false;
-        }
+    //    public override bool OnMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
+    //    {
+    //        return false;
+    //    }
 
-        public override int GetMovementFlags(RecyclerView p0, RecyclerView.ViewHolder p1)
-        {
-            return base.GetMovementFlags(p0, p1);
-        }
-    }
+    //    public override int GetMovementFlags(RecyclerView p0, RecyclerView.ViewHolder p1)
+    //    {
+    //        return base.GetMovementFlags(p0, p1);
+    //    }
+    //}
 }

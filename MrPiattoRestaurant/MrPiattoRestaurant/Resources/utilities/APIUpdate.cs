@@ -185,5 +185,53 @@ namespace MrPiattoRestaurant.Resources.utilities
             var response = client.PostAsync("Reservations/Not/ManRes", byteContent).Result;
             return await response.Content.ReadAsStringAsync();
         }
+
+        public async Task<string> UpdateReservation(Reservation reservation)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(reservation);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("Reservations/Not/Res/Update", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> UpdateAuxReservation(AuxiliarReservation reservation)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(reservation);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("Reservations/Not/Aux/Update", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> UpdateManReservation(ManualReservations reservation)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(reservation);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("Reservations/Not/ManRes/Update", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
     }
 }
