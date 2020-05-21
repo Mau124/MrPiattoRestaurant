@@ -18,6 +18,7 @@ android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_union.x
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\item_waitlist.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_add_waiter.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_catalogue.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_check_nfc.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_check_qr.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_main_container.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_manual_assigment.xml
@@ -41,7 +42,6 @@ android.support.v7.widget.CardView;obj\Debug\90\res\layout\layout_item_gallery.x
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\activity_dashboard_gallery.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\layout_catalogue.xml
-android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\layout_check_qr.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\layout_manual_assigment.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\layout_union_tables.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\recycler_actuallist.xml
@@ -130,6 +130,7 @@ ImageView;obj\Debug\90\res\layout\item_union.xml
 ImageView;obj\Debug\90\res\layout\item_waitlist.xml
 ImageView;obj\Debug\90\res\layout\layout_add_waiter.xml
 ImageView;obj\Debug\90\res\layout\layout_catalogue.xml
+ImageView;obj\Debug\90\res\layout\layout_check_nfc.xml
 ImageView;obj\Debug\90\res\layout\layout_check_qr.xml
 ImageView;obj\Debug\90\res\layout\layout_item.xml
 ImageView;obj\Debug\90\res\layout\layout_item_gallery.xml
@@ -158,14 +159,12 @@ LinearLayout;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 LinearLayout;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 LinearLayout;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 LinearLayout;obj\Debug\90\res\layout\activity_main.xml
-LinearLayout;obj\Debug\90\res\layout\dialog_answer_survey.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_join_tables.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_new_client.xml
 LinearLayout;obj\Debug\90\res\layout\item_futurelist.xml
 LinearLayout;obj\Debug\90\res\layout\item_notifications.xml
 LinearLayout;obj\Debug\90\res\layout\item_union.xml
-LinearLayout;obj\Debug\90\res\layout\layout_check_qr.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item_gallery.xml
 LinearLayout;obj\Debug\90\res\layout\layout_item_waiter.xml
@@ -297,6 +296,7 @@ TextView;obj\Debug\90\res\layout\item_union.xml
 TextView;obj\Debug\90\res\layout\item_waitlist.xml
 TextView;obj\Debug\90\res\layout\layout_add_waiter.xml
 TextView;obj\Debug\90\res\layout\layout_catalogue.xml
+TextView;obj\Debug\90\res\layout\layout_check_nfc.xml
 TextView;obj\Debug\90\res\layout\layout_check_qr.xml
 TextView;obj\Debug\90\res\layout\layout_item.xml
 TextView;obj\Debug\90\res\layout\layout_item_waiter.xml
@@ -322,7 +322,6 @@ View;obj\Debug\90\res\layout\activity_dashboard_gallery.xml
 View;obj\Debug\90\res\layout\activity_dashboard_policies.xml
 View;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 View;obj\Debug\90\res\layout\activity_main.xml
-View;obj\Debug\90\res\layout\layout_check_qr.xml
 View;obj\Debug\90\res\layout\layout_item_gallery.xml
 View;obj\Debug\90\res\layout\layout_item_waiter.xml
 View;obj\Debug\90\res\layout\layout_manual_assigment.xml

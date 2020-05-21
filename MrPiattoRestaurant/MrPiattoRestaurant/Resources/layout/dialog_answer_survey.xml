@@ -1,18 +1,19 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:background="@drawable/aboutme_containers">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:padding="10dp"
         android:id="@+id/idTitle"
-        android:background="@drawable/containers_design">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#EDC13F">
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,111 +23,39 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
             android:textSize="20dp"
-            android:textColor="#000000"/>
+            android:textColor="#FFFFFF"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancelar"
-            android:id="@+id/idCancel"
+            android:id="@+id/idDismiss"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/close"
+            android:background="@drawable/closeWhite"
             android:layout_marginTop="10dp"/>
 
         </android.support.constraint.ConstraintLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="500dp"
+        android:layout_height="300dp"
+        android:src="@drawable/alexa_img"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/idImg"
         app:layout_constraintTop_toBottomOf="@+id/idTitle"
+        app:layout_constraintBottom_toTopOf="@+id/idText"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prepara a tu dispositivo Alexa"
+        android:id="@+id/idText"
         app:layout_constraintBottom_toTopOf="@+id/idButtons"
-        android:padding="10dp"
-        android:id="@+id/idContent"
-        android:background="@drawable/containers_design">
-
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginRight="50dp"
-            android:gravity="center_horizontal">
-        
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="Cancelar"
-            android:id="@+id/idImageTable1"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="10dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mesa A"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp"
-            android:textSize="20dp"
-            android:id="@+id/idNameTable1"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Asientos: 8"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp"
-            android:textSize="20dp"
-            android:id="@+id/idSeatsTable1"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-
-            <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="Cancelar"
-            android:id="@+id/idImageTable2"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="10dp"/>
-
-            <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mesa A"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp"
-            android:textSize="20dp"
-            android:id="@+id/idNameTable2"/>
-
-           <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Asientos: 8"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp"
-            android:textSize="20dp"
-            android:id="@+id/idSeatsTable2"/>
-
-        </LinearLayout>
-
-        </LinearLayout>
-
-       </android.support.constraint.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/idImg"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="24dp"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -139,21 +68,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Aceptar"
-        app:layout_constraintBottom_toTopOf="@+id/idDeleteButton"
-        android:background="@drawable/save_buttons"
-        android:textColor="#ffffff"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textAllCaps="false"
-        android:id="@+id/idSaveButton"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancelar"
-        android:id="@+id/idDeleteButton"
+        android:text="Contestar encuesta con Alexa"
+        android:id="@+id/idAdd"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/delete_buttons"
         android:textColor="#ffffff"
