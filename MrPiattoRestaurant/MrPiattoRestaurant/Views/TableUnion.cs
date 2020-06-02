@@ -56,6 +56,16 @@ namespace MrPiattoRestaurant.Views
             }
         }
 
+        public delegate void DismissEventHandler();
+        public event DismissEventHandler Dismiss;
+        protected virtual void OnDismiss()
+        {
+            if (Dismiss != null)
+            {
+                Dismiss();
+            }
+        }
+
         /// <summary>
         /// Class that creates a tablepropertiesView
         /// </summary>
@@ -105,6 +115,7 @@ namespace MrPiattoRestaurant.Views
 
             mRecyclerView = tableUnion.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
             Button button = tableUnion.FindViewById<Button>(Resource.Id.idButton);
+            ImageView dismiss = tableUnion.FindViewById<ImageView>(Resource.Id.idDismiss);
 
 
             mLayoutManager = new LinearLayoutManager(context);
@@ -237,6 +248,12 @@ namespace MrPiattoRestaurant.Views
                 {
                     Toast.MakeText(Application.Context, "El numero de sillas en las mesas seleccionadas debe ser suficiente para el cliente y menor a 13", ToastLength.Short).Show();
                 }
+            };
+
+            dismiss.Click += delegate
+            {
+                floors[floorIndex].auxTables.Clear();
+                OnDismiss();
             };
 
             return tableUnion;

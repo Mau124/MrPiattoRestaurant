@@ -61,9 +61,6 @@ namespace MrPiattoRestaurant.adapters.waitListAdapters
             {
                 switch (arg1.Item.ItemId)
                 {
-                    case Resource.Id.item1:
-                        Toast.MakeText(Application.Context, "Posicion: " + position + " Opcion 1", ToastLength.Short).Show();
-                        break;
                     case Resource.Id.item2:
                         ModifyClient(position);
                         Toast.MakeText(Application.Context, "Position: " + position + " Opcion 2", ToastLength.Short).Show();
@@ -103,7 +100,7 @@ namespace MrPiattoRestaurant.adapters.waitListAdapters
         public void ModifyClient(int position)
         {
             LayoutInflater inflater = LayoutInflater.From(Application.Context);
-            View content = inflater.Inflate(Resource.Layout.modify_waitList, null);
+            View content = inflater.Inflate(Resource.Layout.add_waitList, null);
 
             Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
             alertDialog.SetCancelable(true);
@@ -112,36 +109,78 @@ namespace MrPiattoRestaurant.adapters.waitListAdapters
 
             Button add, cancel;
             EditText nameClient, numSeats;
+            SeekBar mSeekBar;
 
             add = content.FindViewById<Button>(Resource.Id.idAdd);
-            cancel = content.FindViewById<Button>(Resource.Id.idCancel);
 
             nameClient = content.FindViewById<EditText>(Resource.Id.idName);
             numSeats = content.FindViewById<EditText>(Resource.Id.idSeats);
+            mSeekBar = content.FindViewById<SeekBar>(Resource.Id.idSeekBar);
+
+            add.Text = "Modificar";
+
+            mSeekBar.Min = 1;
+            mSeekBar.Max = 15;
 
             nameClient.Hint = waitList.ElementAt(position).personName;
             numSeats.Hint = waitList.ElementAt(position).numSeats.ToString();
+            mSeekBar.Progress = Int32.Parse(numSeats.Hint);
+
+            numSeats.TextChanged += (object s, Android.Text.TextChangedEventArgs e) =>
+            {
+                if (validateSeats(numSeats.Text))
+                    mSeekBar.Progress = Int32.Parse(numSeats.Text);
+            };
+
+            mSeekBar.ProgressChanged += (object senderProgresBar, SeekBar.ProgressChangedEventArgs e) =>
+            {
+                if (e.FromUser)
+                {
+                    numSeats.Hint = e.Progress.ToString();
+                    Toast.MakeText(Application.Context, "Se esta presionando el seek", ToastLength.Long).Show();
+                }
+            };
 
             add.Click += (s, a) => {
                 string name;
                 int seats;
 
-                name = nameClient.Text;
-                seats = Int32.Parse(numSeats.Text);
+                try
+                {
+                    if (!nameClient.Text.Equals(""))
+                    {
+                        name = nameClient.Text;
+                        waitList.ElementAt(position).personName = name;
+                    }
+                    if (!numSeats.Text.Equals("") && validateSeats(numSeats.Text))
+                    {
+                        seats = Int32.Parse(numSeats.Text);
+                        waitList.ElementAt(position).numSeats = seats;
+                    } else if (!numSeats.Hint.Equals("") && validateSeats(numSeats.Hint))
+                    {
+                        seats = Int32.Parse(numSeats.Hint);
+                        waitList.ElementAt(position).numSeats = seats;
+                    }
+                    alertDialog.Dismiss();
 
-                waitList.ElementAt(position).personName = name;
-                waitList.ElementAt(position).numSeats = seats;
-
-                alertDialog.Dismiss();
-
-                List<WaitList> auxList = new List<WaitList>(waitList);
-                NotifyDataSetChanged();
+                    List<WaitList> auxList = new List<WaitList>(waitList);
+                    NotifyDataSetChanged();
+                } catch
+                {
+                    Toast.MakeText(Application.Context, "Error", ToastLength.Long).Show();
+                }
             };
+        }
 
-            cancel.Click += (s, a) =>
+        private bool validateSeats(string s)
+        {
+            if (s.Count() == 0) return false;
+            foreach (char c in s)
             {
-                alertDialog.Dismiss();
-            };
+                if (c < '0' || c > '9')
+                    return false;
+            }
+            return true;
         }
 
         public class WaitListViewHolder : RecyclerView.ViewHolder

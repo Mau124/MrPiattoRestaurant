@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contestar encuesta"
+            android:text="Finalizar comida"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
@@ -36,26 +36,59 @@
 
         </android.support.constraint.ConstraintLayout>
 
-    <ImageView
-        android:layout_width="500dp"
-        android:layout_height="300dp"
-        android:src="@drawable/alexa_img"
+     <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/idImg"
         app:layout_constraintTop_toBottomOf="@+id/idTitle"
-        app:layout_constraintBottom_toTopOf="@+id/idText"/>
+        app:layout_constraintBottom_toTopOf="@+id/idButtons"
+        android:padding="20dp"
+        android:id="@+id/idContent"
+        android:background="@drawable/containers_design">
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+                <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Proporcione este id de restaurante"
+        android:id="@+id/idText"
+        app:layout_constraintBottom_toTopOf="@+id/idMoreText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="24dp"
+        android:gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Prepara a tu dispositivo Alexa"
-        android:id="@+id/idText"
-        app:layout_constraintBottom_toTopOf="@+id/idButtons"
-        app:layout_constraintTop_toBottomOf="@+id/idImg"
+        android:layout_height="30dp"
+        android:text="para que el cliente responda la encuesta"
+        android:id="@+id/idMoreText"
+        app:layout_constraintBottom_toTopOf="@+id/idTitle"
+        app:layout_constraintTop_toBottomOf="@+id/idButtons"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="ID: "
+        android:id="@+id/idMoreMoreText"
+        app:layout_constraintTop_toBottomOf="@+id/idMoreText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="24dp"
+        android:gravity="center"/>
+
+        </LinearLayout>
+
+       </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -68,8 +101,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Contestar encuesta con Alexa"
-        android:id="@+id/idAdd"
+        android:text="Asignar mesa"
+        android:id="@+id/idButton"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/delete_buttons"
         android:textColor="#ffffff"

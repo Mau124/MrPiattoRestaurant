@@ -21,8 +21,8 @@ namespace MrPiattoRestaurant.Resources.utilities
 {
     public class APIUpdate
     {
-        //private static readonly string url = "http://200.23.157.109/api/";
-        private static readonly string url = "http://10.0.2.2/api/";
+        private static readonly string url = "http://200.23.157.109/api/";
+        //private static readonly string url = "http://10.0.2.2/api/";
 
         public APIUpdate() { }
 
@@ -231,6 +231,102 @@ namespace MrPiattoRestaurant.Resources.utilities
             var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
             byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
             var response = client.PostAsync("Reservations/Not/ManRes/Update", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> AddDayStatistics(DayStatistics dayStats)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(dayStats);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("Statistics/Add/Day", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> AddHourStatistics(HourStatistics hourStats)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(hourStats);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("Statistics/Add/Hour", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> AddTableStatistics(TableStatistics tableStats)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(tableStats);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("Statistics/Add/TableStats", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> UpdateReservation2(Reservation reservation)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(reservation);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("Reservations/Not/Res/UpdateFromNot", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> UpdateAuxReservation2(AuxiliarReservation reservation)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(reservation);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("Reservations/Not/Aux/UpdateFromNot", byteContent).Result;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> UpdateManReservation2(ManualReservations reservation)
+        {
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri($"{url}");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = JsonConvert.SerializeObject(reservation);
+            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = client.PostAsync("Reservations/Not/ManRes/UpdateFromNot", byteContent).Result;
             return await response.Content.ReadAsStringAsync();
         }
     }

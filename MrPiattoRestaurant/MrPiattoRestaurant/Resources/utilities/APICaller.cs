@@ -19,8 +19,8 @@ namespace MrPiattoRestaurant.Resources.utilities
 {
     public class APICaller
     {
-        //private static readonly string url = "http://200.23.157.109/api/";
-        private static readonly string url = "http://10.0.2.2/api/";
+        private static readonly string url = "http://200.23.157.109/api/";
+        //private static readonly string url = "http://10.0.2.2/api/";
 
         public APICaller() { }
 
@@ -548,6 +548,98 @@ namespace MrPiattoRestaurant.Resources.utilities
                 }
 
                 return res;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<Reservation> GetReservationsWithoutFilters(int idRestaurant)
+        {
+            List<Reservation> reservations;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/Reservation/All/{idRestaurant}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    reservations = JsonConvert.DeserializeObject<List<Reservation>>(json);
+                }
+
+                return reservations;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<ManualReservations> GetManualReservationsWithoutFilters(int idRestaurant)
+        {
+            List<ManualReservations> reservations;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/ManualReservation/All/{idRestaurant}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    reservations = JsonConvert.DeserializeObject<List<ManualReservations>>(json);
+                }
+
+                return reservations;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<AuxiliarReservation> GetAuxReservationsWithoutFilters(int idRestaurant)
+        {
+            List<AuxiliarReservation> reservations;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Reservations/AuxiliarReservation/All/{idRestaurant}");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    reservations = JsonConvert.DeserializeObject<List<AuxiliarReservation>>(json);
+                }
+
+                return reservations;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<Restaurant> GetAllRestaurants()
+        {
+            List<Restaurant> restaurant;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Restaurants/Accepted");
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    restaurant = JsonConvert.DeserializeObject<List<Restaurant>>(json);
+                }
+
+                return restaurant;
             }
             catch (Exception)
             {

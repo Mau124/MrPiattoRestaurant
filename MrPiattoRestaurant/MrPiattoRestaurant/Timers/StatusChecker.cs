@@ -14,6 +14,7 @@ using Android.Widget;
 using MrPiattoRestaurant.Models;
 using MrPiattoRestaurant.ModelsDB;
 using MrPiattoRestaurant.Resources.utilities;
+using MrPiattoRestaurant.InteractiveViews;
 
 namespace MrPiattoRestaurant.Timers
 {
@@ -27,11 +28,27 @@ namespace MrPiattoRestaurant.Timers
         private List<Reservation> reservation = new List<Reservation>();
         private List<AuxiliarReservation> auxReservation = new List<AuxiliarReservation>();
         private List<ManualReservations> manReservation = new List<ManualReservations>();
+        private List<GestureRecognizerView> floors = new List<GestureRecognizerView>();
+        private TimeLineView timeLine;
+        private TextView hour;
 
-        public StatusChecker(Context context, int count)
+        public delegate void UpdateEventHandler();
+        public event UpdateEventHandler Update;
+        protected virtual void OnUpdate()
+        {
+            if (Update != null)
+            {
+                Update();
+            }
+        }
+
+        public StatusChecker(Context context, int count, TimeLineView timeLine, List<GestureRecognizerView> floors, TextView hour)
         {
             invokeCount = 0;
             this.context = context;
+            this.timeLine = timeLine;
+            this.floors = floors;
+            this.hour = hour;
             maxCount = count;
         }
 
@@ -39,6 +56,17 @@ namespace MrPiattoRestaurant.Timers
         {
             AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
             Console.WriteLine(DateTime.Now.ToString("h:mm:ss") + (++invokeCount));
+
+            timeLine.SetTime(DateTime.Now.Hour, DateTime.Now.Minute);
+
+            foreach (GestureRecognizerView floor in floors)
+            {
+                foreach (Table t in floor.ocupiedTables)
+                {
+                    t.actualClient.timeUsed++;
+                }
+            }
+            OnUpdate();
 
             if (invokeCount == maxCount)
             {

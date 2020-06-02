@@ -101,61 +101,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="vertical"
+                android:layout_height="200dp"
+                android:id="@+id/idNoData1"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:gravity="center_vertical"
-                android:id="@+id/idHourContainer">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-
-                   <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hora mas visitada: "
-                        android:id="@+id/idHourMost"
-                        android:textSize="15dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="18 hrs"
-                        android:textSize="15dp"
-                       android:textColor="#9CCB9A"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hora menos visitada: "
-                        android:id="@+id/idHourLess"
-                        android:textSize="15dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="13 hrs"
-                        android:textSize="15dp"
-                       android:textColor="#CC6964"/>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
+                android:src="@drawable/nodata"/>
 
         </android.support.constraint.ConstraintLayout>
 
@@ -246,61 +201,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="vertical"
+                android:layout_height="200dp"
+                android:id="@+id/idNoData2"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:gravity="center_vertical"
-                android:id="@+id/idTableUseContainer">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-
-                   <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hora mas visitada: "
-                        android:id="@+id/idTableUseMost"
-                        android:textSize="15dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mesa 2"
-                        android:textSize="15dp"
-                        android:textColor="#9CCB9A"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hora menos visitada: "
-                        android:id="@+id/idTableUseLess"
-                        android:textSize="15dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mesa 5"
-                        android:textSize="15dp"
-                       android:textColor="#CC6964"/>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
+                android:src="@drawable/nodata"/>
 
         </android.support.constraint.ConstraintLayout>
 
@@ -382,61 +292,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
-           <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="vertical"
+                android:layout_height="200dp"
+                android:id="@+id/idNoData3"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:gravity="center_vertical"
-                android:id="@+id/idDaysContainer">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-
-                   <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dia mas visitada: "
-                        android:id="@+id/idDaysMost"
-                        android:textSize="15dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Martes"
-                        android:textSize="15dp"
-                       android:textColor="#9CCB9A"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dia menos visitada: "
-                        android:id="@+id/idDaysLess"
-                        android:textSize="15dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Miercoles"
-                        android:textSize="15dp"
-                       android:textColor="#CC6964"/>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
+                android:src="@drawable/nodata"/>
 
         </android.support.constraint.ConstraintLayout>
 
@@ -527,61 +392,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="vertical"
+                android:layout_height="200dp"
+                android:id="@+id/idNoData4"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:gravity="center_vertical"
-                android:id="@+id/idWaitersContainer">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-
-                   <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mesero mejor puntuado: "
-                        android:id="@+id/idWaitersMost"
-                        android:textSize="15dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Juan"
-                        android:textSize="15dp"
-                       android:textColor="#9CCB9A"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mesero peor puntuado: "
-                        android:id="@+id/idWaitersLess"
-                        android:textSize="15dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Aldo"
-                        android:textSize="15dp"
-                       android:textColor="#CC6964"/>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
+                android:src="@drawable/nodata"/>
 
         </android.support.constraint.ConstraintLayout>
 
@@ -672,61 +492,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="vertical"
+                android:layout_height="200dp"
+                android:id="@+id/idNoData5"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:gravity="center_vertical"
-                android:id="@+id/idTableAverageContainer">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-
-                   <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mesa mas usada: "
-                        android:id="@+id/idTableAverageMost"
-                        android:textSize="15dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mesa 6"
-                        android:textSize="15dp"
-                       android:textColor="#9CCB9A"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mesa menos usada: "
-                        android:id="@+id/idTableAverageLess"
-                        android:textSize="15dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mesa 9"
-                        android:textSize="15dp"
-                       android:textColor="#CC6964"/>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
+                android:src="@drawable/nodata"/>
 
         </android.support.constraint.ConstraintLayout>
 
@@ -807,6 +582,17 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/idNoData6"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/nodata"/>
 
         </android.support.constraint.ConstraintLayout>
 

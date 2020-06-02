@@ -20,7 +20,7 @@ namespace MrPiattoRestaurant.ModelsDB
         public double AvarageUse { get; set; }
         public DateTime DateStatistics { get; set; }
 
-        //public virtual Restaurant IdrestaurantNavigation { get; set; }
-        //public virtual RestaurantTables IdrestaurantTablesNavigation { get; set; }
+        public virtual Restaurant IdrestaurantNavigation { get; set; }
+        public virtual RestaurantTables IdrestaurantTablesNavigation { get; set; }
     }
 }

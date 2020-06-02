@@ -106,27 +106,7 @@
         app:layout_constraintLeft_toRightOf="@+id/idImagePhone"
         app:layout_constraintTop_toTopOf="@+id/idImagePhone"
         app:layout_constraintBottom_toBottomOf="@+id/idImagePhone"
-        android:text="3316545498"/>
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/code"
-        android:id="@+id/idImageCode"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idPhone"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/idCode"
-        android:layout_marginLeft="10dp"
-        app:layout_constraintLeft_toRightOf="@+id/idImageCode"
-        app:layout_constraintTop_toTopOf="@+id/idImageCode"
-        app:layout_constraintBottom_toBottomOf="@+id/idImageCode"
-        android:text="XYR-789"/>
+        android:text="Reservado desde el celular"/>
 
     <!--<TextView
         android:layout_width="wrap_content"

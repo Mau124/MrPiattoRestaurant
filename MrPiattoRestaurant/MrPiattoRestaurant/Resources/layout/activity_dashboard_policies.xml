@@ -325,7 +325,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tiempo mínimo para poder modificar reservación"
+                android:text="Modificacion de reservación para no generar penalización. Días, Horas, asientos"
                 android:textColor="#15142F"
                 android:layout_marginRight="8dp"/>
 
@@ -334,9 +334,59 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
-                android:layout_marginTop="10dp">
-           
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal">
+
                 <EditText
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:hint="2 dias"
+                    android:textSize="15dp"
+                    android:textColor="#9C9CB1"
+                    android:id="@+id/idModDay"
+                    android:inputType="number"
+                    android:background="@drawable/generic"
+                    android:textColorHint="#9C9CB1"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:gravity="center_horizontal"/>
+
+                <EditText
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:hint="3 horas"
+                    android:textSize="15dp"
+                    android:textColor="#9C9CB1"
+                    android:id="@+id/idModHour"
+                    android:inputType="number"
+                    android:background="@drawable/generic"
+                    android:textColorHint="#9C9CB1"
+                    android:paddingTop="7dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:gravity="center_horizontal"/>
+
+                <EditText
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:hint="3 asientos"
+                    android:textSize="15dp"
+                    android:textColor="#9C9CB1"
+                    android:id="@+id/idModSeats"
+                    android:inputType="number"
+                    android:background="@drawable/generic"
+                    android:textColorHint="#9C9CB1"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:gravity="center_horizontal"/>
+           
+                <!--<EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="0s / 1d / 0h"
@@ -348,7 +398,7 @@
                     android:background="@drawable/generic"
                     android:textColorHint="#9C9CB1"
                     android:paddingTop="7dp"
-                    android:paddingRight="15dp"/>
+                    android:paddingRight="15dp"/>-->
 
             </LinearLayout>
 

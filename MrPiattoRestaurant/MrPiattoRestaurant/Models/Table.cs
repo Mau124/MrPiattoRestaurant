@@ -167,6 +167,7 @@ namespace MrPiattoRestaurant
             paint.SetTypeface(Typeface.SansSerif);
             paint.AntiAlias = true;
         }
+
         public void InitializeImages()
         {
             InitializePaint();
@@ -181,13 +182,42 @@ namespace MrPiattoRestaurant
         {
             reservations = new List<Client>(clients);
         }
-        public void setOcupied(bool ocupied)
+
+        public void setImageOcupied(bool ocupied)
         {
             if (ocupied)
             {
+                actualColor = "#E2B7B8";
+                InitializePaint();
+                image = context.Resources.GetDrawable(context.Resources.GetIdentifier(type + seats + "ocupied", "drawable", context.PackageName));
+                border = context.Resources.GetDrawable(Resource.Drawable.border);
+
+                image.SetBounds(this.firstX, this.firstY, secondX, secondY);
+                border.SetBounds(this.firstX - 5, this.firstY - 5, secondX + 5, secondY + 5);
+
+                OnDraw();
+            }
+            else
+            {
+                actualColor = "#B0ADE8";
+                InitializePaint();
+                image = context.Resources.GetDrawable(context.Resources.GetIdentifier(type + seats, "drawable", context.PackageName));
+                border = context.Resources.GetDrawable(Resource.Drawable.border);
+
+                image.SetBounds(this.firstX, this.firstY, secondX, secondY);
+                border.SetBounds(this.firstX - 5, this.firstY - 5, secondX + 5, secondY + 5);
+
+                OnDraw();
+            }
+        }
+
+        public void InitializeTable()
+        {
+            if (isOcupied)
+            {
                 isOcupied = true;
                 actualColor = "#E2B7B8";
-                tableDrawable = tableDrawable + "ocupied";
+                tableDrawable = type + seats + "ocupied";
                 InitializeImages();
                 OnDraw();
             } else
@@ -197,6 +227,30 @@ namespace MrPiattoRestaurant
                 tableDrawable = type + seats;
                 InitializeImages();
                 OnDraw();
+            }
+        }
+        public void setOcupied(bool ocupied)
+        {
+            if (ocupied)
+            {
+                if (!isOcupied)
+                {
+                    isOcupied = true;
+                    actualColor = "#E2B7B8";
+                    tableDrawable = tableDrawable + "ocupied";
+                    InitializeImages();
+                    OnDraw();
+                }
+            } else
+            {
+                if (isOcupied)
+                {
+                    isOcupied = false;
+                    actualColor = "#B0ADE8";
+                    tableDrawable = type + seats;
+                    InitializeImages();
+                    OnDraw();
+                }
             }
         }
 

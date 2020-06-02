@@ -57,11 +57,11 @@
             android:padding="20dp"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:id="@+id/idPromotions"
-            app:layout_constraintBottom_toTopOf="@+id/idReturn"
-            app:layout_constraintRight_toRightOf="@+id/idReturn"
+            app:layout_constraintBottom_toTopOf="@+id/idLogout"
+            app:layout_constraintRight_toRightOf="@+id/idLogout"
             android:src="@drawable/bullhorn"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
@@ -71,13 +71,28 @@
             android:layout_marginBottom="10dp"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/idReturn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/idLogout"
+            app:layout_constraintBottom_toTopOf="@+id/idDelete"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/logout"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/statistics_spinner_background"
+            android:layout_marginBottom="10dp"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/idDelete"
             app:layout_constraintBottom_toBottomOf="@+id/idOptions"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/back"
+            android:src="@drawable/trash"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"

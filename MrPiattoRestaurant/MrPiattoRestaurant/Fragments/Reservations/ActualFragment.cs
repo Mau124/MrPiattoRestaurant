@@ -69,9 +69,12 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         private Stream outStream = null;
         private Stream inStream = null;
         //MAC Address del dispositivo Bluetooth
-        private static string address = "98:d3:61:f9:52:f1";
+        private static string address = "98:D3:61:F9:52:F1";
         //Id Unico de comunicacion
         private static UUID MY_UUID = UUID.FromString("00001101-0000-1000-8000-00805F9B34FB");
+
+        Android.App.AlertDialog dialogQR;
+        Android.App.AlertDialog dialogNFC;
         //Widget
         TextView Result;
 
@@ -113,7 +116,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             message = view.FindViewById<LinearLayout>(Resource.Id.idNoClients);
 
             mLayoutManager = new LinearLayoutManager(Application.Context);
-            mAdapter = new ActualListAdapter(context, ocupiedTables);
+            mAdapter = new ActualListAdapter(context, ocupiedTables, restaurant);
             mAdapter.EndFood += OnEndFood;
 
             mRecyclerView.SetLayoutManager(mLayoutManager);
@@ -145,7 +148,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         
         private void OnEndFood(int position)
         {
-            mAdapter = new ActualListAdapter(context, ocupiedTables);
+            mAdapter = new ActualListAdapter(context, ocupiedTables, restaurant);
             mAdapter.EndFood += OnEndFood;
             mRecyclerView.SetAdapter(mAdapter);
         }
@@ -187,7 +190,6 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         private void ManualAssign()
         {
             View content = LayoutInflater.Inflate(Resource.Layout.layout_manual_assigment, null);
-            TextView hour;
             RecyclerView mRecyclerView;
 
             Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
@@ -195,48 +197,44 @@ namespace MrPiattoRestaurant.Fragments.Reservations
             alertDialog.SetView(content);
             alertDialog.Show();
 
-            hour = content.FindViewById<TextView>(Resource.Id.idHour);
             mRecyclerView = content.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
 
-            hour.Click += delegate
+            Policies policies = new Policies();
+            policies = API.GetPolicies(restaurant.Idrestaurant);
+
+            DateTime auxDate = DateTime.Now.AddMinutes(-policies.MaxTimeArr);
+
+            List<Models.Notification> res = new List<Models.Notification>();
+            List<AuxiliarReservation>? auxReservations = API.GetAuxReservationsWithoutFilters(restaurant.Idrestaurant).Where(aux => aux.Date >= auxDate).ToList();
+            List<ManualReservations>? manReservations = API.GetManualReservationsWithoutFilters(restaurant.Idrestaurant).Where(man => man.Date >= auxDate).ToList();
+
+            if (auxReservations != null)
             {
-                TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
+                foreach (AuxiliarReservation r in auxReservations)
                 {
-                    hour.Text = time.ToString("hh:mm tt");
+                    res.Add(new Models.Notification(r.IdauxiliarReservation, r.Name, r.LastName, "Union", r.Date, r.Phone, r.IdauxiliarTableNavigation.StringIdtables));
+                }
+            }
 
-                    List<Models.Notification> res = new List<Models.Notification>();
-                    List<AuxiliarReservation>? auxReservations = API.GetNotAuxReservationsByHour(restaurant.Idrestaurant, time);
-                    List<ManualReservations>? manReservations = API.GetNotManReservationsByHour(restaurant.Idrestaurant, time);
+            if (manReservations != null)
+            {
+                foreach (ManualReservations r in manReservations)
+                {
+                    res.Add(new Models.Notification(r.IDReservation, r.Name, r.LastName, r.IdtableNavigation.tableName, r.Date, r.Phone, r.IdtableNavigation.floorIndex, r.IdtableNavigation.Idtables));
+                }
+            }
 
-                    if (auxReservations != null)
-                    {
-                        foreach (AuxiliarReservation r in auxReservations)
-                        {
-                            res.Add(new Models.Notification(r.Name, r.LastName, "Union", r.Date, r.Phone, r.IdauxiliarTableNavigation.StringIdtables));
-                        }
-                    }
+            res.OrderBy(r => r.Date);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(Application.Context);
+            AssigmentAdapter mAdapter = new AssigmentAdapter(context, res, floors, restaurant);
 
-                    if (manReservations != null)
-                    {
-                        foreach (ManualReservations r in manReservations)
-                        {
-                            res.Add(new Models.Notification(r.Name, r.LastName, r.IdtableNavigation.tableName, r.Date, r.Phone, r.IdtableNavigation.floorIndex, r.IdtableNavigation.Idtables));
-                        }
-                    }
+            mRecyclerView.SetLayoutManager(mLayoutManager);
+            mRecyclerView.SetAdapter(mAdapter);
 
-                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(Application.Context);
-                    AssigmentAdapter mAdapter = new AssigmentAdapter(context, res, floors, restaurant);
-
-                    mRecyclerView.SetLayoutManager(mLayoutManager);
-                    mRecyclerView.SetAdapter(mAdapter);
-
-                    mAdapter.FinishSelection += delegate
-                    {
-                        OnUpdate();
-                        alertDialog.Dismiss();
-                    };
-                });
-                frag.Show(FragmentManager, TimePickerFragment.TAG);
+            mAdapter.FinishSelection += delegate
+            {
+                OnUpdate();
+                alertDialog.Dismiss();
             };
         }
 
@@ -244,10 +242,10 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         {
             View content = LayoutInflater.Inflate(Resource.Layout.layout_check_qr, null);
 
-            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
-            alertDialog.SetCancelable(true);
-            alertDialog.SetView(content);
-            alertDialog.Show();
+            dialogQR = new Android.App.AlertDialog.Builder(context).Create();
+            dialogQR.SetCancelable(true);
+            dialogQR.SetView(content);
+            dialogQR.Show();
 
             surfaceView = content.FindViewById<SurfaceView>(Resource.Id.cameraView);
             txtResult = content.FindViewById<TextView>(Resource.Id.txtResult);
@@ -270,30 +268,30 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         {
             View content = LayoutInflater.Inflate(Resource.Layout.layout_check_nfc, null);
 
-            Android.App.AlertDialog alertDialog = new Android.App.AlertDialog.Builder(context).Create();
-            alertDialog.SetCancelable(true);
-            alertDialog.SetView(content);
-            alertDialog.Show();
+            dialogNFC = new Android.App.AlertDialog.Builder(context).Create();
+            dialogNFC.SetCancelable(true);
+            dialogNFC.SetView(content);
+            dialogNFC.Show();
 
             Result = content.FindViewById<TextView>(Resource.Id.idResult);
 
-            //CheckBt();
-            //Connect();
+            dialogNFC.DismissEvent += delegate
+            {
+                if (btSocket.IsConnected)
+                {
+                    try
+                    {
+                        btSocket.Close();
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            };
 
-            //alertDialog.DismissEvent += delegate
-            //{
-            //    if (btSocket.IsConnected)
-            //    {
-            //        try
-            //        {
-            //            btSocket.Close();
-            //        }
-            //        catch (System.Exception ex)
-            //        {
-            //            Console.WriteLine(ex.Message);
-            //        }
-            //    }
-            //};
+            CheckBt();
+            Connect();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
@@ -364,6 +362,38 @@ namespace MrPiattoRestaurant.Fragments.Reservations
                     Vibrator vibrator = (Vibrator)context.GetSystemService(Context.VibratorService);
                     vibrator.Vibrate(1000);
                     txtResult.Text = ((Barcode)qrcodes.ValueAt(0)).RawValue;
+
+                    string lecture = txtResult.Text;
+                    int id = Int32.Parse(txtResult.Text);
+                    Policies policies = new Policies();
+                    policies = API.GetPolicies(restaurant.Idrestaurant);
+                    DateTime auxDate = DateTime.Now.AddMinutes(-policies.MaxTimeArr);
+
+                    List <Reservation>  res = API.GetReservationsWithoutFilters(restaurant.Idrestaurant).Where(r => r.Date >= auxDate && r.Idreservation == id && DateTime.Now.AddHours(2) >= r.Date).ToList();
+
+                    if (res.Any())
+                    {
+                        Reservation r = res.First();
+
+                        int tableIndex = floors[r.IdtableNavigation.floorIndex].tables.FindIndex(t => t.Id == r.IdtableNavigation.Idtables);
+                        Client client = new Client(r.IduserNavigation.FirstName + " " + r.IduserNavigation.LastName, 0, DateTime.Now, floors[r.IdtableNavigation.floorIndex].tables[tableIndex].seats);
+
+                        floors.ElementAt(r.IdtableNavigation.floorIndex).tables.ElementAt(tableIndex).setOcupied(true);
+                        floors.ElementAt(r.IdtableNavigation.floorIndex).Draw();
+
+                        floors.ElementAt(r.IdtableNavigation.floorIndex).setActualClientOnTable(client, tableIndex);
+
+                        Toast.MakeText(context, "Codigo aceptado. Disfrute su comida",
+                            ToastLength.Short).Show();
+
+                        cameraSource.Stop();
+                        OnUpdate();
+                        dialogQR.Dismiss();
+                    } else
+                    {
+                        Toast.MakeText(context, "No se ha encontrado reservacion",
+                            ToastLength.Short).Show();
+                    }
                 });
             }
         }
@@ -468,7 +498,39 @@ namespace MrPiattoRestaurant.Fragments.Reservations
                                 //Convertimos el valor de la informacion llegada a string
                                 string valor = System.Text.Encoding.ASCII.GetString(buffer);
                                 //Agregamos a nuestro label la informacion llegada
-                                Result.Text = Result.Text + "\n" + valor;
+                                Result.Text = Result.Text + valor;
+
+                                string lecture = valor;
+                                int id = Int32.Parse(lecture);
+                                Policies policies = new Policies();
+                                policies = API.GetPolicies(restaurant.Idrestaurant);
+                                DateTime auxDate = DateTime.Now.AddMinutes(-policies.MaxTimeArr);
+
+                                List<Reservation> res = API.GetReservationsWithoutFilters(restaurant.Idrestaurant).Where(r => r.Date >= auxDate && r.Idreservation == id && DateTime.Now.AddHours(2) >= r.Date).ToList();
+
+                                if (res.Any())
+                                {
+                                    Reservation r = res.First();
+
+                                    int tableIndex = floors[r.IdtableNavigation.floorIndex].tables.FindIndex(t => t.Id == r.IdtableNavigation.Idtables);
+                                    Client client = new Client(r.IduserNavigation.FirstName + " " + r.IduserNavigation.LastName, 0, DateTime.Now, floors[r.IdtableNavigation.floorIndex].tables[tableIndex].seats);
+
+                                    floors.ElementAt(r.IdtableNavigation.floorIndex).tables.ElementAt(tableIndex).setOcupied(true);
+                                    floors.ElementAt(r.IdtableNavigation.floorIndex).Draw();
+
+                                    floors.ElementAt(r.IdtableNavigation.floorIndex).setActualClientOnTable(client, tableIndex);
+
+                                    Toast.MakeText(context, "Codigo aceptado. Disfrute su comida",
+                                        ToastLength.Short).Show();
+
+                                    OnUpdate();
+                                    dialogNFC.Dismiss();
+                                }
+                                else
+                                {
+                                    Toast.MakeText(context, "No se ha encontrado reservacion",
+                                        ToastLength.Short).Show();
+                                }
                             });
                         }
                     }

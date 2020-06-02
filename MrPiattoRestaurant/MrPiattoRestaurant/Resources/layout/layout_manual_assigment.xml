@@ -69,29 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/subtitles_design"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hora: "
-                        android:textSize="18dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="4:00 p.m."
-                        android:textSize="18dp"
-                        android:textColor="#DF6A67"
-                        android:id="@+id/idHour"/>
-
-                </LinearLayout>
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"

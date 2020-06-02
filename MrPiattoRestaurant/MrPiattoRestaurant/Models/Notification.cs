@@ -14,9 +14,10 @@ namespace MrPiattoRestaurant.Models
 {
     public class Notification
     {
-        public Notification(string Name, string LastName, string TableName, DateTime Date, string Phone)
+        public Notification(int ID, string Name, string LastName, string TableName, DateTime Date, string Phone)
         {
             type = -1;
+            this.ID = ID;
             this.Name = Name;
             this.LastName = LastName;
             this.TableName = TableName;
@@ -24,9 +25,10 @@ namespace MrPiattoRestaurant.Models
             this.Phone = Phone;
         }
 
-        public Notification(string Name, string LastName, string TableName, DateTime Date, string Phone, int floorIndex, int tableIndex)
+        public Notification(int ID, string Name, string LastName, string TableName, DateTime Date, string Phone, int floorIndex, int tableIndex)
         {
             type = 0;
+            this.ID = ID;
             this.Name = Name;
             this.LastName = LastName;
             this.TableName = TableName;
@@ -36,10 +38,11 @@ namespace MrPiattoRestaurant.Models
             this.tableIndex = tableIndex;
         }
 
-        public Notification(string Name, string LastName, string TableName, DateTime Date, string Phone, string tableString)
+        public Notification(int ID, string Name, string LastName, string TableName, DateTime Date, string Phone, string tableString)
         {
             type = 1;
             tablesID = new List<int>();
+            this.ID = ID;
             this.Name = Name;
             this.LastName = LastName;
             this.TableName = TableName;
@@ -66,6 +69,7 @@ namespace MrPiattoRestaurant.Models
         // -1: System
         //  0: Manual
         //  1: Auxiliar
+        public int ID { get; set; }
         public int type { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }

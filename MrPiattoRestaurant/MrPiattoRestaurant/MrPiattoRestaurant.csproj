@@ -125,6 +125,7 @@
     <Compile Include="Models\Table.cs" />
     <Compile Include="Args\TablePressedEventArgs.cs" />
     <Compile Include="Resources\utilities\APICaller.cs" />
+    <Compile Include="Resources\utilities\APIDelete.cs" />
     <Compile Include="Resources\utilities\APIUpdate.cs" />
     <Compile Include="Resources\utilities\ImageHelper.cs" />
     <Compile Include="Timers\StatusChecker.cs" />
@@ -901,6 +902,20 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\alexa_img.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\nodata.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\logout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\layout_recover_password.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

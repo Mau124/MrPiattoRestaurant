@@ -22,7 +22,7 @@ namespace MrPiattoRestaurant.Fragments
     {
         RelativeLayout penalType;
         TextView strikeType;
-        EditText maxRes, minRes, maxArrive, minMod, strikeTime;
+        EditText maxRes, minRes, maxArrive, modDay, modHour, modSeats, strikeTime;
         Spinner spinner, spinner2, spinner3, spinner4;
         Switch switch1, switch2;
         Button mod, accept;
@@ -70,7 +70,9 @@ namespace MrPiattoRestaurant.Fragments
             maxRes = view.FindViewById<EditText>(Resource.Id.idMaxRes);
             minRes = view.FindViewById<EditText>(Resource.Id.idMinRes);
             maxArrive = view.FindViewById<EditText>(Resource.Id.idMaxArrive);
-            minMod = view.FindViewById<EditText>(Resource.Id.idMinMod);
+            modDay = view.FindViewById<EditText>(Resource.Id.idModDay);
+            modHour = view.FindViewById<EditText>(Resource.Id.idModHour);
+            modSeats = view.FindViewById<EditText>(Resource.Id.idModSeats);
             strikeTime = view.FindViewById<EditText>(Resource.Id.idStrikeTime);
             strikeType = view.FindViewById<TextView>(Resource.Id.idStrikeType);
 
@@ -107,7 +109,9 @@ namespace MrPiattoRestaurant.Fragments
             maxRes.Enabled = false;
             minRes.Enabled = false;
             maxArrive.Enabled = false;
-            minMod.Enabled = false;
+            modDay.Enabled = false;
+            modHour.Enabled = false;
+            modSeats.Enabled = false;
             strikeTime.Enabled = false;
 
             spinner.Enabled = false;
@@ -129,11 +133,20 @@ namespace MrPiattoRestaurant.Fragments
 
         private void InitializePolicies()
         {
+            maxRes.Text = "";
+            minRes.Text = "";
+            maxArrive.Text = "";
+            modDay.Text = "";
+            modHour.Text = "";
+            modSeats.Text = "";
+
             policies = API.GetPolicies(restaurant.Idrestaurant);
             maxRes.Hint = policies.MaxTimeRes.ToString();
             minRes.Hint = policies.MinTimeRes.ToString();
             maxArrive.Hint = policies.MaxTimeArr.ToString();
-            minMod.Hint = policies.ModTimeHours.ToString() + "h/ " + policies.ModTimeDays.ToString() + "d/ " + policies.ModTimeSeats.ToString() + "s";
+            modDay.Hint = policies.ModTimeDays.ToString() + " dias";
+            modHour.Hint = policies.ModTimeHours.ToString() + " horas";
+            modSeats.Hint = policies.ModTimeSeats.ToString() + " asientos";
 
             spinner.SetSelection(policies.MaxTimePer);
             spinner2.SetSelection(policies.MinTimePer);
@@ -169,7 +182,9 @@ namespace MrPiattoRestaurant.Fragments
                 maxRes.Enabled = true;
                 minRes.Enabled = true;
                 maxArrive.Enabled = true;
-                minMod.Enabled = true;
+                modDay.Enabled = true;
+                modHour.Enabled = true;
+                modSeats.Enabled = true;
                 strikeTime.Enabled = true;
 
                 spinner.Enabled = true;
@@ -198,11 +213,94 @@ namespace MrPiattoRestaurant.Fragments
         {
             if (!maxRes.Text.Equals(""))
             {
-                policies.MaxTimeRes = Int32.Parse(maxRes.Text);
+                int value = (int)spinner.SelectedItemId;
+
+                switch (value)
+                {
+                    case 0:
+                        if (Int32.Parse(maxRes.Text) > 20160 || Int32.Parse(maxRes.Text) < 120)
+                        {
+                            Toast.MakeText(context, "La hora máxima debe ser 2 semanas como máximo y 2 horas como mínimo", ToastLength.Long).Show();
+                        }
+                        else
+                        {
+                            policies.MaxTimeRes = Int32.Parse(maxRes.Text);
+                            policies.MaxTimePer = (int)spinner.SelectedItemId;
+                        }
+                        break;
+                    case 1:
+                        if (Int32.Parse(maxRes.Text) > 336 || Int32.Parse(maxRes.Text) < 2)
+                        {
+                            Toast.MakeText(context, "La hora máxima debe ser 2 semanas como máximo y 2 horas como mínimo", ToastLength.Long).Show();
+                        }
+                        else
+                        {
+                            policies.MaxTimeRes = Int32.Parse(maxRes.Text);
+                            policies.MaxTimePer = (int)spinner.SelectedItemId;
+                        }
+                        break;
+                    case 2:
+                        if (Int32.Parse(maxRes.Text) > 14)
+                        {
+                            Toast.MakeText(context, "La hora máxima debe ser 2 semanas como máximo y 2 horas como mínimo", ToastLength.Long).Show();
+                        }
+                        else
+                        {
+                            policies.MaxTimeRes = Int32.Parse(maxRes.Text);
+                            policies.MaxTimePer = (int)spinner.SelectedItemId;
+                        }
+                        break;
+                    case 3:
+                        if (Int32.Parse(maxRes.Text) > 2)
+                        {
+                            Toast.MakeText(context, "La hora máxima debe ser 2 semanas como máximo y 2 horas como mínimo", ToastLength.Long).Show();
+                        } else
+                        {
+                            policies.MaxTimeRes = Int32.Parse(maxRes.Text);
+                            policies.MaxTimePer = (int)spinner.SelectedItemId;
+                        }
+                        break;
+                    case 4:
+                        Toast.MakeText(context, "La hora máxima debe ser 2 semanas como máximo y 2 horas como mínimo", ToastLength.Long).Show();
+                        break;
+                    case 5:
+                        Toast.MakeText(context, "La hora máxima debe ser 2 semanas como máximo y 2 horas como mínimo", ToastLength.Long).Show();
+                        break;
+                }
             }
             if (!maxArrive.Text.Equals(""))
             {
-                policies.MaxTimeArr = Int32.Parse(maxArrive.Text);
+                int value = (int)spinner3.SelectedItemId;
+
+                switch (value)
+                {
+                    case 0:
+                        if (Int32.Parse(maxArrive.Text) < 10 || Int32.Parse(maxArrive.Text) > 30)
+                        {
+                            Toast.MakeText(context, "El campo debe estar entre 10 y 30 minutos", ToastLength.Long).Show();
+                        }
+                        else
+                        {
+                            policies.MaxTimeArr = Int32.Parse(maxArrive.Text);
+                            policies.MaxTimeArrPer = (int)spinner3.SelectedItemId;
+                        }
+                        break;
+                    case 1:
+                        Toast.MakeText(context, "El campo debe estar entre 10 y 30 minutos", ToastLength.Long).Show();
+                        break;
+                    case 2:
+                        Toast.MakeText(context, "El campo debe estar entre 10 y 30 minutos", ToastLength.Long).Show();
+                        break;
+                    case 3:
+                        Toast.MakeText(context, "El campo debe estar entre 10 y 30 minutos", ToastLength.Long).Show();
+                        break;
+                    case 4:
+                        Toast.MakeText(context, "El campo debe estar entre 10 y 30 minutos", ToastLength.Long).Show();
+                        break;
+                    case 5:
+                        Toast.MakeText(context, "El campo debe estar entre 10 y 30 minutos", ToastLength.Long).Show();
+                        break;
+                }
             }
             if (switch1.Checked)
             {
@@ -219,6 +317,94 @@ namespace MrPiattoRestaurant.Fragments
             if (!minRes.Text.Equals(""))
             {
                 policies.MinTimeRes = Int32.Parse(minRes.Text);
+                int value = (int)spinner2.SelectedItemId;
+
+                switch (value)
+                {
+                    case 0:
+                        if (Int32.Parse(minRes.Text) > 20160 || Int32.Parse(minRes.Text) < 120)
+                        {
+                            Toast.MakeText(context, "La hora mínima debe ser 2 semanas como máximo y 2 horas como mínimo", ToastLength.Long).Show();
+                        }
+                        else
+                        {
+                            policies.MinTimeRes = Int32.Parse(minRes.Text);
+                            policies.MinTimePer = (int)spinner2.SelectedItemId;
+                        }
+                        break;
+                    case 1:
+                        if (Int32.Parse(minRes.Text) > 336 || Int32.Parse(minRes.Text) < 2)
+                        {
+                            Toast.MakeText(context, "La hora mínima debe ser 2 semanas como máximo y 2 horas como mínimo", ToastLength.Long).Show();
+                        }
+                        else
+                        {
+                            policies.MinTimeRes = Int32.Parse(minRes.Text);
+                            policies.MinTimePer = (int)spinner2.SelectedItemId;
+                        }
+                        break;
+                    case 2:
+                        if (Int32.Parse(minRes.Text) > 14)
+                        {
+                            Toast.MakeText(context, "La hora mínima debe ser 2 semanas como máximo y 2 horas como mínimo", ToastLength.Long).Show();
+                        }
+                        else
+                        {
+                            policies.MinTimeRes = Int32.Parse(minRes.Text);
+                            policies.MinTimePer = (int)spinner2.SelectedItemId;
+                        }
+                        break;
+                    case 3:
+                        if (Int32.Parse(minRes.Text) > 2)
+                        {
+                            Toast.MakeText(context, "La hora mínima debe ser 2 semanas como máximo y 2 horas como mínimo", ToastLength.Long).Show();
+                        }
+                        else
+                        {
+                            policies.MinTimeRes = Int32.Parse(minRes.Text);
+                            policies.MinTimePer = (int)spinner2.SelectedItemId;
+                        }
+                        break;
+                    case 4:
+                        Toast.MakeText(context, "La hora mínima debe ser 2 semanas como máximo y 2 horas como mínimo", ToastLength.Long).Show();
+                        break;
+                    case 5:
+                        Toast.MakeText(context, "La hora mínima debe ser 2 semanas como máximo y 2 horas como mínimo", ToastLength.Long).Show();
+                        break;
+                }
+            }
+
+            if (!modDay.Text.Equals(""))
+            {
+                policies.ModTimeDays = Int32.Parse(modDay.Text);
+            }
+
+            if (!modHour.Text.Equals(""))
+            {
+                if (!modDay.Text.Equals(""))
+                {
+                    if (Int32.Parse(modDay.Text) == 0 && Int32.Parse(modHour.Text) < 2)
+                    {
+                        Toast.MakeText(context, "Este apartado debe contener al menos dos horas", ToastLength.Long).Show();
+                    } else
+                    {
+                        policies.ModTimeHours = Int32.Parse(modHour.Text);
+                    }
+                } else
+                {
+                    if (policies.ModTimeDays == 0 && Int32.Parse(modHour.Text) < 2)
+                    {
+                        Toast.MakeText(context, "Este apartado debe contener al menos dos horas", ToastLength.Long).Show();
+                    } else
+                    {
+                        policies.ModTimeHours = Int32.Parse(modHour.Text);
+                    }
+                }
+            }
+
+            if (!modSeats.Text.Equals(""))
+            {
+                policies.ModTimeSeats = Int32.Parse(modSeats.Text);
             }
 
             // Falta minimo tiempo de modificar
@@ -231,15 +417,12 @@ namespace MrPiattoRestaurant.Fragments
                 policies.Strikes = false;
             }
 
-            policies.MaxTimePer = (int)spinner.SelectedItemId;
-            policies.MaxTimeArrPer = (int)spinner3.SelectedItemId;
-            policies.MinTimePer = (int)spinner2.SelectedItemId;
-
             var response = await APIupdate.UpdatePolicies(policies);
             Toast.MakeText(context, response, ToastLength.Long).Show();
 
             mod.Text = "Modificar";
             InitializePolitics();
+            InitializePolicies();
             isModifying = false;
         }
         private void changeSwitch()

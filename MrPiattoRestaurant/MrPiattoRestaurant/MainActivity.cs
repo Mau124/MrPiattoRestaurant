@@ -47,6 +47,8 @@ namespace MrPiattoRestaurant
         public TextView date, hour;
         public Android.Support.Constraints.ConstraintLayout timeLine;
         public ImageView Return;
+        public DateTime auxDate, auxTime;
+        public int idRestaurant;
 
         public FutureFragment futureFragment = new FutureFragment();
         public WaitFragment waitFragment;
@@ -54,6 +56,8 @@ namespace MrPiattoRestaurant
         public BottomNavigationView bottomNavigation;
 
         public int floorIndex = new int();
+
+        public int resourceFragment;
 
         LayoutInflater inflater;
         View mainContainer;
@@ -65,6 +69,8 @@ namespace MrPiattoRestaurant
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
+
+            idRestaurant = Intent.GetIntExtra("id", 0);
 
             timeLineView = new TimeLineView(this);
 
@@ -135,11 +141,41 @@ namespace MrPiattoRestaurant
             PendingIntent pendingIntent = PendingIntent.GetBroadcast(this, 0, alarmIntent, 0);
 
             // Aqui termina la parte de crear las notificaciones
+            // Evento para mover la linea del tiempo
+            var autoEvent = new AutoResetEvent(false);
+            var statusChecker = new StatusChecker(this, 10, timeLineView, floors, hour);
+            var stateTimer = new Timer(statusChecker.CheckStatus,
+                                   autoEvent, 60000, 60000);
+
+            statusChecker.Update += delegate
+            {
+                ActualFragment afragment = new ActualFragment(this, restaurant, floors.ElementAt(floorIndex).ocupiedTables, floors);
+                afragment.Update += updateActual;
+
+                RunOnUiThread(() => hour.Text = DateTime.Now.ToString("h:mm"));
+
+                if (!IsFinishing && !IsDestroyed)
+                {
+                    if (resourceFragment == Resource.Id.idActualList)
+                    {
+                        LoadFragment(Resource.Id.idActualList);
+                    }
+                }
+            };
+
+            date.Text = DateTime.Now.ToLongDateString();
+            hour.Text = DateTime.Now.ToString("hh:mm tt");
+
+            if (restaurant.FirstLog == false)
+            {
+                Intent dashboard = new Intent(this, typeof(DashboardActivity));
+                dashboard.PutExtra("id", restaurant.Idrestaurant);
+                StartActivity(dashboard);
+            }
         }
 
         private void InitializeRestaurant()
         {
-            int idRestaurant = 1;
             restaurant = API.GetRestaurant(idRestaurant);
         }
 
@@ -152,9 +188,10 @@ namespace MrPiattoRestaurant
 
             foreach(KeyValuePair<int, string> p in floorsList)
             {
-                GestureRecognizerView gView = new GestureRecognizerView(this, p.Value, p.Key, timeLineView);
+                GestureRecognizerView gView = new GestureRecognizerView(this, p.Value, p.Key, timeLineView, restaurant);
                 gView.TablePressed += OnTablePressed;
                 gView.Drag += OnDrag;
+                gView.ClosePressed += OnCancel;
                 string s = p.Value;
                 floors.Add(gView);
                 floorsNames.Add(s);
@@ -226,23 +263,30 @@ namespace MrPiattoRestaurant
                     {
                         SupportFragmentManager.BeginTransaction()
                         .Replace(Resource.Id.idContent_frame, afragment)
-                        .Commit();
+                        .CommitAllowingStateLoss();
+                        resourceFragment = Resource.Id.idActualList;
                         return;
                     }
                 case Resource.Id.idFutureList:
                     FutureFragment fFragment = new FutureFragment(this, restaurant);
                     fFragment.UnionPressed += UnionTables;
                     if (fFragment == null)
+                    {
                         return;
-                    else
+                    } else
+                    {
                         SupportFragmentManager.BeginTransaction()
                         .Replace(Resource.Id.idContent_frame, fFragment)
                         .Commit();
-                    return;
+                        resourceFragment = Resource.Id.idFutureList;
+                        return;
+                    }
                 case Resource.Id.idWaitList:
                     fragment = waitFragment;
+                    resourceFragment = Resource.Id.idWaitList;
                     break;
                 case Resource.Id.idNotifications:
+                    resourceFragment = Resource.Id.idNotifications;
                     fragment = new NotificationsFragment(this, restaurant);
                     break;
             }
@@ -260,7 +304,7 @@ namespace MrPiattoRestaurant
         public void OnTablePressed(int floorIndex, int tableIndex)
         {
             options.RemoveAllViews();
-            TablePropertiesView tablepropertiesView = new TablePropertiesView(this, floors, floorIndex, tableIndex);
+            TablePropertiesView tablepropertiesView = new TablePropertiesView(this, floors, floorIndex, tableIndex, restaurant);
             tablepropertiesView.CreateView(options);
             tablepropertiesView.ClosePressed += delegate
             {
@@ -297,9 +341,10 @@ namespace MrPiattoRestaurant
 
             addFloor.Click += delegate {
                 string s = afloorName.Text;
-                GestureRecognizerView auxFloor = new GestureRecognizerView(this, s, floors.Count(), timeLineView);
+                GestureRecognizerView auxFloor = new GestureRecognizerView(this, s, floors.Count(), timeLineView, restaurant);
                 auxFloor.TablePressed += OnTablePressed;
                 auxFloor.Drag += OnDrag;
+                auxFloor.ClosePressed += OnCancel;
                 floors.Add(auxFloor);
                 floorsNames.Add(s);
                 container.RemoveAllViews();
@@ -393,12 +438,7 @@ namespace MrPiattoRestaurant
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 date.Text = time.ToLongDateString();
-                FutureFragment fFragment = new FutureFragment(this, restaurant);
-                fFragment.UnionPressed += UnionTables;
-                SupportFragmentManager.BeginTransaction()
-                .Replace(Resource.Id.idContent_frame, fFragment)
-                .Commit();
-
+                auxDate = time;
             });
             frag.Show(SupportFragmentManager, DatePickerFragment.TAG);
         }
@@ -408,7 +448,7 @@ namespace MrPiattoRestaurant
             TimePickerFragment frag = TimePickerFragment.NewInstance(delegate (DateTime time)
             {
                 timeLineView.SetTime(time.Hour, time.Minute);
-
+                auxTime = time;
                 hour.Text = time.ToString("hh:mm tt");
             });
             frag.Show(SupportFragmentManager, TimePickerFragment.TAG);
@@ -416,10 +456,16 @@ namespace MrPiattoRestaurant
 
         private void ReturnActualTime(object sender, EventArgs args)
         {
+            date.Text = DateTime.Now.ToLongDateString();
             int hours = DateTime.Now.Hour;
             int minutes = DateTime.Now.Minute;
 
             timeLineView.SetTime(hours, minutes);
+
+            foreach (GestureRecognizerView floor in floors)
+            {
+                floor.returnActualTime();
+            }
         }
 
         public void OpenDashboard(object sender, EventArgs args)
@@ -522,6 +568,12 @@ namespace MrPiattoRestaurant
                                 TableUnion tableUnion = new TableUnion(this, client, floors, floorIndex, table);
                                 tableUnion.CreateView(options);
 
+                                tableUnion.Dismiss += delegate
+                                {
+                                    InitializeFloors();
+                                    OnCancel();
+                                };
+
                                 tableUnion.ClosePressed += delegate
                                 {
                                     waitFragment.RemoveFromWaitList(pos);
@@ -551,8 +603,9 @@ namespace MrPiattoRestaurant
                 InitializeFloors();
             };
 
-            tableUnion.ClosePressed += delegate
+            tableUnion.Dismiss += delegate
             {
+                InitializeFloors();
                 OnCancel();
             };
         }
@@ -566,6 +619,9 @@ namespace MrPiattoRestaurant
         {
             //floors.ElementAt(floorIndex).updateTableDistributions(hours, minutes);
             hour.Text = hours.ToString("00") + ":" + minutes.ToString("00");
+
+            DateTime auxiliar = new DateTime(auxDate.Year, auxDate.Month, auxDate.Day, hours, minutes, 0);
+            floors.ElementAt(floorIndex).updateStates(auxiliar);
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

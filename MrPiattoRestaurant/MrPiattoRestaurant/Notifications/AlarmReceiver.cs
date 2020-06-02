@@ -21,6 +21,7 @@ namespace MrPiattoRestaurant.Notifications
     {
         private APICaller API = new APICaller();
         private APIUpdate APIupdate = new APIUpdate();
+        private int time = new int();
         private Context context;
         private int idRes = new int();
 
@@ -173,7 +174,8 @@ namespace MrPiattoRestaurant.Notifications
                 manager.Notify(0, notification);
             }
 
-            Toast.MakeText(context, "Se activo la notificacion", ToastLength.Short).Show();
+            ++time;
+            Toast.MakeText(context, "Se activo la notificacion" + time, ToastLength.Short).Show();
         }
 
         private void InitializeReservations()

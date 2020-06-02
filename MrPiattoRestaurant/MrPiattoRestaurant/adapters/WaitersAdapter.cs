@@ -37,6 +37,7 @@ namespace MrPiattoRestaurant.adapters
         private Context context;
 
         private APIUpdate APIupdate = new APIUpdate();
+        private APIDelete APIdelete = new APIDelete();
         public WaitersAdapter(Context context, List<Waiters> waiters)
         {
             this.context = context;
@@ -59,9 +60,11 @@ namespace MrPiattoRestaurant.adapters
             // Load the photo caption from the photo album:
             vh.name.Text = waiters[position].WaiterFirstName + " " + waiters[position].WaiterLasName;
 
-            vh.delete.Click += delegate
+            vh.delete.Click += async delegate
             {
+                var response = await APIdelete.DeleteWaiter(waiters[position]);
                 waiters.RemoveAt(position);
+                Toast.MakeText(context, response, ToastLength.Long).Show();
                 NotifyDataSetChanged();
             };
 

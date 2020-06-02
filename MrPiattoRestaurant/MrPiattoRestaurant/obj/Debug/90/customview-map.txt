@@ -26,6 +26,7 @@ android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_manua
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_modify_res.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_new_password.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_promotions.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_recover_password.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_schedule.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\layout_union_tables.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\modify_floor.xml
@@ -68,6 +69,7 @@ Button;obj\Debug\90\res\layout\layout_manual_reservation.xml
 Button;obj\Debug\90\res\layout\layout_modify_res.xml
 Button;obj\Debug\90\res\layout\layout_new_password.xml
 Button;obj\Debug\90\res\layout\layout_promotions.xml
+Button;obj\Debug\90\res\layout\layout_recover_password.xml
 Button;obj\Debug\90\res\layout\layout_schedule.xml
 Button;obj\Debug\90\res\layout\layout_union_tables.xml
 Button;obj\Debug\90\res\layout\modify_waitlist.xml
@@ -104,6 +106,7 @@ EditText;obj\Debug\90\res\layout\layout_manual_reservation.xml
 EditText;obj\Debug\90\res\layout\layout_modify_res.xml
 EditText;obj\Debug\90\res\layout\layout_new_password.xml
 EditText;obj\Debug\90\res\layout\layout_promotions.xml
+EditText;obj\Debug\90\res\layout\layout_recover_password.xml
 EditText;obj\Debug\90\res\layout\modify_waitlist.xml
 EditText;obj\Debug\90\res\layout\table_properties.xml
 external-cache-path;C:\Users\Andres\Desktop\MrPiattoRestaurant\MrPiattoRestaurant\MrPiattoRestaurant\obj\Debug\90\lp\42\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
@@ -116,6 +119,7 @@ ImageButton;obj\Debug\90\res\layout\activity_main.xml
 ImageView;obj\Debug\90\res\layout\activity_dashboard.xml
 ImageView;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 ImageView;obj\Debug\90\res\layout\activity_dashboard_policies.xml
+ImageView;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 ImageView;obj\Debug\90\res\layout\activity_main.xml
 ImageView;obj\Debug\90\res\layout\add_waitlist.xml
 ImageView;obj\Debug\90\res\layout\addfloor.xml
@@ -140,6 +144,7 @@ ImageView;obj\Debug\90\res\layout\layout_manual_reservation.xml
 ImageView;obj\Debug\90\res\layout\layout_modify_res.xml
 ImageView;obj\Debug\90\res\layout\layout_new_password.xml
 ImageView;obj\Debug\90\res\layout\layout_promotions.xml
+ImageView;obj\Debug\90\res\layout\layout_recover_password.xml
 ImageView;obj\Debug\90\res\layout\layout_schedule.xml
 ImageView;obj\Debug\90\res\layout\layout_section.xml
 ImageView;obj\Debug\90\res\layout\layout_union_tables.xml
@@ -157,8 +162,8 @@ item;obj\Debug\90\res\values\strings.xml
 item;obj\Debug\90\res\values\styles.xml
 LinearLayout;obj\Debug\90\res\layout\activity_dashboard_aboutme.xml
 LinearLayout;obj\Debug\90\res\layout\activity_dashboard_policies.xml
-LinearLayout;obj\Debug\90\res\layout\activity_dashboard_statistics.xml
 LinearLayout;obj\Debug\90\res\layout\activity_main.xml
+LinearLayout;obj\Debug\90\res\layout\dialog_answer_survey.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_confirm_assigntable_fromwait.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_join_tables.xml
 LinearLayout;obj\Debug\90\res\layout\dialog_new_client.xml
@@ -306,6 +311,7 @@ TextView;obj\Debug\90\res\layout\layout_manual_reservation.xml
 TextView;obj\Debug\90\res\layout\layout_modify_res.xml
 TextView;obj\Debug\90\res\layout\layout_new_password.xml
 TextView;obj\Debug\90\res\layout\layout_promotions.xml
+TextView;obj\Debug\90\res\layout\layout_recover_password.xml
 TextView;obj\Debug\90\res\layout\layout_schedule.xml
 TextView;obj\Debug\90\res\layout\layout_section.xml
 TextView;obj\Debug\90\res\layout\layout_union_tables.xml

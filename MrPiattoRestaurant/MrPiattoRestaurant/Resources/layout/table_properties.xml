@@ -111,38 +111,6 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/idDiv1"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Actualmente ocupado " 
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idDiv1"
-                android:id="@+id/idState"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:textColor="#15142F"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Finalizar Comida"
-                android:id="@+id/idOcupiedButton"
-                android:background="@drawable/end_food"
-                app:layout_constraintTop_toBottomOf="@+id/idState"
-                android:textColor="#FFFFFF"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:textAllCaps="false"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#9C9CB1"
-                app:layout_constraintTop_toBottomOf="@id/idOcupiedButton"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/idDiv2"/>
-
         </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
@@ -179,7 +147,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Eliminar Mesa"
-        android:id="@+id/idDeleteButton"
+        android:id="@+id/idDeleteTable"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/delete_buttons"
         android:textColor="#ffffff"

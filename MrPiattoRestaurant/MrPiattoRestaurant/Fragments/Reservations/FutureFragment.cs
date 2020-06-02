@@ -73,10 +73,12 @@ namespace MrPiattoRestaurant.Fragments.Reservations
         private void updateRes()
         {
             futureList.Clear();
-            List<Reservation> auxReservations = new List<Reservation>();
-            auxReservations = reservations.Where(d => d.Date >= dInterval1 && d.Date <= dInterval2).ToList();
+            List<Reservation> reservations2 = new List<Reservation>();
+            List<AuxiliarReservation>? auxReservations = API.GetAuxReservationsWithoutFilters(restaurant.Idrestaurant).Where(r => r.CheckedFromApp != true && r.Date >= dInterval1 && r.Date <= dInterval2).ToList();
+            List<ManualReservations>? manReservations = API.GetManualReservationsWithoutFilters(restaurant.Idrestaurant).Where(r => r.CheckedFromApp != true && r.Date >= dInterval1 && r.Date <= dInterval2).ToList();
+            reservations2 = reservations.Where(d => d.Date >= dInterval1 && d.Date <= dInterval2).ToList();
             
-            foreach (Reservation res in auxReservations)
+            foreach (Reservation res in reservations2)
             {
                 Client c = new Client();
                 c.name = res.IduserNavigation.FirstName + " " + res.IduserNavigation.LastName;
@@ -85,6 +87,33 @@ namespace MrPiattoRestaurant.Fragments.Reservations
                 c.seats = res.AmountOfPeople;
                 c.floorName = res.IdtableNavigation.FloorName;
                 c.tableName = res.IdtableNavigation.tableName;
+                c.Phone = "Reservado desde el celular";
+                futureList.Add(c);
+            }
+
+            foreach (AuxiliarReservation aux in auxReservations)
+            {
+                Client c = new Client();
+                c.name = aux.Name + " " + aux.LastName;
+                c.timeUsed = 0;
+                c.reservationDate = aux.Date;
+                c.seats = aux.AmountOfPeople;
+                c.floorName = aux.IdauxiliarTableNavigation.FloorName;
+                c.tableName = "Union";
+                c.Phone = aux.Phone;
+                futureList.Add(c);
+            }
+
+            foreach (ManualReservations man in manReservations)
+            {
+                Client c = new Client();
+                c.name = man.Name + " " + man.LastName;
+                c.timeUsed = 0;
+                c.reservationDate = man.Date;
+                c.seats = man.AmountOfPeople;
+                c.floorName = man.IdtableNavigation.FloorName;
+                c.tableName = man.IdtableNavigation.tableName;
+                c.Phone = man.Phone;
                 futureList.Add(c);
             }
             futureList.OrderBy(d => d.reservationDate);
@@ -130,12 +159,6 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
         public void OnAddReservation()
         {
-            Client element = new Client("Mauricio Andres Flores Perez", 3, DateTime.Now, 3);
-            futureList.Add(element);
-            mAdapter = new FutureListAdapter(context, futureList);
-            mRecyclerView.SetAdapter(mAdapter);
-            Toast.MakeText(Application.Context, "Se presiono el boton desde future", ToastLength.Long).Show();
-
             EditText name, tel;
             TextView date, hour, numSeats;
             SeekBar mSeekBar;
@@ -172,7 +195,7 @@ namespace MrPiattoRestaurant.Fragments.Reservations
                 //string auxName = name.Text;
                 //int auxNumSeats =  Int32.Parse(numSeats.Text);
 
-                Client client = new Client("Juan", "Lopez", auxDate, 2, "332121345");
+                Client client = new Client(name.Text, "", auxDate, Int32.Parse(numSeats.Hint), tel.Text);
                 OnUnionPressed(client);
                 alertDialog.Dismiss();
             };
@@ -215,10 +238,15 @@ namespace MrPiattoRestaurant.Fragments.Reservations
 
         private void initializeIntervals()
         {
-            dInterval1 = reservations.Min(d => d.Date);
-            dInterval2 = reservations.Max(d => d.Date);
-            interval1.Text = dInterval1.ToString("dd/MM/yyyy");
-            interval2.Text = dInterval2.ToString("dd/MM/yyyy");
+            if (reservations.Any())
+            {
+                dInterval1 = reservations.Min(d => d.Date);
+                dInterval2 = reservations.Max(d => d.Date);
+
+
+                interval1.Text = dInterval1.ToString("dd/MM/yyyy");
+                interval2.Text = dInterval2.ToString("dd/MM/yyyy");
+            }
         }
 
         private void OnInterval1(object sender, EventArgs e)

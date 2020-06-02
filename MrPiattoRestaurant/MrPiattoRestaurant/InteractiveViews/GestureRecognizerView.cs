@@ -58,6 +58,8 @@ namespace MrPiattoRestaurant
         private float _posY;
         private float _scaleFactor = 1.0f;
 
+        private Restaurant restaurant;
+
         private APIUpdate APIupdate = new APIUpdate();
         private APICaller API = new APICaller();
 
@@ -95,6 +97,16 @@ namespace MrPiattoRestaurant
             if (TableDisSelect != null)
             {
                 TableDisSelect(table);
+            }
+        }
+
+        public delegate void ClosePressedEventHandler();
+        public event ClosePressedEventHandler ClosePressed;
+        protected virtual void OnClosePressed()
+        {
+            if (ClosePressed != null)
+            {
+                ClosePressed();
             }
         }
 
@@ -180,13 +192,14 @@ namespace MrPiattoRestaurant
             tableIndex = 0;
         }
 
-        public GestureRecognizerView(Context context, string name, int floorIndex, TimeLineView timeLineView) :
+        public GestureRecognizerView(Context context, string name, int floorIndex, TimeLineView timeLineView, Restaurant restaurant) :
             base(context, null, 0)
         {
             this.context = context;
             this.name = name;
             this.floorIndex = floorIndex;
             this.timeLineView = timeLineView;
+            this.restaurant = restaurant;
             moveValid = false;
 
             _scaleDetector = new ScaleGestureDetector(context, new MyScaleListener(this));
@@ -252,6 +265,7 @@ namespace MrPiattoRestaurant
                     }
                     else
                     {
+                        OnClosePressed();
                         moveValid = false;
                     }
 
@@ -432,6 +446,66 @@ namespace MrPiattoRestaurant
             tables.Add(t);
 
             Invalidate();
+        }
+
+        public void updateStates(DateTime date)
+        {
+            List<AuxiliarReservation> auxRes = API.GetAllAuxReservations(restaurant.Idrestaurant);
+            foreach (Table t in tables)
+            {
+                bool isReservation = false;
+                foreach (Client c in t.reservations)
+                {
+                    DateTime limit = new DateTime(c.reservationDate.Year, c.reservationDate.Month, c.reservationDate.Day, c.reservationDate.Hour, c.reservationDate.Minute, c.reservationDate.Second);
+                    limit = limit.AddHours(2);
+
+                    if ((date >= c.reservationDate && date <= limit) && !isReservation)
+                    {
+                        isReservation = true;
+                        t.setImageOcupied(true);
+                    }
+                }
+                if (!isReservation)
+                {
+                    t.setImageOcupied(false);
+                }
+            }
+
+            // Revisamos para las mesas unidas
+            if (auxRes != null)
+            {
+                foreach (AuxiliarReservation aux in auxRes)
+                {
+                    string[] div = aux.IdauxiliarTableNavigation.StringIdtables.Split(' ');
+
+                    foreach (string s in div)
+                    {
+                        try
+                        {
+                            int idTable = Int32.Parse(s);
+                            int tableIndex = tables.FindIndex(t => t.Id == idTable);
+
+                            DateTime limit = new DateTime(aux.Date.Year, aux.Date.Month, aux.Date.Day, aux.Date.Hour, aux.Date.Minute, aux.Date.Second);
+                            limit = limit.AddHours(2);
+
+                            if (date >= aux.Date && date <= limit)
+                            {
+                                tables[tableIndex].setImageOcupied(true);
+                            } 
+                        }
+                        catch (FormatException e)
+                        { }
+                    }
+                }
+            }
+        }
+
+        public void returnActualTime()
+        {
+            foreach (Table t in tables)
+            {
+                t.InitializeTable();
+            }
         }
 
         public void DrawTable() 

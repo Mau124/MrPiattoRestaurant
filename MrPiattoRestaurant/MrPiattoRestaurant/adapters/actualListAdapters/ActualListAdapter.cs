@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Support.V7.Widget;
 
 using MrPiattoRestaurant.Models.Reservations;
+using MrPiattoRestaurant.ModelsDB;
 
 namespace MrPiattoRestaurant.adapters.actualListAdapters
 {
@@ -19,6 +20,7 @@ namespace MrPiattoRestaurant.adapters.actualListAdapters
     {
         public delegate void EndFoodEventHandler(int position);
         public event EndFoodEventHandler EndFood;
+        public Restaurant restaurant;
         protected virtual void OnTablePressed(int position)
         {
             if (EndFood != null)
@@ -29,10 +31,11 @@ namespace MrPiattoRestaurant.adapters.actualListAdapters
 
         public List<Table> ocupiedTables;
         public Context context;
-        public ActualListAdapter(Context context, List<Table> ocupiedTables)
+        public ActualListAdapter(Context context, List<Table> ocupiedTables, Restaurant restaurant)
         {
             this.context = context;
             this.ocupiedTables = ocupiedTables;
+            this.restaurant = restaurant;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder (ViewGroup parent, int viewType)
@@ -44,11 +47,13 @@ namespace MrPiattoRestaurant.adapters.actualListAdapters
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
+            string minutes;
             holder.IsRecyclable = false;
             ActualListViewHolder vh = holder as ActualListViewHolder;
             vh.personName.Text = ocupiedTables.ElementAt(position).actualClient.name;
             vh.tableName.Text = ocupiedTables.ElementAt(position).TableName;
-            vh.timeUsed.Text = ocupiedTables.ElementAt(position).actualClient.timeUsed.ToString();
+            minutes = (ocupiedTables.ElementAt(position).actualClient.timeUsed == 1) ? " minuto" : " minutos";
+            vh.timeUsed.Text = ocupiedTables.ElementAt(position).actualClient.timeUsed.ToString() + minutes;
 
             vh.menu.Click += (s, arg) =>
             {
@@ -104,6 +109,9 @@ namespace MrPiattoRestaurant.adapters.actualListAdapters
             alertDialog.SetCancelable(true);
             alertDialog.SetView(content);
             alertDialog.Show();
+
+            TextView idRes = content.FindViewById<TextView>(Resource.Id.idMoreMoreText);
+            idRes.Text = "ID: " + restaurant.Idrestaurant;
         }
         public class ActualListViewHolder : RecyclerView.ViewHolder
         {

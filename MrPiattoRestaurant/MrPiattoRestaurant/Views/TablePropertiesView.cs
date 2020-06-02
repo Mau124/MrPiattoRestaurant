@@ -26,7 +26,10 @@ namespace MrPiattoRestaurant.Views
 
         private int floorIndex;
         private int tableIndex;
+        private APICaller API = new APICaller();
         private APIUpdate APIupdate = new APIUpdate();
+        private APIDelete APIdelete = new APIDelete();
+        private Restaurant restaurant = new Restaurant();
 
 
         List<GestureRecognizerView> floors;
@@ -53,12 +56,13 @@ namespace MrPiattoRestaurant.Views
         /// <param name="floors">List of floors</param>
         /// <param name="floorIndex">Actual floor Index</param>
         /// <param name="tableIndex">Actual table Index in that floor</param>
-        public TablePropertiesView(Context context, List<GestureRecognizerView> floors, int floorIndex, int tableIndex)
+        public TablePropertiesView(Context context, List<GestureRecognizerView> floors, int floorIndex, int tableIndex, Restaurant restaurant)
         {
             this.context = context;
             this.floors = floors;
             this.floorIndex = floorIndex;
             this.tableIndex = tableIndex;
+            this.restaurant = restaurant;
         }
 
         /// <summary>
@@ -73,6 +77,7 @@ namespace MrPiattoRestaurant.Views
             ImageView dismiss;
             RecyclerView mRecyclerView;
             SeekBar mSeekBar;
+            Button deleteTable;
 
             Table table = floors[floorIndex].getTableProperties(tableIndex);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.Horizontal, false);
@@ -86,6 +91,7 @@ namespace MrPiattoRestaurant.Views
             mRecyclerView = tablePropertiesView.FindViewById<RecyclerView>(Resource.Id.idRecyclerView);
             mSeekBar = tablePropertiesView.FindViewById<SeekBar>(Resource.Id.idSeekBar);
             dismiss = tablePropertiesView.FindViewById<ImageView>(Resource.Id.idDismiss);
+            deleteTable = tablePropertiesView.FindViewById<Button>(Resource.Id.idDeleteTable);
 
             tableName.Hint = table.TableName;
             tableSeats.Hint = table.seats.ToString();
@@ -187,7 +193,53 @@ namespace MrPiattoRestaurant.Views
             };
             //We identify the buttons
             Button buttonSave = tablePropertiesView.FindViewById<Button>(Resource.Id.idSaveButton);
-            Button buttonDelete = tablePropertiesView.FindViewById<Button>(Resource.Id.idDeleteButton);
+
+            deleteTable.Click += async delegate
+            {
+                bool isDeletable = true;
+                List<AuxiliarReservation> auxRes = API.GetAllAuxReservations(restaurant.Idrestaurant).Where(c => c.Date >= DateTime.Now).ToList(); 
+
+                // Revisamos si existe alguna reservacion para las mesas unidas
+                if (auxRes != null)
+                {
+                    foreach (AuxiliarReservation aux in auxRes)
+                    {
+                        string[] div = aux.IdauxiliarTableNavigation.StringIdtables.Split(' ');
+
+                        foreach (string s in div)
+                        {
+                            try
+                            {
+                                int idTable = Int32.Parse(s);
+                                if (idTable == floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).Id)
+                                {
+                                    Toast.MakeText(context, "Error. Verifique que no existan reservaciones futuras en esta mesa", ToastLength.Long).Show();
+                                    isDeletable = false;
+                                }
+                            }
+                            catch (FormatException e)
+                            { }
+                        }
+                    }
+                }
+
+                if (isDeletable)
+                {
+                    List<Reservation> auxReservation = API.GetReservations(restaurant.Idrestaurant).Where(t => t.Idtable == floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).Id && t.Date >= DateTime.Now).ToList();
+                    List<ManualReservations> auxMan = API.GetNotManReservations(restaurant.Idrestaurant).Where(t => t.IDTable == floors.ElementAt(floorIndex).tables.ElementAt(tableIndex).Id && t.Date >= DateTime.Now).ToList();
+
+                    if (auxReservation.Any() || auxMan.Any())
+                    {
+                        Toast.MakeText(context, "Error. Verifique que no existan reservaciones futuras en esta mesa", ToastLength.Long).Show();
+                    } else
+                    {
+                        var response = await APIdelete.DeleteTable(table.Id);
+                        Toast.MakeText(context, response, ToastLength.Long).Show();
+                        floors.ElementAt(floorIndex).DeleteTable(tableIndex);
+                        floors.ElementAt(floorIndex).Invalidate();
+                    }
+                }
+            };
 
             return tablePropertiesView;
         }

@@ -44,7 +44,7 @@
             Class that creates and manages a table properties view
             </summary>
         </member>
-        <member name="M:MrPiattoRestaurant.Views.TablePropertiesView.#ctor(Android.Content.Context,System.Collections.Generic.List{MrPiattoRestaurant.GestureRecognizerView},System.Int32,System.Int32)">
+        <member name="M:MrPiattoRestaurant.Views.TablePropertiesView.#ctor(Android.Content.Context,System.Collections.Generic.List{MrPiattoRestaurant.GestureRecognizerView},System.Int32,System.Int32,MrPiattoRestaurant.ModelsDB.Restaurant)">
             <summary>
             Class that creates a tablepropertiesView
             </summary>

@@ -66,9 +66,9 @@ namespace MrPiattoRestaurant.Fragments
             mRecyclerView.SetLayoutManager(mLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
 
-            //var swipeHandler = new SwipeToDeleteCallback(0, ItemTouchHelper.Left, context, mAdapter);
-            //var itemTouchHelper = new ItemTouchHelper(swipeHandler);
-            //itemTouchHelper.AttachToRecyclerView(mRecyclerView);
+            var swipeHandler = new SwipeToDeleteCallback(0, ItemTouchHelper.Left, context, mAdapter, restaurant);
+            var itemTouchHelper = new ItemTouchHelper(swipeHandler);
+            itemTouchHelper.AttachToRecyclerView(mRecyclerView);
 
             if (NotificationsList.Any())
             {
@@ -85,58 +85,92 @@ namespace MrPiattoRestaurant.Fragments
 
         private void InitializeNotifications()
         {
-            List<Reservation>? reservations = API.GetNotReservations(restaurant.Idrestaurant);
-            List<AuxiliarReservation>? auxReservations = API.GetNotAuxReservations(restaurant.Idrestaurant);
-            List<ManualReservations>? manReservations = API.GetNotManReservations(restaurant.Idrestaurant);
+            List<Reservation>? reservations = API.GetNotReservations(restaurant.Idrestaurant).Where(r => r.CheckedFromApp != true).ToList();
+            List<AuxiliarReservation>? auxReservations = API.GetNotAuxReservations(restaurant.Idrestaurant).Where(r => r.CheckedFromApp != true).ToList();
+            List<ManualReservations>? manReservations = API.GetNotManReservations(restaurant.Idrestaurant).Where(r => r.CheckedFromApp != true).ToList();
 
             foreach (Reservation r in reservations)
             {
-                NotificationsList.Add(new Models.Notification(r.IduserNavigation.FirstName, r.IduserNavigation.LastName, r.IdtableNavigation.tableName, r.Date, "Reservado desde celular"));
+                NotificationsList.Add(new Models.Notification(r.Idreservation, r.IduserNavigation.FirstName, r.IduserNavigation.LastName, r.IdtableNavigation.tableName, r.Date, "Reservado desde celular"));
             }
 
             foreach (AuxiliarReservation r in auxReservations)
             {
-                NotificationsList.Add(new Models.Notification(r.Name, r.LastName, "Union", r.Date, r.Phone));
+                NotificationsList.Add(new Models.Notification(r.IdauxiliarReservation, r.Name, r.LastName, "Union", r.Date, r.Phone, r.IdauxiliarTableNavigation.StringIdtables));
             }
 
             foreach (ManualReservations r in manReservations)
             {
-                NotificationsList.Add(new Models.Notification(r.Name, r.LastName, r.IdtableNavigation.tableName, r.Date, r.Phone));
+                NotificationsList.Add(new Models.Notification(r.IDReservation, r.Name, r.LastName, r.IdtableNavigation.tableName, r.Date, r.Phone, r.IdtableNavigation.floorIndex, r.IdtableNavigation.Idtables));
             }
         }
     }
 
-    //public class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback
-    //{
-    //    private NotificationsAdapter mAdapter;
-    //    private Context context;
+    public class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback
+    {
+        private NotificationsAdapter mAdapter;
+        private Context context;
+        private Restaurant restaurant;
+        private APICaller API = new APICaller();
+        private APIUpdate APIupdate = new APIUpdate();
 
-    //    public SwipeToDeleteCallback(int dragDirs, int swipeDirs, Context context) : base(dragDirs, swipeDirs)
-    //    {
-    //        this.context = context;
-    //    }
-    //    public SwipeToDeleteCallback(int dragDirs, int swipeDirs, Context context, NotificationsAdapter mRecyclerView) : this(dragDirs, swipeDirs, context)
-    //    {
-    //        this.context = context;
-    //        this.mAdapter = mRecyclerView;
-    //    }
+        public SwipeToDeleteCallback(int dragDirs, int swipeDirs, Context context) : base(dragDirs, swipeDirs)
+        {
+            this.context = context;
+        }
+        public SwipeToDeleteCallback(int dragDirs, int swipeDirs, Context context, NotificationsAdapter mRecyclerView, Restaurant restaurant) : this(dragDirs, swipeDirs, context)
+        {
+            this.context = context;
+            this.mAdapter = mRecyclerView;
+            this.restaurant = restaurant;
+        }
 
-    //    public override void OnSwiped(RecyclerView.ViewHolder viewHolder, int direction)
-    //    {
-    //        int position = viewHolder.AdapterPosition;
-    //        mAdapter.RemoveItem(position);
-    //        mAdapter.NotifyDataSetChanged();
-    //        Toast.MakeText(Application.Context, "Posicion " + position, ToastLength.Short).Show();
-    //    }
+        public async override void OnSwiped(RecyclerView.ViewHolder viewHolder, int direction)
+        {
+            int position = viewHolder.AdapterPosition;
 
-    //    public override bool OnMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
-    //    {
-    //        return false;
-    //    }
+            List<Reservation>? reservations = API.GetNotReservations(restaurant.Idrestaurant).Where(r => r.CheckedFromApp != true).ToList();
+            List<AuxiliarReservation>? auxReservations = API.GetNotAuxReservations(restaurant.Idrestaurant).Where(r => r.CheckedFromApp != true).ToList();
+            List<ManualReservations>? manReservations = API.GetNotManReservations(restaurant.Idrestaurant).Where(r => r.CheckedFromApp != true).ToList();
 
-    //    public override int GetMovementFlags(RecyclerView p0, RecyclerView.ViewHolder p1)
-    //    {
-    //        return base.GetMovementFlags(p0, p1);
-    //    }
-    //}
+            int id = mAdapter.NotificationsList.ElementAt(position).ID;
+
+            switch (mAdapter.NotificationsList.ElementAt(position).type)
+            {
+                //Sistema
+                case -1:
+                    Reservation res = reservations.Where(r => r.Idreservation == id).First();
+                    res.CheckedFromApp = true;
+                    var response = await APIupdate.UpdateReservation2(res);
+                    Toast.MakeText(context, response, ToastLength.Long).Show();
+                    break;
+                //Manual
+                case 0:
+                    ManualReservations manRes = manReservations.Where(r => r.IDReservation == id).First();
+                    manRes.CheckedFromApp = true;
+                    var manResponse = await APIupdate.UpdateManReservation2(manRes);
+                    Toast.MakeText(context, manResponse, ToastLength.Long).Show();
+                    break;
+                //Auxiliar
+                case 1:
+                    AuxiliarReservation auxRes = auxReservations.Where(r => r.IdauxiliarReservation == id).First();
+                    auxRes.CheckedFromApp = true;
+                    var auxResponse = await APIupdate.UpdateAuxReservation2(auxRes);
+                    Toast.MakeText(context, auxResponse, ToastLength.Long).Show();
+                    break;
+            }
+            mAdapter.RemoveItem(position);
+            mAdapter.NotifyDataSetChanged();
+        }
+
+        public override bool OnMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
+        {
+            return false;
+        }
+
+        public override int GetMovementFlags(RecyclerView p0, RecyclerView.ViewHolder p1)
+        {
+            return base.GetMovementFlags(p0, p1);
+        }
+    }
 }

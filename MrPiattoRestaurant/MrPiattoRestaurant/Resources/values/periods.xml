@@ -3,9 +3,11 @@
   <string name="app_name">HelloSpinner</string>
   <string name="periods_prompt">Periodo</string>
   <string-array name="periods_array">
+    <item>Minutos</item>
     <item>Hora</item>
     <item>Dia</item>
     <item>Semana</item>
+    <item>Mes</item>
     <item>Año</item>
   </string-array>
 </resources>

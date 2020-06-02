@@ -79,6 +79,9 @@ namespace MrPiattoRestaurant.Fragments
         List<TableStatistics> tableStatistics = new List<TableStatistics>();
         List<Waiters> waiters = new List<Waiters>();
         List<WaiterStatistics> waitersStatistics = new List<WaiterStatistics>();
+        List<TableStats> tableHourstableStats = new List<TableStats>();
+        List<TableStats> waiterStats = new List<TableStats>();
+        List<TableStats> dayTableStats = new List<TableStats>();
         List<Surveys> surveys = new List<Surveys>();
         Schedule schedule = new Schedule();
 
@@ -97,6 +100,13 @@ namespace MrPiattoRestaurant.Fragments
         BarChart chart6;
 
         APICaller API = new APICaller();
+
+        ImageView noData1;
+        ImageView noData2;
+        ImageView noData3;
+        ImageView noData4;
+        ImageView noData5;
+        ImageView noData6;
 
         public Statistics(Context context, Restaurant restaurant)
         {
@@ -137,43 +147,6 @@ namespace MrPiattoRestaurant.Fragments
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Chart 5. Alexa
-            entriesAlexa = new List<Entry>
-            {
-                new Entry(8.7f)
-                {
-                    Color = SKColor.Parse("#E06D64"),
-                    Label = "Calidad comida",
-                    ValueLabel = "8.7"
-                },
-                new Entry(9.2f)
-                {
-                    Color = SKColor.Parse("#E38259"),
-                    Label = "Comodidad restaurante",
-                    ValueLabel = "9.2"
-                },
-                new Entry(9.8f)
-                {
-                    Color = SKColor.Parse("#E69852"),
-                    Label = "Servicio Restaurante",
-                    ValueLabel = "9.8"
-                },
-            };
-
-            //Adding to tableUse
-            listTableUse.Add("1 ... 5");
-            listTableUse.Add("6 ... 10");
-            listTableUse.Add("11 ... 15");
-
-            //Adding to waiters
-            listWaiters.Add("1 ... 5");
-            listWaiters.Add("6 ... 10");
-
-            //Adding to tableAverage
-            listTableAverage.Add("1 ... 5");
-            listTableAverage.Add("6 ... 10");
-            listTableAverage.Add("11 ... 15");
         }
 
         //Fill Hours with data from dabase
@@ -211,30 +184,30 @@ namespace MrPiattoRestaurant.Fragments
 
             foreach (HourStatistics h in auxStatistics)
             {
-                avgHour0 = (avgHour0 != null) ? ((h.Average0000.HasValue) ? avgHour0 * h.Average0000 : avgHour0) : ((h.Average0000.HasValue) ? h.Average0000 : avgHour0);
-                avgHour1 = (avgHour1 != null) ? ((h.Average0100.HasValue) ? avgHour1 * h.Average0100 : avgHour1) : ((h.Average0100.HasValue) ? h.Average0100 : avgHour1);
-                avgHour2 = (avgHour2 != null) ? ((h.Average0200.HasValue) ? avgHour2 * h.Average0200 : avgHour2) : ((h.Average0200.HasValue) ? h.Average0200 : avgHour2);
-                avgHour3 = (avgHour3 != null) ? ((h.Average0300.HasValue) ? avgHour3 * h.Average0300 : avgHour3) : ((h.Average0300.HasValue) ? h.Average0300 : avgHour3);
-                avgHour4 = (avgHour4 != null) ? ((h.Average0400.HasValue) ? avgHour4 * h.Average0400 : avgHour4) : ((h.Average0400.HasValue) ? h.Average0400 : avgHour4);
-                avgHour5 = (avgHour5 != null) ? ((h.Average0500.HasValue) ? avgHour5 * h.Average0500 : avgHour5) : ((h.Average0500.HasValue) ? h.Average0500 : avgHour5);
-                avgHour6 = (avgHour6 != null) ? ((h.Average0600.HasValue) ? avgHour6 * h.Average0600 : avgHour6) : ((h.Average0600.HasValue) ? h.Average0600 : avgHour6);
-                avgHour7 = (avgHour7 != null) ? ((h.Average0700.HasValue) ? avgHour7 * h.Average0700 : avgHour7) : ((h.Average0700.HasValue) ? h.Average0700 : avgHour7);
-                avgHour8 = (avgHour8 != null) ? ((h.Average0800.HasValue) ? avgHour8 * h.Average0800 : avgHour8) : ((h.Average0800.HasValue) ? h.Average0800 : avgHour8);
-                avgHour9 = (avgHour9 != null) ? ((h.Average0900.HasValue) ? avgHour9 * h.Average0900 : avgHour9) : ((h.Average0900.HasValue) ? h.Average0900 : avgHour9);
-                avgHour10 = (avgHour10 != null) ? ((h.Average1000.HasValue) ? avgHour10 * h.Average1000 : avgHour10) : ((h.Average1000.HasValue) ? h.Average1000 : avgHour10);
-                avgHour11 = (avgHour11 != null) ? ((h.Average1100.HasValue) ? avgHour11 * h.Average1100 : avgHour11) : ((h.Average1100.HasValue) ? h.Average1100 : avgHour11);
-                avgHour12 = (avgHour12 != null) ? ((h.Average1200.HasValue) ? avgHour12 * h.Average1200 : avgHour12) : ((h.Average1200.HasValue) ? h.Average1200 : avgHour12);
-                avgHour13 = (avgHour13 != null) ? ((h.Average1300.HasValue) ? avgHour13 * h.Average1300 : avgHour13) : ((h.Average1300.HasValue) ? h.Average1300 : avgHour13);
-                avgHour14 = (avgHour14 != null) ? ((h.Average1400.HasValue) ? avgHour14 * h.Average1400 : avgHour14) : ((h.Average1400.HasValue) ? h.Average1400 : avgHour14);
-                avgHour15 = (avgHour15 != null) ? ((h.Average1500.HasValue) ? avgHour15 * h.Average1500 : avgHour15) : ((h.Average1500.HasValue) ? h.Average1500 : avgHour15);
-                avgHour16 = (avgHour16 != null) ? ((h.Average1600.HasValue) ? avgHour16 * h.Average1600 : avgHour16) : ((h.Average1600.HasValue) ? h.Average1600 : avgHour16);
-                avgHour17 = (avgHour17 != null) ? ((h.Average1700.HasValue) ? avgHour17 * h.Average1700 : avgHour17) : ((h.Average1700.HasValue) ? h.Average1700 : avgHour17);
-                avgHour18 = (avgHour18 != null) ? ((h.Average1800.HasValue) ? avgHour18 * h.Average1800 : avgHour18) : ((h.Average1800.HasValue) ? h.Average1800 : avgHour18);
-                avgHour19 = (avgHour19 != null) ? ((h.Average1900.HasValue) ? avgHour19 * h.Average1900 : avgHour19) : ((h.Average1900.HasValue) ? h.Average1900 : avgHour19);
-                avgHour20 = (avgHour20 != null) ? ((h.Average2000.HasValue) ? avgHour20 * h.Average2000 : avgHour20) : ((h.Average2000.HasValue) ? h.Average2000 : avgHour20);
-                avgHour21 = (avgHour21 != null) ? ((h.Average2100.HasValue) ? avgHour21 * h.Average2100 : avgHour21) : ((h.Average2100.HasValue) ? h.Average2100 : avgHour21);
-                avgHour22 = (avgHour22 != null) ? ((h.Average2200.HasValue) ? avgHour22 * h.Average2200 : avgHour22) : ((h.Average2200.HasValue) ? h.Average2200 : avgHour22);
-                avgHour23 = (avgHour23 != null) ? ((h.Average2300.HasValue) ? avgHour23 * h.Average2300 : avgHour23) : ((h.Average2300.HasValue) ? h.Average2300 : avgHour23);
+                avgHour0 = (avgHour0 != null) ? ((h.Average0000.HasValue) ? (avgHour0 + h.Average0000) / 2 : avgHour0) : ((h.Average0000.HasValue) ? h.Average0000 : avgHour0);
+                avgHour1 = (avgHour1 != null) ? ((h.Average0100.HasValue) ? (avgHour1 + h.Average0100) / 2 : avgHour1) : ((h.Average0100.HasValue) ? h.Average0100 : avgHour1);
+                avgHour2 = (avgHour2 != null) ? ((h.Average0200.HasValue) ? (avgHour2 + h.Average0200) / 2 : avgHour2) : ((h.Average0200.HasValue) ? h.Average0200 : avgHour2);
+                avgHour3 = (avgHour3 != null) ? ((h.Average0300.HasValue) ? (avgHour3 + h.Average0300) / 2 : avgHour3) : ((h.Average0300.HasValue) ? h.Average0300 : avgHour3);
+                avgHour4 = (avgHour4 != null) ? ((h.Average0400.HasValue) ? (avgHour4 + h.Average0400) / 2 : avgHour4) : ((h.Average0400.HasValue) ? h.Average0400 : avgHour4);
+                avgHour5 = (avgHour5 != null) ? ((h.Average0500.HasValue) ? (avgHour5 + h.Average0500) / 2 : avgHour5) : ((h.Average0500.HasValue) ? h.Average0500 : avgHour5);
+                avgHour6 = (avgHour6 != null) ? ((h.Average0600.HasValue) ? (avgHour6 + h.Average0600) / 2 : avgHour6) : ((h.Average0600.HasValue) ? h.Average0600 : avgHour6);
+                avgHour7 = (avgHour7 != null) ? ((h.Average0700.HasValue) ? (avgHour7 + h.Average0700) / 2 : avgHour7) : ((h.Average0700.HasValue) ? h.Average0700 : avgHour7);
+                avgHour8 = (avgHour8 != null) ? ((h.Average0800.HasValue) ? (avgHour8 + h.Average0800) / 2 : avgHour8) : ((h.Average0800.HasValue) ? h.Average0800 : avgHour8);
+                avgHour9 = (avgHour9 != null) ? ((h.Average0900.HasValue) ? (avgHour9 + h.Average0900) / 2 : avgHour9) : ((h.Average0900.HasValue) ? h.Average0900 : avgHour9);
+                avgHour10 = (avgHour10 != null) ? ((h.Average1000.HasValue) ? (avgHour10 + h.Average1000) / 2 : avgHour10) : ((h.Average1000.HasValue) ? h.Average1000 : avgHour10);
+                avgHour11 = (avgHour11 != null) ? ((h.Average1100.HasValue) ? (avgHour11 + h.Average1100) / 2 : avgHour11) : ((h.Average1100.HasValue) ? h.Average1100 : avgHour11);
+                avgHour12 = (avgHour12 != null) ? ((h.Average1200.HasValue) ? (avgHour12 + h.Average1200) / 2 : avgHour12) : ((h.Average1200.HasValue) ? h.Average1200 : avgHour12);
+                avgHour13 = (avgHour13 != null) ? ((h.Average1300.HasValue) ? (avgHour13 + h.Average1300) / 2 : avgHour13) : ((h.Average1300.HasValue) ? h.Average1300 : avgHour13);
+                avgHour14 = (avgHour14 != null) ? ((h.Average1400.HasValue) ? (avgHour14 + h.Average1400) / 2 : avgHour14) : ((h.Average1400.HasValue) ? h.Average1400 : avgHour14);
+                avgHour15 = (avgHour15 != null) ? ((h.Average1500.HasValue) ? (avgHour15 + h.Average1500) / 2 : avgHour15) : ((h.Average1500.HasValue) ? h.Average1500 : avgHour15);
+                avgHour16 = (avgHour16 != null) ? ((h.Average1600.HasValue) ? (avgHour16 + h.Average1600) / 2 : avgHour16) : ((h.Average1600.HasValue) ? h.Average1600 : avgHour16);
+                avgHour17 = (avgHour17 != null) ? ((h.Average1700.HasValue) ? (avgHour17 + h.Average1700) / 2 : avgHour17) : ((h.Average1700.HasValue) ? h.Average1700 : avgHour17);
+                avgHour18 = (avgHour18 != null) ? ((h.Average1800.HasValue) ? (avgHour18 + h.Average1800) / 2 : avgHour18) : ((h.Average1800.HasValue) ? h.Average1800 : avgHour18);
+                avgHour19 = (avgHour19 != null) ? ((h.Average1900.HasValue) ? (avgHour19 + h.Average1900) / 2 : avgHour19) : ((h.Average1900.HasValue) ? h.Average1900 : avgHour19);
+                avgHour20 = (avgHour20 != null) ? ((h.Average2000.HasValue) ? (avgHour20 + h.Average2000) / 2 : avgHour20) : ((h.Average2000.HasValue) ? h.Average2000 : avgHour20);
+                avgHour21 = (avgHour21 != null) ? ((h.Average2100.HasValue) ? (avgHour21 + h.Average2100) / 2 : avgHour21) : ((h.Average2100.HasValue) ? h.Average2100 : avgHour21);
+                avgHour22 = (avgHour22 != null) ? ((h.Average2200.HasValue) ? (avgHour22 + h.Average2200) / 2 : avgHour22) : ((h.Average2200.HasValue) ? h.Average2200 : avgHour22);
+                avgHour23 = (avgHour23 != null) ? ((h.Average2300.HasValue) ? (avgHour23 + h.Average2300) / 2 : avgHour23) : ((h.Average2300.HasValue) ? h.Average2300 : avgHour23);
             }
 
             hourAverages.Add(avgHour0);
@@ -278,6 +251,14 @@ namespace MrPiattoRestaurant.Fragments
 
             chart1 = new LineChart() { Entries = entriesHours };
             chartView1.Chart = chart1;
+
+            if (auxStatistics.Any())
+            {
+                noData1.Visibility = ViewStates.Gone;
+            } else
+            {
+                noData1.Visibility = ViewStates.Visible;
+            }
         }
 
         private void fillDays()
@@ -298,13 +279,13 @@ namespace MrPiattoRestaurant.Fragments
 
             foreach (DayStatistics d in auxStatistics)
             {
-                avgDay0 = (avgDay0 != null) ? ((d.AverageMonday.HasValue) ? avgDay0 * d.AverageMonday : avgDay0) : ((d.AverageMonday.HasValue) ? d.AverageMonday : avgDay0);
-                avgDay1 = (avgDay1 != null) ? ((d.AverageTuesday.HasValue) ? avgDay1 * d.AverageTuesday : avgDay1) : ((d.AverageTuesday.HasValue) ? d.AverageTuesday : avgDay1);
-                avgDay2 = (avgDay2 != null) ? ((d.AverageWednesday.HasValue) ? avgDay2 * d.AverageWednesday : avgDay2) : ((d.AverageWednesday.HasValue) ? d.AverageWednesday : avgDay2);
-                avgDay3 = (avgDay3 != null) ? ((d.AverageThursday.HasValue) ? avgDay3 * d.AverageThursday : avgDay3) : ((d.AverageThursday.HasValue) ? d.AverageThursday : avgDay3);
-                avgDay4 = (avgDay4 != null) ? ((d.AverageFriday.HasValue) ? avgDay4 * d.AverageFriday : avgDay4) : ((d.AverageFriday.HasValue) ? d.AverageFriday : avgDay4);
-                avgDay5 = (avgDay5 != null) ? ((d.AverageSaturday.HasValue) ? avgDay5 * d.AverageSaturday : avgDay5) : ((d.AverageSaturday.HasValue) ? d.AverageSaturday : avgDay5);
-                avgDay6 = (avgDay6 != null) ? ((d.AverageSunday.HasValue) ? avgDay6 * d.AverageSunday : avgDay6) : ((d.AverageSunday.HasValue) ? d.AverageSunday : avgDay6);
+                avgDay0 = (avgDay0 != null) ? ((d.AverageMonday.HasValue) ? (avgDay0 + d.AverageMonday) / 2 : avgDay0) : ((d.AverageMonday.HasValue) ? d.AverageMonday : avgDay0);
+                avgDay1 = (avgDay1 != null) ? ((d.AverageTuesday.HasValue) ? (avgDay1 + d.AverageTuesday) / 2 : avgDay1) : ((d.AverageTuesday.HasValue) ? d.AverageTuesday : avgDay1);
+                avgDay2 = (avgDay2 != null) ? ((d.AverageWednesday.HasValue) ? (avgDay2 + d.AverageWednesday) / 2 : avgDay2) : ((d.AverageWednesday.HasValue) ? d.AverageWednesday : avgDay2);
+                avgDay3 = (avgDay3 != null) ? ((d.AverageThursday.HasValue) ? (avgDay3 + d.AverageThursday) / 2 : avgDay3) : ((d.AverageThursday.HasValue) ? d.AverageThursday : avgDay3);
+                avgDay4 = (avgDay4 != null) ? ((d.AverageFriday.HasValue) ? (avgDay4 + d.AverageFriday) / 2 : avgDay4) : ((d.AverageFriday.HasValue) ? d.AverageFriday : avgDay4);
+                avgDay5 = (avgDay5 != null) ? ((d.AverageSaturday.HasValue) ? (avgDay5 + d.AverageSaturday) / 2 : avgDay5) : ((d.AverageSaturday.HasValue) ? d.AverageSaturday : avgDay5);
+                avgDay6 = (avgDay6 != null) ? ((d.AverageSunday.HasValue) ? (avgDay6 + d.AverageSunday) / 2 : avgDay6) : ((d.AverageSunday.HasValue) ? d.AverageSunday : avgDay6);
             }
 
             daysAverages.Add(avgDay0);
@@ -331,14 +312,24 @@ namespace MrPiattoRestaurant.Fragments
 
             chart3 = new DonutChart() { Entries = entriesDays };
             chartView3.Chart = chart3;
+
+            if (auxStatistics.Any())
+            {
+                noData3.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                noData3.Visibility = ViewStates.Visible;
+            }
         }
 
         private void fillTableHours()
         {
+            listTableUse.Clear();
+            tableHourstableStats.Clear();
             entriesTableHours.Clear();
 
             List<TableStatistics> auxStatistics = new List<TableStatistics>();
-            List<TableStats> tableStats = new List<TableStats>();
 
             // Obtenemos y ordenamos las mesas por el id de la mesa
             auxStatistics = tableStatistics.Where(d => d.DateStatistics >= thourInterval1 && d.DateStatistics <= thourInterval2).ToList();
@@ -348,6 +339,8 @@ namespace MrPiattoRestaurant.Fragments
             for (int i = 0; i < auxStatistics.Count;)
             {
                 int auxId = auxStatistics[i].IDTable;
+                //string tableName = auxStatistics[i].IdrestaurantTablesNavigation.tableName;
+                string tableName = auxStatistics[i].IdrestaurantTablesNavigation.tableName;
                 double averageAux = 0;
                 while (i < auxStatistics.Count && auxId == auxStatistics[i].IDTable)
                 {
@@ -357,31 +350,55 @@ namespace MrPiattoRestaurant.Fragments
                         averageAux = (averageAux + auxStatistics[i].AvarageUse) / 2;
                     ++i;
                 }
-                tableStats.Add(new TableStats(i.ToString(), averageAux));
+                tableHourstableStats.Add(new TableStats(tableName, averageAux));
             }
 
             // Mostramos los resultados en las graficas
-            for (int i = 0; i < tableStats.Count; ++i)
+            for (int i = 0; i < tableHourstableStats.Count && i < 5; ++i)
             {
-                Entry entry = new Entry((float)tableStats[i].Average)
+                Entry entry = new Entry((float)tableHourstableStats[i].Average)
                 {
                     Color = SKColor.Parse(colors[i % 7]),
-                    Label = tableStats[i].Name,
-                    ValueLabel = tableStats[i].Average.ToString()
+                    Label = tableHourstableStats[i].Name,
+                    ValueLabel = tableHourstableStats[i].Average.ToString()
                 };
                 entriesTableHours.Add(entry);
             }
 
             chart2 = new BarChart() { Entries = entriesTableHours };
             chartView2.Chart = chart2;
+
+            //Adding to tableUse
+            double segments = Math.Ceiling((double)tableHourstableStats.Count / (double)5);
+            int captions = 1;
+
+            for (int i = 1; i <= (int)segments; ++i)
+            {
+                listTableUse.Add(captions + " ... " + (captions + 4));
+                captions += 5;
+            }
+
+            if (tableHourstableStats.Any())
+            {
+                noData2.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                noData2.Visibility = ViewStates.Visible;
+            }
+
+            var adapter1 = new ArrayAdapter<string>(context, Resource.Layout.statistics_spinner_item, listTableUse);
+            adapter1.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            spinnerTableUse.Adapter = adapter1;
         }
 
         private void fillWaiters()
         {
+            listWaiters.Clear();
+            waiterStats.Clear();
             entriesWaiters.Clear();
 
             List<WaiterStatistics> auxWaiters = new List<WaiterStatistics>();
-            List<TableStats> tableStats = new List<TableStats>();
 
             foreach (Waiters w in waiters)
             {
@@ -389,35 +406,66 @@ namespace MrPiattoRestaurant.Fragments
                 if (auxWaiters.Any())
                 {
                     var rate = auxWaiters.Average(r => r.Rating);
-                    tableStats.Add(new TableStats(w.WaiterFirstName, rate));
+                    waiterStats.Add(new TableStats(w.WaiterFirstName, rate));
                 } else
                 {
-                    tableStats.Add(new TableStats(w.WaiterFirstName, 0));
+                    waiterStats.Add(new TableStats(w.WaiterFirstName, -1));
                 }
             }
 
             // Mostramos los resultados en las graficas
-            for (int i = 0; i < tableStats.Count; ++i)
+            for (int i = 0; i < waiterStats.Count && i < 5; ++i)
             {
-                Entry entry = new Entry((float)tableStats[i].Average)
+                string auxAvg;
+                if (waiterStats[i].Average == -1)
+                {
+                    auxAvg = "Sin datos";
+                } else {
+                    auxAvg = waiterStats[i].Average.ToString();
+                }
+                Entry entry = new Entry((float)waiterStats[i].Average)
                 {
                     Color = SKColor.Parse(colors[i % 7]),
-                    Label = tableStats[i].Name,
-                    ValueLabel = tableStats[i].Average.ToString()
+                    Label = waiterStats[i].Name,
+                    ValueLabel = auxAvg
                 };
                 entriesWaiters.Add(entry);
             }
 
             chart4 = new RadialGaugeChart() { Entries = entriesWaiters };
             chartView4.Chart = chart4;
+
+            //Adding to tableUse
+            double segments = Math.Ceiling((double)waiterStats.Count / (double)5);
+            int captions = 1;
+
+            for (int i = 1; i <= (int)segments; ++i)
+            {
+                listWaiters.Add(captions + " ... " + (captions + 4));
+                captions += 5;
+            }
+
+            if (waiterStats.Any())
+            {
+                noData4.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                noData4.Visibility = ViewStates.Visible;
+            }
+
+            var adapter2 = new ArrayAdapter<string>(context, Resource.Layout.statistics_spinner_item, listWaiters);
+            adapter2.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            spinnerWaiters.Adapter = adapter2;
         }
 
         private void fillTableDays()
         {
+            listTableAverage.Clear();
+            dayTableStats.Clear();
             entriesTableUseAverage.Clear();
 
             List<TableStatistics> auxStatistics = new List<TableStatistics>();
-            List<TableStats> tableStats = new List<TableStats>();
             List<int> ids = new List<int>();
 
             // Obtenemos y ordenamos las mesas por el id de la mesa
@@ -445,23 +493,46 @@ namespace MrPiattoRestaurant.Fragments
                     else
                         averageAux = (averageAux + x.AvarageUse) / 2;
                 }
-                tableStats.Add(new TableStats(id.ToString(), averageAux));
+                dayTableStats.Add(new TableStats(id.ToString(), averageAux));
             }
 
             // Mostramos los resultados en las graficas
-            for (int i = 0; i < tableStats.Count; ++i)
+            for (int i = 0; i < dayTableStats.Count && i < 5; ++i)
             {
-                Entry entry = new Entry((float)tableStats[i].Average)
+                Entry entry = new Entry((float)dayTableStats[i].Average)
                 {
                     Color = SKColor.Parse(colors[i % 7]),
-                    Label = tableStats[i].Name,
-                    ValueLabel = tableStats[i].Average.ToString()
+                    Label = dayTableStats[i].Name,
+                    ValueLabel = dayTableStats[i].Average.ToString()
                 };
                 entriesTableUseAverage.Add(entry);
             }
 
             chart5 = new BarChart() { Entries = entriesTableUseAverage };
             chartView5.Chart = chart5;
+
+            //Adding to tableUse
+            double segments = Math.Ceiling((double)dayTableStats.Count / (double)5);
+            int captions = 1;
+
+            for (int i = 1; i <= (int)segments; ++i)
+            {
+                listTableAverage.Add(captions + " ... " + (captions + 4));
+                captions += 5;
+            }
+
+            if (dayTableStats.Any())
+            {
+                noData5.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                noData5.Visibility = ViewStates.Visible;
+            }
+
+            var adapter3 = new ArrayAdapter<string>(context, Resource.Layout.statistics_spinner_item, listTableAverage);
+            adapter3.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            spinnerTableAverage.Adapter = adapter3;
         }
 
         private void fillSurveys()
@@ -512,6 +583,15 @@ namespace MrPiattoRestaurant.Fragments
                 chart6 = new BarChart() { Entries = entriesAlexa };
                 chartView6.Chart = chart6;
             }
+
+            if (auxSurveys.Any())
+            {
+                noData6.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                noData6.Visibility = ViewStates.Visible;
+            }
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -542,20 +622,20 @@ namespace MrPiattoRestaurant.Fragments
             alexaInterval1 = view.FindViewById<TextView>(Resource.Id.idAlexaInterval1);
             alexaInterval2 = view.FindViewById<TextView>(Resource.Id.idAlexaInterval2);
 
+            noData1 = view.FindViewById<ImageView>(Resource.Id.idNoData1);
+            noData2 = view.FindViewById<ImageView>(Resource.Id.idNoData2);
+            noData3 = view.FindViewById<ImageView>(Resource.Id.idNoData3);
+            noData4 = view.FindViewById<ImageView>(Resource.Id.idNoData4);
+            noData5 = view.FindViewById<ImageView>(Resource.Id.idNoData5);
+            noData6 = view.FindViewById<ImageView>(Resource.Id.idNoData6);
+            
+
             InitializeIntervals();
             ShowIntervals();
 
-            var adapter1 = new ArrayAdapter<string>(context, Resource.Layout.statistics_spinner_item, listTableUse);
-            adapter1.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            spinnerTableUse.Adapter = adapter1;
-
-            var adapter2 = new ArrayAdapter<string>(context, Resource.Layout.statistics_spinner_item, listWaiters);
-            adapter2.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            spinnerWaiters.Adapter = adapter2;
-
-            var adapter3 = new ArrayAdapter<string>(context, Resource.Layout.statistics_spinner_item, listTableAverage);
-            adapter3.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            spinnerTableAverage.Adapter = adapter3;
+            spinnerTableUse.ItemSelected += new System.EventHandler<AdapterView.ItemSelectedEventArgs>(spinner1_ItemSelected);
+            spinnerWaiters.ItemSelected += new System.EventHandler<AdapterView.ItemSelectedEventArgs>(spinner2_ItemSelected);
+            spinnerTableAverage.ItemSelected += new System.EventHandler<AdapterView.ItemSelectedEventArgs>(spinner3_ItemSelected);
 
             hourInterval1.Click += onHourInterval1;
             hourInterval2.Click += onHourInterval2;
@@ -578,39 +658,111 @@ namespace MrPiattoRestaurant.Fragments
             fillWaiters();
             fillSurveys();
 
+            var adapter1 = new ArrayAdapter<string>(context, Resource.Layout.statistics_spinner_item, listTableUse);
+            adapter1.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            spinnerTableUse.Adapter = adapter1;
+
+            var adapter2 = new ArrayAdapter<string>(context, Resource.Layout.statistics_spinner_item, listWaiters);
+            adapter2.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            spinnerWaiters.Adapter = adapter2;
+
+            var adapter3 = new ArrayAdapter<string>(context, Resource.Layout.statistics_spinner_item, listTableAverage);
+            adapter3.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            spinnerTableAverage.Adapter = adapter3;
+
             return view;
         }
 
         private void InitializeIntervals()
         {
-            hInterval1 = hourStatistics.Min(d => d.DateStatistics);
-            hInterval2 = hourStatistics.Max(d => d.DateStatistics);
-            dInterval1 = dayStatistics.Min(d => d.DateStatistics);
-            dInterval2 = dayStatistics.Max(d => d.DateStatistics);
-            thourInterval1 = tableStatistics.Min(d => d.DateStatistics);
-            thourInterval2 = tableStatistics.Max(d => d.DateStatistics);
-            tdayInterval1 = tableStatistics.Min(d => d.DateStatistics);
-            tdayInterval2 = tableStatistics.Max(d => d.DateStatistics);
-            wInterval1 = waitersStatistics.Min(d => d.DateStatistics);
-            wInterval2 = waitersStatistics.Max(d => d.DateStatistics);
-            sInterval1 = surveys.Min(d => d.DateStatistics);
-            sInterval2 = surveys.Max(d => d.DateStatistics);
+            if (hourStatistics.Any())
+            {
+                hInterval1 = hourStatistics.Min(d => d.DateStatistics);
+                hInterval2 = hourStatistics.Max(d => d.DateStatistics);
+            }
+            if (dayStatistics.Any())
+            {
+                dInterval1 = dayStatistics.Min(d => d.DateStatistics);
+                dInterval2 = dayStatistics.Max(d => d.DateStatistics);
+            }
+            if (tableStatistics.Any())
+            {
+                thourInterval1 = tableStatistics.Min(d => d.DateStatistics);
+                thourInterval2 = tableStatistics.Max(d => d.DateStatistics);
+            }
+            if (tableStatistics.Any())
+            {
+                tdayInterval1 = tableStatistics.Min(d => d.DateStatistics);
+                tdayInterval2 = tableStatistics.Max(d => d.DateStatistics);
+            }
+            if (waitersStatistics.Any())
+            {
+                wInterval1 = waitersStatistics.Min(d => d.DateStatistics);
+                wInterval2 = waitersStatistics.Max(d => d.DateStatistics);
+            }
+            if (surveys.Any())
+            {
+                sInterval1 = surveys.Min(d => d.DateStatistics);
+                sInterval2 = surveys.Max(d => d.DateStatistics);
+            }
         }
 
         private void ShowIntervals()
         {
-            hourInterval1.Text = hInterval1.ToString("dd/MM/yyyy");
-            hourInterval2.Text = hInterval2.ToString("dd/MM/yyyy");
-            daysInterval1.Text = dInterval1.ToString("dd/MM/yyyy");
-            daysInterval2.Text = dInterval2.ToString("dd/MM/yyyy");
-            tableUseInterval1.Text = thourInterval1.ToString("dd/MM/yyyy");
-            tableUseInterval2.Text = thourInterval2.ToString("dd/MM/yyyy");
-            tableAverageInterval1.Text = tdayInterval1.ToString("dd/MM/yyyy");
-            tableAverageInterval2.Text = tdayInterval2.ToString("dd/MM/yyyy");
-            waitersInterval1.Text = wInterval1.ToString("dd/MM/yyyy");
-            waitersInterval2.Text = wInterval2.ToString("dd/MM/yyyy");
-            alexaInterval1.Text = sInterval1.ToString("dd/MM/yyyy");
-            alexaInterval2.Text = sInterval2.ToString("dd/MM/yyyy");
+            if (hourStatistics.Any())
+            {
+                hourInterval1.Text = hInterval1.ToString("dd/MM/yyyy");
+                hourInterval2.Text = hInterval2.ToString("dd/MM/yyyy");
+            } else
+            {
+                hourInterval1.Text = "No data";
+                hourInterval2.Text = "No date";
+            }
+            if (dayStatistics.Any())
+            {
+                daysInterval1.Text = dInterval1.ToString("dd/MM/yyyy");
+                daysInterval2.Text = dInterval2.ToString("dd/MM/yyyy");
+            } else
+            {
+                daysInterval1.Text = "No data";
+                daysInterval2.Text = "No data";
+            }
+            if (tableStatistics.Any())
+            {
+                tableUseInterval1.Text = thourInterval1.ToString("dd/MM/yyyy");
+                tableUseInterval2.Text = thourInterval2.ToString("dd/MM/yyyy");
+            } else
+            {
+                tableUseInterval1.Text = "No data";
+                tableUseInterval2.Text = "No data";
+            }
+            if (tableStatistics.Any())
+            {
+                tableAverageInterval1.Text = tdayInterval1.ToString("dd/MM/yyyy");
+                tableAverageInterval2.Text = tdayInterval2.ToString("dd/MM/yyyy");
+            } else
+            {
+                tableAverageInterval1.Text = "No data";
+                tableAverageInterval2.Text = "No data";
+            }
+            if (waitersStatistics.Any())
+            {
+                waitersInterval1.Text = wInterval1.ToString("dd/MM/yyyy");
+                waitersInterval2.Text = wInterval2.ToString("dd/MM/yyyy");
+            } else
+            {
+                waitersInterval1.Text = "No data";
+                waitersInterval2.Text = "No data";
+            }
+            if (surveys.Any())
+            {
+                alexaInterval1.Text = sInterval1.ToString("dd/MM/yyyy");
+                alexaInterval2.Text = sInterval2.ToString("dd/MM/yyyy");
+            } else
+            {
+                alexaInterval1.Text = "No data";
+                alexaInterval2.Text = "No data";
+            }
         }
 
         private void onHourInterval1(object sender, EventArgs e)
@@ -745,6 +897,90 @@ namespace MrPiattoRestaurant.Fragments
                 fillSurveys();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void spinner1_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs ev)
+        {
+            entriesTableHours.Clear();
+
+            Spinner spinner = (Spinner)sender;
+            int pos = (int)spinner.GetItemIdAtPosition(ev.Position);
+
+            int start = (pos * 5);
+            int limit = start + 5;
+
+            for (int i = start; i < tableHourstableStats.Count && i < limit; ++i)
+            {
+                Entry entry = new Entry((float)tableHourstableStats[i].Average)
+                {
+                    Color = SKColor.Parse(colors[i % 7]),
+                    Label = tableHourstableStats[i].Name,
+                    ValueLabel = tableHourstableStats[i].Average.ToString()
+                };
+                entriesTableHours.Add(entry);
+            }
+
+            chart2 = new BarChart() { Entries = entriesTableHours };
+            chartView2.Chart = chart2;
+        }
+
+        private void spinner2_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs ev)
+        {
+            entriesWaiters.Clear();
+
+            Spinner spinner = (Spinner)sender;
+            int pos = (int)spinner.GetItemIdAtPosition(ev.Position);
+
+            int start = (pos * 5);
+            int limit = start + 5;
+
+            for (int i = start; i < waiterStats.Count && i < limit; ++i)
+            {
+                string auxAvg;
+                if (waiterStats[i].Average == -1)
+                {
+                    auxAvg = "Sin datos";
+                }
+                else
+                {
+                    auxAvg = waiterStats[i].Average.ToString();
+                }
+                Entry entry = new Entry((float)waiterStats[i].Average)
+                {
+                    Color = SKColor.Parse(colors[i % 7]),
+                    Label = waiterStats[i].Name,
+                    ValueLabel = auxAvg
+                };
+                entriesWaiters.Add(entry);
+            }
+
+            chart4 = new RadialGaugeChart() { Entries = entriesWaiters };
+            chartView4.Chart = chart4;
+        }
+
+        private void spinner3_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs ev)
+        {
+            entriesTableUseAverage.Clear();
+
+            Spinner spinner = (Spinner)sender;
+            int pos = (int)spinner.GetItemIdAtPosition(ev.Position);
+
+            int start = (pos * 5);
+            int limit = start + 5;
+
+            for (int i = start; i < dayTableStats.Count && i < limit; ++i)
+            {
+                Entry entry = new Entry((float)dayTableStats[i].Average)
+                {
+                    Color = SKColor.Parse(colors[i % 7]),
+                    Label = dayTableStats[i].Name,
+                    ValueLabel = dayTableStats[i].Average.ToString()
+                };
+                entriesTableUseAverage.Add(entry);
+            }
+
+            chart5 = new BarChart() { Entries = entriesTableUseAverage };
+            chartView5.Chart = chart5;
         }
     }
 }
